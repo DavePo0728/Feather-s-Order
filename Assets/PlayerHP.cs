@@ -18,7 +18,7 @@ public class PlayerHP : MonoBehaviour
     Material playerMat;
     //[SerializeField]
     //GameObject body;
-    bool isRotating= false;
+    //bool isRotating= false;
     bool isMuteki = false;
 
     //float rotationDuration = 0.5f; // Duration of the rotation in seconds

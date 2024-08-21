@@ -23,12 +23,17 @@ public class EnemyBulletMove : MonoBehaviour
     {
         StartCoroutine(CountDownInactive());
         bulletRigidbody.velocity = new Vector3(0, 0, -speed);
+        //bulletRigidbody.velocity = new Vector3(speed,0,0);
+    }
+    public void Update()
+    {
+        //transform.Translate(Vector3.right*0.1f);
     }
     IEnumerator CountDownInactive()
     {
         yield return new WaitForSeconds(lifeTime);
         gameObject.SetActive(false);
-        Debug.Log("Inactive");
+        //Debug.Log("Inactive");
     }
     private void OnTriggerEnter(Collider other)
     {

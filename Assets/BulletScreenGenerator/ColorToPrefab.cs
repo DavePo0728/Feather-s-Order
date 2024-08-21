@@ -3,8 +3,9 @@ using UnityEngine;
 [System.Serializable]
 public class ColorToPrefab
 {
-
-	public string code;
+	[SerializeField]
+	public code code;
 	public GameObject prefab;
-
 }
+
+public enum code { N=0,A=1 }

@@ -25,23 +25,23 @@ public class EnemyShooting : MonoBehaviour
     List<Vector3> EnemySpawnPosList;
     [SerializeField]
     List<Vector3> chosenEnemySpawnPosList;
-    Vector3[,] enemyPosition2DArray = new Vector3[13, 22];
+    static Vector3[,] enemyPosition2DArray;
 
     [SerializeField]
     List<GameObject> chosenList;
-    float shootDuration = 0.1f;
     float shootingCoolDown = 0.5f;
     bool canShoot = false;
     private void Awake()
     {
-        
         //bulletParent = this.gameObject;
-        GenerateEnemySpawnPos();
-        bulletScreenGenerator.GenerateBulletMap();
+        enemyPosition2DArray = new Vector3[13, 22];
+        bulletScreenGenerator = GameObject.Find("BulletScreenGenerator").GetComponent<BulletScreenGenerator>();
+        gun = this.gameObject;
     }
     void Start()
     {
-
+        GenerateEnemySpawnPos();
+        bulletScreenGenerator.GenerateBulletMap(this.gameObject);
         SpawnChosenEnemy();
         //SpawnEnemy();
         canShoot = true;
@@ -49,10 +49,10 @@ public class EnemyShooting : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (canShoot)
-        {
-            StartCoroutine(ShootRoutine());
-        }
+        //if (canShoot)
+        //{
+        //    StartCoroutine(ShootRoutine());
+        //}
     }
     void GenerateEnemySpawnPos()
     {
@@ -61,7 +61,7 @@ public class EnemyShooting : MonoBehaviour
             for (int j = 0; j < rows; j++)
             {
                 
-                Vector3 spawnPosition = new Vector3(origin.x + j * spacing, origin.y - i * spacing, transform.position.z);
+                Vector3 spawnPosition = new Vector3(origin.x + j * spacing, origin.y - i * spacing, gun.transform.localPosition.z);
                 enemyPosition2DArray[i, j] = spawnPosition;
                 Add2DarrayTolist(i, j);
             }
@@ -73,19 +73,19 @@ public class EnemyShooting : MonoBehaviour
         for (int i = 0; i < EnemySpawnPosList.Count; i++)
         {
             tmp = Instantiate(originShootingPoint, EnemySpawnPosList[i], Quaternion.identity,gun.transform);
-            tmp.transform.position = EnemySpawnPosList[i];
+            tmp.transform.localPosition = EnemySpawnPosList[i];
             chosenList.Add(tmp);
         }
     }
     void SpawnChosenEnemy()
     {
-
         GameObject tmp;
-        for (int i = 0; i < chosenEnemySpawnPosList.Count; i++)
-        {
-            tmp = Instantiate(originShootingPoint, chosenEnemySpawnPosList[i], Quaternion.identity, gun.transform);
-            chosenList.Add(tmp);
-        }
+            for (int i = 0; i < chosenEnemySpawnPosList.Count; i++)
+            {
+                tmp = Instantiate(originShootingPoint, chosenEnemySpawnPosList[i], Quaternion.identity, gun.transform);
+                tmp.transform.localPosition = chosenEnemySpawnPosList[i];
+                chosenList.Add(tmp);
+            }
     }
     void Add2DarrayTolist(int x, int y)
     {
@@ -94,28 +94,27 @@ public class EnemyShooting : MonoBehaviour
     public void AddChosen2DArrayToList(int x, int y)
     {
         chosenEnemySpawnPosList.Add(enemyPosition2DArray[x, y]);
-        //Debug.Log(enemyPosition2DArray[x, y]);
     }
     public void ClearChosenList()
     {
         chosenList.Clear();
     }
-    IEnumerator ShootRoutine()
-    {
-        //canShoot = false; // Disable shooting
-        if (chosenList != null)
-        {
-            foreach (GameObject enemy in chosenList)
-            {
-                if (enemy != null)
-                {
-                    Shoot enemysShooting = enemy.GetComponent<Shoot>();
-                    enemysShooting.ShootBullet();
-                    //enemysShooting.ShootBreakableBullet();
-                }
-            }
-        }
-        yield return new WaitForSeconds(shootingCoolDown);// Wait for cooldown
-        canShoot = true;// Enable shooting again
-    }
+    //IEnumerator ShootRoutine()
+    //{
+    //    canShoot = false; // Disable shooting
+    //    if (chosenList != null)
+    //    {
+    //        foreach (GameObject enemy in chosenList)
+    //        {
+    //            if (enemy != null)
+    //            {
+    //                Shoot enemysShooting = enemy.GetComponent<Shoot>();
+    //                enemysShooting.ShootBullet();
+    //                //enemysShooting.ShootBreakableBullet();
+    //            }
+    //        }
+    //    }
+    //    yield return new WaitForSeconds(shootingCoolDown);// Wait for cooldown
+    //    canShoot = true;// Enable shooting again
+    //}
 }

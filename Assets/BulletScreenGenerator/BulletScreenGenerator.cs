@@ -4,22 +4,28 @@ using UnityEngine;
 using System.IO;
 using System.Linq;
 using System;
+using TMPro;
+using ExcelDataReader;
 
 public class BulletScreenGenerator : MonoBehaviour
 {
-	[SerializeField]
 	EnemyShooting enemyShooting;
 
-	string[,] bullet2DArray = new string[13,22];
+	code[,] bullet2DArray = new code[13,22];
 
 	public ColorToPrefab[] codeMappings;
-	string path = "Assets/BulletScreenGenerator/BulletScreenMap/BulletScreenMap1.txt";
-
-	public void GenerateBulletMap()
+	string path = "BulletScreenMap1";
+	string pattern1;
+	private void Awake()
+    {
+		pattern1 = Resources.Load(path).ToString();
+		//Debug.Log(pattern1);
+    }
+    public void GenerateBulletMap(GameObject enemy)
 	{
-		ReadTextFile(path);
+		ReadTextFile();
+		enemyShooting = enemy.GetComponent<EnemyShooting>();
 		enemyShooting.ClearChosenList();
-		//testEnemy.ClearChosenList();
         for (int x = 0; x < 13; x++)
         {
             for (int y = 0; y < 22; y++)
@@ -28,37 +34,46 @@ public class BulletScreenGenerator : MonoBehaviour
             }
         }
     }
-	public void ReadTextFile(string filePath)
+	public void ReadTextFile()
 	{
-		string[] lines = File.ReadAllLines(path);
-		for (int i = 0; i < lines.Length; ++i)
+		string[] splitRow =  pattern1.Split("\n");
+		for (int i = 0; i < splitRow.Length; ++i)
 		{
-			string[] items = lines[i].Split('	');
-			//Debug.Log(items.Length);
-			for (int j = 0; j < items.Length; ++j)
-            {
-				bullet2DArray[i, j] = items[j];
-				//Debug.Log(items[j]);
+			//Debug.Log(splitRow[i]);
+			string[] items = splitRow[i].Split('	');
+			for (int j = 0; j < items.Length; j++)
+			{
+				if (Enum.TryParse(items[j], out code c))
+                {
+					switch (c)
+					{
+						case code.N:
+							bullet2DArray[i, j] = code.N;
+							break;
+						case code.A:
+							bullet2DArray[i, j] = code.A;
+							break;
+					}
+				}
 			}
 		}
 	}
 
 	void GenerateTile(int x, int y)
 	{
-		string bulletCode = bullet2DArray[x,y];
+		code bulletCode = bullet2DArray[x,y];
 
-		if (bulletCode == "0")
+		if (bulletCode ==code.N)
 		{
 			return;
 		}
-		foreach (ColorToPrefab codeMapping in codeMappings)
-		{
-			if (codeMapping.code.Equals("A"))
-			{
+
+        foreach (ColorToPrefab codeMapping in codeMappings)
+        {
+            if (codeMapping.code ==code.A)
+            {
 				enemyShooting.AddChosen2DArrayToList(x, y);
-				//testEnemy.Add2DArrayToList(x, y);
-				//Debug.Log("x :"+x+"y :"+y);
-			}
-		}
-	}
+            }
+        }
+    }
 }
