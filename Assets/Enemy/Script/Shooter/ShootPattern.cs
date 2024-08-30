@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Shoot : MonoBehaviour
+public class ShootPattern : MonoBehaviour
 {
     private float timeBetweenShots;
     private float timeSinceLastShot = 0.0f;
@@ -27,7 +27,6 @@ public class Shoot : MonoBehaviour
             StartCoroutine(ShootRoutine());
         }
     }
-
     public void ShootBullet()
     {
         bullet = BulletPool.poolInstance.GetEnemyPooledObject();

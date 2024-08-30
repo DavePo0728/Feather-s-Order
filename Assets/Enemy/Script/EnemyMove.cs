@@ -19,15 +19,20 @@ public class EnemyMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        //CircularMovement();
     }
-
     // Update is called once per frame
     void Update()
     {
         CalculateMovement();
         transform.Translate(-Vector3.forward * speed * Time.deltaTime);
         transform.position += circularMotion * Time.deltaTime;
+    }
+    void CircularMovement()
+    {
+            CalculateMovement();
+            transform.Translate(-Vector3.forward * speed * Time.deltaTime);
+            transform.position += circularMotion * Time.deltaTime;
     }
     void CalculateMovement()
     {
