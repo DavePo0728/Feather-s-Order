@@ -7,12 +7,29 @@ public class ShootShotGun : MonoBehaviour
     [SerializeField]
     int bulletAmount;
     GameObject bullet;
+    [SerializeField]
+    GameObject goldBullet;
 
     float shootingCoolDown = 1.5f;
+    float shootCount;
     bool canShoot = false;
     void Start()
     {
         canShoot = true;
+    }
+    
+    void Update()
+    {
+        if (canShoot&&shootCount<5)
+        {
+            StartCoroutine(ShootRoutine());
+            shootCount++;
+        }
+        else if(canShoot && shootCount == 5)
+        {
+            StartCoroutine(ShootGoldBullet());
+            shootCount = 0;
+        }
     }
     IEnumerator ShootRoutine()
     {
@@ -21,12 +38,12 @@ public class ShootShotGun : MonoBehaviour
         yield return new WaitForSeconds(shootingCoolDown);// Wait for cooldown
         canShoot = true;// Enable shooting again
     }
-    void Update()
+    IEnumerator ShootGoldBullet()
     {
-        if (canShoot)
-        {
-            StartCoroutine(ShootRoutine());
-        }
+        canShoot = false;
+        Instantiate(goldBullet, transform.position, transform.rotation);
+        yield return new WaitForSeconds(shootingCoolDown);
+        canShoot = true;
     }
     public void ShotGunMode(int amount)
     {
@@ -41,6 +58,7 @@ public class ShootShotGun : MonoBehaviour
                 EnemyBulletMove bulletMove = bullet.GetComponent<EnemyBulletMove>();
                 bulletMove.NoMoveInitial();
                 bulletMove.Speard();
+                bulletMove.speed = 0.5f;
             }
         }
     }

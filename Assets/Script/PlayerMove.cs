@@ -2,21 +2,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class PlayerMove : MonoBehaviour
 {
+    [Header("UI")]
+    [SerializeField]
+    Image energyBarImage;
+    [Header("Energy Data")]
+    [SerializeField]
+    float currentEnergy;
+    [SerializeField]
+    float maxEnergy;
+    float energyRegenRate = 50;
+    float timeSinceLastEnergyUse = 0f;   // 距離上次使用能量的時間
+    float regenDelay = 1f;     // 回復能量的延遲時間 (1秒)
+    bool isRegening = false;  // 是否正在回復能量
+    [Space(height: 20)]
+
+    [SerializeField]
+    float dashForce;
     Rigidbody playerRigidbody;
     [SerializeField]
     float speed, maxVelocity;
+
     //Dash
-    [SerializeField]
-    float dashForce;
     bool canDash = true;
     bool isDashing = false;
     float dashingTime = 0.2f;
-    float dashCooldown = 2f;
-    //[SerializeField]
-    //Animator bodyAnimator;
+    float dashCooldown = 0.5f;
     bool isRotating = false;
     [SerializeField]
     Material playerMat;
@@ -26,35 +40,85 @@ public class PlayerMove : MonoBehaviour
     private float startTime; // Time when the rotation starts
     private Vector3 initialRotation; // Initial rotation of the object
     private Vector2 movementInput;
+    [Header("Effect")]
+    [SerializeField]
+    GameObject BounceExpolsion;
+
+    bool isBoosting = false;
+    bool isBraking = false;
+    EnemyBulletData bulletData;
+
     private void Awake()
     {
         playerRigidbody = GetComponent<Rigidbody>();
+        bulletData = Resources.Load<EnemyBulletData>("BulletData/NormalBullet");
     }
     // Start is called before the first frame update
     void Start()
     {
-        
+        currentEnergy = maxEnergy;
+        UpdateUI();
     }
     public void GetMove(InputAction.CallbackContext context)
     {
-        movementInput = context.ReadValue<Vector2>();
+        movementInput = context.ReadValue<Vector2>(); 
     }
     public void GetDash(InputAction.CallbackContext context)
     {
+
         if (context.performed)
         {
-            if (canDash)
+            if (canDash&&currentEnergy>=20)
             {
                 StartCoroutine(OnDash());
                 startTime = Time.time;
                 playerMat.color = Color.green;
                 StartCoroutine(MuTeKiTime(0.2f));
+                currentEnergy -= 20;
+                UpdateUI();
+                timeSinceLastEnergyUse = 0f;   // 重置時間計數器
+                isRegening = false;
             }
+        }
+    }
+    public void GetBoost(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            isBoosting = true;
+        }
+        if (context.canceled)
+        {
+            isBoosting = false;
+        }
+    }
+    public void GetBrake(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            isBraking = true;
+        }
+        if (context.canceled)
+        {
+            isBraking = false;
         }
     }
     // Update is called once per frame
     void FixedUpdate()
     {
+        // 計時器每幀更新
+        timeSinceLastEnergyUse += Time.deltaTime;
+        // 如果能量不是滿的並且已經超過回復延遲時間，開始回復能量
+        if (!isRegening && currentEnergy < maxEnergy && timeSinceLastEnergyUse >= regenDelay)
+        {
+            StartEnergyRegen();
+        }
+
+        // 如果正在回復能量，逐漸增加能量
+        if (isRegening)
+        {
+            RegenerateEnergy();
+        }
         if (isRotating)
         {
             transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -97,6 +161,22 @@ public class PlayerMove : MonoBehaviour
                 transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, 0), 0.5f);
             }
         }
+        if (isBoosting&&!isBraking)
+        {
+            
+            bulletData.speed = 2f;
+            Debug.Log("Boost"+bulletData.speed);
+        }
+        if (isBraking&&!isBoosting)
+        {
+                bulletData.speed = 0.3f;
+            Debug.Log("Break" + bulletData.speed);
+        }
+        if (!isBoosting && !isBraking)
+        {
+            bulletData.speed = 0.5f;
+        }
+
     }
     IEnumerator OnDash()
     {
@@ -137,5 +217,39 @@ public class PlayerMove : MonoBehaviour
         //isMuteki = false;
         Physics.IgnoreLayerCollision(8, 6, false);
         playerMat.color = Color.white;
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "EnemyGoldBullet"&&isDashing)
+        {
+            GoldBulletMove gold = other.GetComponent<GoldBulletMove>();
+            gold.speed *= -1f;
+            gold.bounceBack = true;
+            Vector3 spawnEffectPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z - 1f);
+            GameObject explosionInstance = Instantiate(BounceExpolsion, spawnEffectPosition, Quaternion.identity);
+            Destroy(explosionInstance, 2f);
+        }
+    }
+    private void UpdateUI()
+    {
+        float EnergyAmount = (float)currentEnergy / (float)maxEnergy;
+        //Debug.Log(HpAmount);
+        energyBarImage.fillAmount = EnergyAmount;
+    }
+    private void StartEnergyRegen()
+    {
+        isRegening = true;
+    }
+    private void RegenerateEnergy()
+    {
+        currentEnergy += energyRegenRate * Time.deltaTime;
+        UpdateUI();
+        currentEnergy = Mathf.Min(currentEnergy, maxEnergy);  // 確保能量不超過最大值
+
+        // 如果能量已經回滿，停止回復
+        if (currentEnergy >= maxEnergy)
+        {
+            isRegening = false;
+        }
     }
 }

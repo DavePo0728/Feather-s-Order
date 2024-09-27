@@ -4,44 +4,44 @@ using UnityEngine;
 
 public class EnemyBulletMove : MonoBehaviour
 {
+    EnemyBulletData bulletData;
+    public float speed;
     [SerializeField]
-    float speed;
-    float lifeTime = 3.5f;
+    float spreadSpeed;
+    float BulletlifeTime=6f;
     Rigidbody bulletRigidbody;
-    [SerializeField]
-    bulletType bullet_Type;
     [Header("Gizmo")]
     [SerializeField]
-    float sphereRadius;
+    protected float sphereRadius;
     bool initialMove = false;
-    bool moveToPlayer = false;
+    protected bool moveToPlayer = false;
     Vector3 destination;
-    private enum bulletType
-    {
-        normal, breakable, golden
-    }
-    private void Awake()
+
+    protected void Awake()
     {
         bulletRigidbody = GetComponent<Rigidbody>();
+        bulletData = Resources.Load<EnemyBulletData>("BulletData/NormalBullet");
     }
     public void Initial()
     {
         initialMove = false;
         moveToPlayer = false;
-        StartCoroutine(CountDownInactive());
+        StartCoroutine(CountDownInactive(BulletlifeTime));
         moveToPlayer = true;
+        speed = bulletData.speed;
     }
     public void NoMoveInitial()
     {
         initialMove = false;
         moveToPlayer = false;
-        StartCoroutine(CountDownInactive());
+        StartCoroutine(CountDownInactive(BulletlifeTime));
+        speed = bulletData.speed;
     }
-    public void Update()
+    void FixedUpdate()
     {
         if (initialMove)
         {
-            var step = speed * Time.deltaTime; // calculate distance to move
+            var step = spreadSpeed * Time.deltaTime; // calculate distance to move
             transform.position = Vector3.MoveTowards(transform.position, destination, step);
             if (Vector3.Distance(transform.position, destination) < 0.001f)
             {
@@ -49,36 +49,25 @@ public class EnemyBulletMove : MonoBehaviour
                 moveToPlayer = true;
             }
         }
+        if (speed !=bulletData.speed)
+        {
+            speed = bulletData.speed;
+           // bulletData.DataUpdate = false;
+        }
         if (moveToPlayer)
         {
-            transform.Translate(-Vector3.forward * 0.1f);
+            transform.Translate(-Vector3.forward * speed);
         }
+        Debug.Log(speed);
     }
-    IEnumerator CountDownInactive()
+    protected IEnumerator CountDownInactive(float lifeTime)
     {
         yield return new WaitForSeconds(lifeTime);
         gameObject.SetActive(false);
-        //Debug.Log("Inactive");
     }
     public void Speard()
     {
         destination = transform.position + new Vector3(Random.Range(-2f,2f), Random.Range(-2f,2f), Random.Range(-2f,2f));
-        
         initialMove = true;
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.tag == "PlayerBullet"&&bullet_Type ==bulletType.breakable)
-        {
-            gameObject.SetActive(false);
-        }
-        if(other.tag == "PlayerBullet"&&bullet_Type ==bulletType.golden)
-        {
-            //gameObject.SetActive(false);
-        }
-        if(other.tag == "PlayerBullet"&&bullet_Type ==bulletType.normal)
-        {
-            //gameObject.SetActive(false);
-        }
     }
 }

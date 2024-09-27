@@ -9,6 +9,7 @@ public class SimpleShoot : MonoBehaviour
     shootingType shooting_Type;
     [SerializeField] 
     float fps;
+
     [SerializeField]
     GameObject shootingPointPrefab;
     [SerializeField]
@@ -45,7 +46,8 @@ public class SimpleShoot : MonoBehaviour
     {
         Instantiate(shootingPointPrefab,transform);
     }
-    void SpawnHorizontalRoundShootingPoint()
+
+    void SpawnHorizontalRoundShootingPoint()    //Horizontal Shooting Pint
     {
         float angle = 360 / objectToSpawnAmount;
         for (int i = 0; i <= objectToSpawnAmount; i++)
@@ -56,7 +58,7 @@ public class SimpleShoot : MonoBehaviour
             Vector3 spawnPosition = new Vector3(x, transform.position.y, z);
             Instantiate(shootingPointPrefab, spawnPosition, Quaternion.Euler(0,0,0), transform);
         }
-    }void SpawnVerticalRoundShootingPoint()
+    }void SpawnVerticalRoundShootingPoint()     //Vertical Shooting Point
     {
         float angle = 360 / objectToSpawnAmount;
         for (int i = 0; i <= objectToSpawnAmount; i++)

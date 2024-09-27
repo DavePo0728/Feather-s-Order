@@ -25,6 +25,8 @@ public class BulletPool : MonoBehaviour
     [SerializeField]
     List<GameObject> enemyBulletPool,EnemyBulletBreakablePool;
 
+    //public List<GameObject> enemyActivePooledObject = new List<GameObject>();
+
     private void Awake()
     {
         poolInstance = this;
@@ -68,7 +70,8 @@ public class BulletPool : MonoBehaviour
             }
         }
         return null;
-    }    
+    }
+
     public GameObject GetEnemyBreakablePooledObject()
     {
         for (int i = 0; i < enemyBreakableAmountToPool; i++)
