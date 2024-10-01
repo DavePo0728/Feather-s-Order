@@ -6,7 +6,7 @@ public class PlayerBulletMove : MonoBehaviour
 {
     [SerializeField]
     float speed;
-    float lifeTime = 10.0f;
+    float lifeTime = 4.0f;
     Rigidbody bulletRigidbody;
     [Header("Gizmo")]
     [SerializeField]
@@ -15,10 +15,11 @@ public class PlayerBulletMove : MonoBehaviour
     private void Awake()
     {
         bulletRigidbody = GetComponent<Rigidbody>();
+        
     }
     void Start()
     {
-
+        StartCoroutine(CountDownInactive());
     }
 
     // Update is called once per frame
@@ -35,6 +36,7 @@ public class PlayerBulletMove : MonoBehaviour
     IEnumerator CountDownInactive()
     {
         yield return new WaitForSeconds(lifeTime);
+        Debug.Log("off");
         this.gameObject.SetActive(false);
     }
 }

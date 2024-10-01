@@ -16,8 +16,10 @@ public class PlayerMove : MonoBehaviour
     float maxEnergy;
     float energyRegenRate = 50;
     float timeSinceLastEnergyUse = 0f;   // 距離上次使用能量的時間
+    [SerializeField]
     float regenDelay = 1f;     // 回復能量的延遲時間 (1秒)
     bool isRegening = false;  // 是否正在回復能量
+    bool isOutBurst = false;
     [Space(height: 20)]
 
     [SerializeField]
@@ -30,10 +32,10 @@ public class PlayerMove : MonoBehaviour
     bool canDash = true;
     bool isDashing = false;
     float dashingTime = 0.2f;
-    float dashCooldown = 0.5f;
+    float dashCooldown = 0.3f;
     bool isRotating = false;
     [SerializeField]
-    Material playerMat;
+    List<Material> playerMat;
     [SerializeField]
     GameObject body,flyinglean;
     float rotationDuration = 0.5f; // Duration of the rotation in seconds
@@ -43,6 +45,8 @@ public class PlayerMove : MonoBehaviour
     [Header("Effect")]
     [SerializeField]
     GameObject BounceExpolsion;
+    [SerializeField]
+    ParticleSystem speedLine;
 
     bool isBoosting = false;
     bool isBraking = false;
@@ -68,11 +72,13 @@ public class PlayerMove : MonoBehaviour
 
         if (context.performed)
         {
-            if (canDash&&currentEnergy>=20)
+            if (canDash&&currentEnergy>=20&&!isOutBurst)
             {
                 StartCoroutine(OnDash());
                 startTime = Time.time;
-                playerMat.color = Color.green;
+                playerMat[0].color = Color.green;
+                playerMat[1].color = Color.green;
+                playerMat[2].color = Color.green;
                 StartCoroutine(MuTeKiTime(0.2f));
                 currentEnergy -= 20;
                 UpdateUI();
@@ -83,31 +89,59 @@ public class PlayerMove : MonoBehaviour
     }
     public void GetBoost(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        var emission = speedLine.emission;
+        if (context.performed&&currentEnergy >=15&&!isOutBurst)
         {
+            currentEnergy -= 5;
+            UpdateUI();
+            isRegening = false;
             isBoosting = true;
+            
+            emission.rateOverTime = 500f;
         }
         if (context.canceled)
         {
             isBoosting = false;
+            emission.rateOverTime = 50f;
         }
     }
     public void GetBrake(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        var emission = speedLine.emission;
+        if (context.performed&&currentEnergy >= 15&&!isOutBurst)
         {
+            currentEnergy -= 15;
+            UpdateUI();
+            isRegening = false;
             isBraking = true;
+            emission.rateOverTime = 0f;
         }
         if (context.canceled)
         {
             isBraking = false;
+            emission.rateOverTime = 100f;
         }
     }
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (currentEnergy<=0)
+        {
+            regenDelay = 3f;
+            isOutBurst = true;
+            isBraking = false;
+            isBoosting = false;
+        }
+        if (currentEnergy <= 20)
+        {
+            energyBarImage.color = Color.red;
+        }else 
+        {
+            energyBarImage.color = Color.green;
+        }
         // 計時器每幀更新
         timeSinceLastEnergyUse += Time.deltaTime;
+        //Debug.Log(timeSinceLastEnergyUse);
         // 如果能量不是滿的並且已經超過回復延遲時間，開始回復能量
         if (!isRegening && currentEnergy < maxEnergy && timeSinceLastEnergyUse >= regenDelay)
         {
@@ -138,7 +172,9 @@ public class PlayerMove : MonoBehaviour
             if (elapsedTime >= rotationDuration)
             {
                 isRotating = false;
-                playerMat.color = Color.white;
+                playerMat[0].color = Color.white;
+                playerMat[1].color = Color.white;
+                playerMat[2].color = Color.white;
                 //body.transform.rotation = transform.rotation;
             }
         }
@@ -163,18 +199,34 @@ public class PlayerMove : MonoBehaviour
         }
         if (isBoosting&&!isBraking)
         {
-            
-            bulletData.speed = 2f;
-            Debug.Log("Boost"+bulletData.speed);
+            if (currentEnergy >= 0)
+            {
+                currentEnergy -= 15 * Time.deltaTime;
+                UpdateUI();
+                isRegening = false;
+                timeSinceLastEnergyUse = 0f;
+                bulletData.speed =bulletData.originSpeed* 1.5f;
+                TerrainLoopManager.terrainInstance.SpeedUp();
+            }
+           // Debug.Log("Boost"+bulletData.speed);
         }
         if (isBraking&&!isBoosting)
         {
-                bulletData.speed = 0.3f;
-            Debug.Log("Break" + bulletData.speed);
+            if (currentEnergy >= 0)
+            {
+                currentEnergy -= 30 * Time.deltaTime;
+                UpdateUI();
+                isRegening = false;
+                timeSinceLastEnergyUse = 0f;
+                bulletData.speed = bulletData.originSpeed/0.75f;
+                TerrainLoopManager.terrainInstance.SlowDown();
+            }
+            //Debug.Log("Break" + bulletData.speed);
         }
         if (!isBoosting && !isBraking)
         {
-            bulletData.speed = 0.5f;
+            bulletData.speed = bulletData.originSpeed;
+            TerrainLoopManager.terrainInstance.Normal();
         }
 
     }
@@ -216,7 +268,9 @@ public class PlayerMove : MonoBehaviour
         yield return new WaitForSeconds(mutekiTime);
         //isMuteki = false;
         Physics.IgnoreLayerCollision(8, 6, false);
-        playerMat.color = Color.white;
+        playerMat[0].color = Color.white;
+        playerMat[1].color = Color.white;
+        playerMat[2].color = Color.white;
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -250,6 +304,8 @@ public class PlayerMove : MonoBehaviour
         if (currentEnergy >= maxEnergy)
         {
             isRegening = false;
+            isOutBurst = false;
+            regenDelay = 1f;
         }
     }
 }

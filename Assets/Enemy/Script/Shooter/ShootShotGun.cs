@@ -58,7 +58,6 @@ public class ShootShotGun : MonoBehaviour
                 EnemyBulletMove bulletMove = bullet.GetComponent<EnemyBulletMove>();
                 bulletMove.NoMoveInitial();
                 bulletMove.Speard();
-                bulletMove.speed = 0.5f;
             }
         }
     }

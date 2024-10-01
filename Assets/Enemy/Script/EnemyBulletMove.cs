@@ -8,7 +8,7 @@ public class EnemyBulletMove : MonoBehaviour
     public float speed;
     [SerializeField]
     float spreadSpeed;
-    float BulletlifeTime=6f;
+    float BulletlifeTime=3f;
     Rigidbody bulletRigidbody;
     [Header("Gizmo")]
     [SerializeField]
@@ -58,7 +58,7 @@ public class EnemyBulletMove : MonoBehaviour
         {
             transform.Translate(-Vector3.forward * speed);
         }
-        Debug.Log(speed);
+        //Debug.Log(speed);
     }
     protected IEnumerator CountDownInactive(float lifeTime)
     {

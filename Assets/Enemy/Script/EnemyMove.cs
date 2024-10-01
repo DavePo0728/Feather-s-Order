@@ -5,13 +5,13 @@ using UnityEngine;
 public class EnemyMove : MonoBehaviour
 {
     [SerializeField]
-    float speed;
+    protected float speed;
     [SerializeField]
-    float rotationSpeed;
+    protected float rotationSpeed;
     [SerializeField]
-    float radius;
-    float angle;
-    Vector3 circularMotion;
+    protected float radius;
+    protected float angle;
+
     private void Awake()
     {
         
@@ -21,28 +21,8 @@ public class EnemyMove : MonoBehaviour
     {
         //CircularMovement();
     }
-    // Update is called once per frame
     void FixedUpdate()
     {
-        CalculateMovement();
         transform.Translate(-Vector3.forward * speed * Time.deltaTime);
-        transform.position += circularMotion * Time.deltaTime;
-    }
-    void CircularMovement()
-    {
-            CalculateMovement();
-            transform.Translate(-Vector3.forward * speed * Time.deltaTime);
-            transform.position += circularMotion * Time.deltaTime;
-    }
-    void CalculateMovement()
-    {
-        float x = Mathf.Cos(angle * Mathf.Deg2Rad) * radius;
-        float y = Mathf.Sin(angle * Mathf.Deg2Rad) * radius;
-        circularMotion = new Vector3(x, y, 0);
-        angle += rotationSpeed * Time.deltaTime;
-        if (angle >= 360f)
-        {
-            angle -= 360f;
-        }
     }
 }

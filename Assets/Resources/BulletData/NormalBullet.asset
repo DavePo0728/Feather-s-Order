@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca85cdd4d5b983447851b98d314e346d, type: 3}
   m_Name: NormalBullet
   m_EditorClassIdentifier: 
-  speed: 0.5
+  originSpeed: 2
+  speed: 2
   DataUpdate: 0

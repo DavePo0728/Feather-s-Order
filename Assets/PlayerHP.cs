@@ -15,7 +15,7 @@ public class PlayerHP : MonoBehaviour
     [SerializeField]
     Image HpBar;
     [SerializeField]
-    Material playerMat;
+    List<Material> playerMat;
     //[SerializeField]
     //GameObject body;
     //bool isRotating= false;
@@ -86,15 +86,28 @@ public class PlayerHP : MonoBehaviour
         playerHp -= damage;
         UpdateHpUI();
         StartCoroutine(MuTeKiTime(0.1f));
-        playerMat.color = Color.red;
+        playerMat[0].color = Color.red;
+        playerMat[1].color = Color.red;
+        playerMat[2].color = Color.red;
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "EnemyBullet")
+        if (other.tag == "EnemyBullet")
         {
             if(!isMuteki)
             getHit(5);
             other.gameObject.SetActive(false);
+        }
+        if (other.tag == "Block")
+        {
+            if (!isMuteki)
+                getHit(10);
+        }
+        if(other.tag == "Enemy")
+        {
+            if (!isMuteki)
+                getHit(10);
+            Destroy(other.gameObject);
         }
     }
     private void UpdateHpUI()
@@ -110,6 +123,8 @@ public class PlayerHP : MonoBehaviour
         yield return new WaitForSeconds(mutekiTime);
         isMuteki = false;
         //Physics.IgnoreLayerCollision(8, 6, false);
-        playerMat.color = Color.white;
+        playerMat[0].color = Color.white;
+        playerMat[1].color = Color.white;
+        playerMat[2].color = Color.white;
     }
 }
