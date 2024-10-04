@@ -36,7 +36,7 @@ public class PlayerBulletMove : MonoBehaviour
     IEnumerator CountDownInactive()
     {
         yield return new WaitForSeconds(lifeTime);
-        Debug.Log("off");
+        //Debug.Log("off");
         this.gameObject.SetActive(false);
     }
 }

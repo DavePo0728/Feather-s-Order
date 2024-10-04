@@ -10,6 +10,13 @@ public class GoldBulletMove : EnemyBulletMove
     MeshRenderer meshRenderer;
     [HideInInspector]
     public bool bounceBack = false;
+    bool goback=false;
+    ScoreManager scoreManager;
+    private void Awake()
+    {
+        bulletData = Resources.Load<EnemyBulletData>("BulletData/NormalBullet");
+        
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +24,8 @@ public class GoldBulletMove : EnemyBulletMove
         StartCoroutine(CountDownInactive(lifeTime));
         moveToPlayer = true;
         meshRenderer = gameObject.GetComponent<MeshRenderer>();
+        speed = bulletData.speed;
+        scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
     }
 
     // Update is called once per frame
@@ -28,32 +37,43 @@ public class GoldBulletMove : EnemyBulletMove
         }
         if (bounceBack)
         {
-            if(gameObject.transform.position.z >= 100)
+            goback = true;
+            if(gameObject.transform.position.z >= 300)
             {
-                GoldBulletEffect();
+                StartCoroutine(GoldBulletEffect());
             }
         }
+        if (speed != bulletData.speed&&!goback)
+        {
+            speed = bulletData.speed;
+        }
     }
-    public void GoldBulletEffect()
+    IEnumerator GoldBulletEffect()
     {
+        Debug.Log("gold");
+        bounceBack = false;
         speed = 0;
         meshRenderer.enabled = false;
         Collider[] destroyList = Physics.OverlapSphere(transform.position,sphereRadius);
         for(int i=0; i < destroyList.Length; i++)
         {
+            Debug.Log(i+":"+destroyList[i].tag);
             switch (destroyList[i].tag)
             {
                 case "EnemyBullet":
                     destroyList[i].gameObject.SetActive(false);
                     break;
                 case "Enemy":
-                    Destroy(destroyList[i].gameObject);
+                    enemyHp _enemyHp = destroyList[i].gameObject.GetComponent<enemyHp>();
+                    _enemyHp.DeathEffect();
+                    scoreManager.AddScore();
                     break;
             }
         }
         GameObject temp = Instantiate(GoldBulletExplosion, transform.position, Quaternion.identity);
-        Destroy(temp, 2f);
-        Destroy(gameObject, 3f);
+        yield return new WaitForSeconds(2f);
+        Destroy(temp);
+        Destroy(gameObject);
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -61,7 +81,8 @@ public class GoldBulletMove : EnemyBulletMove
         {
             if(other.tag == "Enemy")
             {
-                GoldBulletEffect();
+                Debug.Log("Hit"+ other.name);
+                StartCoroutine(GoldBulletEffect());
             }
         }
     }

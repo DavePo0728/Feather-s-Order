@@ -6,6 +6,10 @@ using UnityEngine.InputSystem;
 
 public class ScenesManager : MonoBehaviour
 {
+    private void Awake()
+    {
+
+    }
     public void GetReloadInput(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -13,7 +17,7 @@ public class ScenesManager : MonoBehaviour
             ReloadScene();
         }
     }
-    void ReloadScene()
+    public void ReloadScene()
     {
         SceneManager.LoadScene(0);
     }

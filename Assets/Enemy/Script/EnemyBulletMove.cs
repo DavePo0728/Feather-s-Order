@@ -4,20 +4,20 @@ using UnityEngine;
 
 public class EnemyBulletMove : MonoBehaviour
 {
-    EnemyBulletData bulletData;
+    protected EnemyBulletData bulletData;
     public float speed;
     [SerializeField]
-    float spreadSpeed;
-    float BulletlifeTime=3f;
-    Rigidbody bulletRigidbody;
+    protected float spreadSpeed;
+    protected float BulletlifeTime=5f;
+    protected Rigidbody bulletRigidbody;
     [Header("Gizmo")]
     [SerializeField]
     protected float sphereRadius;
-    bool initialMove = false;
+    protected bool initialMove = false;
     protected bool moveToPlayer = false;
-    Vector3 destination;
+    protected Vector3 destination;
 
-    protected void Awake()
+    private void Awake()
     {
         bulletRigidbody = GetComponent<Rigidbody>();
         bulletData = Resources.Load<EnemyBulletData>("BulletData/NormalBullet");
@@ -58,7 +58,7 @@ public class EnemyBulletMove : MonoBehaviour
         {
             transform.Translate(-Vector3.forward * speed);
         }
-        //Debug.Log(speed);
+        //Debug.Log("Bullet"+ speed);
     }
     protected IEnumerator CountDownInactive(float lifeTime)
     {

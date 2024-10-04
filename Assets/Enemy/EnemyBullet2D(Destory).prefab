@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2412017769729309701}
   - component: {fileID: 5952719471893572618}
   - component: {fileID: 4063662773755382678}
-  - component: {fileID: 8496807752528192865}
+  - component: {fileID: 4431369171048238024}
   m_Layer: 0
   m_Name: EnemyBullet2D(Destory)
   m_TagString: EnemyBullet
@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f814547b853bf7c48a2ff6001e284b1b, type: 2}
+  - {fileID: 2100000, guid: c9b9faa12af45484c963ca95d53b5da3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -115,7 +115,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 118
   m_CollisionDetection: 0
---- !u!114 &8496807752528192865
+--- !u!114 &4431369171048238024
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -124,9 +124,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 8764403731774313772}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e538e2cffcca876439ea8c447f48822a, type: 3}
+  m_Script: {fileID: 11500000, guid: cc48273a3b92c844f9786e703d86cdb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.5
   spreadSpeed: 50
-  sphereRadius: 1
+  sphereRadius: 0

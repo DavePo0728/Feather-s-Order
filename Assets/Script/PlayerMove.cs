@@ -51,11 +51,13 @@ public class PlayerMove : MonoBehaviour
     bool isBoosting = false;
     bool isBraking = false;
     EnemyBulletData bulletData;
+    EnemyData enemyData;
 
     private void Awake()
     {
         playerRigidbody = GetComponent<Rigidbody>();
         bulletData = Resources.Load<EnemyBulletData>("BulletData/NormalBullet");
+        enemyData = Resources.Load<EnemyData>("EnemyData/EnemyData");
     }
     // Start is called before the first frame update
     void Start()
@@ -206,6 +208,7 @@ public class PlayerMove : MonoBehaviour
                 isRegening = false;
                 timeSinceLastEnergyUse = 0f;
                 bulletData.speed =bulletData.originSpeed* 1.5f;
+                enemyData.speed = enemyData.originSpeed*1.5f;
                 TerrainLoopManager.terrainInstance.SpeedUp();
             }
            // Debug.Log("Boost"+bulletData.speed);
@@ -218,7 +221,8 @@ public class PlayerMove : MonoBehaviour
                 UpdateUI();
                 isRegening = false;
                 timeSinceLastEnergyUse = 0f;
-                bulletData.speed = bulletData.originSpeed/0.75f;
+                bulletData.speed = bulletData.originSpeed*0.75f;
+                enemyData.speed = enemyData.originSpeed * 0.75f;
                 TerrainLoopManager.terrainInstance.SlowDown();
             }
             //Debug.Log("Break" + bulletData.speed);
@@ -226,6 +230,7 @@ public class PlayerMove : MonoBehaviour
         if (!isBoosting && !isBraking)
         {
             bulletData.speed = bulletData.originSpeed;
+            enemyData.speed = enemyData.originSpeed;
             TerrainLoopManager.terrainInstance.Normal();
         }
 

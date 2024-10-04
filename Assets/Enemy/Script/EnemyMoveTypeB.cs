@@ -5,17 +5,26 @@ using UnityEngine;
 public class EnemyMoveTypeB : EnemyMove
 {
     GameObject player;
+    private void Awake()
+    {
+        enemyData = Resources.Load<EnemyData>("EnemyData/EnemyData");
+    }
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         //StartCoroutine(TrackPlayer());
+        StartCoroutine(TimeToDestroy());
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-            transform.Translate(-Vector3.forward * speed * Time.deltaTime);
+        if (speed!= enemyData.originSpeed)
+        {
+            speed = enemyData.originSpeed;
+        }
+            transform.Translate(-Vector3.forward * speed);
     }
     IEnumerator TrackPlayer()
     {
@@ -25,5 +34,10 @@ public class EnemyMoveTypeB : EnemyMove
             Debug.Log("yes");
             yield return new WaitForSeconds(1.0f);
         }
+    }
+    IEnumerator TimeToDestroy()
+    {
+        yield return new WaitForSeconds(lifeTime);
+        Destroy(gameObject);
     }
 }

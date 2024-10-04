@@ -20,12 +20,12 @@ public class ShootShotGun : MonoBehaviour
     
     void Update()
     {
-        if (canShoot&&shootCount<5)
+        if (canShoot&&shootCount<2)
         {
             StartCoroutine(ShootRoutine());
             shootCount++;
         }
-        else if(canShoot && shootCount == 5)
+        else if(canShoot && shootCount == 2)
         {
             StartCoroutine(ShootGoldBullet());
             shootCount = 0;
@@ -49,13 +49,13 @@ public class ShootShotGun : MonoBehaviour
     {
         for (int i = 0; i <= amount; i++)
         {
-            bullet = BulletPool.poolInstance.GetEnemyPooledObject();
+            bullet = BulletPool.poolInstance.GetEnemyBreakablePooledObject();
             if (bullet != null)
             {
                 bullet.transform.position = transform.position;
                 bullet.transform.rotation = transform.rotation;
                 bullet.SetActive(true);
-                EnemyBulletMove bulletMove = bullet.GetComponent<EnemyBulletMove>();
+                EnemyBreakableBulletMove bulletMove = bullet.GetComponent<EnemyBreakableBulletMove>();
                 bulletMove.NoMoveInitial();
                 bulletMove.Speard();
             }

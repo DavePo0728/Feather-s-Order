@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca85cdd4d5b983447851b98d314e346d, type: 3}
-  m_Name: NormalBullet
+  m_Script: {fileID: 11500000, guid: 041b92316204044419b73e0c5e54944f, type: 3}
+  m_Name: EnemyData
   m_EditorClassIdentifier: 
-  originSpeed: 4
-  speed: 4
+  originSpeed: 2.5
+  speed: 2.5

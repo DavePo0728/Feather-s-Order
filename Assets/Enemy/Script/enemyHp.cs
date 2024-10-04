@@ -4,12 +4,16 @@ using UnityEngine;
 
 public class enemyHp : MonoBehaviour
 {
-    float Maxhp = 20;
+    float Maxhp = 10;
     float currentHp;
+    GameObject DeathExplosion;
+    ScoreManager scoreManager;
     // Start is called before the first frame update
     void Start()
     {
         currentHp = Maxhp;
+        DeathExplosion = Resources.Load<GameObject>("ShadowExplosion2");
+        scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
     }
 
     // Update is called once per frame
@@ -22,12 +26,19 @@ public class enemyHp : MonoBehaviour
     {
         if (currentHp <= 0)
         {
-            Destroy(gameObject);
+            DeathEffect();
+            scoreManager.AddScore();
         }
         else
         {
             currentHp--;
         }
+    }
+    public void DeathEffect()
+    {
+        GameObject effect = Instantiate(DeathExplosion, transform.position, Quaternion.identity);
+        Destroy(effect, 1.5f);
+        Destroy(gameObject);
     }
     private void OnTriggerEnter(Collider other)
     {

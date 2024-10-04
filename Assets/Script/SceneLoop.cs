@@ -17,7 +17,7 @@ public class SceneLoop : TerrainLoopManager
     void FixedUpdate()
     {
         transform.Translate(-Vector3.forward * TerrainLoopManager.terrainInstance._moveSpeed*Time.deltaTime);
-        Debug.Log(TerrainLoopManager.terrainInstance._moveSpeed);
+        //Debug.Log(TerrainLoopManager.terrainInstance._moveSpeed);
         if (transform.localPosition.z<-195f)
         {
             //Debug.Log(transform.position.z);
