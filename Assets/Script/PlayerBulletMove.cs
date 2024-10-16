@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerBulletMove : MonoBehaviour
 {
+    GameObject hitEffect;
     [SerializeField]
     float speed;
     float lifeTime = 4.0f;
@@ -20,6 +21,8 @@ public class PlayerBulletMove : MonoBehaviour
     void Start()
     {
         StartCoroutine(CountDownInactive());
+        hitEffect = transform.GetChild(2).gameObject;
+        speed = 600f;
     }
 
     // Update is called once per frame
@@ -38,5 +41,23 @@ public class PlayerBulletMove : MonoBehaviour
         yield return new WaitForSeconds(lifeTime);
         //Debug.Log("off");
         this.gameObject.SetActive(false);
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Enemy")
+        {
+
+        }
+        if(other.tag == "Block")
+        {
+
+        }
+    }
+    IEnumerator HitEffectOn()
+    {
+        speed = 0;
+        hitEffect.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+
     }
 }

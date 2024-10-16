@@ -66,6 +66,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _DepthDis: 0
     - _QueueControl: 0
     - _QueueOffset: 0
     - _alpha_Smooth: 0.5
@@ -74,6 +75,7 @@ Material:
     m_Colors:
     - _ColorG: {r: 0.4811321, g: 0.41153434, b: 0.41153434, a: 1}
     - _ColorG2: {r: 1, g: 0.8930817, b: 0.8930817, a: 1}
+    - _DepthColor: {r: 0.3, g: 0.3, b: 0.3, a: 1}
     - _Fresnel_Color: {r: 0.8316816, g: 0.8773585, b: 0.15450332, a: 0}
     - _ballColor: {r: 0.1226415, g: 0.1072149, b: 0.1072149, a: 0}
     - _ballColor_1: {r: 4.010574, g: 2.8704612, b: 1.1602917, a: 0}

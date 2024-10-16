@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BulletPool : MonoBehaviour
 {
+    
     public static BulletPool poolInstance;
 
     [Header("PlayerBulletPool")]
@@ -26,7 +27,7 @@ public class BulletPool : MonoBehaviour
     List<GameObject> enemyBulletPool,EnemyBulletBreakablePool;
 
     //public List<GameObject> enemyActivePooledObject = new List<GameObject>();
-
+    //[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
     private void Awake()
     {
         poolInstance = this;
@@ -34,6 +35,7 @@ public class BulletPool : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Debug.Log("hi");
         enemyBulletPool = new List<GameObject>();
         playerBulletPool = new List<GameObject>();
         EnemyBulletBreakablePool = new List<GameObject>();

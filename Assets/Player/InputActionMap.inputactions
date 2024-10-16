@@ -33,6 +33,42 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "Boost",
+                    "type": "Button",
+                    "id": "ec8dc698-f7ae-43c4-9d77-0960d38c22b9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Break",
+                    "type": "Button",
+                    "id": "00fe6c66-f6f2-4251-9eab-5b6c4f8d7564",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Bounce",
+                    "type": "Button",
+                    "id": "1daa583d-0327-4213-9912-9a17eb9aac62",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "PauseMenu",
+                    "type": "Button",
+                    "id": "f9885de0-8cae-49fa-978d-59ebe2f66b9c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "ReloadScene",
                     "type": "Button",
                     "id": "b6b953b8-b8d7-4037-a565-ed9b9b53967e",
@@ -51,22 +87,22 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Boost",
+                    "name": "SkillSwitch",
                     "type": "Button",
-                    "id": "ec8dc698-f7ae-43c4-9d77-0960d38c22b9",
+                    "id": "1a2b3291-5a44-4e4e-ae69-ba8f42208683",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": true
+                    "initialStateCheck": false
                 },
                 {
-                    "name": "Break",
+                    "name": "SkillActive",
                     "type": "Button",
-                    "id": "00fe6c66-f6f2-4251-9eab-5b6c4f8d7564",
+                    "id": "f6225a09-e242-44df-b94d-9ea865305071",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": true
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -139,7 +175,7 @@
                 {
                     "name": "",
                     "id": "48dbbbf9-9824-4570-b083-eff90124cdf4",
-                    "path": "<Gamepad>/rightTrigger",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -171,8 +207,30 @@
                 },
                 {
                     "name": "",
+                    "id": "3cb70924-e011-4803-ad3e-c281391afcc9",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "fd78e1a6-28ee-4887-93d5-c424d1295fef",
                     "path": "<Keyboard>/leftShift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Boost",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9d512e3f-0789-4316-beb3-8f44f7fb84ce",
+                    "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -193,12 +251,34 @@
                 },
                 {
                     "name": "",
-                    "id": "ea16ba99-f726-4786-a13f-6227a77bba3b",
-                    "path": "<Keyboard>/r",
+                    "id": "1f3ffbbe-c0d3-4d7e-87f5-a595380aba56",
+                    "path": "<Gamepad>/leftTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ReloadScene",
+                    "action": "Break",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "115a1de4-e5f9-4bfa-8c0f-3fa058698758",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Bounce",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "dbf94da2-ebda-4827-bdd5-97689d9b1aff",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PauseMenu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -210,6 +290,39 @@
                     "processors": "",
                     "groups": "",
                     "action": "SpawnEnemy",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ea16ba99-f726-4786-a13f-6227a77bba3b",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ReloadScene",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "93328b7c-5fc3-4601-8382-35f351509348",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SkillSwitch",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b46909f4-8d5f-463c-9a92-a981c06a416a",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SkillActive",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

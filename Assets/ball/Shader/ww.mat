@@ -22,8 +22,6 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: ww
   m_Shader: {fileID: -6465566751694194690, guid: d2947a5d10714e94fb7e514d7771c766, type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -32,11 +30,18 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
-  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _SampleTexture2D_344c4ca515e04f2d9550bc92950d0207_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 8e5416c87afcbcd45bbc8342a2891e6d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_344c4ca515e04f2d9550bc92950d0207_Texture_1_Texture2D:
+        m_Texture: {fileID: 2800000, guid: 8e5416c87afcbcd45bbc8342a2891e6d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_62540aba37854e38aba7d2c4b30d3351_Texture_1:
         m_Texture: {fileID: 2800000, guid: 8e5416c87afcbcd45bbc8342a2891e6d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -58,10 +63,12 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _DepthDis: 0
     - _QueueControl: 0
     - _QueueOffset: 0
     - _alpha: 0.03
     m_Colors:
     - _Color: {r: 0.95533115, g: 0.990566, b: 0.04360973, a: 0}
     - _Color_1: {r: 0.7075472, g: 0.06565117, b: 0, a: 0}
+    - _DepthColor: {r: 0.5943396, g: 0.5943396, b: 0.5943396, a: 0}
   m_BuildTextureStacks: []

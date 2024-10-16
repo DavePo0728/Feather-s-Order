@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5952719471893572618}
   - component: {fileID: 4063662773755382678}
   - component: {fileID: 4431369171048238024}
+  - component: {fileID: 8506145396784535197}
   m_Layer: 0
   m_Name: EnemyBullet2D(Destory)
   m_TagString: EnemyBullet
@@ -130,3 +131,21 @@ MonoBehaviour:
   speed: 0.5
   spreadSpeed: 50
   sphereRadius: 0
+--- !u!114 &8506145396784535197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8764403731774313772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 435fe77a82bc3f74ba832aa9224fcc70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraTransform: {fileID: 0}
+  minDistance: 100
+  maxDistance: 300
+  objectRenderer: {fileID: 2412017769729309701}
+  two_shader: 0
+  two_shaderRenderer: {fileID: 0}

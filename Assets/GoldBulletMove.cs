@@ -5,13 +5,18 @@ using UnityEngine;
 public class GoldBulletMove : EnemyBulletMove
 {
     [SerializeField]
-    GameObject GoldBulletExplosion;
-    float lifeTime = 10f;
+    GameObject goldBulletExplosion;
+    [SerializeField]
+    float lifeTime ;
+    [SerializeField]
+    float explosionTime;
     MeshRenderer meshRenderer;
     [HideInInspector]
     public bool bounceBack = false;
     bool goback=false;
     ScoreManager scoreManager;
+    Vector3 startpos;
+    float timer;
     private void Awake()
     {
         bulletData = Resources.Load<EnemyBulletData>("BulletData/NormalBullet");
@@ -34,30 +39,32 @@ public class GoldBulletMove : EnemyBulletMove
         if (moveToPlayer)
         {
             transform.Translate(-Vector3.forward * speed);
+            Debug.Log(-Vector3.forward * speed);
         }
         if (bounceBack)
         {
             goback = true;
-            if(gameObject.transform.position.z >= 300)
-            {
-                StartCoroutine(GoldBulletEffect());
-            }
+            timer += Time.deltaTime;
+            //if()
+            //{
+             //   StartCoroutine(GoldBulletEffect());
+           // }
         }
         if (speed != bulletData.speed&&!goback)
         {
             speed = bulletData.speed;
+            //Debug.Log(speed);
         }
     }
     IEnumerator GoldBulletEffect()
     {
-        Debug.Log("gold");
         bounceBack = false;
         speed = 0;
         meshRenderer.enabled = false;
         Collider[] destroyList = Physics.OverlapSphere(transform.position,sphereRadius);
         for(int i=0; i < destroyList.Length; i++)
         {
-            Debug.Log(i+":"+destroyList[i].tag);
+            //Debug.Log(i+":"+destroyList[i].tag);
             switch (destroyList[i].tag)
             {
                 case "EnemyBullet":
@@ -70,19 +77,20 @@ public class GoldBulletMove : EnemyBulletMove
                     break;
             }
         }
-        GameObject temp = Instantiate(GoldBulletExplosion, transform.position, Quaternion.identity);
+        GameObject temp = Instantiate(goldBulletExplosion, transform.position, Quaternion.identity);
         yield return new WaitForSeconds(2f);
         Destroy(temp);
         Destroy(gameObject);
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if (bounceBack)
         {
             if(other.tag == "Enemy")
             {
-                Debug.Log("Hit"+ other.name);
-                StartCoroutine(GoldBulletEffect());
+               // Debug.Log("Hit"+ other.name);
+               // StartCoroutine(GoldBulletEffect());
             }
         }
     }

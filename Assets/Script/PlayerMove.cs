@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using Cinemachine;
 
 public class PlayerMove : MonoBehaviour
 {
+    [SerializeField]
+    CinemachineVirtualCamera vCam;
     [Header("UI")]
     [SerializeField]
     Image energyBarImage;
@@ -26,7 +29,11 @@ public class PlayerMove : MonoBehaviour
     float dashForce;
     Rigidbody playerRigidbody;
     [SerializeField]
-    float speed, maxVelocity;
+    float moveSpeed, maxVelocity;
+    [SerializeField]
+    float zSpeed;
+    [SerializeField]
+    float leanAngle, lerpTime, lerpMultiplier;
 
     //Dash
     bool canDash = true;
@@ -39,9 +46,10 @@ public class PlayerMove : MonoBehaviour
     [SerializeField]
     GameObject body,flyinglean;
     float rotationDuration = 0.5f; // Duration of the rotation in seconds
-    private float startTime; // Time when the rotation starts
-    private Vector3 initialRotation; // Initial rotation of the object
-    private Vector2 movementInput;
+    float rotateStartTime; // Time when the rotation starts
+    float leanStartTime;
+    Vector3 initialRotation; // Initial rotation of the object
+    Vector2 movementInput;
     [Header("Effect")]
     [SerializeField]
     GameObject BounceExpolsion;
@@ -50,8 +58,11 @@ public class PlayerMove : MonoBehaviour
 
     bool isBoosting = false;
     bool isBraking = false;
+    bool isBouncing = false;
     EnemyBulletData bulletData;
     EnemyData enemyData;
+    [SerializeField]
+    float goldspeedMulti;
 
     private void Awake()
     {
@@ -76,17 +87,27 @@ public class PlayerMove : MonoBehaviour
         {
             if (canDash&&currentEnergy>=20&&!isOutBurst)
             {
+                rotateStartTime = Time.time;
                 StartCoroutine(OnDash());
-                startTime = Time.time;
-                playerMat[0].color = Color.green;
-                playerMat[1].color = Color.green;
-                playerMat[2].color = Color.green;
-                StartCoroutine(MuTeKiTime(0.2f));
                 currentEnergy -= 20;
                 UpdateUI();
                 timeSinceLastEnergyUse = 0f;   // 重置時間計數器
                 isRegening = false;
             }
+        }
+    }
+    public void GetBounce(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            rotateStartTime = Time.time;
+            isBouncing = true;
+            isRotating = true;
+            StartCoroutine(MuTeKiTime(0.2f));
+            currentEnergy -= 20;
+            UpdateUI();
+            timeSinceLastEnergyUse = 0f;   // 重置時間計數器
+            isRegening = false;
         }
     }
     public void GetBoost(InputAction.CallbackContext context)
@@ -127,6 +148,8 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        transform.Translate(Vector3.forward* zSpeed * Time.deltaTime);
+        //Debug.Log(Vector3.forward * zSpeed * Time.deltaTime);
         if (currentEnergy<=0)
         {
             regenDelay = 3f;
@@ -157,10 +180,11 @@ public class PlayerMove : MonoBehaviour
         }
         if (isRotating)
         {
+            
             transform.rotation = Quaternion.Euler(0, 0, 0);
-            float elapsedTime = Time.time - startTime;
+            float elapsedTime = Time.time - rotateStartTime;
             float angle = Mathf.Lerp(transform.rotation.z, 360f, Mathf.SmoothStep(0f, 1f, elapsedTime / rotationDuration));
-            if (playerRigidbody.velocity.x <= 0)
+            if (movementInput.x <= 0)
             {
                 body.transform.eulerAngles = initialRotation + new Vector3(0f, 0f, angle);
             }
@@ -174,29 +198,48 @@ public class PlayerMove : MonoBehaviour
             if (elapsedTime >= rotationDuration)
             {
                 isRotating = false;
-                playerMat[0].color = Color.white;
-                playerMat[1].color = Color.white;
-                playerMat[2].color = Color.white;
+                //playerMat[0].color = Color.white;
+                //playerMat[1].color = Color.white;
+                //playerMat[2].color = Color.white;
+                if (isBouncing)
+                {
+                    isBouncing = false;
+                }
                 //body.transform.rotation = transform.rotation;
             }
         }
+
+        // Normal Movement
         if (!isDashing)
         {
             Vector3 movement = new Vector3(movementInput.x, movementInput.y, 0);
-            playerRigidbody.velocity = movement * speed;
+            playerRigidbody.velocity = movement * moveSpeed;
             playerRigidbody.velocity = Vector3.ClampMagnitude(playerRigidbody.velocity, maxVelocity);
             // flying lean
             if (playerRigidbody.velocity.x < -0.2f)
             {
-                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, 30), 0.5f);
+                leanStartTime = Time.time;
+                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, leanAngle), lerpTime * Time.deltaTime*lerpMultiplier);
+                float t = (Time.time - rotateStartTime) / 2.0f;
+                //vCam.m_Lens.Dutch = Mathf.SmoothStep(vCam.m_Lens.Dutch, -10, t);
+                vCam.m_Lens.Dutch = Mathf.Lerp(vCam.m_Lens.Dutch, -10, 0.2f*Time.deltaTime*8);
             }
             else if (playerRigidbody.velocity.x > 0.2f)
             {
-                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, -30), 0.5f);
+                leanStartTime = Time.time;
+                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, -leanAngle), lerpTime * Time.deltaTime* lerpMultiplier);
+                float t = (Time.time - rotateStartTime) / 2.0f;
+                //vCam.m_Lens.Dutch = Mathf.SmoothStep(vCam.m_Lens.Dutch, 10, t);
+                vCam.m_Lens.Dutch = Mathf.Lerp(vCam.m_Lens.Dutch, 10, 0.2f * Time.deltaTime* 8);
             }
             else if (playerRigidbody.velocity.x == 0 && !isDashing)
             {
-                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, 0), 0.5f);
+                leanStartTime = Time.time;
+                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, 0), lerpTime * Time.deltaTime* lerpMultiplier);
+                float t = (Time.time - rotateStartTime) / 2.0f;
+                //vCam.m_Lens.Dutch = Mathf.SmoothStep(vCam.m_Lens.Dutch, 0, t);
+                vCam.m_Lens.Dutch = Mathf.Lerp(vCam.m_Lens.Dutch, 0, 0.2f * Time.deltaTime* 8);
+
             }
         }
         if (isBoosting&&!isBraking)
@@ -207,9 +250,7 @@ public class PlayerMove : MonoBehaviour
                 UpdateUI();
                 isRegening = false;
                 timeSinceLastEnergyUse = 0f;
-                bulletData.speed =bulletData.originSpeed* 1.5f;
-                enemyData.speed = enemyData.originSpeed*1.5f;
-                TerrainLoopManager.terrainInstance.SpeedUp();
+                zSpeed = 500f;
             }
            // Debug.Log("Boost"+bulletData.speed);
         }
@@ -221,9 +262,7 @@ public class PlayerMove : MonoBehaviour
                 UpdateUI();
                 isRegening = false;
                 timeSinceLastEnergyUse = 0f;
-                bulletData.speed = bulletData.originSpeed*0.75f;
-                enemyData.speed = enemyData.originSpeed * 0.75f;
-                TerrainLoopManager.terrainInstance.SlowDown();
+                zSpeed = 200f;
             }
             //Debug.Log("Break" + bulletData.speed);
         }
@@ -231,13 +270,12 @@ public class PlayerMove : MonoBehaviour
         {
             bulletData.speed = bulletData.originSpeed;
             enemyData.speed = enemyData.originSpeed;
-            TerrainLoopManager.terrainInstance.Normal();
+            zSpeed = 300f;
         }
 
     }
     IEnumerator OnDash()
     {
-        Debug.Log("dash");
         canDash = false;
         isDashing = true;
         isRotating = true;
@@ -262,7 +300,6 @@ public class PlayerMove : MonoBehaviour
         {
             totalTime = Time.time - startTime;
             float currentValue = totalTime / duration;
-            //DashUI.fillAmount = currentValue;
             yield return null;
         }
     }
@@ -270,6 +307,9 @@ public class PlayerMove : MonoBehaviour
     {
         //isMuteki = true;
         Physics.IgnoreLayerCollision(8, 6, true);
+        playerMat[0].color = Color.green;
+        playerMat[1].color = Color.green;
+        playerMat[2].color = Color.green;
         yield return new WaitForSeconds(mutekiTime);
         //isMuteki = false;
         Physics.IgnoreLayerCollision(8, 6, false);
@@ -279,10 +319,11 @@ public class PlayerMove : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "EnemyGoldBullet"&&isDashing)
+        if(other.tag == "EnemyGoldBullet"&&isBouncing)
         {
+            Debug.Log("Gold");
             GoldBulletMove gold = other.GetComponent<GoldBulletMove>();
-            gold.speed *= -1f;
+            gold.speed *= goldspeedMulti;
             gold.bounceBack = true;
             Vector3 spawnEffectPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z - 1f);
             GameObject explosionInstance = Instantiate(BounceExpolsion, spawnEffectPosition, Quaternion.identity);

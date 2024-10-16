@@ -11,7 +11,7 @@ public class PlayerShooting : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        timeBetweenShots = 1 / (700 / 60.0f);
+        timeBetweenShots = 1 / (800 / 60.0f);
     }
     public void GetShootInput(InputAction.CallbackContext context)
     {
