@@ -35,7 +35,7 @@ public class BulletPool : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("hi");
+        //Debug.Log("hi");
         enemyBulletPool = new List<GameObject>();
         playerBulletPool = new List<GameObject>();
         EnemyBulletBreakablePool = new List<GameObject>();

@@ -13,11 +13,7 @@ MonoBehaviour:
   m_Name: Wave1-1
   m_EditorClassIdentifier: 
   waveNumber: 1
-  subWaveNumber: 1
   maxSubWaveNumber: 4
   enemyToSpawnList:
-  - enemy: {fileID: 0}
+  - enemy: {fileID: 4144358584242375822, guid: deca788466f14ce4590842851afb9eea, type: 3}
     amount: 0
-  spawnPointList:
-  - {fileID: 0}
-  - {fileID: 0}

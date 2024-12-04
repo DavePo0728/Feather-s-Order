@@ -8,7 +8,7 @@ using Cinemachine;
 public class PlayerMove : MonoBehaviour
 {
     [SerializeField]
-    CinemachineVirtualCamera vCam;
+    CinemachineVirtualCamera playerVCam,SceneVCam;
     [Header("UI")]
     [SerializeField]
     Image energyBarImage;
@@ -29,11 +29,13 @@ public class PlayerMove : MonoBehaviour
     float dashForce;
     Rigidbody playerRigidbody;
     [SerializeField]
-    float moveSpeed, maxVelocity;
+    float moveHspeed,moveVspeed, maxVelocity, moveHspeedMultiplier;
     [SerializeField]
-    float zSpeed;
+    float zSpeed,oriZSpeed;
     [SerializeField]
     float leanAngle, lerpTime, lerpMultiplier;
+    [SerializeField]
+    float dutchMultiplier;
 
     //Dash
     bool canDash = true;
@@ -50,17 +52,20 @@ public class PlayerMove : MonoBehaviour
     float leanStartTime;
     Vector3 initialRotation; // Initial rotation of the object
     Vector2 movementInput;
+    float leanInput;
+    bool manualLean = true;
     [Header("Effect")]
     [SerializeField]
     GameObject BounceExpolsion;
     [SerializeField]
     ParticleSystem speedLine;
 
-    bool isBoosting = false;
-    bool isBraking = false;
+    //bool isBoosting = false;
+    //bool isBraking = false;
     bool isBouncing = false;
     EnemyBulletData bulletData;
-    EnemyData enemyData;
+    EnemyData enemyData, enemyKeepDisData;
+
     [SerializeField]
     float goldspeedMulti;
 
@@ -69,6 +74,9 @@ public class PlayerMove : MonoBehaviour
         playerRigidbody = GetComponent<Rigidbody>();
         bulletData = Resources.Load<EnemyBulletData>("BulletData/NormalBullet");
         enemyData = Resources.Load<EnemyData>("EnemyData/EnemyData");
+        enemyKeepDisData = Resources.Load<EnemyData>("EnemyData/EnemyData_keepDistance");
+        zSpeed = oriZSpeed;
+        manualLean = false;
     }
     // Start is called before the first frame update
     void Start()
@@ -82,7 +90,6 @@ public class PlayerMove : MonoBehaviour
     }
     public void GetDash(InputAction.CallbackContext context)
     {
-
         if (context.performed)
         {
             if (canDash&&currentEnergy>=20&&!isOutBurst)
@@ -110,52 +117,103 @@ public class PlayerMove : MonoBehaviour
             isRegening = false;
         }
     }
-    public void GetBoost(InputAction.CallbackContext context)
+    public void GetLean(InputAction.CallbackContext context)
     {
-        var emission = speedLine.emission;
-        if (context.performed&&currentEnergy >=15&&!isOutBurst)
+        if (context.performed)
         {
-            currentEnergy -= 5;
-            UpdateUI();
-            isRegening = false;
-            isBoosting = true;
-            
-            emission.rateOverTime = 500f;
+            leanInput = context.ReadValue<float>();
+            manualLean = true;
         }
         if (context.canceled)
         {
-            isBoosting = false;
-            emission.rateOverTime = 50f;
+            manualLean = false;
         }
     }
-    public void GetBrake(InputAction.CallbackContext context)
-    {
-        var emission = speedLine.emission;
-        if (context.performed&&currentEnergy >= 15&&!isOutBurst)
-        {
-            currentEnergy -= 15;
-            UpdateUI();
-            isRegening = false;
-            isBraking = true;
-            emission.rateOverTime = 0f;
-        }
-        if (context.canceled)
-        {
-            isBraking = false;
-            emission.rateOverTime = 100f;
-        }
-    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
-        transform.Translate(Vector3.forward* zSpeed * Time.deltaTime);
+        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, 90*leanInput), lerpTime * Time.deltaTime * lerpMultiplier);
+        //transform.Translate(Vector3.forward* zSpeed * Time.deltaTime);
+        //Debug.Log(movementInput.x);
+        //playerRigidbody.velocity = Vector3.right * moveSpeed;
+        //playerRigidbody.velocity = Vector3.ClampMagnitude(playerRigidbody.velocity, maxVelocity);
         //Debug.Log(Vector3.forward * zSpeed * Time.deltaTime);
+        // Normal Movement
+        if (!isDashing)
+        {
+            Vector3 movement = new Vector3(movementInput.x, movementInput.y, 0);
+            if (manualLean ==false)
+            {
+                moveHspeedMultiplier = 1f;
+                playerRigidbody.velocity = new Vector3(movement.x * moveHspeed, movement.y * moveVspeed, movement.z);
+            }
+            else
+            {
+                if (leanInput > 0 && movement.x < 0)
+                {
+                    moveHspeedMultiplier = 1.2f;
+                    playerRigidbody.velocity = new Vector3(movement.x * moveHspeed * moveHspeedMultiplier, movement.y * moveVspeed, movement.z);
+
+                }
+                else if (leanInput > 0 && movement.x > 0)
+                {
+                    moveHspeedMultiplier = 0.5f;
+                    playerRigidbody.velocity = new Vector3(movement.x * moveHspeed * moveHspeedMultiplier, movement.y * moveVspeed, movement.z);
+                }
+                if (leanInput < 0 && movement.x > 0)
+                {
+                    moveHspeedMultiplier = 1.2f;
+                    playerRigidbody.velocity = new Vector3(movement.x * moveHspeed * moveHspeedMultiplier, movement.y * moveVspeed, movement.z);
+
+                }
+                else if (leanInput < 0 && movement.x < 0)
+                {
+                    moveHspeedMultiplier = 0.5f;
+                    playerRigidbody.velocity = new Vector3(movement.x * moveHspeed * moveHspeedMultiplier, movement.y * moveVspeed, movement.z);
+                }
+            }
+            playerRigidbody.velocity = Vector3.ClampMagnitude(playerRigidbody.velocity, maxVelocity);
+            // flying lean
+            if (playerRigidbody.velocity.x < -0.2f)
+            {
+                //leanStartTime = Time.time;
+                if(manualLean ==false)
+                    transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, leanAngle), lerpTime * Time.deltaTime * lerpMultiplier);
+                //float t = (Time.time - rotateStartTime) / 2.0f;
+                //vCam.m_Lens.Dutch = Mathf.SmoothStep(vCam.m_Lens.Dutch, -10, t);
+                playerVCam.m_Lens.Dutch = Mathf.Lerp(playerVCam.m_Lens.Dutch, -10, 0.2f * Time.deltaTime * 8);
+                SceneVCam.m_Lens.Dutch = Mathf.Lerp(playerVCam.m_Lens.Dutch, -10, 0.2f * Time.deltaTime * 8);
+            }
+            else if (playerRigidbody.velocity.x > 0.2f)
+            {
+                //leanStartTime = Time.time;
+                if (manualLean == false)
+                    transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, -leanAngle), lerpTime * Time.deltaTime * lerpMultiplier);
+                //float t = (Time.time - rotateStartTime) / 2.0f;
+                //vCam.m_Lens.Dutch = Mathf.SmoothStep(vCam.m_Lens.Dutch, 10, t);
+                playerVCam.m_Lens.Dutch = Mathf.Lerp(playerVCam.m_Lens.Dutch, 10, 0.2f * Time.deltaTime * 8);
+                SceneVCam.m_Lens.Dutch = Mathf.Lerp(playerVCam.m_Lens.Dutch, 10, 0.2f * Time.deltaTime * 8);
+
+            }
+            else if (playerRigidbody.velocity.x == 0 && !isDashing)
+            {
+                //leanStartTime = Time.time;
+                //transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, 0), lerpTime * Time.deltaTime * lerpMultiplier);
+                //float t = (Time.time - rotateStartTime) / 2.0f;
+                //vCam.m_Lens.Dutch = Mathf.SmoothStep(vCam.m_Lens.Dutch, 0, t);
+                playerVCam.m_Lens.Dutch = Mathf.Lerp(playerVCam.m_Lens.Dutch, 0, 0.2f * Time.deltaTime * 8);
+                SceneVCam.m_Lens.Dutch = Mathf.Lerp(playerVCam.m_Lens.Dutch, 0, 0.2f * Time.deltaTime * 8);
+
+            }
+        }
+
         if (currentEnergy<=0)
         {
             regenDelay = 3f;
             isOutBurst = true;
-            isBraking = false;
-            isBoosting = false;
+            //isBraking = false;
+            //isBoosting = false;
         }
         if (currentEnergy <= 20)
         {
@@ -180,11 +238,11 @@ public class PlayerMove : MonoBehaviour
         }
         if (isRotating)
         {
-            
+            //initialRotation = transform.rotation.ToEulerAngles();
             transform.rotation = Quaternion.Euler(0, 0, 0);
             float elapsedTime = Time.time - rotateStartTime;
             float angle = Mathf.Lerp(transform.rotation.z, 360f, Mathf.SmoothStep(0f, 1f, elapsedTime / rotationDuration));
-            if (movementInput.x <= 0)
+            if (leanInput >= 0)
             {
                 body.transform.eulerAngles = initialRotation + new Vector3(0f, 0f, angle);
             }
@@ -192,7 +250,6 @@ public class PlayerMove : MonoBehaviour
             {
                 body.transform.eulerAngles = initialRotation - new Vector3(0f, 0f, angle);
             }
-
 
             // Stop rotation after completing one full rotation
             if (elapsedTime >= rotationDuration)
@@ -208,70 +265,39 @@ public class PlayerMove : MonoBehaviour
                 //body.transform.rotation = transform.rotation;
             }
         }
-
-        // Normal Movement
-        if (!isDashing)
-        {
-            Vector3 movement = new Vector3(movementInput.x, movementInput.y, 0);
-            playerRigidbody.velocity = movement * moveSpeed;
-            playerRigidbody.velocity = Vector3.ClampMagnitude(playerRigidbody.velocity, maxVelocity);
-            // flying lean
-            if (playerRigidbody.velocity.x < -0.2f)
-            {
-                leanStartTime = Time.time;
-                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, leanAngle), lerpTime * Time.deltaTime*lerpMultiplier);
-                float t = (Time.time - rotateStartTime) / 2.0f;
-                //vCam.m_Lens.Dutch = Mathf.SmoothStep(vCam.m_Lens.Dutch, -10, t);
-                vCam.m_Lens.Dutch = Mathf.Lerp(vCam.m_Lens.Dutch, -10, 0.2f*Time.deltaTime*8);
-            }
-            else if (playerRigidbody.velocity.x > 0.2f)
-            {
-                leanStartTime = Time.time;
-                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, -leanAngle), lerpTime * Time.deltaTime* lerpMultiplier);
-                float t = (Time.time - rotateStartTime) / 2.0f;
-                //vCam.m_Lens.Dutch = Mathf.SmoothStep(vCam.m_Lens.Dutch, 10, t);
-                vCam.m_Lens.Dutch = Mathf.Lerp(vCam.m_Lens.Dutch, 10, 0.2f * Time.deltaTime* 8);
-            }
-            else if (playerRigidbody.velocity.x == 0 && !isDashing)
-            {
-                leanStartTime = Time.time;
-                transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, 0), lerpTime * Time.deltaTime* lerpMultiplier);
-                float t = (Time.time - rotateStartTime) / 2.0f;
-                //vCam.m_Lens.Dutch = Mathf.SmoothStep(vCam.m_Lens.Dutch, 0, t);
-                vCam.m_Lens.Dutch = Mathf.Lerp(vCam.m_Lens.Dutch, 0, 0.2f * Time.deltaTime* 8);
-
-            }
-        }
-        if (isBoosting&&!isBraking)
-        {
-            if (currentEnergy >= 0)
-            {
-                currentEnergy -= 15 * Time.deltaTime;
-                UpdateUI();
-                isRegening = false;
-                timeSinceLastEnergyUse = 0f;
-                zSpeed = 500f;
-            }
-           // Debug.Log("Boost"+bulletData.speed);
-        }
-        if (isBraking&&!isBoosting)
-        {
-            if (currentEnergy >= 0)
-            {
-                currentEnergy -= 30 * Time.deltaTime;
-                UpdateUI();
-                isRegening = false;
-                timeSinceLastEnergyUse = 0f;
-                zSpeed = 200f;
-            }
-            //Debug.Log("Break" + bulletData.speed);
-        }
-        if (!isBoosting && !isBraking)
-        {
-            bulletData.speed = bulletData.originSpeed;
-            enemyData.speed = enemyData.originSpeed;
-            zSpeed = 300f;
-        }
+        //if (isBoosting&&!isBraking)
+        //{
+        //    if (currentEnergy >= 0)
+        //    {
+        //        currentEnergy -= 15 * Time.deltaTime;
+        //        UpdateUI();
+        //        isRegening = false;
+        //        timeSinceLastEnergyUse = 0f;
+        //        zSpeed = 500f;
+        //        enemyKeepDisData.speed = 500f;
+        //    }
+        //   // Debug.Log("Boost"+bulletData.speed);
+        //}
+        //if (isBraking&&!isBoosting)
+        //{
+        //    if (currentEnergy >= 0)
+        //    {
+        //        currentEnergy -= 30 * Time.deltaTime;
+        //        UpdateUI();
+        //        isRegening = false;
+        //        timeSinceLastEnergyUse = 0f;
+        //        zSpeed = 200f;
+        //        enemyKeepDisData.speed = 200f;
+        //    }
+        //    //Debug.Log("Break" + bulletData.speed);
+        //}
+        //if (!isBoosting && !isBraking)
+        //{
+        //    bulletData.speed = bulletData.originSpeed;
+        //    enemyData.speed = enemyData.originSpeed;
+        //    enemyKeepDisData.speed = enemyKeepDisData.originSpeed;
+        //    zSpeed = oriZSpeed;
+        //}
 
     }
     IEnumerator OnDash()
@@ -303,7 +329,7 @@ public class PlayerMove : MonoBehaviour
             yield return null;
         }
     }
-        IEnumerator MuTeKiTime(float mutekiTime)
+    IEnumerator MuTeKiTime(float mutekiTime)
     {
         //isMuteki = true;
         Physics.IgnoreLayerCollision(8, 6, true);
@@ -326,8 +352,8 @@ public class PlayerMove : MonoBehaviour
             gold.speed *= goldspeedMulti;
             gold.bounceBack = true;
             Vector3 spawnEffectPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z - 1f);
-            GameObject explosionInstance = Instantiate(BounceExpolsion, spawnEffectPosition, Quaternion.identity);
-            Destroy(explosionInstance, 2f);
+            GameObject explosionInstance = Instantiate(BounceExpolsion, transform);
+            Destroy(explosionInstance, 1f);
         }
     }
     private void UpdateUI()
@@ -354,4 +380,39 @@ public class PlayerMove : MonoBehaviour
             regenDelay = 1f;
         }
     }
+    //public void GetBoost(InputAction.CallbackContext context)
+    //{
+    //    var emission = speedLine.emission;
+    //    if (context.performed&&currentEnergy >=15&&!isOutBurst)
+    //    {
+    //        currentEnergy -= 5;
+    //        UpdateUI();
+    //        isRegening = false;
+    //        isBoosting = true;
+
+    //        emission.rateOverTime = 500f;
+    //    }
+    //    if (context.canceled)
+    //    {
+    //        isBoosting = false;
+    //        emission.rateOverTime = 50f;
+    //    }
+    //}
+    //public void GetBrake(InputAction.CallbackContext context)
+    //{
+    //    var emission = speedLine.emission;
+    //    if (context.performed&&currentEnergy >= 15&&!isOutBurst)
+    //    {
+    //        currentEnergy -= 15;
+    //        UpdateUI();
+    //        isRegening = false;
+    //        isBraking = true;
+    //        emission.rateOverTime = 0f;
+    //    }
+    //    if (context.canceled)
+    //    {
+    //        isBraking = false;
+    //        emission.rateOverTime = 100f;
+    //    }
+    //}
 }

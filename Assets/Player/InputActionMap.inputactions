@@ -33,24 +33,6 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Boost",
-                    "type": "Button",
-                    "id": "ec8dc698-f7ae-43c4-9d77-0960d38c22b9",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "Break",
-                    "type": "Button",
-                    "id": "00fe6c66-f6f2-4251-9eab-5b6c4f8d7564",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
                     "name": "Bounce",
                     "type": "Button",
                     "id": "1daa583d-0327-4213-9912-9a17eb9aac62",
@@ -60,18 +42,36 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "PauseMenu",
+                    "name": "ReloadScene",
                     "type": "Button",
-                    "id": "f9885de0-8cae-49fa-978d-59ebe2f66b9c",
+                    "id": "b6b953b8-b8d7-4037-a565-ed9b9b53967e",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ReloadScene",
+                    "name": "ChargeShoot",
                     "type": "Button",
-                    "id": "b6b953b8-b8d7-4037-a565-ed9b9b53967e",
+                    "id": "721a0341-9c34-41f9-b10e-3be9477706fd",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Lean",
+                    "type": "Value",
+                    "id": "65e8ac71-4954-4791-adf8-42f81b79b88b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "PauseMenu",
+                    "type": "Button",
+                    "id": "f9885de0-8cae-49fa-978d-59ebe2f66b9c",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -218,50 +218,6 @@
                 },
                 {
                     "name": "",
-                    "id": "fd78e1a6-28ee-4887-93d5-c424d1295fef",
-                    "path": "<Keyboard>/leftShift",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Boost",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "9d512e3f-0789-4316-beb3-8f44f7fb84ce",
-                    "path": "<Gamepad>/rightTrigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Boost",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "59fd7212-f8c3-4ba4-a589-accacc4ec849",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Break",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "1f3ffbbe-c0d3-4d7e-87f5-a595380aba56",
-                    "path": "<Gamepad>/leftTrigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Break",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "115a1de4-e5f9-4bfa-8c0f-3fa058698758",
                     "path": "<Gamepad>/buttonEast",
                     "interactions": "",
@@ -273,12 +229,12 @@
                 },
                 {
                     "name": "",
-                    "id": "dbf94da2-ebda-4827-bdd5-97689d9b1aff",
-                    "path": "<Gamepad>/start",
+                    "id": "745bf7f7-2ec9-400c-9bde-3067cd6d4e81",
+                    "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "PauseMenu",
+                    "action": "Bounce",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -323,6 +279,61 @@
                     "processors": "",
                     "groups": "",
                     "action": "SkillActive",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "1D Axis",
+                    "id": "6102617e-4389-4e7f-8914-0c2111f69e0f",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Lean",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "c533fcda-7a5b-4af4-9ee6-e82a3a54c943",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Lean",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "8c389aa6-6da3-4989-9763-1f07be452fc1",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Lean",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "600c0a5a-fd25-46bb-9f66-fa8bcefa405b",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChargeShoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "dbf94da2-ebda-4827-bdd5-97689d9b1aff",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PauseMenu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

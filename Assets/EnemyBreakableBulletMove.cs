@@ -2,11 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBreakableBulletMove : EnemyBulletMove
+public class EnemyBreakableBulletMove : BulletBase
 {
+    bool initialMove = false;
+    bool moveToPlayer = false;
+    [SerializeField]
+    private float spreadSpeed;
+    private Vector3 destination;
     private void Awake()
     {
-        bulletRigidbody = GetComponent<Rigidbody>();
+        ///bulletRigidbody = GetComponent<Rigidbody>();
         bulletData = Resources.Load<EnemyBulletData>("BulletData/NormalBullet");
     }
     // Start is called before the first frame update
@@ -28,11 +33,11 @@ public class EnemyBreakableBulletMove : EnemyBulletMove
                 moveToPlayer = true;
             }
         }
-        if (speed != bulletData.speed)
-        {
-            speed = bulletData.speed;
-            // bulletData.DataUpdate = false;
-        }
+        //if (speed != bulletData.speed)
+        //{
+        //    speed = bulletData.speed;
+        //    // bulletData.DataUpdate = false;
+        //}
         if (moveToPlayer)
         {
             transform.Translate(-Vector3.forward * speed);
@@ -45,5 +50,22 @@ public class EnemyBreakableBulletMove : EnemyBulletMove
         {
             gameObject.SetActive(false);
         }
+    }
+    public void NoMoveInitial()
+    {
+        initialMove = false;
+        moveToPlayer = false;
+        StartCoroutine(CountDownInactive(BulletlifeTime));
+        //speed = bulletData.speed;
+    }
+    public void Speard()
+    {
+        destination = transform.position + new Vector3(Random.Range(-2f, 2f), Random.Range(-2f, 2f), Random.Range(-2f, 2f));
+        initialMove = true;
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, sphereRadius);
     }
 }

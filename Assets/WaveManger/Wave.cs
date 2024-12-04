@@ -11,13 +11,13 @@ public class Wave : ScriptableObject
     int maxSubWaveNumber;
     [SerializeField]
     List<EnemyToSpawn> enemyToSpawnList;
-    [SerializeField]
-    List<GameObject> spawnPointList;
+
 
     public int _waveNumber => waveNumber;
     public int _maxSubWaveNumber => maxSubWaveNumber;
     public List<EnemyToSpawn> _enemyToSpawnList => enemyToSpawnList;
-    public List<GameObject> _spawnPointList => spawnPointList;
+    //public List<GameObject> _spawnPointList => spawnPointList;
+    //public List<GameObject> _endPointList => endPointList;
 }
 [System.Serializable]
 public class EnemyToSpawn

@@ -2,33 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBulletMove : MonoBehaviour
+public class EnemyBulletMove : BulletBase
 {
-    protected EnemyBulletData bulletData;
-    public float speed;
+
+    //public float speed;
     [SerializeField]
-    protected float spreadSpeed;
-    protected float BulletlifeTime=5f;
-    protected Rigidbody bulletRigidbody;
-    [Header("Gizmo")]
-    [SerializeField]
-    protected float sphereRadius;
-    protected bool initialMove = false;
-    protected bool moveToPlayer = false;
-    protected Vector3 destination;
+    private float spreadSpeed;
+    //protected Rigidbody bulletRigidbody;
+
+    private bool initialMove = false;
+    private bool moveToPlayer = false;
+    private Vector3 destination;
 
     private void Awake()
     {
-        bulletRigidbody = GetComponent<Rigidbody>();
+        //bulletRigidbody = GetComponent<Rigidbody>();
         bulletData = Resources.Load<EnemyBulletData>("BulletData/NormalBullet");
+        //Initial();
     }
     public void Initial()
     {
+        BulletlifeTime = 10f;
         initialMove = false;
         moveToPlayer = false;
         StartCoroutine(CountDownInactive(BulletlifeTime));
         moveToPlayer = true;
         speed = bulletData.speed;
+        hit.gameObject.SetActive(false);
+        bulletBody.SetActive(true);
     }
     public void NoMoveInitial()
     {
@@ -49,25 +50,35 @@ public class EnemyBulletMove : MonoBehaviour
                 moveToPlayer = true;
             }
         }
-        if (speed !=bulletData.speed)
-        {
-            speed = bulletData.speed;
-           // bulletData.DataUpdate = false;
-        }
+        //if (speed !=bulletData.speed)
+        //{
+        //    speed = bulletData.speed;
+        //   // bulletData.DataUpdate = false;
+        //}
         if (moveToPlayer)
         {
-            transform.Translate(-Vector3.forward * speed);
+            transform.Translate(Vector3.forward * speed * Time.deltaTime);
         }
         //Debug.Log("Bullet"+ speed);
     }
-    protected IEnumerator CountDownInactive(float lifeTime)
+    private void OnTriggerEnter(Collider other)
     {
-        yield return new WaitForSeconds(lifeTime);
-        gameObject.SetActive(false);
+        if(other.tag == "Player")
+        {
+            moveToPlayer = false;
+            bulletBody.SetActive(false);
+            hit.gameObject.SetActive(true);
+            hitParticle.Play();
+        }
     }
     public void Speard()
     {
         destination = transform.position + new Vector3(Random.Range(-2f,2f), Random.Range(-2f,2f), Random.Range(-2f,2f));
         initialMove = true;
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, sphereRadius);
     }
 }

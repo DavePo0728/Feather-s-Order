@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GoldBulletMove : EnemyBulletMove
+public class GoldBulletMove : BulletBase
 {
     [SerializeField]
     GameObject goldBulletExplosion;
@@ -11,16 +11,20 @@ public class GoldBulletMove : EnemyBulletMove
     [SerializeField]
     float explosionTime;
     MeshRenderer meshRenderer;
-    [HideInInspector]
+    Collider goldCollider;
+    GameObject goldEffect;
+    
     public bool bounceBack = false;
+    [SerializeField]
     bool goback=false;
     ScoreManager scoreManager;
-    Vector3 startpos;
     float timer;
+    private bool initialMove = false;
+    private bool moveToPlayer = false;
     private void Awake()
     {
-        bulletData = Resources.Load<EnemyBulletData>("BulletData/NormalBullet");
-        
+        //bulletData = Resources.Load<EnemyBulletData>("BulletData/GoldBullet");
+        goldBulletExplosion = Resources.Load<GameObject>("ExplosionNovaFire");
     }
     // Start is called before the first frame update
     void Start()
@@ -29,8 +33,11 @@ public class GoldBulletMove : EnemyBulletMove
         StartCoroutine(CountDownInactive(lifeTime));
         moveToPlayer = true;
         meshRenderer = gameObject.GetComponent<MeshRenderer>();
-        speed = bulletData.speed;
+        //speed = bulletData.speed;
         scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
+        timer = 0;
+        goldCollider = GetComponent<Collider>();
+        goldEffect = transform.GetChild(0).gameObject;
     }
 
     // Update is called once per frame
@@ -38,33 +45,35 @@ public class GoldBulletMove : EnemyBulletMove
     {
         if (moveToPlayer)
         {
-            transform.Translate(-Vector3.forward * speed);
-            Debug.Log(-Vector3.forward * speed);
+            transform.Translate(-Vector3.forward * speed*Time.deltaTime);
+            //Debug.Log(-Vector3.forward * speed);
         }
         if (bounceBack)
         {
             goback = true;
             timer += Time.deltaTime;
-            //if()
-            //{
-             //   StartCoroutine(GoldBulletEffect());
-           // }
+            if(timer>=1.5f)
+            {
+                StartCoroutine(GoldBulletEffect());
+            }
         }
-        if (speed != bulletData.speed&&!goback)
-        {
-            speed = bulletData.speed;
-            //Debug.Log(speed);
-        }
+        //if (speed != bulletData.speed&&!goback)
+        //{
+        //    speed = bulletData.speed;
+        //    //Debug.Log(speed);
+        //}
     }
     IEnumerator GoldBulletEffect()
     {
         bounceBack = false;
         speed = 0;
         meshRenderer.enabled = false;
+        goldCollider.enabled = false;
+        goldEffect.SetActive(false);
         Collider[] destroyList = Physics.OverlapSphere(transform.position,sphereRadius);
         for(int i=0; i < destroyList.Length; i++)
         {
-            //Debug.Log(i+":"+destroyList[i].tag);
+            Debug.Log(i+":"+destroyList[i].tag);
             switch (destroyList[i].tag)
             {
                 case "EnemyBullet":
@@ -90,7 +99,7 @@ public class GoldBulletMove : EnemyBulletMove
             if(other.tag == "Enemy")
             {
                // Debug.Log("Hit"+ other.name);
-               // StartCoroutine(GoldBulletEffect());
+               StartCoroutine(GoldBulletEffect());
             }
         }
     }

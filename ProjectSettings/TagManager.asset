@@ -9,16 +9,19 @@ TagManager:
   - EnemyGoldBullet
   - Enemy
   - Block
+  - ModeStart
+  - ChargeBullet
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Cam1
   - Water
   - UI
   - Bullet
   - Enemy
   - Player
+  - Cam2
   - 
   - 
   - 
@@ -39,10 +42,15 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
+  - Gound
   - 
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: New Layer 1
+    uniqueID: 606512281
+    locked: 0
+  - name: New Layer 2
+    uniqueID: 3394574637
     locked: 0

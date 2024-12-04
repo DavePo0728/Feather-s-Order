@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2544364647865835446}
   - component: {fileID: 2544364647850671722}
   - component: {fileID: 2544364647850264390}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: HitEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,8 +27,8 @@ Transform:
   m_GameObject: {fileID: 2544364647865971508}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2544364647865780620}
   - {fileID: 2544364647865890782}
@@ -4860,7 +4860,7 @@ GameObject:
   - component: {fileID: 2544364647865780620}
   - component: {fileID: 2544364647850596556}
   - component: {fileID: 2544364647850608188}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Glow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9670,7 +9670,7 @@ GameObject:
   - component: {fileID: 2544364647865788366}
   - component: {fileID: 2544364647850599964}
   - component: {fileID: 2544364647850307394}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: VolumetricGlow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14480,7 +14480,7 @@ GameObject:
   - component: {fileID: 2544364647865890782}
   - component: {fileID: 2544364647850628532}
   - component: {fileID: 2544364647850300654}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19290,7 +19290,7 @@ GameObject:
   - component: {fileID: 6497917454671472221}
   - component: {fileID: 6497917454657385019}
   - component: {fileID: 6497917454657349651}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Glow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24052,9 +24052,9 @@ GameObject:
   - component: {fileID: 6497917454657363649}
   - component: {fileID: 6497917454657328771}
   - component: {fileID: 6750490977475582912}
-  - component: {fileID: 4904516694437531444}
   - component: {fileID: 8040456513894683120}
-  m_Layer: 0
+  - component: {fileID: -3171970169911448281}
+  m_Layer: 3
   m_Name: PlayerBullet(New)
   m_TagString: PlayerBullet
   m_Icon: {fileID: 0}
@@ -24069,9 +24069,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6497917454671684221}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.04, y: -0.04, z: 1}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6497917454671542373}
   - {fileID: 6497917454671472221}
@@ -28860,22 +28860,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.8
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &4904516694437531444
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6497917454671684221}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 118
-  m_CollisionDetection: 0
 --- !u!114 &8040456513894683120
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28888,8 +28872,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc8911c9a0514e240ae1c229b4b70993, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 600
-  sphereRadius: 0.6
+  hitEffectObject: {fileID: 0}
+  speed: 300
+  sphereRadius: 1.6
+--- !u!54 &-3171970169911448281
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6497917454671684221}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 1
+  m_Constraints: 112
+  m_CollisionDetection: 1
 --- !u!1 &6497917454671691031
 GameObject:
   m_ObjectHideFlags: 0
@@ -28901,7 +28902,7 @@ GameObject:
   - component: {fileID: 6497917454671542373}
   - component: {fileID: 6497917454657293923}
   - component: {fileID: 6497917454658212759}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: SparkTrail
   m_TagString: Untagged
   m_Icon: {fileID: 0}

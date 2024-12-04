@@ -12,7 +12,7 @@ public class SimpleShoot : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        timeBetweenShots = 1 / (60 / 60.0f);
+        timeBetweenShots = 1 / (150 / 60.0f);
         //StartCoroutine(AimToPlayer());
     }
 
@@ -51,12 +51,5 @@ public class SimpleShoot : MonoBehaviour
             bulletMove.Initial();
         }
     }
-    IEnumerator AimToPlayer()
-    {
-        while (true)
-        {
-            transform.LookAt(player.transform);
-            yield return new WaitForSeconds(1.0f);
-        }
-    }
+
 }

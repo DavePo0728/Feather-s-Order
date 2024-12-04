@@ -114,7 +114,7 @@ Transform:
   m_GameObject: {fileID: 1692269402182525613}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.7500001, y: 0, z: -5.7}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 10, y: 10, z: 10}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7006872736297268365}
@@ -202,9 +202,11 @@ MonoBehaviour:
   speed: 0.5
   spreadSpeed: 50
   sphereRadius: 28
-  GoldBulletExplosion: {fileID: 115286, guid: ec1c5863f61e8ff4a84dbdb8a282a7ac, type: 3}
-  ExplosionTime: 10
+  goldBulletExplosion: {fileID: 0}
+  lifeTime: 10
+  explosionTime: 0
   bounceBack: 0
+  goback: 0
 --- !u!136 &5579763857213712505
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -216,7 +218,7 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5
-  m_Height: 1.5
+  m_Height: 1.93
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2241386972087383303
