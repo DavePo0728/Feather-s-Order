@@ -59,6 +59,7 @@ public class PlayerMove : MonoBehaviour
     GameObject BounceExpolsion;
     [SerializeField]
     ParticleSystem speedLine;
+    Vector3 movement;
 
     //bool isBoosting = false;
     //bool isBraking = false;
@@ -142,7 +143,14 @@ public class PlayerMove : MonoBehaviour
         // Normal Movement
         if (!isDashing)
         {
-            Vector3 movement = new Vector3(movementInput.x, movementInput.y, 0);
+            if (movementInput.x>0.2f||movementInput.y>0.2f|| movementInput.x < -0.2f || movementInput.y < -0.2f)
+            {
+                movement = new Vector3(movementInput.x, movementInput.y, 0);
+            }
+            else
+            {
+                movement = Vector3.zero;
+            }
             if (manualLean ==false)
             {
                 moveHspeedMultiplier = 1f;
@@ -150,24 +158,24 @@ public class PlayerMove : MonoBehaviour
             }
             else
             {
-                if (leanInput > 0 && movement.x < 0)
+                if (leanInput > 0 && movement.x < -0.2f)
                 {
                     moveHspeedMultiplier = 1.2f;
                     playerRigidbody.velocity = new Vector3(movement.x * moveHspeed * moveHspeedMultiplier, movement.y * moveVspeed, movement.z);
 
                 }
-                else if (leanInput > 0 && movement.x > 0)
+                else if (leanInput > 0 && movement.x > 0.2f)
                 {
                     moveHspeedMultiplier = 0.5f;
                     playerRigidbody.velocity = new Vector3(movement.x * moveHspeed * moveHspeedMultiplier, movement.y * moveVspeed, movement.z);
                 }
-                if (leanInput < 0 && movement.x > 0)
+                if (leanInput < 0 && movement.x > 0.2f)
                 {
                     moveHspeedMultiplier = 1.2f;
                     playerRigidbody.velocity = new Vector3(movement.x * moveHspeed * moveHspeedMultiplier, movement.y * moveVspeed, movement.z);
 
                 }
-                else if (leanInput < 0 && movement.x < 0)
+                else if (leanInput < 0 && movement.x < -0.2f)
                 {
                     moveHspeedMultiplier = 0.5f;
                     playerRigidbody.velocity = new Vector3(movement.x * moveHspeed * moveHspeedMultiplier, movement.y * moveVspeed, movement.z);

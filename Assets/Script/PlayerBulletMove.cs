@@ -28,7 +28,7 @@ public class PlayerBulletMove : MonoBehaviour
     void Start()
     {
         StartCoroutine(CountDownInactive());
-        hitEffectObject = transform.GetChild(2).gameObject;
+        hitEffectObject = transform.GetChild(1).gameObject;
         hitEffect = hitEffectObject.GetComponent<ParticleSystem>();
     }
     private void OnEnable()
