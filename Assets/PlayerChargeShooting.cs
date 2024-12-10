@@ -33,7 +33,7 @@ public class PlayerChargeShooting : MonoBehaviour
         if (chargeShooting && chargeShootingCounter < maxChargeTime)
         {
             chargeShootingCounter += Time.deltaTime;
-            Debug.Log(chargeShootingCounter);
+            //Debug.Log(chargeShootingCounter);
         }
         else if (chargeShooting == false && chargeShootingCounter >= maxChargeTime)
         {

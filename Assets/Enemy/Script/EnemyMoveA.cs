@@ -17,6 +17,7 @@ public class EnemyMoveA : EnemyMove
     float leaveTime;
     [SerializeField]
     float timer;
+    Rigidbody enemyRigibody;
 
     void Start()
     {
@@ -27,6 +28,7 @@ public class EnemyMoveA : EnemyMove
         StartCoroutine(TimeToDestroy());
         gun = transform.GetChild(1).gameObject;
         gun.SetActive(false);
+        enemyRigibody = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -54,22 +56,27 @@ public class EnemyMoveA : EnemyMove
             if (endPoint != null)
             {
                 //Debug.Log(gameObject.name+" "+(Mathf.Abs(endPoint.transform.position.x - transform.position.x)));
-                if (Mathf.Abs(endPoint.transform.position.x - transform.position.x) > 0.5f)
+                if (Mathf.Abs(endPoint.transform.position.x - transform.position.x) >= 0.8f)
                 {
                     //left to right
                     if (endPoint.transform.position.x > transform.position.x)
                     {
-                        transform.Translate(new Vector3(1 * hSpeed * Time.deltaTime, 0, 1 * speed * Time.deltaTime));
+                        //transform.Translate(new Vector3(1 * hSpeed * Time.deltaTime, 0, 1 * speed * Time.deltaTime));
+                        enemyRigibody.velocity = new Vector3(1 * hSpeed, 0, 0);
+
                         //Debug.Log("LeftIN");
                     }
                     else //right to left
                     {
-                        transform.Translate(new Vector3(-1 * hSpeed * Time.deltaTime, 0, 1 * speed * Time.deltaTime));
+                        // transform.Translate(new Vector3(-1 * hSpeed * Time.deltaTime, 0, 1 * speed * Time.deltaTime));
+                        enemyRigibody.velocity = new Vector3(-1 * hSpeed, 0, 0);
                         //Debug.Log("RightIN");
                     }
                 }
                 else
                 {
+                    enemyRigibody.velocity = Vector3.zero;
+                    //transform.position = endPoint.transform.position;
                     enterScene = false;
                 }
             }
@@ -87,12 +94,14 @@ public class EnemyMoveA : EnemyMove
             //left to right
             if (endPoint.transform.position.x > transform.position.x)
             {
-                transform.Translate(new Vector3(-1 * hSpeed * Time.deltaTime, 0, 1 * speed * Time.deltaTime));
+                //transform.Translate(new Vector3(-1 * hSpeed * Time.deltaTime, 0, 1 * speed * Time.deltaTime));
+                enemyRigibody.velocity = new Vector3(-1 * hSpeed, 0, 0);
                 //Debug.Log("Leftout");
             }
             else //right to left
             {
-                transform.Translate(new Vector3(1 * hSpeed * Time.deltaTime, 0, 1 * speed * Time.deltaTime));
+                // transform.Translate(new Vector3(1 * hSpeed * Time.deltaTime, 0, 1 * speed * Time.deltaTime));
+                enemyRigibody.velocity = new Vector3(1 * hSpeed, 0, 0);
                 //Debug.Log("Rightout");
             }
         }

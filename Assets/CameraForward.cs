@@ -17,7 +17,7 @@ public class CameraForward : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        transform.position = new Vector3(PlayerCam.transform.position.x - 2000, PlayerCam.transform.position.y, transform.position.z);
+        transform.position = new Vector3(transform.position.x,transform.position.y, transform.position.z);
         transform.Translate(Vector3.forward * speed *Time.deltaTime);
     }
 }

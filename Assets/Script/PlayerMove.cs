@@ -29,7 +29,7 @@ public class PlayerMove : MonoBehaviour
     float dashForce;
     Rigidbody playerRigidbody;
     [SerializeField]
-    float moveHspeed,moveVspeed, maxVelocity, moveHspeedMultiplier;
+    float moveHspeed,moveVspeed, maxVelocity, moveHspeedMultiplier, moveVspeedMultiplier;
     [SerializeField]
     float zSpeed,oriZSpeed;
     [SerializeField]
@@ -158,28 +158,9 @@ public class PlayerMove : MonoBehaviour
             }
             else
             {
-                if (leanInput > 0 && movement.x < -0.2f)
-                {
-                    moveHspeedMultiplier = 1.2f;
-                    playerRigidbody.velocity = new Vector3(movement.x * moveHspeed * moveHspeedMultiplier, movement.y * moveVspeed, movement.z);
-
-                }
-                else if (leanInput > 0 && movement.x > 0.2f)
-                {
-                    moveHspeedMultiplier = 0.5f;
-                    playerRigidbody.velocity = new Vector3(movement.x * moveHspeed * moveHspeedMultiplier, movement.y * moveVspeed, movement.z);
-                }
-                if (leanInput < 0 && movement.x > 0.2f)
-                {
-                    moveHspeedMultiplier = 1.2f;
-                    playerRigidbody.velocity = new Vector3(movement.x * moveHspeed * moveHspeedMultiplier, movement.y * moveVspeed, movement.z);
-
-                }
-                else if (leanInput < 0 && movement.x < -0.2f)
-                {
-                    moveHspeedMultiplier = 0.5f;
-                    playerRigidbody.velocity = new Vector3(movement.x * moveHspeed * moveHspeedMultiplier, movement.y * moveVspeed, movement.z);
-                }
+                moveHspeedMultiplier = 0.5f;
+                moveVspeedMultiplier = 0.5f;
+                playerRigidbody.velocity = new Vector3(movement.x * moveHspeed* moveHspeedMultiplier, movement.y * moveVspeed* moveVspeedMultiplier, movement.z);
             }
             playerRigidbody.velocity = Vector3.ClampMagnitude(playerRigidbody.velocity, maxVelocity);
             // flying lean

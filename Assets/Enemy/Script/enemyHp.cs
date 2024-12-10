@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class enemyHp : MonoBehaviour
 {
-    float Maxhp = 5;
+    [SerializeField]
+    float Maxhp;
     float currentHp;
+    [SerializeField]
     GameObject shieldEffect,shieldExplosionEffect;
     public bool haveshield;
     [SerializeField]
@@ -21,12 +23,17 @@ public class enemyHp : MonoBehaviour
         currentHp = Maxhp;
         DeathExplosion = Resources.Load<GameObject>("ShadowExplosion2");
         scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
-        shieldEffect = transform.GetChild(1).gameObject;
-        shieldExplosionEffect = transform.GetChild(2).gameObject;
+
         if (haveshield)
         {
+            shieldEffect = transform.GetChild(2).gameObject;
+            shieldExplosionEffect = transform.GetChild(3).gameObject;
             currentShieldHp = maxShieldHp;
             shieldEffect.SetActive(true);
+        }
+        else
+        {
+            currentShieldHp = 0;
         }
     }
 
@@ -42,17 +49,22 @@ public class enemyHp : MonoBehaviour
         if (currentShieldHp > 0)
         {
             currentShieldHp-= damage*shieldDamageMultiplier;
+            
         }
         else
         {
+            if (shieldEffect != null)
+            {
+                shieldEffect.SetActive(false);
+                shieldExplosionEffect.SetActive(true);
+                Debug.Log("shieldBroke");
+            }
             if (currentShieldHp > 0)
             {
                 currentShieldHp -= damage;
             }
             else
             {
-                shieldEffect.SetActive(false);
-                shieldExplosionEffect.SetActive(true);
                 if (currentHp <= 0)
                 {
                     DeathEffect();
@@ -71,6 +83,11 @@ public class enemyHp : MonoBehaviour
         if (currentShieldHp > 0)
         {
             currentShieldHp -= damage * shieldDamageMultiplier;
+            if (shieldEffect != null)
+            {
+                shieldEffect.SetActive(false);
+                shieldExplosionEffect.SetActive(true);
+            }
         }
         else
         {
@@ -80,8 +97,6 @@ public class enemyHp : MonoBehaviour
             }
             else
             {
-                shieldEffect.SetActive(false);
-                shieldExplosionEffect.SetActive(true);
                 if (currentHp <= 0)
                 {
                     DeathEffect();
@@ -109,7 +124,7 @@ public class enemyHp : MonoBehaviour
         }
         if(other.tag == "ChargeBullet")
         {
-            ShieldHurt(5);
+            ShieldHurt(10);
         }
     }
 }

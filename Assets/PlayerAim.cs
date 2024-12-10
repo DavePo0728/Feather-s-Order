@@ -8,7 +8,7 @@ public class PlayerAim : MonoBehaviour
     [SerializeField]
     Camera playerCamera;
     [SerializeField]
-    GameObject aimmingImage1, aimmingImage2, aimmingImage3;
+    GameObject aimmingImage1, aimmingImage2, aimmingImage3,lockImage;
     [SerializeField]
     GameObject lockedEnemy;
     [SerializeField]
@@ -49,14 +49,15 @@ public class PlayerAim : MonoBehaviour
             {
                 Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.red);
                 lockedEnemy = hit.collider.gameObject;
-                //aimmingImage.SetActive(true);
+                lockImage.SetActive(true);
+                lockImage.transform.position = playerCamera.WorldToScreenPoint(lockedEnemy.transform.position);
             }
         }
         else
         {
             Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 1000, Color.green);
             lockedEnemy = null;
-            //aimmingImage.SetActive(false);
+            lockImage.SetActive(false);
         }
 
     }

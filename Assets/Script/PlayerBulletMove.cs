@@ -15,14 +15,12 @@ public class PlayerBulletMove : MonoBehaviour
     float sphereRadius;
     GameObject lockedEnemy;
     Collider bulletCollider;
-    ParticleSystem body, glow,hitEffect;
+    ParticleSystem hitEffect;
     // Start is called before the first frame update
     private void Awake()
     {
         bulletRigidbody = GetComponent<Rigidbody>();
         bulletCollider = GetComponent<Collider>();
-        body = GetComponent<ParticleSystem>();
-        glow = transform.GetChild(1).GetComponent<ParticleSystem>();
         
     }
     void Start()
@@ -35,8 +33,6 @@ public class PlayerBulletMove : MonoBehaviour
     {
         bulletCollider.enabled = true;
         speed = 300;
-        //body.Play();
-       // glow.Play();
         
     }
 
@@ -67,23 +63,33 @@ public class PlayerBulletMove : MonoBehaviour
     {
         yield return new WaitForSeconds(lifeTime);
         //Debug.Log("off");
+        if(gameObject.tag == "ChargeBullet")
+        {
+            Destroy(this.gameObject);
+        }
         this.gameObject.SetActive(false);
     }
     IEnumerator HitEffectOn()
     {
-        speed = 0;
+        if (gameObject.tag =="PlayerBullet")
+        {
+            speed = 0;
+            bulletCollider.enabled = false;
+        }
         hitEffectObject.SetActive(true);
         hitEffect.Play();
         if (hitEffect.isPlaying)
         {
-            Debug.Log("hitEffectPlaying");
+            //Debug.Log("hitEffectPlaying");
         }
-        bulletCollider.enabled = false;
-        body.Stop();
-        glow.Stop();
+
+
         yield return new WaitForSeconds(1f);
-        gameObject.SetActive(false);
-        hitEffectObject.SetActive(false);
+        if (gameObject.tag == "PlayerBullet")
+        {
+            gameObject.SetActive(false);
+            hitEffectObject.SetActive(false);
+        }
     }
     public void SetLockedEnemy(GameObject enemy)
     {
