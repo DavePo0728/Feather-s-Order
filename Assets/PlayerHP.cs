@@ -15,6 +15,8 @@ public class PlayerHP : MonoBehaviour
     [SerializeField]
     Image HpBar;
     [SerializeField]
+    TMP_Text HPText;
+    [SerializeField]
     GameObject GameOverUI;
     [SerializeField]
     List<Material> playerMat;
@@ -83,6 +85,7 @@ public class PlayerHP : MonoBehaviour
         float HpAmount = (float)playerHp / (float)maxHp;
         //Debug.Log(HpAmount);
         HpBar.fillAmount = HpAmount;
+        HPText.text = playerHp.ToString();
         if (playerHp <= 0)
         {
             GameOver();

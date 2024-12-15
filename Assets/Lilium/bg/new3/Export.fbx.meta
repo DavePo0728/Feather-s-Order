@@ -49,8 +49,8 @@ ModelImporter:
     rigImportErrors: 
     rigImportWarnings: 
     animationImportErrors: 
-    animationImportWarnings: "\nClip 'Action-fly' has import animation warnings that
-      might lower retargeting quality:\nNote: Activate translation DOF on avatar
+    animationImportWarnings: "\nClip 'Action-waving' has import animation warnings
+      that might lower retargeting quality:\nNote: Activate translation DOF on avatar
       to improve retargeting quality.\n\t'DEF-spine.002' has scale animation that
       will be discarded.\n\t'DEF-spine.003' has scale animation that will be discarded.\n\t'DEF-thigh.L'
       has scale animation that will be discarded.\n\t'DEF-shin.L' has scale animation
@@ -58,7 +58,7 @@ ModelImporter:
       has scale animation that will be discarded.\n\t'DEF-thigh.R' has scale animation
       that will be discarded.\n\t'DEF-shin.R' has scale animation that will be discarded.\n\t'DEF-foot.R'
       has scale animation that will be discarded.\n\t'DEF-toe.R' has scale animation
-      that will be discarded.\n\nClip 'Action-waving' has import animation warnings
+      that will be discarded.\n\nClip 'Action-fly' has import animation warnings
       that might lower retargeting quality:\nNote: Activate translation DOF on avatar
       to improve retargeting quality.\n\t'DEF-spine.002' has scale animation that
       will be discarded.\n\t'DEF-spine.003' has scale animation that will be discarded.\n\t'DEF-thigh.L'
@@ -86,6 +86,35 @@ ModelImporter:
       internalID: -7805277792265232707
       firstFrame: 0
       lastFrame: 1
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Action-waving
+      takeName: Action-waving
+      internalID: -4608258601720197320
+      firstFrame: 0
+      lastFrame: 100
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -463,9 +492,9 @@ ModelImporter:
       - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003
         weight: 1
       - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-breast.L
-        weight: 0
+        weight: 1
       - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-breast.R
-        weight: 0
+        weight: 1
       - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck
         weight: 1
       - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head
@@ -1510,1056 +1539,9 @@ ModelImporter:
       - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003
         weight: 1
       - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-breast.L
-        weight: 0
+        weight: 1
       - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-breast.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck
         weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/hair0_FK
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/hair0_FK/hair0_1
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/hair0_FK/hair0_1/hair0_2
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/hair0_FK/hair0_1/hair0_2/hair0_3
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/hair1_1.001
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/hair1_1.001/hair1_1
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/hair1_1.001/hair1_1/hair1_2
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/hair1_1.001/hair1_1/hair1_2/hair1_3
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/hair1_1.001/hair1_1/hair1_2/hair1_3/hair1_4
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/hair1_1.001/hair1_1/hair1_2/hair1_3/hair1_4/hair1_5
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/hair1_1.001/hair1_1/hair1_2/hair1_3/hair1_4/hair1_5/hair1_6
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/hair1_1.001/hair1_1/hair1_2/hair1_3/hair1_4/hair1_5/hair1_6/hair1_7
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/hair1_1.001/hair1_1/hair1_2/hair1_3/hair1_4/hair1_5/hair1_6/hair1_7/hair1_8
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/hair1_1.001/hair1_1/hair1_2/hair1_3/hair1_4/hair1_5/hair1_6/hair1_7/hair1_8/hair1_9
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/hair1_1.001/hair1_1/hair1_2/hair1_3/hair1_4/hair1_5/hair1_6/hair1_7/hair1_8/hair1_9/hair1_10
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/hair1_1.001/hair1_1/hair1_2/hair1_3/hair1_4/hair1_5/hair1_6/hair1_7/hair1_8/hair1_9/hair1_10/hair1_11
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/hair2_1.001
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/hair2_1.001/hair2_1
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/hair2_1.001/hair2_1/hair2_2
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/hair2_1.001/hair2_1/hair2_2/hair2_3
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/hair2_1.001/hair2_1/hair2_2/hair2_3/hair2_4
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/hair2_1.001/hair2_1/hair2_2/hair2_3/hair2_4/hair2_5
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/hair2_1.001/hair2_1/hair2_2/hair2_3/hair2_4/hair2_5/hair2_6
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/hair2_1.001/hair2_1/hair2_2/hair2_3/hair2_4/hair2_5/hair2_6/hair2_7
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/hair2_1.001/hair2_1/hair2_2/hair2_3/hair2_4/hair2_5/hair2_6/hair2_7/hair2_8
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/hair2_1.001/hair2_1/hair2_2/hair2_3/hair2_4/hair2_5/hair2_6/hair2_7/hair2_8/hair2_9
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/hair2_1.001/hair2_1/hair2_2/hair2_3/hair2_4/hair2_5/hair2_6/hair2_7/hair2_8/hair2_9/hair2_10
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/hair2_1.001/hair2_1/hair2_2/hair2_3/hair2_4/hair2_5/hair2_6/hair2_7/hair2_8/hair2_9/hair2_10/hair2_11
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/hair3_FK
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/hair3_FK/hair3_1
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/hair3_FK/hair3_1/hair3_2
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/hair3_FK/hair3_1/hair3_2/hair3_3
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/hair4_FK
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/hair4_FK/hair4_1
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/hair4_FK/hair4_1/hair4_2
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/hair4_FK/hair4_1/hair4_2/hair4_3
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/hair5_FK
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/hair5_FK/hair5_1
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/hair5_FK/hair5_1/hair5_2
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head/hair5_FK/hair5_1/hair5_2/hair5_3
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.01.L
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.01.L/DEF-f_index.01.L
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.01.L/DEF-f_index.01.L/DEF-f_index.02.L
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.01.L/DEF-f_index.01.L/DEF-f_index.02.L/DEF-f_index.03.L
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.01.L/DEF-palm.01.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.01.L/DEF-thumb.01.L
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.01.L/DEF-thumb.01.L/DEF-thumb.02.L
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.01.L/DEF-thumb.01.L/DEF-thumb.02.L/DEF-thumb.03.L
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.01.L/f_index.01_master.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.01.L/MCH-f_index.01.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.01.L/MCH-f_index.01_drv.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.01.L/MCH-f_index.01_drv.L/f_index.01.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.01.L/MCH-f_index.01_drv.L/f_index.01.L/MCH-f_index.02_drv.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.01.L/MCH-f_index.01_drv.L/f_index.01.L/MCH-f_index.02_drv.L/f_index.02.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.01.L/MCH-f_index.01_drv.L/f_index.01.L/MCH-f_index.02_drv.L/f_index.02.L/MCH-f_index.02.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.01.L/MCH-f_index.01_drv.L/f_index.01.L/MCH-f_index.02_drv.L/f_index.02.L/MCH-f_index.03_drv.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.01.L/MCH-f_index.01_drv.L/f_index.01.L/MCH-f_index.02_drv.L/f_index.02.L/MCH-f_index.03_drv.L/f_index.03.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.01.L/MCH-f_index.01_drv.L/f_index.01.L/MCH-f_index.02_drv.L/f_index.02.L/MCH-f_index.03_drv.L/f_index.03.L/f_index.01.L.001
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.01.L/MCH-f_index.01_drv.L/f_index.01.L/MCH-f_index.02_drv.L/f_index.02.L/MCH-f_index.03_drv.L/f_index.03.L/MCH-f_index.03.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.01.L/MCH-thumb.01.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.01.L/MCH-thumb.01_drv.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.01.L/MCH-thumb.01_drv.L/thumb.01.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.01.L/MCH-thumb.01_drv.L/thumb.01.L/MCH-thumb.02_drv.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.01.L/MCH-thumb.01_drv.L/thumb.01.L/MCH-thumb.02_drv.L/thumb.02.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.01.L/MCH-thumb.01_drv.L/thumb.01.L/MCH-thumb.02_drv.L/thumb.02.L/MCH-thumb.02.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.01.L/MCH-thumb.01_drv.L/thumb.01.L/MCH-thumb.02_drv.L/thumb.02.L/MCH-thumb.03_drv.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.01.L/MCH-thumb.01_drv.L/thumb.01.L/MCH-thumb.02_drv.L/thumb.02.L/MCH-thumb.03_drv.L/thumb.03.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.01.L/MCH-thumb.01_drv.L/thumb.01.L/MCH-thumb.02_drv.L/thumb.02.L/MCH-thumb.03_drv.L/thumb.03.L/MCH-thumb.03.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.01.L/MCH-thumb.01_drv.L/thumb.01.L/MCH-thumb.02_drv.L/thumb.02.L/MCH-thumb.03_drv.L/thumb.03.L/thumb.01.L.001
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.01.L/ORG-f_index.01.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.01.L/ORG-f_index.01.L/ORG-f_index.02.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.01.L/ORG-f_index.01.L/ORG-f_index.02.L/ORG-f_index.03.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.01.L/ORG-thumb.01.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.01.L/ORG-thumb.01.L/ORG-thumb.02.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.01.L/ORG-thumb.01.L/ORG-thumb.02.L/ORG-thumb.03.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.01.L/thumb.01_master.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.02.L
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.02.L/DEF-f_middle.01.L
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.02.L/DEF-f_middle.01.L/DEF-f_middle.02.L
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.02.L/DEF-f_middle.01.L/DEF-f_middle.02.L/DEF-f_middle.03.L
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.02.L/DEF-palm.02.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.02.L/f_middle.01_master.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.02.L/MCH-f_middle.01.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.02.L/MCH-f_middle.01_drv.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.02.L/MCH-f_middle.01_drv.L/f_middle.01.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.02.L/MCH-f_middle.01_drv.L/f_middle.01.L/MCH-f_middle.02_drv.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.02.L/MCH-f_middle.01_drv.L/f_middle.01.L/MCH-f_middle.02_drv.L/f_middle.02.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.02.L/MCH-f_middle.01_drv.L/f_middle.01.L/MCH-f_middle.02_drv.L/f_middle.02.L/MCH-f_middle.02.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.02.L/MCH-f_middle.01_drv.L/f_middle.01.L/MCH-f_middle.02_drv.L/f_middle.02.L/MCH-f_middle.03_drv.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.02.L/MCH-f_middle.01_drv.L/f_middle.01.L/MCH-f_middle.02_drv.L/f_middle.02.L/MCH-f_middle.03_drv.L/f_middle.03.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.02.L/MCH-f_middle.01_drv.L/f_middle.01.L/MCH-f_middle.02_drv.L/f_middle.02.L/MCH-f_middle.03_drv.L/f_middle.03.L/f_middle.01.L.001
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.02.L/MCH-f_middle.01_drv.L/f_middle.01.L/MCH-f_middle.02_drv.L/f_middle.02.L/MCH-f_middle.03_drv.L/f_middle.03.L/MCH-f_middle.03.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.02.L/ORG-f_middle.01.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.02.L/ORG-f_middle.01.L/ORG-f_middle.02.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.02.L/ORG-f_middle.01.L/ORG-f_middle.02.L/ORG-f_middle.03.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.03.L
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.03.L/DEF-f_ring.01.L
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.03.L/DEF-f_ring.01.L/DEF-f_ring.02.L
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.03.L/DEF-f_ring.01.L/DEF-f_ring.02.L/DEF-f_ring.03.L
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.03.L/DEF-palm.03.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.03.L/f_ring.01_master.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.03.L/MCH-f_ring.01.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.03.L/MCH-f_ring.01_drv.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.03.L/MCH-f_ring.01_drv.L/f_ring.01.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.03.L/MCH-f_ring.01_drv.L/f_ring.01.L/MCH-f_ring.02_drv.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.03.L/MCH-f_ring.01_drv.L/f_ring.01.L/MCH-f_ring.02_drv.L/f_ring.02.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.03.L/MCH-f_ring.01_drv.L/f_ring.01.L/MCH-f_ring.02_drv.L/f_ring.02.L/MCH-f_ring.02.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.03.L/MCH-f_ring.01_drv.L/f_ring.01.L/MCH-f_ring.02_drv.L/f_ring.02.L/MCH-f_ring.03_drv.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.03.L/MCH-f_ring.01_drv.L/f_ring.01.L/MCH-f_ring.02_drv.L/f_ring.02.L/MCH-f_ring.03_drv.L/f_ring.03.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.03.L/MCH-f_ring.01_drv.L/f_ring.01.L/MCH-f_ring.02_drv.L/f_ring.02.L/MCH-f_ring.03_drv.L/f_ring.03.L/f_ring.01.L.001
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.03.L/MCH-f_ring.01_drv.L/f_ring.01.L/MCH-f_ring.02_drv.L/f_ring.02.L/MCH-f_ring.03_drv.L/f_ring.03.L/MCH-f_ring.03.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.03.L/ORG-f_ring.01.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.03.L/ORG-f_ring.01.L/ORG-f_ring.02.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.03.L/ORG-f_ring.01.L/ORG-f_ring.02.L/ORG-f_ring.03.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.04.L
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.04.L/DEF-f_pinky.01.L
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.04.L/DEF-f_pinky.01.L/DEF-f_pinky.02.L
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.04.L/DEF-f_pinky.01.L/DEF-f_pinky.02.L/DEF-f_pinky.03.L
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.04.L/DEF-palm.04.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.04.L/f_pinky.01_master.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.04.L/MCH-f_pinky.01.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.04.L/MCH-f_pinky.01_drv.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.04.L/MCH-f_pinky.01_drv.L/f_pinky.01.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.04.L/MCH-f_pinky.01_drv.L/f_pinky.01.L/MCH-f_pinky.02_drv.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.04.L/MCH-f_pinky.01_drv.L/f_pinky.01.L/MCH-f_pinky.02_drv.L/f_pinky.02.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.04.L/MCH-f_pinky.01_drv.L/f_pinky.01.L/MCH-f_pinky.02_drv.L/f_pinky.02.L/MCH-f_pinky.02.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.04.L/MCH-f_pinky.01_drv.L/f_pinky.01.L/MCH-f_pinky.02_drv.L/f_pinky.02.L/MCH-f_pinky.03_drv.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.04.L/MCH-f_pinky.01_drv.L/f_pinky.01.L/MCH-f_pinky.02_drv.L/f_pinky.02.L/MCH-f_pinky.03_drv.L/f_pinky.03.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.04.L/MCH-f_pinky.01_drv.L/f_pinky.01.L/MCH-f_pinky.02_drv.L/f_pinky.02.L/MCH-f_pinky.03_drv.L/f_pinky.03.L/f_pinky.01.L.001
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.04.L/MCH-f_pinky.01_drv.L/f_pinky.01.L/MCH-f_pinky.02_drv.L/f_pinky.02.L/MCH-f_pinky.03_drv.L/f_pinky.03.L/MCH-f_pinky.03.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.04.L/ORG-f_pinky.01.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.04.L/ORG-f_pinky.01.L/ORG-f_pinky.02.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/ORG-palm.04.L/ORG-f_pinky.01.L/ORG-f_pinky.02.L/ORG-f_pinky.03.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.L/DEF-upper_arm.L/DEF-forearm.L/DEF-hand.L/palm.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.01.R
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.01.R/DEF-f_index.01.R
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.01.R/DEF-f_index.01.R/DEF-f_index.02.R
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.01.R/DEF-f_index.01.R/DEF-f_index.02.R/DEF-f_index.03.R
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.01.R/DEF-palm.01.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.01.R/DEF-thumb.01.R
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.01.R/DEF-thumb.01.R/DEF-thumb.02.R
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.01.R/DEF-thumb.01.R/DEF-thumb.02.R/DEF-thumb.03.R
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.01.R/f_index.01_master.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.01.R/MCH-f_index.01.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.01.R/MCH-f_index.01_drv.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.01.R/MCH-f_index.01_drv.R/f_index.01.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.01.R/MCH-f_index.01_drv.R/f_index.01.R/MCH-f_index.02_drv.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.01.R/MCH-f_index.01_drv.R/f_index.01.R/MCH-f_index.02_drv.R/f_index.02.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.01.R/MCH-f_index.01_drv.R/f_index.01.R/MCH-f_index.02_drv.R/f_index.02.R/MCH-f_index.02.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.01.R/MCH-f_index.01_drv.R/f_index.01.R/MCH-f_index.02_drv.R/f_index.02.R/MCH-f_index.03_drv.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.01.R/MCH-f_index.01_drv.R/f_index.01.R/MCH-f_index.02_drv.R/f_index.02.R/MCH-f_index.03_drv.R/f_index.03.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.01.R/MCH-f_index.01_drv.R/f_index.01.R/MCH-f_index.02_drv.R/f_index.02.R/MCH-f_index.03_drv.R/f_index.03.R/f_index.01.R.001
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.01.R/MCH-f_index.01_drv.R/f_index.01.R/MCH-f_index.02_drv.R/f_index.02.R/MCH-f_index.03_drv.R/f_index.03.R/MCH-f_index.03.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.01.R/MCH-thumb.01.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.01.R/MCH-thumb.01_drv.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.01.R/MCH-thumb.01_drv.R/thumb.01.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.01.R/MCH-thumb.01_drv.R/thumb.01.R/MCH-thumb.02_drv.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.01.R/MCH-thumb.01_drv.R/thumb.01.R/MCH-thumb.02_drv.R/thumb.02.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.01.R/MCH-thumb.01_drv.R/thumb.01.R/MCH-thumb.02_drv.R/thumb.02.R/MCH-thumb.02.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.01.R/MCH-thumb.01_drv.R/thumb.01.R/MCH-thumb.02_drv.R/thumb.02.R/MCH-thumb.03_drv.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.01.R/MCH-thumb.01_drv.R/thumb.01.R/MCH-thumb.02_drv.R/thumb.02.R/MCH-thumb.03_drv.R/thumb.03.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.01.R/MCH-thumb.01_drv.R/thumb.01.R/MCH-thumb.02_drv.R/thumb.02.R/MCH-thumb.03_drv.R/thumb.03.R/MCH-thumb.03.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.01.R/MCH-thumb.01_drv.R/thumb.01.R/MCH-thumb.02_drv.R/thumb.02.R/MCH-thumb.03_drv.R/thumb.03.R/thumb.01.R.001
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.01.R/ORG-f_index.01.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.01.R/ORG-f_index.01.R/ORG-f_index.02.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.01.R/ORG-f_index.01.R/ORG-f_index.02.R/ORG-f_index.03.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.01.R/ORG-thumb.01.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.01.R/ORG-thumb.01.R/ORG-thumb.02.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.01.R/ORG-thumb.01.R/ORG-thumb.02.R/ORG-thumb.03.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.01.R/thumb.01_master.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.02.R
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.02.R/DEF-f_middle.01.R
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.02.R/DEF-f_middle.01.R/DEF-f_middle.02.R
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.02.R/DEF-f_middle.01.R/DEF-f_middle.02.R/DEF-f_middle.03.R
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.02.R/DEF-palm.02.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.02.R/f_middle.01_master.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.02.R/MCH-f_middle.01.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.02.R/MCH-f_middle.01_drv.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.02.R/MCH-f_middle.01_drv.R/f_middle.01.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.02.R/MCH-f_middle.01_drv.R/f_middle.01.R/MCH-f_middle.02_drv.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.02.R/MCH-f_middle.01_drv.R/f_middle.01.R/MCH-f_middle.02_drv.R/f_middle.02.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.02.R/MCH-f_middle.01_drv.R/f_middle.01.R/MCH-f_middle.02_drv.R/f_middle.02.R/MCH-f_middle.02.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.02.R/MCH-f_middle.01_drv.R/f_middle.01.R/MCH-f_middle.02_drv.R/f_middle.02.R/MCH-f_middle.03_drv.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.02.R/MCH-f_middle.01_drv.R/f_middle.01.R/MCH-f_middle.02_drv.R/f_middle.02.R/MCH-f_middle.03_drv.R/f_middle.03.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.02.R/MCH-f_middle.01_drv.R/f_middle.01.R/MCH-f_middle.02_drv.R/f_middle.02.R/MCH-f_middle.03_drv.R/f_middle.03.R/f_middle.01.R.001
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.02.R/MCH-f_middle.01_drv.R/f_middle.01.R/MCH-f_middle.02_drv.R/f_middle.02.R/MCH-f_middle.03_drv.R/f_middle.03.R/MCH-f_middle.03.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.02.R/ORG-f_middle.01.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.02.R/ORG-f_middle.01.R/ORG-f_middle.02.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.02.R/ORG-f_middle.01.R/ORG-f_middle.02.R/ORG-f_middle.03.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.03.R
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.03.R/DEF-f_ring.01.R
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.03.R/DEF-f_ring.01.R/DEF-f_ring.02.R
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.03.R/DEF-f_ring.01.R/DEF-f_ring.02.R/DEF-f_ring.03.R
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.03.R/DEF-palm.03.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.03.R/f_ring.01_master.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.03.R/MCH-f_ring.01.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.03.R/MCH-f_ring.01_drv.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.03.R/MCH-f_ring.01_drv.R/f_ring.01.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.03.R/MCH-f_ring.01_drv.R/f_ring.01.R/MCH-f_ring.02_drv.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.03.R/MCH-f_ring.01_drv.R/f_ring.01.R/MCH-f_ring.02_drv.R/f_ring.02.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.03.R/MCH-f_ring.01_drv.R/f_ring.01.R/MCH-f_ring.02_drv.R/f_ring.02.R/MCH-f_ring.02.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.03.R/MCH-f_ring.01_drv.R/f_ring.01.R/MCH-f_ring.02_drv.R/f_ring.02.R/MCH-f_ring.03_drv.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.03.R/MCH-f_ring.01_drv.R/f_ring.01.R/MCH-f_ring.02_drv.R/f_ring.02.R/MCH-f_ring.03_drv.R/f_ring.03.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.03.R/MCH-f_ring.01_drv.R/f_ring.01.R/MCH-f_ring.02_drv.R/f_ring.02.R/MCH-f_ring.03_drv.R/f_ring.03.R/f_ring.01.R.001
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.03.R/MCH-f_ring.01_drv.R/f_ring.01.R/MCH-f_ring.02_drv.R/f_ring.02.R/MCH-f_ring.03_drv.R/f_ring.03.R/MCH-f_ring.03.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.03.R/ORG-f_ring.01.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.03.R/ORG-f_ring.01.R/ORG-f_ring.02.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.03.R/ORG-f_ring.01.R/ORG-f_ring.02.R/ORG-f_ring.03.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.04.R
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.04.R/DEF-f_pinky.01.R
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.04.R/DEF-f_pinky.01.R/DEF-f_pinky.02.R
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.04.R/DEF-f_pinky.01.R/DEF-f_pinky.02.R/DEF-f_pinky.03.R
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.04.R/DEF-palm.04.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.04.R/f_pinky.01_master.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.04.R/MCH-f_pinky.01.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.04.R/MCH-f_pinky.01_drv.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.04.R/MCH-f_pinky.01_drv.R/f_pinky.01.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.04.R/MCH-f_pinky.01_drv.R/f_pinky.01.R/MCH-f_pinky.02_drv.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.04.R/MCH-f_pinky.01_drv.R/f_pinky.01.R/MCH-f_pinky.02_drv.R/f_pinky.02.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.04.R/MCH-f_pinky.01_drv.R/f_pinky.01.R/MCH-f_pinky.02_drv.R/f_pinky.02.R/MCH-f_pinky.02.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.04.R/MCH-f_pinky.01_drv.R/f_pinky.01.R/MCH-f_pinky.02_drv.R/f_pinky.02.R/MCH-f_pinky.03_drv.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.04.R/MCH-f_pinky.01_drv.R/f_pinky.01.R/MCH-f_pinky.02_drv.R/f_pinky.02.R/MCH-f_pinky.03_drv.R/f_pinky.03.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.04.R/MCH-f_pinky.01_drv.R/f_pinky.01.R/MCH-f_pinky.02_drv.R/f_pinky.02.R/MCH-f_pinky.03_drv.R/f_pinky.03.R/f_pinky.01.R.001
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.04.R/MCH-f_pinky.01_drv.R/f_pinky.01.R/MCH-f_pinky.02_drv.R/f_pinky.02.R/MCH-f_pinky.03_drv.R/f_pinky.03.R/MCH-f_pinky.03.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.04.R/ORG-f_pinky.01.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.04.R/ORG-f_pinky.01.R/ORG-f_pinky.02.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/ORG-palm.04.R/ORG-f_pinky.01.R/ORG-f_pinky.02.R/ORG-f_pinky.03.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-shoulder.R/DEF-upper_arm.R/DEF-forearm.R/DEF-hand.R/palm.R
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/wings001.L
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/wings001.L/wings001-B.L
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/wings001.L/wings002.L
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/wings001.L/wings002.L/wings002-B.L
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/wings001.L/wings002.L/wings003.L
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/wings001.L/wings002.L/wings003.L/wings004.L
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/wings001.L/wings002.L/wings003.L/wings004.L/wings004-A.L
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/wings001.L/wings002.L/wings003.L/wings004.L/wings004-A.L/wings004-B.L
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/wings001.L/wings002.L/wings003.L/wings004.L/wings004-A.L/wings004-B.L/wings004-C.L
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/wings001.L/wings002.L/wings003.L/wings005.L.001
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/wings001.L/wings002.L/wings003.L/wings005.L.001/wings003-A.L
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/wings001.L/wings002.L/wings003.L/wings005.L.001/wings003-A.L/wings003-B.L
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/wings001.L/wings002.L/wings003.L/wings005.L.001/wings003-A.L/wings003-B.L/wings003-C.L
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/wings001.R
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/wings001.R/wings001-B.R
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/wings001.R/wings002.R
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/wings001.R/wings002.R/wings002-B.R
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/wings001.R/wings002.R/wings003.R
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/wings001.R/wings002.R/wings003.R/wings004.R
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/wings001.R/wings002.R/wings003.R/wings004.R/wings004-A.R
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/wings001.R/wings002.R/wings003.R/wings004.R/wings004-A.R/wings004-B.R
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/wings001.R/wings002.R/wings003.R/wings004.R/wings004-A.R/wings004-B.R/wings004-C.R
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/wings001.R/wings002.R/wings003.R/wings005.R.001
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/wings001.R/wings002.R/wings003.R/wings005.R.001/wings003-A.R
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/wings001.R/wings002.R/wings003.R/wings005.R.001/wings003-A.R/wings003-B.R
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/wings001.R/wings002.R/wings003.R/wings005.R.001/wings003-A.R/wings003-B.R/wings003-C.R
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/SK_0_FK
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/SK_0_FK/SK_0_1
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/SK_0_FK/SK_0_1/SK_0_2
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/SK_0_FK/SK_0_1/SK_0_2/SK_0_3
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/SK_0_FK/SK_0_1/SK_0_2/SK_0_3/SK_0_4
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/SK_0_FK/SK_0_1/SK_0_2/SK_0_3/SK_0_4/SK_0_5
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/SK_0_FK/SK_0_1/SK_0_2/SK_0_3/SK_0_4/SK_0_5/SK_0_6
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/SK_0_FK/SK_0_1/SK_0_2/SK_0_3/SK_0_4/SK_0_5/SK_0_6/SK_0_7
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/SK_0_FK/SK_0_1/SK_0_2/SK_0_3/SK_0_4/SK_0_5/SK_0_6/SK_0_7/SK_0_8
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/SK_1_FK
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/SK_1_FK/SK_1_1
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/SK_1_FK/SK_1_1/SK_1_2
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/SK_1_FK/SK_1_1/SK_1_2/SK_1_3
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/SK_1_FK/SK_1_1/SK_1_2/SK_1_3/SK_1_4
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/SK_1_FK/SK_1_1/SK_1_2/SK_1_3/SK_1_4/SK_1_5
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/SK_1_FK/SK_1_1/SK_1_2/SK_1_3/SK_1_4/SK_1_5/SK_1_6
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/SK_1_FK/SK_1_1/SK_1_2/SK_1_3/SK_1_4/SK_1_5/SK_1_6/SK_1_7
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/SK_1_FK/SK_1_1/SK_1_2/SK_1_3/SK_1_4/SK_1_5/SK_1_6/SK_1_7/SK_1_8
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/SK_2_FK
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/SK_2_FK/SK_2_1
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/SK_2_FK/SK_2_1/SK_2_2
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/SK_2_FK/SK_2_1/SK_2_2/SK_2_3
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/SK_2_FK/SK_2_1/SK_2_2/SK_2_3/SK_2_4
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/SK_2_FK/SK_2_1/SK_2_2/SK_2_3/SK_2_4/SK_2_5
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/SK_2_FK/SK_2_1/SK_2_2/SK_2_3/SK_2_4/SK_2_5/SK_2_6
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/SK_2_FK/SK_2_1/SK_2_2/SK_2_3/SK_2_4/SK_2_5/SK_2_6/SK_2_7
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/SK_2_FK/SK_2_1/SK_2_2/SK_2_3/SK_2_4/SK_2_5/SK_2_6/SK_2_7/SK_2_8
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/SK_3_Fk
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/SK_3_Fk/SK_3_1
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/SK_3_Fk/SK_3_1/SK_3_2
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/SK_3_Fk/SK_3_1/SK_3_2/SK_3_3
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/SK_3_Fk/SK_3_1/SK_3_2/SK_3_3/SK_3_4
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/SK_3_Fk/SK_3_1/SK_3_2/SK_3_3/SK_3_4/SK_3_5
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/SK_3_Fk/SK_3_1/SK_3_2/SK_3_3/SK_3_4/SK_3_5/SK_3_6
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/SK_3_Fk/SK_3_1/SK_3_2/SK_3_3/SK_3_4/SK_3_5/SK_3_6/SK_3_7
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/SK_4_Fk
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/SK_4_Fk/SK_4_1
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/SK_4_Fk/SK_4_1/SK_4_2
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/SK_4_Fk/SK_4_1/SK_4_2/SK_4_3
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/SK_4_Fk/SK_4_1/SK_4_2/SK_4_3/SK_4_4
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/SK_4_Fk/SK_4_1/SK_4_2/SK_4_3/SK_4_4/SK_4_5
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/SK_4_Fk/SK_4_1/SK_4_2/SK_4_3/SK_4_4/SK_4_5/SK_4_6
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/SK_4_Fk/SK_4_1/SK_4_2/SK_4_3/SK_4_4/SK_4_5/SK_4_6/SK_4_7
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/SK_5_FK
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/SK_5_FK/SK_5_1
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/SK_5_FK/SK_5_1/SK_5_2
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/SK_5_FK/SK_5_1/SK_5_2/SK_5_3
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/SK_5_FK/SK_5_1/SK_5_2/SK_5_3/SK_5_4
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/SK_5_FK/SK_5_1/SK_5_2/SK_5_3/SK_5_4/SK_5_5
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/SK_5_FK/SK_5_1/SK_5_2/SK_5_3/SK_5_4/SK_5_5/SK_5_6
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/SK_5_FK/SK_5_1/SK_5_2/SK_5_3/SK_5_4/SK_5_5/SK_5_6/SK_5_7
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-thigh.L
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-thigh.L/DEF-shin.L
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-thigh.L/DEF-shin.L/DEF-foot.L
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-thigh.L/DEF-shin.L/DEF-foot.L/DEF-toe.L
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-thigh.R
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-thigh.R/DEF-shin.R
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-thigh.R/DEF-shin.R/DEF-foot.R
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-thigh.R/DEF-shin.R/DEF-foot.R/DEF-toe.R
-        weight: 1
-      - path: GirlRigBaes/root/VIS_thigh_ik_pole.L
-        weight: 0
-      - path: GirlRigBaes/root/VIS_thigh_ik_pole.R
-        weight: 0
-      - path: GirlRigBaes/root/VIS_upper_arm_ik_pole.L
-        weight: 0
-      - path: GirlRigBaes/root/VIS_upper_arm_ik_pole.R
-        weight: 0
-      - path: Hair
-        weight: 0
-      - path: Wing
-        weight: 0
-      maskType: 0
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: Action-waving
-      takeName: Action-waving
-      internalID: -4608258601720197320
-      firstFrame: 0
-      lastFrame: 100
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: Body.001
-        weight: 0
-      - path: Body.002
-        weight: 0
-      - path: Body.003
-        weight: 0
-      - path: EYE
-        weight: 0
-      - path: GirlRigBaes
-        weight: 1
-      - path: GirlRigBaes/MCH-foot_ik.parent.L
-        weight: 0
-      - path: GirlRigBaes/MCH-foot_ik.parent.L/foot_ik.L
-        weight: 0
-      - path: GirlRigBaes/MCH-foot_ik.parent.L/foot_ik.L/foot_spin_ik.L
-        weight: 0
-      - path: GirlRigBaes/MCH-foot_ik.parent.L/foot_ik.L/foot_spin_ik.L/foot_heel_ik.L
-        weight: 0
-      - path: GirlRigBaes/MCH-foot_ik.parent.L/foot_ik.L/foot_spin_ik.L/MCH-heel.02_rock2.L
-        weight: 0
-      - path: GirlRigBaes/MCH-foot_ik.parent.L/foot_ik.L/foot_spin_ik.L/MCH-heel.02_rock2.L/MCH-heel.02_rock1.L
-        weight: 0
-      - path: GirlRigBaes/MCH-foot_ik.parent.L/foot_ik.L/foot_spin_ik.L/MCH-heel.02_rock2.L/MCH-heel.02_rock1.L/MCH-heel.02_roll2.L
-        weight: 0
-      - path: GirlRigBaes/MCH-foot_ik.parent.L/foot_ik.L/foot_spin_ik.L/MCH-heel.02_rock2.L/MCH-heel.02_rock1.L/MCH-heel.02_roll2.L/MCH-heel.02_roll1.L
-        weight: 0
-      - path: GirlRigBaes/MCH-foot_ik.parent.L/foot_ik.L/foot_spin_ik.L/MCH-heel.02_rock2.L/MCH-heel.02_rock1.L/MCH-heel.02_roll2.L/MCH-heel.02_roll1.L/MCH-foot_roll.L
-        weight: 0
-      - path: GirlRigBaes/MCH-foot_ik.parent.L/foot_ik.L/foot_spin_ik.L/MCH-heel.02_rock2.L/MCH-heel.02_rock1.L/MCH-heel.02_roll2.L/MCH-heel.02_roll1.L/MCH-foot_roll.L/MCH-thigh_ik_target.L
-        weight: 0
-      - path: GirlRigBaes/MCH-foot_ik.parent.L/foot_ik.L/foot_spin_ik.L/MCH-heel.02_rock2.L/MCH-heel.02_rock1.L/MCH-heel.02_roll2.L/MCH-heel.02_roll1.L/MCH-foot_roll.L/MCH-thigh_ik_target.L/MCH-toe_ik_parent.L
-        weight: 0
-      - path: GirlRigBaes/MCH-foot_ik.parent.L/foot_ik.L/foot_spin_ik.L/MCH-heel.02_rock2.L/MCH-heel.02_rock1.L/MCH-heel.02_roll2.L/MCH-heel.02_roll1.L/MCH-foot_roll.L/MCH-thigh_ik_target.L/MCH-toe_ik_parent.L/toe_ik.L
-        weight: 0
-      - path: GirlRigBaes/MCH-foot_ik.parent.R
-        weight: 0
-      - path: GirlRigBaes/MCH-foot_ik.parent.R/foot_ik.R
-        weight: 0
-      - path: GirlRigBaes/MCH-foot_ik.parent.R/foot_ik.R/foot_spin_ik.R
-        weight: 0
-      - path: GirlRigBaes/MCH-foot_ik.parent.R/foot_ik.R/foot_spin_ik.R/foot_heel_ik.R
-        weight: 0
-      - path: GirlRigBaes/MCH-foot_ik.parent.R/foot_ik.R/foot_spin_ik.R/MCH-heel.02_rock2.R
-        weight: 0
-      - path: GirlRigBaes/MCH-foot_ik.parent.R/foot_ik.R/foot_spin_ik.R/MCH-heel.02_rock2.R/MCH-heel.02_rock1.R
-        weight: 0
-      - path: GirlRigBaes/MCH-foot_ik.parent.R/foot_ik.R/foot_spin_ik.R/MCH-heel.02_rock2.R/MCH-heel.02_rock1.R/MCH-heel.02_roll2.R
-        weight: 0
-      - path: GirlRigBaes/MCH-foot_ik.parent.R/foot_ik.R/foot_spin_ik.R/MCH-heel.02_rock2.R/MCH-heel.02_rock1.R/MCH-heel.02_roll2.R/MCH-heel.02_roll1.R
-        weight: 0
-      - path: GirlRigBaes/MCH-foot_ik.parent.R/foot_ik.R/foot_spin_ik.R/MCH-heel.02_rock2.R/MCH-heel.02_rock1.R/MCH-heel.02_roll2.R/MCH-heel.02_roll1.R/MCH-foot_roll.R
-        weight: 0
-      - path: GirlRigBaes/MCH-foot_ik.parent.R/foot_ik.R/foot_spin_ik.R/MCH-heel.02_rock2.R/MCH-heel.02_rock1.R/MCH-heel.02_roll2.R/MCH-heel.02_roll1.R/MCH-foot_roll.R/MCH-thigh_ik_target.R
-        weight: 0
-      - path: GirlRigBaes/MCH-foot_ik.parent.R/foot_ik.R/foot_spin_ik.R/MCH-heel.02_rock2.R/MCH-heel.02_rock1.R/MCH-heel.02_roll2.R/MCH-heel.02_roll1.R/MCH-foot_roll.R/MCH-thigh_ik_target.R/MCH-toe_ik_parent.R
-        weight: 0
-      - path: GirlRigBaes/MCH-foot_ik.parent.R/foot_ik.R/foot_spin_ik.R/MCH-heel.02_rock2.R/MCH-heel.02_rock1.R/MCH-heel.02_roll2.R/MCH-heel.02_roll1.R/MCH-foot_roll.R/MCH-thigh_ik_target.R/MCH-toe_ik_parent.R/toe_ik.R
-        weight: 0
-      - path: GirlRigBaes/MCH-hand_ik.parent.L
-        weight: 0
-      - path: GirlRigBaes/MCH-hand_ik.parent.L/hand_ik.L
-        weight: 0
-      - path: GirlRigBaes/MCH-hand_ik.parent.L/hand_ik.L/MCH-upper_arm_ik_target.L
-        weight: 0
-      - path: GirlRigBaes/MCH-hand_ik.parent.R
-        weight: 0
-      - path: GirlRigBaes/MCH-hand_ik.parent.R/hand_ik.R
-        weight: 0
-      - path: GirlRigBaes/MCH-hand_ik.parent.R/hand_ik.R/MCH-upper_arm_ik_target.R
-        weight: 0
-      - path: GirlRigBaes/MCH-thigh_ik_target.parent.L
-        weight: 0
-      - path: GirlRigBaes/MCH-thigh_ik_target.parent.L/thigh_ik_target.L
-        weight: 0
-      - path: GirlRigBaes/MCH-thigh_ik_target.parent.R
-        weight: 0
-      - path: GirlRigBaes/MCH-thigh_ik_target.parent.R/thigh_ik_target.R
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/chest
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/hips
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.001
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.001/spine_fk.001
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.001/spine_fk.001/MCH-spine
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.001/spine_fk.001/MCH-spine/spine_fk
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.001/spine_fk.001/MCH-spine/spine_fk/MCH-WGT-hips
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.001/spine_fk.001/MCH-spine/spine_fk/tweak_spine
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.001/spine_fk.001/MCH-spine/spine_fk/tweak_spine/ORG-spine
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.001/spine_fk.001/MCH-spine/spine_fk/tweak_spine/ORG-spine/MCH-thigh_parent.L
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.001/spine_fk.001/MCH-spine/spine_fk/tweak_spine/ORG-spine/MCH-thigh_parent.L/MCH-thigh_ik_swing.L
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.001/spine_fk.001/MCH-spine/spine_fk/tweak_spine/ORG-spine/MCH-thigh_parent.L/MCH-thigh_ik_swing.L/thigh_ik.L
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.001/spine_fk.001/MCH-spine/spine_fk/tweak_spine/ORG-spine/MCH-thigh_parent.L/MCH-thigh_ik_swing.L/thigh_ik.L/MCH-shin_ik.L
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.001/spine_fk.001/MCH-spine/spine_fk/tweak_spine/ORG-spine/MCH-thigh_parent.L/thigh_fk.L
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.001/spine_fk.001/MCH-spine/spine_fk/tweak_spine/ORG-spine/MCH-thigh_parent.L/thigh_fk.L/shin_fk.L
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.001/spine_fk.001/MCH-spine/spine_fk/tweak_spine/ORG-spine/MCH-thigh_parent.L/thigh_fk.L/shin_fk.L/MCH-foot_fk.L
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.001/spine_fk.001/MCH-spine/spine_fk/tweak_spine/ORG-spine/MCH-thigh_parent.L/thigh_fk.L/shin_fk.L/MCH-foot_fk.L/foot_fk.L
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.001/spine_fk.001/MCH-spine/spine_fk/tweak_spine/ORG-spine/MCH-thigh_parent.L/thigh_fk.L/shin_fk.L/MCH-foot_fk.L/foot_fk.L/MCH-toe_fk.L
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.001/spine_fk.001/MCH-spine/spine_fk/tweak_spine/ORG-spine/MCH-thigh_parent.L/thigh_fk.L/shin_fk.L/MCH-foot_fk.L/foot_fk.L/MCH-toe_fk.L/toe_fk.L
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.001/spine_fk.001/MCH-spine/spine_fk/tweak_spine/ORG-spine/MCH-thigh_parent.R
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.001/spine_fk.001/MCH-spine/spine_fk/tweak_spine/ORG-spine/MCH-thigh_parent.R/MCH-thigh_ik_swing.R
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.001/spine_fk.001/MCH-spine/spine_fk/tweak_spine/ORG-spine/MCH-thigh_parent.R/MCH-thigh_ik_swing.R/thigh_ik.R
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.001/spine_fk.001/MCH-spine/spine_fk/tweak_spine/ORG-spine/MCH-thigh_parent.R/MCH-thigh_ik_swing.R/thigh_ik.R/MCH-shin_ik.R
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.001/spine_fk.001/MCH-spine/spine_fk/tweak_spine/ORG-spine/MCH-thigh_parent.R/thigh_fk.R
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.001/spine_fk.001/MCH-spine/spine_fk/tweak_spine/ORG-spine/MCH-thigh_parent.R/thigh_fk.R/shin_fk.R
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.001/spine_fk.001/MCH-spine/spine_fk/tweak_spine/ORG-spine/MCH-thigh_parent.R/thigh_fk.R/shin_fk.R/MCH-foot_fk.R
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.001/spine_fk.001/MCH-spine/spine_fk/tweak_spine/ORG-spine/MCH-thigh_parent.R/thigh_fk.R/shin_fk.R/MCH-foot_fk.R/foot_fk.R
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.001/spine_fk.001/MCH-spine/spine_fk/tweak_spine/ORG-spine/MCH-thigh_parent.R/thigh_fk.R/shin_fk.R/MCH-foot_fk.R/foot_fk.R/MCH-toe_fk.R
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.001/spine_fk.001/MCH-spine/spine_fk/tweak_spine/ORG-spine/MCH-thigh_parent.R/thigh_fk.R/shin_fk.R/MCH-foot_fk.R/foot_fk.R/MCH-toe_fk.R/toe_fk.R
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.001/spine_fk.001/MCH-spine/spine_fk/tweak_spine/ORG-spine/MCH-thigh_tweak.L
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.001/spine_fk.001/MCH-spine/spine_fk/tweak_spine/ORG-spine/MCH-thigh_tweak.L/thigh_tweak.L
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.001/spine_fk.001/MCH-spine/spine_fk/tweak_spine/ORG-spine/MCH-thigh_tweak.R
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.001/spine_fk.001/MCH-spine/spine_fk/tweak_spine/ORG-spine/MCH-thigh_tweak.R/thigh_tweak.R
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.001/spine_fk.001/MCH-spine/spine_fk/tweak_spine/ORG-spine/ORG-pelvis.L
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.001/spine_fk.001/MCH-spine/spine_fk/tweak_spine/ORG-spine/ORG-pelvis.R
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.001/spine_fk.001/MCH-spine/spine_fk/tweak_spine/ORG-spine/ORG-thigh.L
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.001/spine_fk.001/MCH-spine/spine_fk/tweak_spine/ORG-spine/ORG-thigh.L/MCH-thigh_parent_widget.L
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.001/spine_fk.001/MCH-spine/spine_fk/tweak_spine/ORG-spine/ORG-thigh.L/ORG-shin.L
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.001/spine_fk.001/MCH-spine/spine_fk/tweak_spine/ORG-spine/ORG-thigh.L/ORG-shin.L/MCH-shin_tweak.L
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.001/spine_fk.001/MCH-spine/spine_fk/tweak_spine/ORG-spine/ORG-thigh.L/ORG-shin.L/MCH-shin_tweak.L/shin_tweak.L
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.001/spine_fk.001/MCH-spine/spine_fk/tweak_spine/ORG-spine/ORG-thigh.L/ORG-shin.L/ORG-foot.L
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.001/spine_fk.001/MCH-spine/spine_fk/tweak_spine/ORG-spine/ORG-thigh.L/ORG-shin.L/ORG-foot.L/MCH-foot_tweak.L
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.001/spine_fk.001/MCH-spine/spine_fk/tweak_spine/ORG-spine/ORG-thigh.L/ORG-shin.L/ORG-foot.L/MCH-foot_tweak.L/foot_tweak.L
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.001/spine_fk.001/MCH-spine/spine_fk/tweak_spine/ORG-spine/ORG-thigh.L/ORG-shin.L/ORG-foot.L/ORG-heel.02.L
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.001/spine_fk.001/MCH-spine/spine_fk/tweak_spine/ORG-spine/ORG-thigh.L/ORG-shin.L/ORG-foot.L/ORG-toe.L
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.001/spine_fk.001/MCH-spine/spine_fk/tweak_spine/ORG-spine/ORG-thigh.R
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.001/spine_fk.001/MCH-spine/spine_fk/tweak_spine/ORG-spine/ORG-thigh.R/MCH-thigh_parent_widget.R
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.001/spine_fk.001/MCH-spine/spine_fk/tweak_spine/ORG-spine/ORG-thigh.R/ORG-shin.R
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.001/spine_fk.001/MCH-spine/spine_fk/tweak_spine/ORG-spine/ORG-thigh.R/ORG-shin.R/MCH-shin_tweak.R
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.001/spine_fk.001/MCH-spine/spine_fk/tweak_spine/ORG-spine/ORG-thigh.R/ORG-shin.R/MCH-shin_tweak.R/shin_tweak.R
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.001/spine_fk.001/MCH-spine/spine_fk/tweak_spine/ORG-spine/ORG-thigh.R/ORG-shin.R/ORG-foot.R
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.001/spine_fk.001/MCH-spine/spine_fk/tweak_spine/ORG-spine/ORG-thigh.R/ORG-shin.R/ORG-foot.R/MCH-foot_tweak.R
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.001/spine_fk.001/MCH-spine/spine_fk/tweak_spine/ORG-spine/ORG-thigh.R/ORG-shin.R/ORG-foot.R/MCH-foot_tweak.R/foot_tweak.R
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.001/spine_fk.001/MCH-spine/spine_fk/tweak_spine/ORG-spine/ORG-thigh.R/ORG-shin.R/ORG-foot.R/ORG-heel.02.R
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.001/spine_fk.001/MCH-spine/spine_fk/tweak_spine/ORG-spine/ORG-thigh.R/ORG-shin.R/ORG-foot.R/ORG-toe.R
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.001/spine_fk.001/MCH-spine/spine_fk/tweak_spine/ORG-spine/thigh_parent.L
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.001/spine_fk.001/MCH-spine/spine_fk/tweak_spine/ORG-spine/thigh_parent.R
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.001/spine_fk.001/MCH-spine/spine_fk/tweak_spine.001
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.001/spine_fk.001/MCH-spine/spine_fk/tweak_spine.001/ORG-spine.001
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-pivot
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-pivot/tweak_spine.002
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-pivot/tweak_spine.002/ORG-spine.002
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/MCH-ROT-neck
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/MCH-ROT-neck/neck
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/MCH-ROT-neck/neck/MCH-ROT-head
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/MCH-ROT-neck/neck/MCH-ROT-head/head
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/MCH-ROT-neck/neck/MCH-ROT-head/head/eye_L
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/MCH-ROT-neck/neck/MCH-ROT-head/head/eye_R
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/MCH-ROT-neck/neck/MCH-ROT-head/head/Eyelid_bottom_L
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/MCH-ROT-neck/neck/MCH-ROT-head/head/Eyelid_bottom_R
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/MCH-ROT-neck/neck/MCH-ROT-head/head/eyelid_upper_L
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/MCH-ROT-neck/neck/MCH-ROT-head/head/eyelid_upper_R
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/MCH-ROT-neck/neck/MCH-STR-neck
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/MCH-ROT-neck/neck/tweak_spine.004
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/MCH-WGT-chest
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/ORG-spine.004
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/ORG-spine.004/ORG-spine.005
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/tweak_spine.003
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/tweak_spine.003/ORG-spine.003
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/tweak_spine.003/ORG-spine.003/ORG-breast.L
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/tweak_spine.003/ORG-spine.003/ORG-breast.R
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/tweak_spine.003/ORG-spine.003/ORG-shoulder.L
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/tweak_spine.003/ORG-spine.003/ORG-shoulder.L/MCH-upper_arm_parent.L
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/tweak_spine.003/ORG-spine.003/ORG-shoulder.L/MCH-upper_arm_parent.L/MCH-upper_arm_ik_swing.L
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/tweak_spine.003/ORG-spine.003/ORG-shoulder.L/MCH-upper_arm_parent.L/MCH-upper_arm_ik_swing.L/upper_arm_ik.L
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/tweak_spine.003/ORG-spine.003/ORG-shoulder.L/MCH-upper_arm_parent.L/MCH-upper_arm_ik_swing.L/upper_arm_ik.L/MCH-forearm_ik.L
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/tweak_spine.003/ORG-spine.003/ORG-shoulder.L/MCH-upper_arm_parent.L/upper_arm_fk.L
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/tweak_spine.003/ORG-spine.003/ORG-shoulder.L/MCH-upper_arm_parent.L/upper_arm_fk.L/forearm_fk.L
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/tweak_spine.003/ORG-spine.003/ORG-shoulder.L/MCH-upper_arm_parent.L/upper_arm_fk.L/forearm_fk.L/MCH-hand_fk.L
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/tweak_spine.003/ORG-spine.003/ORG-shoulder.L/MCH-upper_arm_parent.L/upper_arm_fk.L/forearm_fk.L/MCH-hand_fk.L/hand_fk.L
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/tweak_spine.003/ORG-spine.003/ORG-shoulder.L/MCH-upper_arm_tweak.L
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/tweak_spine.003/ORG-spine.003/ORG-shoulder.L/MCH-upper_arm_tweak.L/upper_arm_tweak.L
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/tweak_spine.003/ORG-spine.003/ORG-shoulder.L/ORG-upper_arm.L
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/tweak_spine.003/ORG-spine.003/ORG-shoulder.L/ORG-upper_arm.L/MCH-upper_arm_parent_widget.L
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/tweak_spine.003/ORG-spine.003/ORG-shoulder.L/ORG-upper_arm.L/ORG-forearm.L
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/tweak_spine.003/ORG-spine.003/ORG-shoulder.L/ORG-upper_arm.L/ORG-forearm.L/MCH-forearm_tweak.L
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/tweak_spine.003/ORG-spine.003/ORG-shoulder.L/ORG-upper_arm.L/ORG-forearm.L/MCH-forearm_tweak.L/forearm_tweak.L
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/tweak_spine.003/ORG-spine.003/ORG-shoulder.L/ORG-upper_arm.L/ORG-forearm.L/ORG-hand.L
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/tweak_spine.003/ORG-spine.003/ORG-shoulder.L/ORG-upper_arm.L/ORG-forearm.L/ORG-hand.L/MCH-hand_tweak.L
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/tweak_spine.003/ORG-spine.003/ORG-shoulder.L/ORG-upper_arm.L/ORG-forearm.L/ORG-hand.L/MCH-hand_tweak.L/hand_tweak.L
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/tweak_spine.003/ORG-spine.003/ORG-shoulder.L/upper_arm_parent.L
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/tweak_spine.003/ORG-spine.003/ORG-shoulder.R
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/tweak_spine.003/ORG-spine.003/ORG-shoulder.R/MCH-upper_arm_parent.R
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/tweak_spine.003/ORG-spine.003/ORG-shoulder.R/MCH-upper_arm_parent.R/MCH-upper_arm_ik_swing.R
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/tweak_spine.003/ORG-spine.003/ORG-shoulder.R/MCH-upper_arm_parent.R/MCH-upper_arm_ik_swing.R/upper_arm_ik.R
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/tweak_spine.003/ORG-spine.003/ORG-shoulder.R/MCH-upper_arm_parent.R/MCH-upper_arm_ik_swing.R/upper_arm_ik.R/MCH-forearm_ik.R
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/tweak_spine.003/ORG-spine.003/ORG-shoulder.R/MCH-upper_arm_parent.R/upper_arm_fk.R
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/tweak_spine.003/ORG-spine.003/ORG-shoulder.R/MCH-upper_arm_parent.R/upper_arm_fk.R/forearm_fk.R
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/tweak_spine.003/ORG-spine.003/ORG-shoulder.R/MCH-upper_arm_parent.R/upper_arm_fk.R/forearm_fk.R/MCH-hand_fk.R
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/tweak_spine.003/ORG-spine.003/ORG-shoulder.R/MCH-upper_arm_parent.R/upper_arm_fk.R/forearm_fk.R/MCH-hand_fk.R/hand_fk.R
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/tweak_spine.003/ORG-spine.003/ORG-shoulder.R/MCH-upper_arm_tweak.R
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/tweak_spine.003/ORG-spine.003/ORG-shoulder.R/MCH-upper_arm_tweak.R/upper_arm_tweak.R
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/tweak_spine.003/ORG-spine.003/ORG-shoulder.R/ORG-upper_arm.R
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/tweak_spine.003/ORG-spine.003/ORG-shoulder.R/ORG-upper_arm.R/MCH-upper_arm_parent_widget.R
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/tweak_spine.003/ORG-spine.003/ORG-shoulder.R/ORG-upper_arm.R/ORG-forearm.R
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/tweak_spine.003/ORG-spine.003/ORG-shoulder.R/ORG-upper_arm.R/ORG-forearm.R/MCH-forearm_tweak.R
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/tweak_spine.003/ORG-spine.003/ORG-shoulder.R/ORG-upper_arm.R/ORG-forearm.R/MCH-forearm_tweak.R/forearm_tweak.R
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/tweak_spine.003/ORG-spine.003/ORG-shoulder.R/ORG-upper_arm.R/ORG-forearm.R/ORG-hand.R
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/tweak_spine.003/ORG-spine.003/ORG-shoulder.R/ORG-upper_arm.R/ORG-forearm.R/ORG-hand.R/MCH-hand_tweak.R
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/tweak_spine.003/ORG-spine.003/ORG-shoulder.R/ORG-upper_arm.R/ORG-forearm.R/ORG-hand.R/MCH-hand_tweak.R/hand_tweak.R
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/tweak_spine.003/ORG-spine.003/ORG-shoulder.R/upper_arm_parent.R
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/tweak_spine.003/ORG-spine.003/shoulder.L
-        weight: 0
-      - path: GirlRigBaes/MCH-torso.parent/torso/MCH-spine.002/spine_fk.002/MCH-spine.003/spine_fk.003/tweak_spine.003/ORG-spine.003/shoulder.R
-        weight: 0
-      - path: GirlRigBaes/MCH-upper_arm_ik_target.parent.L
-        weight: 0
-      - path: GirlRigBaes/MCH-upper_arm_ik_target.parent.L/upper_arm_ik_target.L
-        weight: 0
-      - path: GirlRigBaes/MCH-upper_arm_ik_target.parent.R
-        weight: 0
-      - path: GirlRigBaes/MCH-upper_arm_ik_target.parent.R/upper_arm_ik_target.R
-        weight: 0
-      - path: GirlRigBaes/root
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003
-        weight: 1
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-breast.L
-        weight: 0
-      - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-breast.R
-        weight: 0
       - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck
         weight: 1
       - path: GirlRigBaes/root/DEF-spine/DEF-spine.001/DEF-spine.002/DEF-spine.003/DEF-neck/DEF-head
@@ -3746,7 +2728,7 @@ ModelImporter:
     - name: hair0_1
       parentName: hair0_FK
       position: {x: 0.000000006655312, y: -0.000000009220998, z: -0.000000001318007}
-      rotation: {x: 0.7071068, y: 4.32978e-17, z: 0.7071067, w: -4.3297806e-17}
+      rotation: {x: 0.7071068, y: -4.32978e-17, z: 0.7071067, w: 4.3297806e-17}
       scale: {x: 1, y: 0.99999994, z: 1}
     - name: hair0_2
       parentName: hair0_1
@@ -3766,7 +2748,7 @@ ModelImporter:
     - name: hair3_1
       parentName: hair3_FK
       position: {x: 0.000000006655312, y: -0.000000013287643, z: -0.0000000023739588}
-      rotation: {x: 0.7071068, y: 4.32978e-17, z: 0.7071067, w: -4.3297806e-17}
+      rotation: {x: 0.7071068, y: -4.32978e-17, z: 0.7071067, w: 4.3297806e-17}
       scale: {x: 1, y: 0.99999994, z: 1}
     - name: hair3_2
       parentName: hair3_1
@@ -4071,7 +3053,7 @@ ModelImporter:
     - name: f_index.01.L.001
       parentName: f_index.03.L
       position: {x: 0.000000008366783, y: 0.03125326, z: -0.000000100641046}
-      rotation: {x: 0.023852516, y: 0.00000003645446, z: 0.9997155, w: -8.697781e-10}
+      rotation: {x: 0.023852516, y: 0.00000003645446, z: 0.9997155, w: -8.6977797e-10}
       scale: {x: 0.99999976, y: 0.99999994, z: 0.9999999}
     - name: MCH-f_index.03.L
       parentName: f_index.03.L
@@ -4946,7 +3928,7 @@ ModelImporter:
     - name: wings004.L
       parentName: wings003.L
       position: {x: -0.000000059604645, y: 0.5254135, z: 0.000000035390258}
-      rotation: {x: 0.8408367, y: -0.53355026, z: -0.04626274, w: -0.07859798}
+      rotation: {x: 0.8408367, y: -0.53355026, z: -0.04626267, w: -0.07859809}
       scale: {x: 0.9999998, y: 0.9999993, z: 0.9999997}
     - name: wings004-A.L
       parentName: wings004.L
@@ -4966,7 +3948,7 @@ ModelImporter:
     - name: wings005.L.001
       parentName: wings003.L
       position: {x: -0.000000059604645, y: 0.5254135, z: 0.000000035390258}
-      rotation: {x: 0.9245929, y: -0.36013272, z: 0.119191594, w: -0.035010044}
+      rotation: {x: 0.9245929, y: -0.3601327, z: 0.11919164, w: -0.035010166}
       scale: {x: 1.0000002, y: 1.0000004, z: 1}
     - name: wings003-A.L
       parentName: wings005.L.001
@@ -5011,7 +3993,7 @@ ModelImporter:
     - name: wings004.R
       parentName: wings003.R
       position: {x: 0.00000010430813, y: 0.52541363, z: -0.000000011175871}
-      rotation: {x: 0.8408366, y: 0.5335505, z: 0.046262853, w: -0.07859761}
+      rotation: {x: 0.8408365, y: 0.5335505, z: 0.04626278, w: -0.07859772}
       scale: {x: 1, y: 0.99999964, z: 1}
     - name: wings004-A.R
       parentName: wings004.R
@@ -5031,7 +4013,7 @@ ModelImporter:
     - name: wings005.R.001
       parentName: wings003.R
       position: {x: 0.00000010430813, y: 0.52541363, z: -0.000000011175871}
-      rotation: {x: 0.92459285, y: 0.36013302, z: -0.119191766, w: -0.035009947}
+      rotation: {x: 0.9245928, y: 0.360133, z: -0.1191918, w: -0.035010066}
       scale: {x: 1.0000008, y: 1.0000004, z: 0.99999994}
     - name: wings003-A.R
       parentName: wings005.R.001
@@ -5146,7 +4128,7 @@ ModelImporter:
     - name: SK_0_1
       parentName: SK_0_FK
       position: {x: -0.0000000038357886, y: -0.00000014988922, z: -0.000000005941418}
-      rotation: {x: 1, y: 0.000000013412524, z: -0.00000011848802, w: -0.00000066579025}
+      rotation: {x: 1, y: 0.000000013412508, z: -0.00000011848802, w: -0.00000079894835}
       scale: {x: 1, y: 1.0000001, z: 1.0000001}
     - name: SK_0_2
       parentName: SK_0_1
@@ -5191,7 +4173,7 @@ ModelImporter:
     - name: SK_2_1
       parentName: SK_2_FK
       position: {x: 0.000000011065373, y: -0.00000015262023, z: -0.000000020784311}
-      rotation: {x: 1, y: 0.000000013412524, z: -0.00000011848802, w: -0.00000066579025}
+      rotation: {x: 1, y: 0.000000013412508, z: -0.00000011848802, w: -0.00000079894835}
       scale: {x: 1, y: 1.0000001, z: 1.0000001}
     - name: SK_2_2
       parentName: SK_2_1
@@ -5276,7 +4258,7 @@ ModelImporter:
     - name: SK_1_1
       parentName: SK_1_FK
       position: {x: 5.3290705e-15, y: -0.00000014929036, z: -0.000000019245297}
-      rotation: {x: 1, y: 0.000000009831598, z: -0.00000011848801, w: -0.00000066579025}
+      rotation: {x: 1, y: 0.000000009831582, z: -0.00000011848802, w: -0.00000079894835}
       scale: {x: 1, y: 1.0000001, z: 1.0000001}
     - name: SK_1_2
       parentName: SK_1_1

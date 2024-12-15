@@ -50,16 +50,16 @@ public class EnemyBulletMove : BulletBase
                 moveToPlayer = true;
             }
         }
-        //if (speed !=bulletData.speed)
-        //{
-        //    speed = bulletData.speed;
-        //   // bulletData.DataUpdate = false;
-        //}
+        if (speed != bulletData.speed)
+        {
+            speed = bulletData.speed;
+            // bulletData.DataUpdate = false;
+        }
         if (moveToPlayer)
         {
             transform.Translate(Vector3.forward * speed * Time.deltaTime);
         }
-        //Debug.Log("Bullet"+ speed);
+        Debug.Log("Bullet"+ speed);
     }
     private void OnTriggerEnter(Collider other)
     {

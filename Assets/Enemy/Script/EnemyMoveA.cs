@@ -91,6 +91,7 @@ public class EnemyMoveA : EnemyMove
 
         if (!enterScene && isLeaving)
         {
+            gun.SetActive(false);
             //left to right
             if (endPoint.transform.position.x > transform.position.x)
             {

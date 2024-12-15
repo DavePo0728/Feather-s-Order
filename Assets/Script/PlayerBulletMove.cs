@@ -35,7 +35,10 @@ public class PlayerBulletMove : MonoBehaviour
         speed = 300;
         
     }
-
+    private void OnDisable()
+    {
+        lockedEnemy = null;
+    }
     // Update is called once per frame
     void FixedUpdate()
     {

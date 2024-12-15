@@ -57,7 +57,7 @@ public class enemyHp : MonoBehaviour
             {
                 shieldEffect.SetActive(false);
                 shieldExplosionEffect.SetActive(true);
-                Debug.Log("shieldBroke");
+                //Debug.Log("shieldBroke");
             }
             if (currentShieldHp > 0)
             {

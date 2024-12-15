@@ -10017,7 +10017,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 1}
+      maxColor: {r: 0, g: 0.990566, b: 0.9713409, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -24523,6 +24523,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Maxhp: 10
+  shieldEffect: {fileID: 0}
+  shieldExplosionEffect: {fileID: 0}
   haveshield: 1
   currentShieldHp: 0
   maxShieldHp: 15
@@ -24547,7 +24549,7 @@ MonoBehaviour:
   hSpeed: 120
   enterScene: 0
   isLeaving: 0
-  leaveTime: 6
+  leaveTime: 10
   timer: 0
 --- !u!54 &549574988
 Rigidbody:
@@ -24841,7 +24843,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8759686280781219516
 Transform:
   m_ObjectHideFlags: 0

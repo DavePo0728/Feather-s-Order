@@ -11,6 +11,7 @@ public class PlayerChargeShooting : MonoBehaviour
     [SerializeField]
     GameObject ChargeBullet;
     bool chargeShooting;
+    bool manualLean = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,10 +22,22 @@ public class PlayerChargeShooting : MonoBehaviour
         if (context.performed)
         {
             chargeShooting = true;
+
         }
         if (context.canceled)
         {
             chargeShooting = false;
+        }
+    }
+    public void GetAimLean(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            manualLean = true;
+        }
+        if (context.canceled)
+        {
+            manualLean = false;
         }
     }
     // Update is called once per frame
@@ -37,7 +50,15 @@ public class PlayerChargeShooting : MonoBehaviour
         }
         else if (chargeShooting == false && chargeShootingCounter >= maxChargeTime)
         {
-            Instantiate(ChargeBullet,transform.position,transform.rotation);
+            if (manualLean)
+            {
+                Instantiate(ChargeBullet, transform.position, transform.rotation);
+            }
+            else
+            {
+                Instantiate(ChargeBullet, transform.position, Quaternion.identity);
+            }
+            
             chargeShootingCounter = 0;
         }
     }

@@ -9,20 +9,20 @@ public class PlayerMove : MonoBehaviour
 {
     [SerializeField]
     CinemachineVirtualCamera playerVCam,SceneVCam;
-    [Header("UI")]
-    [SerializeField]
-    Image energyBarImage;
-    [Header("Energy Data")]
-    [SerializeField]
-    float currentEnergy;
-    [SerializeField]
-    float maxEnergy;
-    float energyRegenRate = 50;
-    float timeSinceLastEnergyUse = 0f;   // 距離上次使用能量的時間
-    [SerializeField]
-    float regenDelay = 1f;     // 回復能量的延遲時間 (1秒)
-    bool isRegening = false;  // 是否正在回復能量
-    bool isOutBurst = false;
+    //[Header("UI")]
+    //[SerializeField]
+    //Image energyBarImage;
+    //[Header("Energy Data")]
+    //[SerializeField]
+    //float currentEnergy;
+    //[SerializeField]
+    //float maxEnergy;
+    //float energyRegenRate = 50;
+    //float timeSinceLastEnergyUse = 0f;   // 距離上次使用能量的時間
+    //[SerializeField]
+    //float regenDelay = 1f;     // 回復能量的延遲時間 (1秒)
+    //bool isRegening = false;  // 是否正在回復能量
+    //bool isOutBurst = false;
     [Space(height: 20)]
 
     [SerializeField]
@@ -82,8 +82,8 @@ public class PlayerMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currentEnergy = maxEnergy;
-        UpdateUI();
+        //currentEnergy = maxEnergy;
+        //UpdateUI();
     }
     public void GetMove(InputAction.CallbackContext context)
     {
@@ -93,14 +93,14 @@ public class PlayerMove : MonoBehaviour
     {
         if (context.performed)
         {
-            if (canDash&&currentEnergy>=20&&!isOutBurst)
+            if (canDash/*&&currentEnergy>=20&&!isOutBurst*/)
             {
                 rotateStartTime = Time.time;
                 StartCoroutine(OnDash());
-                currentEnergy -= 20;
-                UpdateUI();
-                timeSinceLastEnergyUse = 0f;   // 重置時間計數器
-                isRegening = false;
+                //currentEnergy -= 20;
+                //UpdateUI();
+               // timeSinceLastEnergyUse = 0f;   // 重置時間計數器
+                //isRegening = false;
             }
         }
     }
@@ -112,10 +112,10 @@ public class PlayerMove : MonoBehaviour
             isBouncing = true;
             isRotating = true;
             StartCoroutine(MuTeKiTime(0.2f));
-            currentEnergy -= 20;
-            UpdateUI();
-            timeSinceLastEnergyUse = 0f;   // 重置時間計數器
-            isRegening = false;
+            //currentEnergy -= 20;
+            //UpdateUI();
+            //timeSinceLastEnergyUse = 0f;   // 重置時間計數器
+            //isRegening = false;
         }
     }
     public void GetLean(InputAction.CallbackContext context)
@@ -123,11 +123,13 @@ public class PlayerMove : MonoBehaviour
         if (context.performed)
         {
             leanInput = context.ReadValue<float>();
+            Debug.Log(leanInput);
             manualLean = true;
         }
         if (context.canceled)
         {
             manualLean = false;
+            leanInput = 0;
         }
     }
 
@@ -197,34 +199,34 @@ public class PlayerMove : MonoBehaviour
             }
         }
 
-        if (currentEnergy<=0)
-        {
-            regenDelay = 3f;
-            isOutBurst = true;
-            //isBraking = false;
-            //isBoosting = false;
-        }
-        if (currentEnergy <= 20)
-        {
-            energyBarImage.color = Color.red;
-        }else 
-        {
-            energyBarImage.color = Color.green;
-        }
-        // 計時器每幀更新
-        timeSinceLastEnergyUse += Time.deltaTime;
-        //Debug.Log(timeSinceLastEnergyUse);
-        // 如果能量不是滿的並且已經超過回復延遲時間，開始回復能量
-        if (!isRegening && currentEnergy < maxEnergy && timeSinceLastEnergyUse >= regenDelay)
-        {
-            StartEnergyRegen();
-        }
+        //if (currentEnergy<=0)
+        //{
+        //    regenDelay = 3f;
+        //    isOutBurst = true;
+        //    //isBraking = false;
+        //    //isBoosting = false;
+        //}
+        //if (currentEnergy <= 20)
+        //{
+        //    energyBarImage.color = Color.red;
+        //}else 
+        //{
+        //    energyBarImage.color = Color.white;
+        //}
+        //// 計時器每幀更新
+        //timeSinceLastEnergyUse += Time.deltaTime;
+        ////Debug.Log(timeSinceLastEnergyUse);
+        //// 如果能量不是滿的並且已經超過回復延遲時間，開始回復能量
+        //if (!isRegening && currentEnergy < maxEnergy && timeSinceLastEnergyUse >= regenDelay)
+        //{
+        //    StartEnergyRegen();
+        //}
 
-        // 如果正在回復能量，逐漸增加能量
-        if (isRegening)
-        {
-            RegenerateEnergy();
-        }
+        //// 如果正在回復能量，逐漸增加能量
+        //if (isRegening)
+        //{
+        //    RegenerateEnergy();
+        //}
         if (isRotating)
         {
             //initialRotation = transform.rotation.ToEulerAngles();
@@ -345,30 +347,30 @@ public class PlayerMove : MonoBehaviour
             Destroy(explosionInstance, 1f);
         }
     }
-    private void UpdateUI()
-    {
-        float EnergyAmount = (float)currentEnergy / (float)maxEnergy;
-        //Debug.Log(HpAmount);
-        energyBarImage.fillAmount = EnergyAmount;
-    }
-    private void StartEnergyRegen()
-    {
-        isRegening = true;
-    }
-    private void RegenerateEnergy()
-    {
-        currentEnergy += energyRegenRate * Time.deltaTime;
-        UpdateUI();
-        currentEnergy = Mathf.Min(currentEnergy, maxEnergy);  // 確保能量不超過最大值
+    //private void UpdateUI()
+    //{
+    //    float EnergyAmount = (float)currentEnergy / (float)maxEnergy;
+    //    //Debug.Log(HpAmount);
+    //    energyBarImage.fillAmount = EnergyAmount;
+    //}
+    //private void StartEnergyRegen()
+    //{
+    //    isRegening = true;
+    //}
+    //private void RegenerateEnergy()
+    //{
+    //    currentEnergy += energyRegenRate * Time.deltaTime;
+    //    UpdateUI();
+    //    currentEnergy = Mathf.Min(currentEnergy, maxEnergy);  // 確保能量不超過最大值
 
-        // 如果能量已經回滿，停止回復
-        if (currentEnergy >= maxEnergy)
-        {
-            isRegening = false;
-            isOutBurst = false;
-            regenDelay = 1f;
-        }
-    }
+    //    // 如果能量已經回滿，停止回復
+    //    if (currentEnergy >= maxEnergy)
+    //    {
+    //        isRegening = false;
+    //        isOutBurst = false;
+    //        regenDelay = 1f;
+    //    }
+    //}
     //public void GetBoost(InputAction.CallbackContext context)
     //{
     //    var emission = speedLine.emission;
