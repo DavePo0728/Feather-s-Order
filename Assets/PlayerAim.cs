@@ -42,12 +42,12 @@ public class PlayerAim : MonoBehaviour
         aimmingImage3.transform.position = playerCamera.WorldToScreenPoint(emptyAimObject3.transform.position);
         RaycastHit hit;
         // Does the ray intersect any objects excluding the player layer
-        if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, raycastIgnore))
+        if (Physics.Raycast(transform.position, transform.TransformDirection(emptyAimObject3.transform.position), out hit, Mathf.Infinity, raycastIgnore))
         {
 
             if(hit.collider.gameObject.tag == "Enemy")
             {
-                Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.red);
+                Debug.DrawRay(transform.position, emptyAimObject3.transform.position * hit.distance, Color.red);
                 lockedEnemy = hit.collider.gameObject;
                 lockImage.SetActive(true);
                 lockImage.transform.position = playerCamera.WorldToScreenPoint(lockedEnemy.transform.position);
@@ -55,7 +55,7 @@ public class PlayerAim : MonoBehaviour
         }
         else
         {
-            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 1000, Color.green);
+            Debug.DrawRay(transform.position, transform.TransformDirection(emptyAimObject3.transform.position), Color.green);
             lockedEnemy = null;
             lockImage.SetActive(false);
         }

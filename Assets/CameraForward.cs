@@ -11,13 +11,14 @@ public class CameraForward : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        transform.position = new Vector3(PlayerCam.transform.position.x - 2000, PlayerCam.transform.position.y, transform.position.z);
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        transform.position = new Vector3(PlayerCam.transform.position.x-2000, PlayerCam.transform.position.y, transform.position.z);
-        transform.Translate(Vector3.forward * speed *Time.deltaTime);
+        transform.rotation = PlayerCam.transform.rotation;
+        Vector3 movement = Vector3.forward.normalized * speed * Time.deltaTime;
+        transform.position += movement;
     }
 }
