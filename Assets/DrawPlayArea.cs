@@ -7,6 +7,6 @@ public class DrawPlayArea : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireCube(new Vector3(transform.position.x,transform.position.y+4.5f,transform.position.z+50000), new Vector3(100,24,100000));
+        Gizmos.DrawWireCube(new Vector3(transform.position.x,transform.position.y+4.5f,transform.position.z+500), new Vector3(160,24,1000));
     }
 }

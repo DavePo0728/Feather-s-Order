@@ -5,6 +5,7 @@ using UnityEngine;
 public class TerrainLoopManager : MonoBehaviour
 {
     public static TerrainLoopManager terrainInstance;
+    List<GameObject> terrainList,blockList,specialList;
     [SerializeField]
     float OriginSpeed;
     [SerializeField]

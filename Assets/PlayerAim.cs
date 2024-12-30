@@ -57,7 +57,7 @@ public class PlayerAim : MonoBehaviour
         emptyAimObject3.transform.Translate(new Vector3(aimPos.x * aimSpeed , aimPos.y * aimSpeed, 0));
         emptyAimObject2.transform.position = GetPointAtZ(transform.position, emptyAimObject3.transform.position, emptyAimObject2.transform.position.z);
         emptyAimObject1.transform.position = GetPointAtZ(transform.position, emptyAimObject3.transform.position, emptyAimObject1.transform.position.z);
-        //emptyAimObject3.transform.position = new Vector3(Mathf.Clamp(emptyAimObject3.transform.position.x, 1950, 2050), Mathf.Clamp(emptyAimObject3.transform.position.y, -7.5f, 16.5f), emptyAimObject3.transform.position.z);
+        emptyAimObject3.transform.position = new Vector3(Mathf.Clamp(emptyAimObject3.transform.position.x, 1585, 2415), Mathf.Clamp(emptyAimObject3.transform.position.y, -95f, 135f), emptyAimObject3.transform.position.z);
         aimmingImage1.transform.position = playerCamera.WorldToScreenPoint(emptyAimObject1.transform.position);
         aimmingImage2.transform.position = playerCamera.WorldToScreenPoint(emptyAimObject2.transform.position);
         aimmingImage3.transform.position = playerCamera.WorldToScreenPoint(emptyAimObject3.transform.position);
