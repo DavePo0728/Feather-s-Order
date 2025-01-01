@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class TerrainLoopManager : MonoBehaviour
 {
     public static TerrainLoopManager terrainInstance;
+    [SerializeField]
     List<GameObject> terrainList,blockList,specialList;
+    [SerializeField]
+    List<Vector3> InitialPos;
     [SerializeField]
     float OriginSpeed;
     [SerializeField]
@@ -13,19 +17,10 @@ public class TerrainLoopManager : MonoBehaviour
     public float _moveSpeed => moveSpeed;
     private void Start()
     {
-        terrainInstance = this;
-        moveSpeed = OriginSpeed;
+        
     }
-    public void SpeedUp()
+    private void Update()
     {
-        moveSpeed = 500;
-    }
-    public void SlowDown()
-    {
-        moveSpeed = 60;
-    }
-    public void Normal()
-    {
-        moveSpeed = OriginSpeed;
+
     }
 }

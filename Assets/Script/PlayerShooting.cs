@@ -74,6 +74,7 @@ public class PlayerShooting : MonoBehaviour
         timeSinceLastShot += Time.deltaTime;
         if (shooting && timeSinceLastShot >= timeBetweenShots&&currentHeat<maxHeat)
         {
+            //gunSound.pitch = Random.Range(0.8f, 1f);
             gunPoint1.Shoot();
             gunPoint2.Shoot();
             timeSinceLastShot = 0.0f;
