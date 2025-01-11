@@ -14,6 +14,8 @@ public class PlayerShooting : MonoBehaviour
     private float timeSinceLastShot = 0.0f;
     [SerializeField]
     AudioSource gunSound;
+    [SerializeField]
+    AudioSource overheatSound; // 過熱提示音效
     bool shooting;
     [SerializeField]
     Image heatBarImage;
@@ -21,9 +23,9 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField]
     float currentHeat;
     [SerializeField]
-    float maxHeat=100f;
-    float coolDownRate=0;
-    float shootingHeatRate =0;
+    float maxHeat = 100f;
+    float coolDownRate = 0;
+    float shootingHeatRate = 0;
     float timeSinceLastShooting = 0f;   
     [SerializeField]
     float coolDownDelay = 0.5f;     
@@ -36,18 +38,17 @@ public class PlayerShooting : MonoBehaviour
     private float currentAlpha = 1f; // 當前透明度
     private bool isFadingOut = true; // 用於控制閃爍方向
 
-    // Start is called before the first frame update
     void Start()
     {
         timeBetweenShots = 1 / (800 / 60.0f);
         gunPoint1Img.enabled = false;
         gunPoint2Img.enabled = false;
         gunSound = transform.parent.parent.parent.GetComponent<AudioSource>();
-        shootingHeatRate = (100f / 6f)*4;
+        shootingHeatRate = (100f / 6f) * 4;
         coolDownRate = 100f;
         currentHeat = 0;
-        //playerAim = GetComponent<PlayerAim>();
     }
+
     public void GetShootInput(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -56,7 +57,7 @@ public class PlayerShooting : MonoBehaviour
             gunPoint1Img.enabled = true;
             gunPoint2Img.enabled = true;
             gunSound.Play();
-            timeSinceLastShooting = 0f;   // 重置時間計數器
+            timeSinceLastShooting = 0f;
             isCoolingDown = false;
         }
         if (context.canceled)
@@ -67,40 +68,53 @@ public class PlayerShooting : MonoBehaviour
             gunSound.Stop();
         }
     }
-    
-    // Update is called once per frame
+
     void FixedUpdate()
     {
         timeSinceLastShot += Time.deltaTime;
-        if (shooting && timeSinceLastShot >= timeBetweenShots&&currentHeat<maxHeat)
+
+        if (shooting && timeSinceLastShot >= timeBetweenShots && currentHeat < maxHeat)
         {
-            //gunSound.pitch = Random.Range(0.8f, 1f);
             gunPoint1.Shoot();
             gunPoint2.Shoot();
             timeSinceLastShot = 0.0f;
             ShootingOverHeat();
         }
-        else if(shooting&&currentHeat >= maxHeat)
+        else if (shooting && currentHeat >= maxHeat)
         {
             shooting = false;
             gunPoint1Img.enabled = false;
             gunPoint2Img.enabled = false;
             gunSound.Stop();
+
+            // 播放過熱音效
+            if (!overheatSound.isPlaying)
+            {
+                overheatSound.Play();
+            }
         }
+
         timeSinceLastShooting += Time.deltaTime;
-        if (!shooting && !isCoolingDown && timeSinceLastShooting >= coolDownDelay&&currentHeat>0)
+        if (!shooting && !isCoolingDown && timeSinceLastShooting >= coolDownDelay && currentHeat > 0)
         {
             isCoolingDown = true;
-            //Debug.Log(timeSinceLastShooting);
         }
 
         if (isCoolingDown)
         {
             CoolDownShooting();
         }
+
+        // 停止過熱音效（如果冷卻完成）
+        if (isCoolingDown && currentHeat <= 0 && overheatSound.isPlaying)
+        {
+            overheatSound.Stop();
+        }
+
         isFlashing = (currentHeat / maxHeat) >= 0.8f;
         HandleFlashing();
     }
+
     private void HandleFlashing()
     {
         if (isFlashing)
@@ -109,7 +123,6 @@ public class PlayerShooting : MonoBehaviour
             if (flashTimer >= (1f / flashFrequency))
             {
                 flashTimer = 0f;
-                // 調整透明度以實現閃爍效果
                 if (isFadingOut)
                 {
                     currentAlpha -= 0.6f;
@@ -130,41 +143,36 @@ public class PlayerShooting : MonoBehaviour
                         isFadingOut = true;
                     }
                 }
-                
             }
         }
         else
         {
-            // 恢復透明度為 1（不閃爍時）
             currentAlpha = 1f;
         }
     }
+
     private void UpdateUI()
     {
         float heatAmount = currentHeat / maxHeat;
-        //Debug.Log(HpAmount);
         heatBarImage.fillAmount = heatAmount;
         Color currentColor = Color.Lerp(minHeatColor, maxHeatColor, heatAmount);
-        //Debug.Log(currentColor);
         currentColor.a = currentAlpha;
         heatBarImage.color = currentColor;
     }
+
     private void ShootingOverHeat()
     {
         if (currentHeat <= maxHeat)
         {
             currentHeat += shootingHeatRate * Time.deltaTime;
-            
         }
         UpdateUI();
     }
+
     private void CoolDownShooting()
     {
         currentHeat -= coolDownRate * Time.deltaTime;
         UpdateUI();
-        //currentEnergy = Mathf.Max(currentEnergy, maxEnergy);  
-
-        
         if (currentHeat <= 0)
         {
             isCoolingDown = false;

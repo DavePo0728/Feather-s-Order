@@ -8,7 +8,7 @@ public class enemyHp : MonoBehaviour
     float Maxhp;
     float currentHp;
     [SerializeField]
-    GameObject shieldEffect,shieldExplosionEffect;
+    GameObject shieldEffect, shieldExplosionEffect;
     public bool haveshield;
     [SerializeField]
     float currentShieldHp;
@@ -17,15 +17,26 @@ public class enemyHp : MonoBehaviour
     float shieldDamageMultiplier;
     GameObject DeathExplosion;
     ScoreManager scoreManager;
+    [SerializeField]
+    AudioSource shieldHitAudioSource; // 擊中盾音效播放器
+    [SerializeField]
+    AudioSource shieldBreakAudioSource; // 破盾音效播放器
+    [SerializeField]
+    GameObject soundManager;
+
     // Start is called before the first frame update
     void Start()
     {
+        
         currentHp = Maxhp;
         DeathExplosion = Resources.Load<GameObject>("ShadowExplosion2");
         scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
 
         if (haveshield)
         {
+            soundManager = GameObject.FindGameObjectWithTag("SoundManager");
+            shieldHitAudioSource = soundManager.transform.GetChild(3).GetComponent<AudioSource>();
+            shieldBreakAudioSource = soundManager.transform.GetChild(4).GetComponent<AudioSource>();
             shieldEffect = transform.GetChild(2).gameObject;
             shieldExplosionEffect = transform.GetChild(3).gameObject;
             currentShieldHp = maxShieldHp;
@@ -46,19 +57,21 @@ public class enemyHp : MonoBehaviour
     public void Hurt(float damage)
     {
         shieldDamageMultiplier = 0.5f;
-        if (currentShieldHp > 0)
+        if (currentShieldHp > 0) // 擊中盾的音效
         {
-            currentShieldHp-= damage*shieldDamageMultiplier;
+            PlayShieldHitSound(); // 播放擊中盾音效
+            currentShieldHp -= damage * shieldDamageMultiplier;
             
         }
         else
         {
-            if (shieldEffect != null&&haveshield)
+            if (shieldEffect != null&&haveshield) // 破盾的音效
             {
+                haveshield = false;
                 shieldEffect.SetActive(false);
                 shieldExplosionEffect.SetActive(true);
-                haveshield = false;
-                //Debug.Log("shieldBroke");
+                
+                PlayShieldBreakSound(); // 播放破盾音效
             }
             if (currentShieldHp > 0)
             {
@@ -78,23 +91,27 @@ public class enemyHp : MonoBehaviour
             }
         }
     }
+
     public void ShieldHurt(float damage)
     {
         shieldDamageMultiplier = 1.5f;
         if (currentShieldHp > 0)
         {
             currentShieldHp -= damage * shieldDamageMultiplier;
-            if (shieldEffect != null)
+            
+            if (shieldEffect != null && currentShieldHp <= 0)
             {
                 shieldEffect.SetActive(false);
                 shieldExplosionEffect.SetActive(true);
+                PlayShieldBreakSound();
+                haveshield = false;
             }
         }
         else
         {
             if (currentShieldHp > 0)
             {
-                currentShieldHp-= damage;
+                currentShieldHp -= damage;
             }
             else
             {
@@ -105,27 +122,47 @@ public class enemyHp : MonoBehaviour
                 }
                 else
                 {
-                    currentHp-=damage;
+                    currentHp -= damage;
                 }
             }
         }
     } 
+
     public void DeathEffect()
     {
         GameObject effect = Instantiate(DeathExplosion, transform.position, Quaternion.identity);
         Destroy(effect, 1.5f);
         Destroy(gameObject);
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "PlayerBullet")
         {
             Hurt(1);
-            //Debug.Log("hit");
+            // Debug.Log("hit");
         }
-        if(other.tag == "ChargeBullet")
+        if (other.tag == "ChargeBullet")
         {
             ShieldHurt(10);
+        }
+    }
+
+    private void PlayShieldHitSound()
+    {
+        //soundManager = GameObject.Find("SoundManager").GetComponent<GameObject>();
+        //shieldHitAudioSource = soundManager.transform.GetChild(3).GetComponent<AudioSource>();
+        if (shieldHitAudioSource != null && shieldHitAudioSource.clip != null)
+        {
+            shieldHitAudioSource.Play();
+        }
+    }
+
+    private void PlayShieldBreakSound()
+    {
+        if (shieldBreakAudioSource != null && shieldBreakAudioSource.clip != null)
+        {
+            shieldBreakAudioSource.Play();
         }
     }
 }
