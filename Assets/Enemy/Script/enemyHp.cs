@@ -53,10 +53,11 @@ public class enemyHp : MonoBehaviour
         }
         else
         {
-            if (shieldEffect != null)
+            if (shieldEffect != null&&haveshield)
             {
                 shieldEffect.SetActive(false);
                 shieldExplosionEffect.SetActive(true);
+                haveshield = false;
                 //Debug.Log("shieldBroke");
             }
             if (currentShieldHp > 0)

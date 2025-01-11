@@ -8,6 +8,8 @@ public class LandMove : MonoBehaviour
     float speed;
     [SerializeField]
     Vector3 originPoint;
+    [SerializeField]
+    float zOffset;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,10 +19,12 @@ public class LandMove : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        transform.Translate(-Vector3.forward * speed*Time.deltaTime);
-        if(transform.position.z <= -900f)
+        transform.Translate(-Vector3.forward * speed);
+        if(transform.position.z < -900)
         {
+            originPoint.z += zOffset;
             transform.position = originPoint;
+            TerrainLoopManager.terrainInstance.Refresh();
         }
     }
 }
