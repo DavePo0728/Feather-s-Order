@@ -7,6 +7,9 @@ using UnityEngine.InputSystem;
 public class PlayerAim : MonoBehaviour
 {
     [SerializeField]
+    GameObject playerObject;
+    Vector3 playerOriPos;
+    [SerializeField]
     Camera playerCamera;
     [SerializeField]
     GameObject aimmingImage1, aimmingImage2, aimmingImage3,lockImage;
@@ -16,6 +19,8 @@ public class PlayerAim : MonoBehaviour
     GameObject emptyAimObject1, emptyAimObject2, emptyAimObject3;
     Vector2 aimInput;
     Vector3 aimPos;
+    float MaxYbottom, MaxYTop;
+    Vector3 aimOriPos;
     [SerializeField]
     float aimSpeed;
     Vector3 direction;
@@ -37,7 +42,24 @@ public class PlayerAim : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        playerOriPos = playerObject.transform.position;
+        aimOriPos = playerOriPos;
+        aimOriPos.z = playerOriPos.z+200f;
+        //CalculateMaxYBottom();
+        //CalculateMaxYTop();
+    }
+    void CalculateMaxYBottom()
+    {
+        float ab = aimOriPos.z - playerOriPos.z;
+        MaxYbottom = Mathf.Tan(-5f);
+        Debug.Log("ab : " +ab);
+        Debug.Log(MaxYbottom);
+    }
+    void CalculateMaxYTop()
+    {
+        float ab = aimOriPos.z - playerOriPos.z;
+        MaxYTop = ab * Mathf.Tan(15f);
+        Debug.Log(MaxYTop);
     }
     public void GetAimInput(InputAction.CallbackContext context)
     {
@@ -57,7 +79,7 @@ public class PlayerAim : MonoBehaviour
         emptyAimObject3.transform.Translate(new Vector3(aimPos.x * aimSpeed , aimPos.y * aimSpeed, 0));
         emptyAimObject2.transform.position = GetPointAtZ(transform.position, emptyAimObject3.transform.position, emptyAimObject2.transform.position.z);
         emptyAimObject1.transform.position = GetPointAtZ(transform.position, emptyAimObject3.transform.position, emptyAimObject1.transform.position.z);
-        emptyAimObject3.transform.position = new Vector3(Mathf.Clamp(emptyAimObject3.transform.position.x, 1585, 2415), Mathf.Clamp(emptyAimObject3.transform.position.y, -95f, 135f), emptyAimObject3.transform.position.z);
+        emptyAimObject3.transform.position = new Vector3(Mathf.Clamp(emptyAimObject3.transform.position.x, 1585, 2415), /*Mathf.Clamp(*/emptyAimObject3.transform.position.y/*, MaxYbottom, MaxYTop)*/, emptyAimObject3.transform.position.z);
         aimmingImage1.transform.position = playerCamera.WorldToScreenPoint(emptyAimObject1.transform.position);
         aimmingImage2.transform.position = playerCamera.WorldToScreenPoint(emptyAimObject2.transform.position);
         aimmingImage3.transform.position = playerCamera.WorldToScreenPoint(emptyAimObject3.transform.position);

@@ -13,6 +13,7 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _ALPHATEST_ON
+  - _RECEIVE_ASP_SHADOW
   - _RECEIVE_OFFSETED_SHADOW_ON
   - _SPECULAR_LIGHTING_ON
   - _SSSMAP
@@ -221,14 +222,14 @@ Material:
     - _ClipFactor: 0
     - _ColorShift_Speed: 0
     - _Color_Mesh_Off: 0
-    - _Cull: 2
+    - _Cull: 0
     - _CullMode: 2
     - _Cutoff: 0.5
     - _DebugGI: 0
     - _DepthRimLightOn: 0
     - _DepthRimLightStrength: 0.1
     - _DetailNormalMapScale: 1
-    - _DitherTexelSize: 6
+    - _DitherTexelSize: 1
     - _Dithering: 0
     - _DstBlend: 0
     - _DstBlendAlpha: 0
@@ -239,7 +240,7 @@ Material:
     - _FOVShiftX: 0
     - _FaceShadowMapPow: 0.2
     - _FaceShadowSmoothness: 0
-    - _FakeLightIntensity: 2
+    - _FakeLightIntensity: -0.13
     - _Farthest_Distance: 100
     - _FlattenAdditionalLighting: 1
     - _GI_Intensity: 0
@@ -316,7 +317,7 @@ Material:
     - _Offset_Y_Axis_BLD: 0.09
     - _Offset_Z: 0
     - _Offset_Z_Bias: 0
-    - _OutlineWidth: 2
+    - _OutlineWidth: 0
     - _Outline_Width: 1
     - _OverrideLightColor: 0
     - _OverrideLightColorIntensity: 0
@@ -331,7 +332,7 @@ Material:
     - _QueueOffset: 0
     - _R_Color: 0
     - _RampOcclusionStrength: 0
-    - _ReceiveASPShadow: 0
+    - _ReceiveASPShadow: 1
     - _ReceiveOffsetedDepthMap: 1
     - _ReceiveShadows: 1
     - _RimLight: 1
@@ -348,7 +349,7 @@ Material:
     - _Rotate_NormalMapForMatCapUV: 0
     - _S_Color: 0
     - _SampleGI: 0
-    - _ScaleAsScreenSpaceOutline: 1
+    - _ScaleAsScreenSpaceOutline: 0
     - _Scroll_EmissiveU: 0
     - _Scroll_EmissiveV: 0
     - _Set_SystemShadowsToBase: 0
@@ -401,7 +402,7 @@ Material:
     - _AlphaClipUVCtrl: {r: 1, g: 0, b: 0, a: 0}
     - _Ap_RimLightColor: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _CharacterCenterWS: {r: 0, g: 0, b: -2.5, a: 0}
+    - _CharacterCenterWS: {r: 2000, g: 340.725, b: 5.9500003, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _ColorShift: {r: 0, g: 0, b: 0, a: 1}
     - _DefaultUVChannel: {r: 1, g: 0, b: 0, a: 0}
@@ -409,11 +410,11 @@ Material:
     - _DepthRimLightColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Emissive_Color: {r: 0, g: 0, b: 0, a: 1}
-    - _FaceFrontDirection: {r: 0.0000007678469, g: 0.03603113, b: 0.99935067, a: 0}
-    - _FaceRightDirection: {r: 1, g: -0.0000011744269, b: -0.00000072600244, a: 0}
+    - _FaceFrontDirection: {r: 0, g: 0, b: 1, a: 0}
+    - _FaceRightDirection: {r: 1, g: 0, b: 0, a: 0}
     - _FaceUVCtrl: {r: 0, g: 1, b: 0, a: 0}
-    - _FakeLightColor: {r: 0.8392157, g: 0.68028253, b: 0.3764706, a: 0}
-    - _FakeLightEuler: {r: 180, g: -474.2, b: 0, a: 0}
+    - _FakeLightColor: {r: 1, g: 1, b: 1, a: 0}
+    - _FakeLightEuler: {r: 180, g: 0, b: 0, a: 0}
     - _HairLightColor: {r: 1, g: 1, b: 1, a: 1}
     - _HairUVCtrl: {r: 0, g: 0, b: 1, a: 0}
     - _HighColor: {r: 0.8301887, g: 0.91406333, b: 1, a: 1}
