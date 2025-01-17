@@ -6,20 +6,18 @@ using UnityEngine.InputSystem;
 
 public class PlayerAim : MonoBehaviour
 {
-    [SerializeField]
-    GameObject playerObject;
     Vector3 playerOriPos;
     [SerializeField]
     Camera playerCamera;
     [SerializeField]
-    GameObject aimmingImage1, aimmingImage2, aimmingImage3,lockImage;
+    GameObject aimmingImage,lockImage;
     [SerializeField]
     GameObject lockedEnemy;
     [SerializeField]
-    GameObject emptyAimObject1, emptyAimObject2, emptyAimObject3;
+    GameObject emptyAimObject;
     Vector2 aimInput;
     Vector3 aimPos;
-    float MaxYbottom, MaxYTop;
+    float MaxYBottom, MaxYTop;
     Vector3 aimOriPos;
     [SerializeField]
     float aimSpeed;
@@ -42,23 +40,27 @@ public class PlayerAim : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerOriPos = playerObject.transform.position;
+        playerOriPos = transform.position;
         aimOriPos = playerOriPos;
         aimOriPos.z = playerOriPos.z+200f;
-        //CalculateMaxYBottom();
-        //CalculateMaxYTop();
+        CalculateMaxYBottom();
+        CalculateMaxYTop();
     }
     void CalculateMaxYBottom()
     {
         float ab = aimOriPos.z - playerOriPos.z;
-        MaxYbottom = Mathf.Tan(-5f);
-        Debug.Log("ab : " +ab);
-        Debug.Log(MaxYbottom);
+        MaxYBottom = ab * Mathf.Tan(40f * Mathf.Deg2Rad);
+        MaxYBottom = playerOriPos.y-MaxYBottom;
+        //Debug.Log("ab : " +ab);
+        Debug.Log(MaxYBottom);
     }
     void CalculateMaxYTop()
     {
         float ab = aimOriPos.z - playerOriPos.z;
-        MaxYTop = ab * Mathf.Tan(15f);
+        MaxYTop = ab * Mathf.Tan(70f * Mathf.Deg2Rad);
+        //MaxYTop = Mathf.Abs(MaxYTop);
+        //MaxYTop = playerOriPos.y + MaxYTop;
+        
         Debug.Log(MaxYTop);
     }
     public void GetAimInput(InputAction.CallbackContext context)
@@ -76,22 +78,23 @@ public class PlayerAim : MonoBehaviour
         {
             aimPos = Vector3.zero;
         }
-        emptyAimObject3.transform.Translate(new Vector3(aimPos.x * aimSpeed , aimPos.y * aimSpeed, 0));
-        emptyAimObject2.transform.position = GetPointAtZ(transform.position, emptyAimObject3.transform.position, emptyAimObject2.transform.position.z);
-        emptyAimObject1.transform.position = GetPointAtZ(transform.position, emptyAimObject3.transform.position, emptyAimObject1.transform.position.z);
-        emptyAimObject3.transform.position = new Vector3(Mathf.Clamp(emptyAimObject3.transform.position.x, 1585, 2415), /*Mathf.Clamp(*/emptyAimObject3.transform.position.y/*, MaxYbottom, MaxYTop)*/, emptyAimObject3.transform.position.z);
-        aimmingImage1.transform.position = playerCamera.WorldToScreenPoint(emptyAimObject1.transform.position);
-        aimmingImage2.transform.position = playerCamera.WorldToScreenPoint(emptyAimObject2.transform.position);
-        aimmingImage3.transform.position = playerCamera.WorldToScreenPoint(emptyAimObject3.transform.position);
-        direction = emptyAimObject3.transform.position - transform.position;
+        emptyAimObject.transform.Translate(new Vector3(aimPos.x * aimSpeed , aimPos.y * aimSpeed, 0));
+        emptyAimObject.transform.position = new Vector3(Mathf.Clamp(emptyAimObject.transform.position.x, 1585, 2415), Mathf.Clamp(emptyAimObject.transform.position.y, MaxYBottom, MaxYTop), emptyAimObject.transform.position.z);
+        //aimmingImage1.transform.position = playerCamera.WorldToScreenPoint(emptyAimObject1.transform.position);
+        //aimmingImage2.transform.position = playerCamera.WorldToScreenPoint(emptyAimObject2.transform.position);
+        //emptyAimObject2.transform.position = GetPointAtZ(transform.position, emptyAimObject3.transform.position, emptyAimObject2.transform.position.z);
+        //emptyAimObject1.transform.position = GetPointAtZ(transform.position, emptyAimObject3.transform.position, emptyAimObject1.transform.position.z);
+        aimmingImage.transform.position = playerCamera.WorldToScreenPoint(emptyAimObject.transform.position);
+        //playerCamera.transform.rotation = Quaternion.Euler(Mathf.Clamp(playerCamera.transform.rotation.eulerAngles.x,5f,15f), playerCamera.transform.rotation.eulerAngles.y, playerCamera.transform.rotation.eulerAngles.z);
+        direction = emptyAimObject.transform.position - transform.position;
         RaycastHit hit;
         // Does the ray intersect any objects excluding the player layer
-        if (Physics.Raycast(transform.position, direction, out hit, 200f, raycastIgnore))
+        if (Physics.Raycast(transform.position, direction, out hit, 1000f, raycastIgnore))
         {
 
             if(hit.collider.gameObject.tag == "Enemy")
             {
-                Debug.DrawRay(transform.position, emptyAimObject3.transform.position * hit.distance, Color.red);
+                Debug.DrawRay(transform.position, direction, Color.red);
                 lockedEnemy = hit.collider.gameObject;
                 lockImage.SetActive(true);
                 lockImage.transform.position = playerCamera.WorldToScreenPoint(lockedEnemy.transform.position);
@@ -100,7 +103,7 @@ public class PlayerAim : MonoBehaviour
         else
         {
             Debug.DrawRay(transform.position, direction, Color.green);
-            lockedEnemy = emptyAimObject3;
+            lockedEnemy = emptyAimObject;
             lockImage.SetActive(false);
         }
 
