@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 
 public class WaveManager : MonoBehaviour
@@ -12,6 +13,8 @@ public class WaveManager : MonoBehaviour
     [SerializeField]
     [Space(10)]
     List<GameObject> _12EndPointList, _6EndPointList, _3EndPointList, _3VerticalEndPointList;
+    [SerializeField]
+    List<GameObject> spawnTestList,endTestList;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,56 +26,73 @@ public class WaveManager : MonoBehaviour
     {
         
     }
-    void SpawnEnemy(GameObject enemy,GameObject spawnPoint, GameObject endPoint)
+    void SpawnEnemy(GameObject enemy,GameObject spawnPoint, GameObject endPoint,IEntryBehaviour entryBehaviour,float curveHeight)
     {
-            GameObject temp = Instantiate(enemy, spawnPoint.transform.position, spawnPoint.transform.rotation);
-            EnemyMoveA move = temp.GetComponent<EnemyMoveA>();
-            move.endPoint = endPoint;
+        GameObject temp = Instantiate(enemy, spawnPoint.transform.position, spawnPoint.transform.rotation);
+        EnemyMove move = temp.GetComponent<EnemyMove>();
+        move.endPoint = endPoint.transform;
+        move.curveHeight = curveHeight;
+        IEntryBehaviour entry = entryBehaviour;
+        //move.SetBehaviours(entry);
+    }    
+    void SpawnEnemy(GameObject enemy,GameObject spawnPoint, GameObject endPoint,IEntryBehaviour entryBehaviour)
+    {
+        GameObject temp = Instantiate(enemy, spawnPoint.transform.position, spawnPoint.transform.rotation);
+        EnemyMove move = temp.GetComponent<EnemyMove>();
+        move.endPoint = endPoint.transform;
+        IEntryBehaviour entry = entryBehaviour;
+        //move.SetBehaviours(entry);
     }
     IEnumerator WaveSpawn()
     {
-        yield return new WaitForSeconds(3f);
-        SpawnEnemy(enemyList[0], _6SpawnPointList[0], _6EndPointList[0]);
-        SpawnEnemy(enemyList[1], _6SpawnPointList[1], _6EndPointList[1]);
-        SpawnEnemy(enemyList[0], _6SpawnPointList[2], _6EndPointList[2]);
-        SpawnEnemy(enemyList[0], _6SpawnPointList[3], _6EndPointList[3]);
-        SpawnEnemy(enemyList[1], _6SpawnPointList[4], _6EndPointList[4]);
-        SpawnEnemy(enemyList[0], _6SpawnPointList[5], _6EndPointList[5]);
-        yield return new WaitForSeconds(12f);
-        SpawnEnemy(enemyList[0], _6SpawnPointList[0], _6EndPointList[0]);
-        SpawnEnemy(enemyList[0], _6SpawnPointList[1], _6EndPointList[1]);
-        SpawnEnemy(enemyList[0], _6SpawnPointList[2], _6EndPointList[2]);
-        SpawnEnemy(enemyList[1], _6SpawnPointList[4], _6EndPointList[4]);
-        yield return new WaitForSeconds(12f);
-        ///右邊垂直
-        SpawnEnemy(enemyList[0], _3VerticalSpawnPointList[3], _3VerticalEndPointList[6]);
-        SpawnEnemy(enemyList[1], _3VerticalSpawnPointList[4], _3VerticalEndPointList[7]);
-        SpawnEnemy(enemyList[0], _3VerticalSpawnPointList[5], _3VerticalEndPointList[8]);
-        yield return new WaitForSeconds(12f);
-        SpawnEnemy(enemyList[0], _6SpawnPointList[0], _6EndPointList[0]);
-        SpawnEnemy(enemyList[1], _6SpawnPointList[1], _6EndPointList[1]);
-        SpawnEnemy(enemyList[0], _6SpawnPointList[2], _6EndPointList[2]);
-        SpawnEnemy(enemyList[0], _6SpawnPointList[3], _6EndPointList[3]);
-        SpawnEnemy(enemyList[1], _6SpawnPointList[4], _6EndPointList[4]);
-        SpawnEnemy(enemyList[0], _6SpawnPointList[5], _6EndPointList[5]);
-        yield return new WaitForSeconds(12f);
-        SpawnEnemy(enemyList[1], _3VerticalSpawnPointList[4], _3VerticalEndPointList[7]);
-        SpawnEnemy(enemyList[1], _3VerticalSpawnPointList[1], _3VerticalEndPointList[1]);
-        yield return new WaitForSeconds(12f);
-        SpawnEnemy(enemyList[0], _3VerticalSpawnPointList[3], _3VerticalEndPointList[3]);
-        SpawnEnemy(enemyList[1], _3VerticalSpawnPointList[4], _3VerticalEndPointList[4]);    ///中間垂直
-        SpawnEnemy(enemyList[0], _3VerticalSpawnPointList[5], _3VerticalEndPointList[5]);
-        yield return new WaitForSeconds(12f);
-        ///左邊垂直
-        SpawnEnemy(enemyList[0], _3VerticalSpawnPointList[0], _3VerticalEndPointList[0]);
-        SpawnEnemy(enemyList[1], _3VerticalSpawnPointList[1], _3VerticalEndPointList[1]);
-        SpawnEnemy(enemyList[0], _3VerticalSpawnPointList[2], _3VerticalEndPointList[2]);
-        yield return new WaitForSeconds(12f);
-        SpawnEnemy(enemyList[1], _6SpawnPointList[0], _6EndPointList[0]);
-        SpawnEnemy(enemyList[0], _6SpawnPointList[1], _6EndPointList[1]);
-        SpawnEnemy(enemyList[1], _6SpawnPointList[2], _6EndPointList[2]);
-        SpawnEnemy(enemyList[1], _6SpawnPointList[3], _6EndPointList[3]);
-        SpawnEnemy(enemyList[0], _6SpawnPointList[4], _6EndPointList[4]);
-        SpawnEnemy(enemyList[1], _6SpawnPointList[5], _6EndPointList[5]);
+        SpawnEnemy(enemyList[0], spawnTestList[0], endTestList[0],new EntryTypeA(),Random.Range(-100,100));
+        SpawnEnemy(enemyList[0], spawnTestList[1], endTestList[2],new EntryTypeA(),Random.Range(-100,100));
+        SpawnEnemy(enemyList[0], spawnTestList[2], endTestList[1],new EntryTypeA(),Random.Range(-100,100));
+        SpawnEnemy(enemyList[0], spawnTestList[3], endTestList[3],new EntryTypeA(),Random.Range(-100,100));
+
+        yield return new WaitForSeconds(1f);
+        //yield return new WaitForSeconds(3f);
+        //SpawnEnemy(enemyList[0], _6SpawnPointList[0], _6EndPointList[0]);
+        //SpawnEnemy(enemyList[1], _6SpawnPointList[1], _6EndPointList[1]);
+        //SpawnEnemy(enemyList[0], _6SpawnPointList[2], _6EndPointList[2]);
+        //SpawnEnemy(enemyList[0], _6SpawnPointList[3], _6EndPointList[3]);
+        //SpawnEnemy(enemyList[1], _6SpawnPointList[4], _6EndPointList[4]);
+        //SpawnEnemy(enemyList[0], _6SpawnPointList[5], _6EndPointList[5]);
+        //yield return new WaitForSeconds(12f);
+        //SpawnEnemy(enemyList[0], _6SpawnPointList[0], _6EndPointList[0]);
+        //SpawnEnemy(enemyList[0], _6SpawnPointList[1], _6EndPointList[1]);
+        //SpawnEnemy(enemyList[0], _6SpawnPointList[2], _6EndPointList[2]);
+        //SpawnEnemy(enemyList[1], _6SpawnPointList[4], _6EndPointList[4]);
+        //yield return new WaitForSeconds(12f);
+        /////右邊垂直
+        //SpawnEnemy(enemyList[0], _3VerticalSpawnPointList[3], _3VerticalEndPointList[6]);
+        //SpawnEnemy(enemyList[1], _3VerticalSpawnPointList[4], _3VerticalEndPointList[7]);
+        //SpawnEnemy(enemyList[0], _3VerticalSpawnPointList[5], _3VerticalEndPointList[8]);
+        //yield return new WaitForSeconds(12f);
+        //SpawnEnemy(enemyList[0], _6SpawnPointList[0], _6EndPointList[0]);
+        //SpawnEnemy(enemyList[1], _6SpawnPointList[1], _6EndPointList[1]);
+        //SpawnEnemy(enemyList[0], _6SpawnPointList[2], _6EndPointList[2]);
+        //SpawnEnemy(enemyList[0], _6SpawnPointList[3], _6EndPointList[3]);
+        //SpawnEnemy(enemyList[1], _6SpawnPointList[4], _6EndPointList[4]);
+        //SpawnEnemy(enemyList[0], _6SpawnPointList[5], _6EndPointList[5]);
+        //yield return new WaitForSeconds(12f);
+        //SpawnEnemy(enemyList[1], _3VerticalSpawnPointList[4], _3VerticalEndPointList[7]);
+        //SpawnEnemy(enemyList[1], _3VerticalSpawnPointList[1], _3VerticalEndPointList[1]);
+        //yield return new WaitForSeconds(12f);
+        //SpawnEnemy(enemyList[0], _3VerticalSpawnPointList[3], _3VerticalEndPointList[3]);
+        //SpawnEnemy(enemyList[1], _3VerticalSpawnPointList[4], _3VerticalEndPointList[4]);    ///中間垂直
+        //SpawnEnemy(enemyList[0], _3VerticalSpawnPointList[5], _3VerticalEndPointList[5]);
+        //yield return new WaitForSeconds(12f);
+        /////左邊垂直
+        //SpawnEnemy(enemyList[0], _3VerticalSpawnPointList[0], _3VerticalEndPointList[0]);
+        //SpawnEnemy(enemyList[1], _3VerticalSpawnPointList[1], _3VerticalEndPointList[1]);
+        //SpawnEnemy(enemyList[0], _3VerticalSpawnPointList[2], _3VerticalEndPointList[2]);
+        //yield return new WaitForSeconds(12f);
+        //SpawnEnemy(enemyList[1], _6SpawnPointList[0], _6EndPointList[0]);
+        //SpawnEnemy(enemyList[0], _6SpawnPointList[1], _6EndPointList[1]);
+        //SpawnEnemy(enemyList[1], _6SpawnPointList[2], _6EndPointList[2]);
+        //SpawnEnemy(enemyList[1], _6SpawnPointList[3], _6EndPointList[3]);
+        //SpawnEnemy(enemyList[0], _6SpawnPointList[4], _6EndPointList[4]);
+        //SpawnEnemy(enemyList[1], _6SpawnPointList[5], _6EndPointList[5]);
     }
 }

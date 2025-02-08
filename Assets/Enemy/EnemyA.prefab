@@ -24461,8 +24461,8 @@ GameObject:
   - component: {fileID: 4144358584242375818}
   - component: {fileID: 7461119564137760612}
   - component: {fileID: 4295465267203349002}
-  - component: {fileID: 4144358584242375821}
   - component: {fileID: 549574988}
+  - component: {fileID: 5802861171214962575}
   m_Layer: 7
   m_Name: EnemyA
   m_TagString: Enemy
@@ -24528,29 +24528,9 @@ MonoBehaviour:
   haveshield: 1
   currentShieldHp: 0
   maxShieldHp: 15
---- !u!114 &4144358584242375821
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4144358584242375822}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 990281f7a76f6a148a38d9586fdcb83e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 150
-  rotationSpeed: 0
-  radius: 0
-  lifeTime: 0
-  endPoint: {fileID: 0}
-  gun: {fileID: 0}
-  hSpeed: 120
-  enterScene: 0
-  isLeaving: 0
-  leaveTime: 10
-  timer: 0
+  shieldHitAudioSource: {fileID: 0}
+  shieldBreakAudioSource: {fileID: 0}
+  soundManager: {fileID: 0}
 --- !u!54 &549574988
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -24578,6 +24558,26 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &5802861171214962575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4144358584242375822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5cd254f68e1e7454eb298a5a6627ef8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 0
+  lifeTime: 0
+  startPoint: {fileID: 0}
+  endPoint: {fileID: 0}
+  curveHeight: 0
+  enterTime: 2
+  path: []
+  isDebug: 0
 --- !u!1 &6395813653083688469
 GameObject:
   m_ObjectHideFlags: 0

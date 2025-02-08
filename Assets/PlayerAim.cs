@@ -68,13 +68,13 @@ public class PlayerAim : MonoBehaviour
     {
         MaxXLeft = ab * Mathf.Tan(82.8f * Mathf.Deg2Rad);
         //MaxXLeft = playerOriPos.x - MaxXLeft;
-        Debug.Log(MaxXLeft);
+        //Debug.Log(MaxXLeft);
     }
     void CalculateMaxXRight()
     {
         MaxXRight = ab * Mathf.Tan(85.26f * Mathf.Deg2Rad);
         //MaxXRight = playerOriPos.x + MaxXRight;
-        Debug.Log(MaxXRight);
+        //Debug.Log(MaxXRight);
     }
     public void GetAimInput(InputAction.CallbackContext context)
     {
