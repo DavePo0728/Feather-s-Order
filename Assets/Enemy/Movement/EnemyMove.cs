@@ -17,6 +17,7 @@ public class EnemyMove : MonoBehaviour
     public float curveHeight;
     public float enterTime;
     public float moveCDTime;
+    public Vector3 originPos;
     //[HideInInspector]
     public Vector3[] path;
     [SerializeField]
@@ -41,7 +42,7 @@ public class EnemyMove : MonoBehaviour
     {
         startPoint = gameObject.transform;
         //StartCoroutine(TimeToDestroy());
-        UpdateDebugLine();
+        //UpdateDebugLine();
         entryBehavior.Enter(this);
     }
     void FixedUpdate()
@@ -52,7 +53,15 @@ public class EnemyMove : MonoBehaviour
         //    entryBehavior.Enter(this);
         //}
 
-        UpdateDebugLine();
+        //UpdateDebugLine();
+
+    }
+    public void CallMove()
+    {
+        originPos = transform.position;
+        moveBehavior.Move(this);
+        isMove = true;
+        //Debug.Log("Call Move");
     }
     IEnumerator TimeToDestroy()
     {
@@ -61,8 +70,16 @@ public class EnemyMove : MonoBehaviour
     }
     void UpdateDebugLine()
     {
-        CurvePathGenerator.pathInstance.SetPosition(startPoint, endPoint,100);
-        path = CurvePathGenerator.pathInstance.GetPath();
+        
         CurvePathGenerator.pathInstance.DrawDebugLine(this.gameObject);
+    }
+    void OnDrawGizmos()
+    {
+        if (isMove)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(originPos, 10);
+            //Debug.Log("Draw");
+        }
     }
 }

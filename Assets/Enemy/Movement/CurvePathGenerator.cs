@@ -58,10 +58,10 @@ public class CurvePathGenerator : MonoBehaviour
 
         return randomPosition;
     }
-    public Vector3 GetLandingPosZ(Transform endTransform,float landingRadius)
+    public Vector3 GetLandingPosZ(Vector3 endPosition,float landingRadius)
     {
-        Vector3 randomPosition = Random.insideUnitSphere * landingRadius + endTransform.position;
-        randomPosition.z = endTransform.position.z;
+        Vector3 randomPosition = Random.insideUnitSphere * landingRadius + endPosition;
+        randomPosition.z = endPosition.z;
 
         return randomPosition;
     }

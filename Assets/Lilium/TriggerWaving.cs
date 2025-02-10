@@ -30,7 +30,7 @@ public class TriggerWaving : MonoBehaviour
 				TailEffectR.SetActive(false);
 				DBTailL.enabled = false;
 				DBTailR.enabled = false;
-				print("off");
+				//print("off");
 			}
 		}
 	}
@@ -45,7 +45,7 @@ public class TriggerWaving : MonoBehaviour
 		TailEffectL.SetActive(true);
 		TailEffectR.SetActive(true);
 		AniTail.Play();
-		print("on");
+		//print("on");
 	}
 
 }

@@ -5,18 +5,15 @@ using DG.Tweening;
 
 public class MoveTypeA : IMoveBehaviour
 {
-    Vector3 _NextPos;
+    Vector3 _nextPos;
     Tweener onMove;
     public void Move(EnemyMove enemyMove)
     {
-        NextPos(enemyMove);
-        onMove = enemyMove.transform.DOMove(_NextPos, 1f).SetEase(Ease.Linear);
-        onMove.OnComplete(() => { NextPos(enemyMove); });
-    }
-    void NextPos(EnemyMove enemyMove)
-    {
-        _NextPos = CurvePathGenerator.pathInstance.GetLandingPosZ(enemyMove.transform, 5);
-        onMove.Restart();
+
+        
+        _nextPos = CurvePathGenerator.pathInstance.GetLandingPosZ(enemyMove.originPos, 10);
+        onMove = enemyMove.transform.DOMove(_nextPos, 0.5f).SetEase(Ease.Linear);
+        onMove.OnComplete(() => { Move(enemyMove); });
     }
     public void KillMove()
     {

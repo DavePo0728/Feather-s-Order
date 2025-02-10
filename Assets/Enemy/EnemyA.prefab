@@ -24530,6 +24530,7 @@ MonoBehaviour:
   maxShieldHp: 15
   shieldHitAudioSource: {fileID: 0}
   shieldBreakAudioSource: {fileID: 0}
+  hitimpact: {fileID: 0}
   soundManager: {fileID: 0}
 --- !u!54 &549574988
 Rigidbody:
@@ -24576,8 +24577,10 @@ MonoBehaviour:
   endPoint: {fileID: 0}
   curveHeight: 0
   enterTime: 2
+  moveCDTime: 0
   path: []
   isDebug: 0
+  isMove: 0
 --- !u!1 &6395813653083688469
 GameObject:
   m_ObjectHideFlags: 0

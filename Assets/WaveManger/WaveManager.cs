@@ -26,14 +26,15 @@ public class WaveManager : MonoBehaviour
     {
         
     }
-    void SpawnEnemy(GameObject enemy,GameObject spawnPoint, GameObject endPoint,IEntryBehaviour entryBehaviour,float curveHeight)
+    void SpawnEnemy(GameObject enemy,GameObject spawnPoint, GameObject endPoint,IEntryBehaviour entryBehaviour,IMoveBehaviour moveBehaviour ,float curveHeight)
     {
         GameObject temp = Instantiate(enemy, spawnPoint.transform.position, spawnPoint.transform.rotation);
-        EnemyMove move = temp.GetComponent<EnemyMove>();
-        move.endPoint = endPoint.transform;
-        move.curveHeight = curveHeight;
+        EnemyMove enemyMove = temp.GetComponent<EnemyMove>();
+        enemyMove.endPoint = endPoint.transform;
+        enemyMove.curveHeight = curveHeight;
         IEntryBehaviour entry = entryBehaviour;
-        //move.SetBehaviours(entry);
+        IMoveBehaviour move = moveBehaviour;
+        enemyMove.SetBehaviours(entry,move);
     }    
     void SpawnEnemy(GameObject enemy,GameObject spawnPoint, GameObject endPoint,IEntryBehaviour entryBehaviour)
     {
@@ -45,10 +46,10 @@ public class WaveManager : MonoBehaviour
     }
     IEnumerator WaveSpawn()
     {
-        SpawnEnemy(enemyList[0], spawnTestList[0], endTestList[0],new EntryTypeA(),Random.Range(-100,100));
-        SpawnEnemy(enemyList[0], spawnTestList[1], endTestList[2],new EntryTypeA(),Random.Range(-100,100));
-        SpawnEnemy(enemyList[0], spawnTestList[2], endTestList[1],new EntryTypeA(),Random.Range(-100,100));
-        SpawnEnemy(enemyList[0], spawnTestList[3], endTestList[3],new EntryTypeA(),Random.Range(-100,100));
+        SpawnEnemy(enemyList[0], spawnTestList[0], endTestList[0],new EntryTypeA(),new MoveTypeA(),Random.Range(-100,100));
+        SpawnEnemy(enemyList[0], spawnTestList[1], endTestList[2],new EntryTypeA(),new MoveTypeA(), Random.Range(-100,100));
+        SpawnEnemy(enemyList[0], spawnTestList[2], endTestList[1],new EntryTypeA(),new MoveTypeA(), Random.Range(-100,100));
+        SpawnEnemy(enemyList[0], spawnTestList[3], endTestList[3],new EntryTypeA(),new MoveTypeA(), Random.Range(-100,100));
 
         yield return new WaitForSeconds(1f);
         //yield return new WaitForSeconds(3f);
