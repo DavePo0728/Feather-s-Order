@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class EnemyMoveA : EnemyMove
 {
-    //public float Speed;
-    ////GameObject endPoint;
+    //public GameObject endPoint;
     //[SerializeField]
     //GameObject gun;
     //[SerializeField]
@@ -22,7 +21,7 @@ public class EnemyMoveA : EnemyMove
 
     //void Start()
     //{
-    //    //enemyData = Resources.Load<EnemyData>("EnemyData/EnemyData_keepDistance");
+    //    enemyData = Resources.Load<EnemyData>("EnemyData/EnemyData_keepDistance");
     //    enterScene = true;
     //    timer = 0;
     //    lifeTime = 15f;
@@ -47,10 +46,10 @@ public class EnemyMoveA : EnemyMove
     //        timer = 0;
     //    }
 
-    //    //if (moveSpeed != enemyData.originSpeed)
-    //    //{
-    //    //    moveSpeed = enemyData.originSpeed;
-    //    //}
+    //    if (speed != enemyData.originSpeed)
+    //    {
+    //        speed = enemyData.originSpeed;
+    //    }
 
     //    if (enterScene&&!isLeaving)
     //    {
@@ -85,7 +84,7 @@ public class EnemyMoveA : EnemyMove
 
     //    if(!enterScene && !isLeaving)
     //    {
-    //        transform.Translate(Vector3.forward * moveSpeed * Time.deltaTime);
+    //        transform.Translate(Vector3.forward * speed * Time.deltaTime);
     //        gun.SetActive(true);
     //        //Debug.Log("Go Forward");
     //    }
