@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
+using System;
 
 public class FireWorkShot : MonoBehaviour
 {
@@ -14,6 +17,8 @@ public class FireWorkShot : MonoBehaviour
     bool canShoot = false;
     [SerializeField]
     float range;
+    [SerializeField]
+    TMP_InputField InputField;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +33,11 @@ public class FireWorkShot : MonoBehaviour
             //StartCoroutine(ShootDandelion());
             StartCoroutine(ShootSphere());
         }
+        
+    }
+    public void OnBulletCountChage()
+    {
+        bulletCount = int.Parse(InputField.text);
     }
     IEnumerator ShootDandelion()
     {
@@ -38,7 +48,7 @@ public class FireWorkShot : MonoBehaviour
             if (bullet != null)
             {
 
-                Vector3 direction = Random.onUnitSphere * range;
+                Vector3 direction = UnityEngine.Random.onUnitSphere * range;
                 bullet.transform.position = transform.position;
                 bullet.transform.rotation = transform.rotation;
                 bullet.SetActive(true);

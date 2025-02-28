@@ -126,7 +126,7 @@ Material:
     - _FOVShiftX: 0
     - _FaceShadowMapPow: 0.71
     - _FaceShadowSmoothness: 0
-    - _FakeLightIntensity: -0.13
+    - _FakeLightIntensity: 0
     - _FlattenAdditionalLighting: 1
     - _Group0: 1
     - _Group1: 0
@@ -193,7 +193,7 @@ Material:
     - _FaceFrontDirection: {r: 0, g: 0, b: 1, a: 0}
     - _FaceRightDirection: {r: 1, g: 0, b: 0, a: 0}
     - _FaceUVCtrl: {r: 1, g: 0, b: 0, a: 0}
-    - _FakeLightColor: {r: 1, g: 1, b: 1, a: 0}
+    - _FakeLightColor: {r: 0, g: 0, b: 0, a: 0}
     - _FakeLightEuler: {r: 180, g: 0, b: 0, a: 0}
     - _HairLightColor: {r: 1, g: 1, b: 1, a: 1}
     - _HairUVCtrl: {r: 0, g: 0, b: 1, a: 0}

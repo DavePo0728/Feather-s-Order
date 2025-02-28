@@ -67,12 +67,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e538e2cffcca876439ea8c447f48822a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hit: {fileID: 4103611211972878605}
+  hitEffect: {fileID: 0}
   hitParticle: {fileID: 4194898489727110815}
   bulletBody: {fileID: 6138990545580341460}
   muzzleFlash: {fileID: 7196921283677141676}
-  BulletlifeTime: 0
+  BulletCollider: {fileID: 0}
   speed: 50
+  BulletlifeTime: 0
   sphereRadius: 0.5
   spreadSpeed: 0
 --- !u!1 &2876038816393742390
@@ -34004,7 +34005,7 @@ Transform:
   m_GameObject: {fileID: 6138990545580341460}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.301}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -53701,11 +53702,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 983ffc7b1f02f0d46a330ab4d104d17d, type: 3}
---- !u!1 &4103611211972878605 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1339124478685776, guid: 983ffc7b1f02f0d46a330ab4d104d17d, type: 3}
-  m_PrefabInstance: {fileID: 4104526706619487069}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4105239093745373191 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4090726360400730, guid: 983ffc7b1f02f0d46a330ab4d104d17d, type: 3}

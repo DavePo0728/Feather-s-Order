@@ -48,12 +48,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e538e2cffcca876439ea8c447f48822a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hit: {fileID: 7473825337442861475}
+  hitEffect: {fileID: 0}
   hitParticle: {fileID: 7313441383407310991}
   bulletBody: {fileID: 5918976030465472543}
   muzzleFlash: {fileID: 4835419168508110834}
-  BulletlifeTime: 0
+  BulletCollider: {fileID: 0}
   speed: 0
+  BulletlifeTime: 0
   sphereRadius: 0.5
   spreadSpeed: 0
 --- !u!135 &716453805775116783
@@ -232,11 +233,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3682161441724662295, guid: 2607314dcc2464e4891b1e4e172c023e, type: 3}
   m_PrefabInstance: {fileID: 6100536222377815960}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &7473825337442861475 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3679768363558710843, guid: 2607314dcc2464e4891b1e4e172c023e, type: 3}
-  m_PrefabInstance: {fileID: 6100536222377815960}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8928734807479298889
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -303,7 +299,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5604425871450751765, guid: 4dc8f0b02fff55047b330e91ef60430d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.956
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8158596611259367600, guid: 4dc8f0b02fff55047b330e91ef60430d, type: 3}
       propertyPath: InitialModule.startLifetime.scalar
@@ -390,6 +386,10 @@ PrefabInstance:
       value: 0.40251565
       objectReference: {fileID: 0}
     - target: {fileID: 8357179545955996956, guid: 4dc8f0b02fff55047b330e91ef60430d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8357996017808987176, guid: 4dc8f0b02fff55047b330e91ef60430d, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}

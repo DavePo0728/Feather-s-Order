@@ -87,7 +87,11 @@ public class PlayerShooting : MonoBehaviour
             gunPoint2Img.enabled = false;
             gunSound.Stop();
 
-            
+            // 播放過熱音效
+            if (!overheatSound.isPlaying)
+            {
+                overheatSound.Play();
+            }
         }
 
         timeSinceLastShooting += Time.deltaTime;
@@ -101,7 +105,11 @@ public class PlayerShooting : MonoBehaviour
             CoolDownShooting();
         }
 
-        
+        // 停止過熱音效（如果冷卻完成）
+        if (isCoolingDown && currentHeat <= 0 && overheatSound.isPlaying)
+        {
+            overheatSound.Stop();
+        }
 
         isFlashing = (currentHeat / maxHeat) >= 0.8f;
         HandleFlashing();
@@ -111,11 +119,6 @@ public class PlayerShooting : MonoBehaviour
     {
         if (isFlashing)
         {
-            // 播放過熱音效
-            if (!overheatSound.isPlaying)
-            {
-                overheatSound.Play();
-            }
             flashTimer += Time.deltaTime;
             if (flashTimer >= (1f / flashFrequency))
             {
@@ -144,11 +147,6 @@ public class PlayerShooting : MonoBehaviour
         }
         else
         {
-            // 停止過熱音效（如果冷卻完成）
-            if (isCoolingDown && currentHeat <= 0 && overheatSound.isPlaying)
-            {
-                overheatSound.Stop();
-            }
             currentAlpha = 1f;
         }
     }

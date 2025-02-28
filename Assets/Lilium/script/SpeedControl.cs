@@ -6,7 +6,8 @@ public class ControlAnimationSpeed : MonoBehaviour
 	public AnimationCurve speedCurve;  // 在编辑器中可编辑的曲线
 	private float time;
 	private bool isAnimationPlaying = false;
-
+	public string AnimationName = "Action-waving-new";
+	public string SpeedName = "Speed";
 	void Start()
 	{
 		animator = GetComponent<Animator>();
@@ -15,7 +16,7 @@ public class ControlAnimationSpeed : MonoBehaviour
 	void Update()
 	{
 		// 检查动画是否开始播放
-		if (animator.GetCurrentAnimatorStateInfo(0).IsName("Action-waving-new"))
+		if (animator.GetCurrentAnimatorStateInfo(0).IsName(AnimationName))
 		{
 			// 如果动画开始播放，记录为播放状态
 			if (!isAnimationPlaying)
@@ -31,7 +32,7 @@ public class ControlAnimationSpeed : MonoBehaviour
 			float speed = speedCurve.Evaluate(time % 1);  // 使用曲线来评估当前的速度
 
 			// 设置 Speed 参数，控制动画速度
-			animator.SetFloat("Speed", speed);
+			animator.SetFloat(SpeedName, speed);
 		}
 		else
 		{
@@ -39,7 +40,7 @@ public class ControlAnimationSpeed : MonoBehaviour
 			if (isAnimationPlaying)
 			{
 				isAnimationPlaying = false;
-				animator.SetFloat("Speed", 0);  // 恢复默认速度
+				animator.SetFloat(SpeedName, 0);  // 恢复默认速度
 			}
 		}
 	}
