@@ -30,14 +30,14 @@ public class TrackShooting : MonoBehaviour
     }
     void ShootBullet()
     {
-        bullet = BulletPool.poolInstance.GetEnemyPooledObject();
+        bullet = BulletPool.poolInstance.GetBlackBulletPooledObject();
         if (bullet != null)
         {
             bullet.transform.position = transform.position;
             bullet.transform.rotation = transform.rotation;
             
             bullet.SetActive(true);
-            EnemyBulletMove bulletMove = bullet.GetComponent<EnemyBulletMove>();
+            BlackBulletMove bulletMove = bullet.GetComponent<BlackBulletMove>();
             bulletMove.Initial();
             timeSinceLastShot = 0.0f;
         }

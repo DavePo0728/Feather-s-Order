@@ -26,6 +26,7 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _ALPHATEST_ON
+  - _DEPTH_RIMLIGHTING_ON
   - _RECEIVE_ASP_SHADOW
   - _RECEIVE_OFFSETED_SHADOW_ON
   - _STYLE_CELSHADING
@@ -164,7 +165,7 @@ Material:
     - _Cull: 0
     - _Cutoff: 0.5
     - _DebugGI: 0
-    - _DepthRimLightOn: 0
+    - _DepthRimLightOn: 1
     - _DepthRimLightStrength: 0.1
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
@@ -251,11 +252,11 @@ Material:
     m_Colors:
     - _AlphaClipUVCtrl: {r: 1, g: 0, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _CharacterCenterWS: {r: 2000, g: 340.725, b: 5.9500003, a: 0}
+    - _CharacterCenterWS: {r: 2000, g: 336.425, b: 5.9500003, a: 0}
     - _Color: {r: 0.9063317, g: 0.9063317, b: 0.9063317, a: 1}
     - _DefaultUVChannel: {r: 1, g: 0, b: 0, a: 0}
     - _DefaultUVChannelCtrl: {r: 1, g: 0, b: 0, a: 0}
-    - _DepthRimLightColor: {r: 1, g: 1, b: 1, a: 1}
+    - _DepthRimLightColor: {r: 0.699, g: 0.5056595, b: 0.1586383, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FaceFrontDirection: {r: 0, g: 0, b: 1, a: 0}
     - _FaceRightDirection: {r: 1, g: 0, b: 0, a: 0}

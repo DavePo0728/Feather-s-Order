@@ -16,8 +16,6 @@ public class PlayerShooting : MonoBehaviour
     AudioSource gunSound;
     [SerializeField]
     AudioSource overheatSound; // 過熱提示音效
-    [SerializeField]
-    AudioSource overheatSound2; // 過熱提示音效2
     bool shooting;
     [SerializeField]
     Image heatBarImage;
@@ -49,7 +47,6 @@ public class PlayerShooting : MonoBehaviour
         shootingHeatRate = (100f / 6f) * 4;
         coolDownRate = 100f;
         currentHeat = 0;
-       
     }
 
     public void GetShootInput(InputAction.CallbackContext context)
@@ -106,22 +103,19 @@ public class PlayerShooting : MonoBehaviour
 
         
 
-        isFlashing = (currentHeat / maxHeat) >= 0.85f;
+        isFlashing = (currentHeat / maxHeat) >= 0.8f;
         HandleFlashing();
     }
-    private float fadeOutSpeed = 1f; // 音效淡出速度
 
     private void HandleFlashing()
     {
         if (isFlashing)
         {
-            // 過熱時播放音效
+            // 播放過熱音效
             if (!overheatSound.isPlaying)
             {
-                overheatSound.volume = 1f; // 確保音量滿格
                 overheatSound.Play();
             }
-
             flashTimer += Time.deltaTime;
             if (flashTimer >= (1f / flashFrequency))
             {
@@ -150,24 +144,14 @@ public class PlayerShooting : MonoBehaviour
         }
         else
         {
-            
-            // 當進入冷卻階段時，逐漸降低音量直到靜音後停止
-            if (overheatSound.isPlaying)
+            // 停止過熱音效（如果冷卻完成）
+            if (isCoolingDown && currentHeat <= 0 && overheatSound.isPlaying)
             {
-
-                overheatSound.volume -= fadeOutSpeed * Time.deltaTime;
-                if (overheatSound.volume <= 0f)
-                {
-                    
-                    overheatSound.volume = 0f;
-                    overheatSound.Stop();
-                }
+                overheatSound.Stop();
             }
-
             currentAlpha = 1f;
         }
     }
-
 
     private void UpdateUI()
     {
@@ -196,6 +180,5 @@ public class PlayerShooting : MonoBehaviour
             isCoolingDown = false;
             currentHeat = 0;
         }
-        
     }
 }

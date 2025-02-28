@@ -26,8 +26,8 @@ public class PlayerBulletMove : MonoBehaviour
     void Start()
     {
         StartCoroutine(CountDownInactive());
-        hitEffectObject = transform.GetChild(1).gameObject;
-        hitEffect = hitEffectObject.GetComponent<ParticleSystem>();
+        //hitEffectObject = transform.GetChild(1).gameObject;
+        //hitEffect = hitEffectObject.GetComponent<ParticleSystem>();
     }
     private void OnEnable()
     {
@@ -61,7 +61,7 @@ public class PlayerBulletMove : MonoBehaviour
     {
         if (other.tag =="Enemy")
         {
-            StartCoroutine(HitEffectOn());
+            //StartCoroutine(HitEffectOn());
         }
     }
     IEnumerator CountDownInactive()

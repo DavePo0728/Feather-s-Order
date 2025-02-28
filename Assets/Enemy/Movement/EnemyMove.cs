@@ -2,36 +2,47 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using PathCreation;
 
 public class EnemyMove : MonoBehaviour
 {
     IEntryBehaviour entryBehavior;
     IMoveBehaviour moveBehavior;
+    ILeaveBehaviour leaveBehavior;
     //[SerializeField]
     public float moveSpeed;
     [SerializeField]
-    protected float lifeTime;
+    float lifeTime;
     protected float angle;
     public Transform startPoint;
     public Transform endPoint;
+    public Transform leavePoint;
     public float curveHeight;
     public float enterTime;
-    public float moveCDTime;
+    public float stayTime;
+    public float pointWaitTime;
     public Vector3 originPos;
+    public bool isLeave = false;
     //[HideInInspector]
     public Vector3[] path;
+    public Vector3[] moveB_PathList;
+    public Vector3[] moveC_PathList;
     [SerializeField]
     bool isDebug;
     public bool isMove =false;
+
+    public GameObject gun;
+    public bool canShoot = false;
     //[SerializeField]
     //protected float rotationSpeed;
     //[SerializeField]
     //protected float radius;
 
-    public void SetBehaviours(IEntryBehaviour entry,IMoveBehaviour move)
+    public void SetBehaviours(IEntryBehaviour entry,IMoveBehaviour move,ILeaveBehaviour leave)
     {
         entryBehavior = entry;
         moveBehavior = move;
+        leaveBehavior = leave;
     }
     private void Awake()
     {
@@ -41,7 +52,7 @@ public class EnemyMove : MonoBehaviour
     void Start()
     {
         startPoint = gameObject.transform;
-        //StartCoroutine(TimeToDestroy());
+        StartCoroutine(TimeToLeave());
         //UpdateDebugLine();
         entryBehavior.Enter(this);
     }
@@ -54,19 +65,38 @@ public class EnemyMove : MonoBehaviour
         //}
 
         //UpdateDebugLine();
-
+        //print(isLeave);
     }
     public void CallMove()
     {
         originPos = transform.position;
         moveBehavior.Move(this);
         isMove = true;
+        gun.SetActive(true);
         //Debug.Log("Call Move");
     }
-    IEnumerator TimeToDestroy()
+    IEnumerator TimeToLeave()
     {
         yield return new WaitForSeconds(lifeTime);
+        isLeave = true;
+        gun.SetActive(false);
+    }
+    public void CallLeave()
+    {
+        leaveBehavior.Leave(this);
+    }
+    public void DestroyNow()
+    {
         Destroy(gameObject);
+    }
+    private void OnDestroy()
+    {
+        if(moveBehavior != null)
+            moveBehavior.StopMove();
+        if (leaveBehavior != null)
+            leaveBehavior.StopLeave();
+        if (entryBehavior != null)
+            entryBehavior.StopEnter();
     }
     void UpdateDebugLine()
     {

@@ -4,4 +4,5 @@ using System.Collections.Generic;
 public interface IMoveBehaviour 
 {
     void Move(EnemyMove enemyMove);
+    void StopMove();
 }

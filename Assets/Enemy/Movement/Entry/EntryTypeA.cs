@@ -6,14 +6,21 @@ using System.Net;
 
 public class EntryTypeA : IEntryBehaviour
 {
-
+    Tweener enterTweener;
     public void Enter(EnemyMove enemyMove)
     {
         //Debug.Log("Enter Type A");
-        CurvePathGenerator.pathInstance.SetPosition(enemyMove.startPoint, enemyMove.endPoint, 100);
+        CurvePathGenerator.pathInstance.SetPosition(enemyMove.startPoint, enemyMove.endPoint, enemyMove.curveHeight);
         enemyMove.path = CurvePathGenerator.pathInstance.GetPath();
-        Tweener moveTweener = enemyMove.transform.DOPath(enemyMove.path, enemyMove.enterTime).SetEase(Ease.InOutSine);
-        moveTweener.OnComplete(() =>{ enemyMove.CallMove(); });
+        enterTweener = enemyMove.transform.DOPath(enemyMove.path, enemyMove.enterTime).SetEase(Ease.InOutSine);
+        enterTweener.OnComplete(() =>{ enemyMove.CallMove(); });
+    }
+    public void StopEnter()
+    {
+        if (enterTweener !=null&&enterTweener.IsPlaying())
+        {
+            enterTweener.Kill();
+        }
     }
 }
 

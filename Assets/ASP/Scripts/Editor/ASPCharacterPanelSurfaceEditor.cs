@@ -244,7 +244,7 @@ namespace ASP.Scripts.Editor
             var anyDebugGIEnable = false;
             foreach (var renderer in characterPanel.GetComponentsInChildren<Renderer>())
             {
-                Material[] mats = Application.isPlaying ? renderer.materials : renderer.sharedMaterials;
+                Material[] mats = Application.isPlaying ? renderer.sharedMaterials : renderer.sharedMaterials;
                 foreach (var mat in mats)
                 {
                     if (mat == null || mat.shader == null)

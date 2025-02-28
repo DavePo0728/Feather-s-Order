@@ -20,15 +20,15 @@ public class ShootShotGun : MonoBehaviour
     
     void Update()
     {
-        if (canShoot&&shootCount<2)
+        if (canShoot)
         {
             StartCoroutine(ShootRoutine());
             shootCount++;
         }
         else if(canShoot && shootCount == 2)
         {
-            StartCoroutine(ShootGoldBullet());
-            shootCount = 0;
+            //StartCoroutine(ShootGoldBullet());
+            //shootCount = 0;
         }
     }
     IEnumerator ShootRoutine()
@@ -37,6 +37,7 @@ public class ShootShotGun : MonoBehaviour
         ShotGunMode(bulletAmount);
         yield return new WaitForSeconds(shootingCoolDown);// Wait for cooldown
         canShoot = true;// Enable shooting again
+        //Debug.Log("ShootRoutine");
     }
     IEnumerator ShootGoldBullet()
     {
@@ -47,17 +48,20 @@ public class ShootShotGun : MonoBehaviour
     }
     public void ShotGunMode(int amount)
     {
+        
         for (int i = 0; i <= amount; i++)
         {
-            bullet = BulletPool.poolInstance.GetEnemyBreakablePooledObject();
+            bullet = BulletPool.poolInstance.GetRedBulletPooledObject();
             if (bullet != null)
             {
+
                 bullet.transform.position = transform.position;
                 bullet.transform.rotation = transform.rotation;
                 bullet.SetActive(true);
-                EnemyBreakableBulletMove bulletMove = bullet.GetComponent<EnemyBreakableBulletMove>();
+                RedBulletMove bulletMove = bullet.GetComponent<RedBulletMove>();
                 bulletMove.NoMoveInitial();
                 bulletMove.Speard();
+                //Debug.Log("ShotGunMode");
             }
         }
     }

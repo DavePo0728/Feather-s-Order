@@ -6,17 +6,27 @@ using DG.Tweening;
 public class MoveTypeA : IMoveBehaviour
 {
     Vector3 _nextPos;
-    Tweener onMove;
+    public Tweener onMoveA;
     public void Move(EnemyMove enemyMove)
     {
+        //Debug.Log("Enter Move Type A");
+        if (enemyMove.gameObject != null)
+        {
+            _nextPos = CurvePathGenerator.pathInstance.GetLandingPosZ(enemyMove.originPos, 10);
+            onMoveA = enemyMove.transform.DOMove(_nextPos, 0.5f).SetEase(Ease.Linear);
 
-        
-        _nextPos = CurvePathGenerator.pathInstance.GetLandingPosZ(enemyMove.originPos, 10);
-        onMove = enemyMove.transform.DOMove(_nextPos, 0.5f).SetEase(Ease.Linear);
-        onMove.OnComplete(() => { Move(enemyMove); });
+            onMoveA.OnComplete(() => { Move(enemyMove); });
+            if (enemyMove.isLeave)
+            {
+                StopMove();
+                enemyMove.CallLeave();
+            }
+        }
     }
-    public void KillMove()
+    public void StopMove()
     {
-        onMove.Kill();
+        if(onMoveA != null&&onMoveA.IsPlaying())
+            onMoveA.Kill();
     }
+    
 }

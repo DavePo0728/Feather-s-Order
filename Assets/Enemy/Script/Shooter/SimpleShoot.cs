@@ -6,49 +6,71 @@ public class SimpleShoot : MonoBehaviour
 {
     GameObject player;
     GameObject bullet;
+    [SerializeField]
+    float bpm;
     private float timeBetweenShots;
     private float timeSinceLastShot = 0.0f;
+    [SerializeField]
+    //float bulletSpeed;
+
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        timeBetweenShots = 1 / (150 / 60.0f);
+        timeBetweenShots = 1 / (bpm / 60.0f);
         //StartCoroutine(AimToPlayer());
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         timeSinceLastShot += Time.deltaTime;
         if (timeSinceLastShot >= timeBetweenShots)
         {
-            SimpleShootBullet();
+            //ShootBlackBullet();
+            ShootRedBullet();
         }
-
     }
-    void SimpleShootBullet()
+    void ShootBlackBullet()
     {
-        bullet = BulletPool.poolInstance.GetEnemyPooledObject();
+        bullet = BulletPool.poolInstance.GetBlackBulletPooledObject();
         if (bullet != null)
         {
             bullet.transform.position = transform.position;
             bullet.transform.rotation = transform.rotation;
             bullet.SetActive(true);
-            EnemyBulletMove bulletMove = bullet.GetComponent<EnemyBulletMove>();
+            BlackBulletMove bulletMove = bullet.GetComponent<BlackBulletMove>();
+            bulletMove.Initial();
+            //bulletMove.speed = bulletSpeed;
+            timeSinceLastShot = 0.0f;
+        }
+    }
+    void ShootRedBullet()
+    {
+        bullet = BulletPool.poolInstance.GetRedBulletPooledObject();
+        if (bullet != null)
+        {
+            bullet.transform.position = transform.position;
+            bullet.transform.rotation = transform.rotation;
+            bullet.SetActive(true);
+            RedBulletMove bulletMove = bullet.GetComponent<RedBulletMove>();
+            //bulletMove.speed = bulletSpeed;
             bulletMove.Initial();
             timeSinceLastShot = 0.0f;
         }
     }
-    void SimpleShootBreakableBullet()
+    void ShootPurpleBullet()
     {
-        bullet = BulletPool.poolInstance.GetEnemyBreakablePooledObject();
+        bullet = BulletPool.poolInstance.GetPurpleBulletPooledObject();
         if (bullet != null)
         {
             bullet.transform.position = transform.position;
             bullet.transform.rotation = transform.rotation;
             bullet.SetActive(true);
-            EnemyBulletMove bulletMove = bullet.GetComponent<EnemyBulletMove>();
+            BlackBulletMove bulletMove = bullet.GetComponent<BlackBulletMove>();
+            //bulletMove.speed = bulletSpeed;
             bulletMove.Initial();
+            timeSinceLastShot = 0.0f;
         }
     }
 

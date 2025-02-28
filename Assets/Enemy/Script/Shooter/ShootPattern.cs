@@ -29,7 +29,7 @@ public class ShootPattern : MonoBehaviour
     }
     public void ShootBullet()
     {
-        bullet = BulletPool.poolInstance.GetEnemyPooledObject();
+        bullet = BulletPool.poolInstance.GetBlackBulletPooledObject();
         if (timeSinceLastShot >= timeBetweenShots)
         {
             if (bullet != null)
@@ -37,7 +37,7 @@ public class ShootPattern : MonoBehaviour
                 bullet.transform.position = transform.position;
                 bullet.transform.rotation = transform.rotation;
                 bullet.SetActive(true);
-                EnemyBulletMove bulletMove = bullet.GetComponent<EnemyBulletMove>();
+                BlackBulletMove bulletMove = bullet.GetComponent<BlackBulletMove>();
                 bulletMove.Initial();
             }
             timeSinceLastShot = 0.0f;
@@ -45,7 +45,7 @@ public class ShootPattern : MonoBehaviour
     }
     public void ShootBreakableBullet()
     {
-        bullet = BulletPool.poolInstance.GetEnemyBreakablePooledObject();
+        bullet = BulletPool.poolInstance.GetRedBulletPooledObject();
         if (timeSinceLastShot >= timeBetweenShots)
         {
             if (bullet != null)
@@ -53,7 +53,7 @@ public class ShootPattern : MonoBehaviour
                 bullet.transform.position = transform.position;
                 bullet.transform.rotation = transform.rotation;
                 bullet.SetActive(true);
-                EnemyBulletMove bulletMove = bullet.GetComponent<EnemyBulletMove>();
+                BlackBulletMove bulletMove = bullet.GetComponent<BlackBulletMove>();
                 bulletMove.Initial();
             }
             timeSinceLastShot = 0.0f;

@@ -16,15 +16,33 @@ public class BulletPool : MonoBehaviour
     public int playerAmountToPool;
     List<GameObject> playerBulletPool;
 
-    [Header("enemyBulletPool")]
+    [Header("BlackBulletPool")]
     [SerializeField]
-    GameObject enemyObjectToPool,enemyBreakableObject;
+    GameObject blackObjectToPool;
     [SerializeField]
-    GameObject enemyBulletPoolParent, enemyBreakableAmountParent;
+    GameObject blackBulletPoolParent;
     [SerializeField]
-    int enemyAmountToPool, enemyBreakableAmountToPool;
+    int blackBulletAmountToPool;
     [SerializeField]
-    List<GameObject> enemyBulletPool,EnemyBulletBreakablePool;
+    List<GameObject> blackBulletPool;
+    [Header("RedBulletPool")]
+    [SerializeField]
+    GameObject RedBulletToPool;
+    [SerializeField]
+    GameObject redBulletPoolParent;
+    [SerializeField]
+    int RedBulletAmountToPool;
+    [SerializeField]
+    List<GameObject> redBulletPool;
+    [Header("PurpleBulletPool")]
+    [SerializeField]
+    GameObject purpleBulletToPool;
+    [SerializeField]
+    GameObject purpleBulletPoolParent;
+    [SerializeField]
+    int PurpleBulletAmountToPool;
+    [SerializeField]
+    List<GameObject> purpleBulletPool;
 
     //public List<GameObject> enemyActivePooledObject = new List<GameObject>();
     //[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
@@ -36,23 +54,31 @@ public class BulletPool : MonoBehaviour
     void Start()
     {
         //Debug.Log("hi");
-        enemyBulletPool = new List<GameObject>();
+        blackBulletPool = new List<GameObject>();
         playerBulletPool = new List<GameObject>();
-        EnemyBulletBreakablePool = new List<GameObject>();
+        redBulletPool = new List<GameObject>();
+        purpleBulletPool = new List<GameObject>();
         GameObject tmp,tmp1;
-        for (int i = 0; i < enemyAmountToPool; i++)
+        for (int i = 0; i < blackBulletAmountToPool; i++)
         {
-            tmp = Instantiate(enemyObjectToPool);
+            tmp = Instantiate(blackObjectToPool);
             tmp.SetActive(false);
-            tmp.transform.SetParent(enemyBulletPoolParent.transform);
-            enemyBulletPool.Add(tmp);
+            tmp.transform.SetParent(blackBulletPoolParent.transform);
+            blackBulletPool.Add(tmp);
         }
-        for (int i = 0; i < enemyBreakableAmountToPool; i++)
+        for (int i = 0; i < RedBulletAmountToPool; i++)
         {
-            tmp = Instantiate(enemyBreakableObject);
+            tmp = Instantiate(RedBulletToPool);
             tmp.SetActive(false);
-            tmp.transform.SetParent(enemyBreakableAmountParent.transform);
-            EnemyBulletBreakablePool.Add(tmp);
+            tmp.transform.SetParent(redBulletPoolParent.transform);
+            redBulletPool.Add(tmp);
+        }
+        for (int i = 0; i < PurpleBulletAmountToPool; i++)
+        {
+            tmp = Instantiate(purpleBulletToPool);
+            tmp.SetActive(false);
+            tmp.transform.SetParent(purpleBulletPoolParent.transform);
+            purpleBulletPool.Add(tmp);
         }
         for (int i = 0; i < playerAmountToPool; i++)
         {
@@ -62,25 +88,36 @@ public class BulletPool : MonoBehaviour
             playerBulletPool.Add(tmp1);
         }
     }
-    public GameObject GetEnemyPooledObject()
+    public GameObject GetBlackBulletPooledObject()
     {
-        for (int i = 0; i < enemyAmountToPool; i++)
+        for (int i = 0; i < blackBulletAmountToPool; i++)
         {
-            if (!enemyBulletPool[i].activeInHierarchy)
+            if (!blackBulletPool[i].activeInHierarchy)
             {
-                return enemyBulletPool[i];
+                return blackBulletPool[i];
             }
         }
         return null;
     }
 
-    public GameObject GetEnemyBreakablePooledObject()
+    public GameObject GetRedBulletPooledObject()
     {
-        for (int i = 0; i < enemyBreakableAmountToPool; i++)
+        for (int i = 0; i < RedBulletAmountToPool; i++)
         {
-            if (!EnemyBulletBreakablePool[i].activeInHierarchy)
+            if (!redBulletPool[i].activeInHierarchy)
             {
-                return EnemyBulletBreakablePool[i];
+                return redBulletPool[i];
+            }
+        }
+        return null;
+    }
+    public GameObject GetPurpleBulletPooledObject()
+    {
+        for (int i = 0; i < PurpleBulletAmountToPool; i++)
+        {
+            if (!purpleBulletPool[i].activeInHierarchy)
+            {
+                return purpleBulletPool[i];
             }
         }
         return null;
