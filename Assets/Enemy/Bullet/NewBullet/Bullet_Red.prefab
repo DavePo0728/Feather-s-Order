@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7236914279645392993
 Transform:
   m_ObjectHideFlags: 0
@@ -4856,7 +4856,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1371983403147030386}
   - component: {fileID: 364782299617999328}
-  - component: {fileID: 5195119320945190120}
+  - component: {fileID: 5222525936037187949}
   m_Layer: 3
   m_Name: Bullet_Red
   m_TagString: EnemyBullet
@@ -4872,14 +4872,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 421870773602034973}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.961, y: 0, z: 6.247}
-  m_LocalScale: {x: 2.8, y: 2.8, z: 2.8}
+  m_LocalScale: {x: 4, y: 4, z: 4}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8686696991747176266}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &364782299617999328
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -4901,7 +4901,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5195119320945190120
+--- !u!114 &5222525936037187949
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4959,7 +4959,6 @@ Transform:
   - {fileID: 5156412853365659112}
   - {fileID: 1570109850437860627}
   - {fileID: 9105276243929370307}
-  - {fileID: 2645503035410356080}
   m_Father: {fileID: 1371983403147030386}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2224131430803915604
@@ -4979,7 +4978,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2093617825997854660
 Transform:
   m_ObjectHideFlags: 0
@@ -15573,8 +15572,8 @@ ParticleSystem:
     rateOverDistance:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 3
-      minScalar: 1
+      scalar: 1.5
+      minScalar: 0
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -19524,7 +19523,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3129672296611572082}
-  m_Father: {fileID: 8686696991747176266}
+  m_Father: {fileID: 9105276243929370307}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!198 &2567097691647858951
 ParticleSystem:
@@ -20416,8 +20415,8 @@ ParticleSystem:
     rateOverDistance:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 3
-      minScalar: 2
+      scalar: 1.5
+      minScalar: 0
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -29278,6 +29277,7 @@ Transform:
   - {fileID: 7236914279645392993}
   - {fileID: 308329355159560348}
   - {fileID: 7039995561876747436}
+  - {fileID: 2645503035410356080}
   - {fileID: 2093617825997854660}
   m_Father: {fileID: 8686696991747176266}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -34095,7 +34095,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8a2d576b47babc843a00f97e63d4ef51, type: 2}
+  - {fileID: 2100000, guid: e998ddd5db483884e9a7acc6a786c99d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -38935,7 +38935,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6075957277038164297
 Transform:
   m_ObjectHideFlags: 0
@@ -43781,7 +43781,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3564652927669974431
 Transform:
   m_ObjectHideFlags: 0

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 906250820572564000}
   - component: {fileID: 8031920594793836458}
   - component: {fileID: 5576647449119333257}
+  - component: {fileID: 7458771308865835882}
   m_Layer: 0
   m_Name: blue
   m_TagString: Untagged
@@ -83,3 +84,29 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &7458771308865835882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7690771054275215314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc48273a3b92c844f9786e703d86cdb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitEffect: {fileID: 0}
+  hitParticle: {fileID: 0}
+  bulletBody: {fileID: 0}
+  muzzleFlash: {fileID: 0}
+  BulletCollider: {fileID: 0}
+  speed: 0
+  BulletlifeTime: 0
+  sphereRadius: 0
+  moveToPlayer: 0
+  minSpread: 0
+  MaxSpread: 0
+  spreadSpeed: 0
+  homing: 0
+  fireWork: 0
