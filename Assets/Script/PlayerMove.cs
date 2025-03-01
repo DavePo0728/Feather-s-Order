@@ -4,25 +4,15 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using Cinemachine;
+using UnityEditor.Animations;
 
 public class PlayerMove : MonoBehaviour
 {
     [SerializeField]
     CinemachineVirtualCamera playerVCam,SceneVCam;
-    //[Header("UI")]
-    //[SerializeField]
-    //Image energyBarImage;
-    //[Header("Energy Data")]
-    //[SerializeField]
-    //float currentEnergy;
-    //[SerializeField]
-    //float maxEnergy;
-    //float energyRegenRate = 50;
-    //float timeSinceLastEnergyUse = 0f;   // 距離上次使用能量的時間
-    //[SerializeField]
-    //float regenDelay = 1f;     // 回復能量的延遲時間 (1秒)
-    //bool isRegening = false;  // 是否正在回復能量
-    //bool isOutBurst = false;
+    [SerializeField]
+    Animator playerAnimator;
+    Animation rollAnimation;
     [Space(height: 20)]
 
     [SerializeField]
@@ -229,32 +219,37 @@ public class PlayerMove : MonoBehaviour
         //}
         if (isRotating)
         {
+            Debug.Log(leanInput);
             //initialRotation = transform.rotation.ToEulerAngles();
-            transform.rotation = Quaternion.Euler(0, 0, 0);
-            float elapsedTime = Time.time - rotateStartTime;
-            float angle = Mathf.Lerp(transform.rotation.z, 360f, Mathf.SmoothStep(0f, 1f, elapsedTime / rotationDuration));
+            //transform.rotation = Quaternion.Euler(0, 0, 0);
+            //float elapsedTime = Time.time - rotateStartTime;
+            //float angle = Mathf.Lerp(transform.rotation.z, 360f, Mathf.SmoothStep(0f, 1f, elapsedTime / rotationDuration));
             if (leanInput >= 0)
             {
-                body.transform.eulerAngles = initialRotation + new Vector3(0f, 0f, angle);
+
+                //body.transform.eulerAngles = initialRotation + new Vector3(0f, 0f, angle);
+                playerAnimator.SetTrigger("RightRoll");
             }
             else
             {
-                body.transform.eulerAngles = initialRotation - new Vector3(0f, 0f, angle);
+                
+                playerAnimator.SetTrigger("LeftRoll");
+                //body.transform.eulerAngles = initialRotation - new Vector3(0f, 0f, angle);
             }
 
-            // Stop rotation after completing one full rotation
-            if (elapsedTime >= rotationDuration)
-            {
+            //// Stop rotation after completing one full rotation
+            //if (elapsedTime >= rotationDuration)
+            //{
                 isRotating = false;
-                //playerMat[0].color = Color.white;
-                //playerMat[1].color = Color.white;
-                //playerMat[2].color = Color.white;
-                if (isBouncing)
-                {
-                    isBouncing = false;
-                }
-                //body.transform.rotation = transform.rotation;
-            }
+            //    //playerMat[0].color = Color.white;
+            //    //playerMat[1].color = Color.white;
+            //    //playerMat[2].color = Color.white;
+            //    if (isBouncing)
+            //    {
+            //        isBouncing = false;
+            //    }
+            //    //body.transform.rotation = transform.rotation;
+            //}
         }
         //if (isBoosting&&!isBraking)
         //{

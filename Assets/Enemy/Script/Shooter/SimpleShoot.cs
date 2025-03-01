@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SimpleShoot : MonoBehaviour
 {
-    GameObject player;
+
     GameObject bullet;
     [SerializeField]
     float bpm;
@@ -16,11 +16,13 @@ public class SimpleShoot : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
         timeBetweenShots = 1 / (bpm / 60.0f);
         //StartCoroutine(AimToPlayer());
     }
-
+    public void SetGun(int rpm)
+    {
+        bpm = rpm;
+    }
     // Update is called once per frame
     void FixedUpdate()
     {

@@ -31,7 +31,8 @@ public class EnemyMove : MonoBehaviour
     bool isDebug;
     public bool isMove =false;
 
-    public GameObject gun;
+    public List<GameObject> gunList;
+
     public bool canShoot = false;
     //[SerializeField]
     //protected float rotationSpeed;
@@ -51,10 +52,15 @@ public class EnemyMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Debug.Log(transform.GetChild(3).childCount);
         startPoint = gameObject.transform;
         StartCoroutine(TimeToLeave());
         //UpdateDebugLine();
         entryBehavior.Enter(this);
+        for (int i = 0; i < transform.GetChild(3).childCount; i++)
+        {
+            gunList.Add(transform.GetChild(3).GetChild(i).gameObject);
+        }
     }
     void FixedUpdate()
     {
@@ -67,19 +73,39 @@ public class EnemyMove : MonoBehaviour
         //UpdateDebugLine();
         //print(isLeave);
     }
-    public void CallMove()
+    public void CallMove(int gunNum)
     {
         originPos = transform.position;
         moveBehavior.Move(this);
         isMove = true;
-        gun.SetActive(true);
-        //Debug.Log("Call Move");
+        switch(gunNum)
+        {
+            case 0:
+                SimpleShoot simpleShoot = gunList[0].GetComponent<SimpleShoot>();
+                gunList[0].SetActive(true);
+                break;
+            case 1:
+                
+                break;
+            case 2:
+                
+                break;
+            case 3:
+
+                break;
+            case 4:
+                
+                break;
+            case 5:
+                
+                break;
+        }
     }
     IEnumerator TimeToLeave()
     {
         yield return new WaitForSeconds(lifeTime);
         isLeave = true;
-        gun.SetActive(false);
+        //gun.SetActive(false);
     }
     public void CallLeave()
     {
