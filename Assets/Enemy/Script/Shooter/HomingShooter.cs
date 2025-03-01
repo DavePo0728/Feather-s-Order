@@ -5,9 +5,17 @@ using UnityEngine;
 public class HomingShooter : MonoBehaviour
 {
     [SerializeField]
-    int bulletAmount;
-    float shootingCoolDown = 2.5f;
+    public int bulletAmount;
+    public float shootingCoolDown;
     bool canShoot = false;
+    public enum BulletType
+    {
+        Black,
+        Red,
+        Purple,
+        BlackRed,
+    }
+    public BulletType bulletType;
     // Start is called before the first frame update
     void Start()
     {

@@ -5,14 +5,22 @@ using UnityEngine;
 public class ShootShotGun : MonoBehaviour
 {
     [SerializeField]
-    int bulletAmount;
+    public float bulletAmount;
     GameObject bullet;
     [SerializeField]
     GameObject goldBullet;
 
-    float shootingCoolDown = 1.5f;
+    public float shootingCoolDown = 1.5f;
     float shootCount;
     bool canShoot = false;
+    public enum BulletType
+    {
+        Black,
+        Red,
+        Purple,
+        BlackRed,
+    }
+    public BulletType bulletType;
     void Start()
     {
         canShoot = true;
@@ -46,7 +54,7 @@ public class ShootShotGun : MonoBehaviour
         yield return new WaitForSeconds(shootingCoolDown);
         canShoot = true;
     }
-    public void ShotGunMode(int amount)
+    public void ShotGunMode(float amount)
     {
         
         for (int i = 0; i <= amount; i++)

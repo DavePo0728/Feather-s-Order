@@ -4,13 +4,20 @@ using UnityEngine;
 
 public class SpreadShot : MonoBehaviour
 {
-    [SerializeField]
-    int bulletAmount;
+    public float bulletAmount;
     GameObject bullet;
 
-    float shootingCoolDown = 1.5f;
-    float shootCount;
+    public float shootingCoolDown = 1.5f;
+    //float shootCount;
     bool canShoot = false;
+    public enum BulletType
+    {
+        Black,
+        Red,
+        Purple,
+        BlackRed,
+    }
+    public BulletType bulletType;
     void Start()
     {
         canShoot = true;
@@ -38,7 +45,7 @@ public class SpreadShot : MonoBehaviour
         yield return new WaitForSeconds(shootingCoolDown);
         canShoot = true;
     }
-    public void SpreadShotMode(int amount)
+    public void SpreadShotMode(float amount)
     {
 
         for (int i = 0; i <= amount; i++)

@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3463451149260415969}
+  - component: {fileID: 1646564900088744981}
   m_Layer: 0
   m_Name: HighSpeed_Purple
   m_TagString: Untagged
@@ -32,6 +33,32 @@ Transform:
   - {fileID: 6404245352845212191}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1646564900088744981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3812506742602249460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e8965f75753525429f3559258851527, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitEffect: {fileID: 0}
+  hitParticle: {fileID: 0}
+  bulletBody: {fileID: 0}
+  muzzleFlash: {fileID: 0}
+  BulletCollider: {fileID: 0}
+  speed: 0
+  BulletlifeTime: 0
+  sphereRadius: 0
+  moveToPlayer: 0
+  minSpread: 0
+  MaxSpread: 0
+  spreadSpeed: 0
+  homing: 0
+  fireWork: 0
 --- !u!1001 &6409121050302247995
 PrefabInstance:
   m_ObjectHideFlags: 0

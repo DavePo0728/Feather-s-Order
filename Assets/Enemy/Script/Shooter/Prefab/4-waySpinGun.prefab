@@ -44,8 +44,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cde5590423314a40a2200a998f77121, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bpm: 150
-  bulletSpeed: 100
+  rpm: 300
+  shootingCoolDown: 1
+  maxShots: 4
+  canShoot: 0
+  bulletType: 1
 --- !u!1 &841673867608623468
 GameObject:
   m_ObjectHideFlags: 0
@@ -139,8 +142,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cde5590423314a40a2200a998f77121, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bpm: 150
-  bulletSpeed: 100
+  rpm: 300
+  shootingCoolDown: 1
+  maxShots: 4
+  canShoot: 0
+  bulletType: 1
 --- !u!1 &3364116717200249164
 GameObject:
   m_ObjectHideFlags: 0
@@ -185,8 +191,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cde5590423314a40a2200a998f77121, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bpm: 150
-  bulletSpeed: 100
+  rpm: 300
+  shootingCoolDown: 1
+  maxShots: 4
+  canShoot: 0
+  bulletType: 1
 --- !u!1 &7770458766877359447
 GameObject:
   m_ObjectHideFlags: 0
@@ -231,5 +240,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cde5590423314a40a2200a998f77121, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bpm: 150
-  bulletSpeed: 100
+  rpm: 300
+  shootingCoolDown: 1
+  maxShots: 4
+  canShoot: 0
+  bulletType: 1

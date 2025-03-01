@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+//[ExecuteInEditMode]
 public class Vector3PointGenerator : MonoBehaviour
 {
     public static Vector3PointGenerator instance;
@@ -21,6 +21,11 @@ public class Vector3PointGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
+        GeneratePointList.Clear();
         _3dArray = new Vector3[xCount][][];
         for (int i = 0; i < xCount; i++)
         {
@@ -40,10 +45,13 @@ public class Vector3PointGenerator : MonoBehaviour
     }
     public void ReDraw(InputAction.CallbackContext context)
     {
-        int RandomX = Random.Range(0, xCount);
-        int RandomY = Random.Range(0, yCount);
-        int RandomZ = Random.Range(0, ZCount);
-        Debug.Log("RandomX: " + RandomX + " RandomY: " + RandomY + " RandomZ: " + RandomZ + _3dArray[RandomX][RandomY][RandomZ]);
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
+        GeneratePointList.Clear();
+        GeneratePoint();
+        SpawnPrefab();
     }
     public void GeneratePoint()
     {

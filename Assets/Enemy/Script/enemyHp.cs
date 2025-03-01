@@ -5,7 +5,7 @@ using UnityEngine;
 public class enemyHp : MonoBehaviour
 {
     [SerializeField]
-    float Maxhp;
+    public float Maxhp;
     float currentHp;
     [SerializeField]
     GameObject shieldEffect, shieldExplosionEffect;
@@ -13,7 +13,7 @@ public class enemyHp : MonoBehaviour
     [SerializeField]
     float currentShieldHp;
     [SerializeField]
-    float maxShieldHp;
+    public float maxShieldHp;
     float shieldDamageMultiplier;
     GameObject DeathExplosion;
     ScoreManager scoreManager;

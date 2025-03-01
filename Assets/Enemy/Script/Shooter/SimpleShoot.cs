@@ -6,22 +6,35 @@ public class SimpleShoot : MonoBehaviour
 {
 
     GameObject bullet;
-    [SerializeField]
-    float bpm;
+    GameObject blackRedBulletPrefab;
+    public float rpm;
+    public float shootingCoolDown;
     private float timeBetweenShots;
     private float timeSinceLastShot = 0.0f;
+    public float maxShots;
+    int shotCount = 0;
+    public bool canShoot = false;
+    public enum BulletType
+    {
+        Black,
+        Red,
+        Purple,
+        BlackRed,
+    }
+    public BulletType bulletType;
     [SerializeField]
     //float bulletSpeed;
 
     // Start is called before the first frame update
     void Start()
     {
-        timeBetweenShots = 1 / (bpm / 60.0f);
+        timeBetweenShots = 1 / (rpm / 60.0f);
+        blackRedBulletPrefab = Resources.Load<GameObject>("Prefabs/Enemy/Bullet/BlackRedBullet");
         //StartCoroutine(AimToPlayer());
     }
     public void SetGun(int rpm)
     {
-        bpm = rpm;
+        this.rpm = rpm;
     }
     // Update is called once per frame
     void FixedUpdate()
@@ -29,9 +42,26 @@ public class SimpleShoot : MonoBehaviour
         timeSinceLastShot += Time.deltaTime;
         if (timeSinceLastShot >= timeBetweenShots)
         {
-            //ShootBlackBullet();
-            ShootRedBullet();
+            switch(bulletType)
+            {
+                case BulletType.Black:
+                    ShootBlackBullet();
+                    break;
+                case BulletType.Red:
+                    ShootRedBullet();
+                    break;
+                case BulletType.Purple:
+                    ShootPurpleBullet();
+                    break;
+                case BulletType.BlackRed:
+                    ShootBlackRedBullet();
+                    break;
+            }
         }
+    }
+    void ShootBlackRedBullet()
+    {
+        bullet = Instantiate(blackRedBulletPrefab,transform.position,transform.rotation);
     }
     void ShootBlackBullet()
     {
@@ -43,7 +73,6 @@ public class SimpleShoot : MonoBehaviour
             bullet.SetActive(true);
             BlackBulletMove bulletMove = bullet.GetComponent<BlackBulletMove>();
             bulletMove.Initial();
-            //bulletMove.speed = bulletSpeed;
             timeSinceLastShot = 0.0f;
         }
     }
@@ -56,7 +85,6 @@ public class SimpleShoot : MonoBehaviour
             bullet.transform.rotation = transform.rotation;
             bullet.SetActive(true);
             RedBulletMove bulletMove = bullet.GetComponent<RedBulletMove>();
-            //bulletMove.speed = bulletSpeed;
             bulletMove.Initial();
             timeSinceLastShot = 0.0f;
         }
@@ -70,7 +98,6 @@ public class SimpleShoot : MonoBehaviour
             bullet.transform.rotation = transform.rotation;
             bullet.SetActive(true);
             BlackBulletMove bulletMove = bullet.GetComponent<BlackBulletMove>();
-            //bulletMove.speed = bulletSpeed;
             bulletMove.Initial();
             timeSinceLastShot = 0.0f;
         }

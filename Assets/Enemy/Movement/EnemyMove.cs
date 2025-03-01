@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using PathCreation;
+using System;
 
 public class EnemyMove : MonoBehaviour
 {
@@ -33,7 +34,15 @@ public class EnemyMove : MonoBehaviour
 
     public List<GameObject> gunList;
 
-    public bool canShoot = false;
+    //public bool canShoot = false;
+    public enum BulletType
+    {
+        Black,
+        Red,
+        Purple,
+        BlackRed,
+    }
+    public BulletType bulletType;
     //[SerializeField]
     //protected float rotationSpeed;
     //[SerializeField]
@@ -73,33 +82,55 @@ public class EnemyMove : MonoBehaviour
         //UpdateDebugLine();
         //print(isLeave);
     }
-    public void CallMove(int gunNum)
+    public void CallMove()
     {
         originPos = transform.position;
         moveBehavior.Move(this);
         isMove = true;
-        switch(gunNum)
+    }
+    public void ActiveGun(int gunIndex, float rpm, float bulletAmount, float spinSpeed,float shootingCoolDown,BulletType bulletType)
+    {
+        switch (gunIndex)
         {
-            case 0:
-                SimpleShoot simpleShoot = gunList[0].GetComponent<SimpleShoot>();
-                gunList[0].SetActive(true);
+            case 0: //strightShooting
+                gunList[gunIndex].GetComponent<SimpleShoot>().rpm = rpm;
+                gunList[gunIndex].GetComponent<SimpleShoot>().maxShots = bulletAmount;
+                gunList[gunIndex].GetComponent<SimpleShoot>().shootingCoolDown = shootingCoolDown;
+                gunList[gunIndex].GetComponent<SimpleShoot>().bulletType = (SimpleShoot.BulletType)bulletType;
                 break;
-            case 1:
-                
+            case 1: //trackShooting
+                gunList[gunIndex].GetComponent<TrackShooting>().rpm = rpm;
+                gunList[gunIndex].GetComponent<TrackShooting>().maxShots = bulletAmount;
+                gunList[gunIndex].GetComponent<TrackShooting>().shootingCoolDown = shootingCoolDown;
+                gunList[gunIndex].GetComponent<TrackShooting>().bulletType = (TrackShooting.BulletType)bulletType;
                 break;
-            case 2:
-                
+            case 2: //shotGun
+                gunList[gunIndex].GetComponent<ShootShotGun>().bulletAmount = (int)bulletAmount;
+                gunList[gunIndex].GetComponent<ShootShotGun>().shootingCoolDown = shootingCoolDown;
+                gunList[gunIndex].GetComponent<ShootShotGun>().bulletType = (ShootShotGun.BulletType)bulletType;
                 break;
-            case 3:
-
+            case 3: //SpreadShot
+                gunList[gunIndex].GetComponent<SpreadShot>().bulletAmount = (int)bulletAmount;
+                gunList[gunIndex].GetComponent<SpreadShot>().shootingCoolDown = shootingCoolDown;
+                gunList[gunIndex].GetComponent<SpreadShot>().bulletType = (SpreadShot.BulletType)bulletType;
                 break;
-            case 4:
-                
+            case 4: //HomingShooter
+                gunList[gunIndex].GetComponent<HomingShooter>().bulletAmount = (int)bulletAmount;
+                gunList[gunIndex].GetComponent<HomingShooter>().shootingCoolDown = shootingCoolDown;
+                gunList[gunIndex].GetComponent<HomingShooter>().bulletType = (HomingShooter.BulletType)bulletType;
                 break;
-            case 5:
-                
+            case 5: //FourWayGunSpin
+                gunList[gunIndex].GetComponent<FourWayGunSpin>().speed = spinSpeed;
+                for (int i = 0; i < gunList[gunIndex].transform.childCount; i++)
+                {
+                    gunList[gunIndex].transform.GetChild(i).GetComponent<SimpleShoot>().rpm = rpm;
+                    gunList[gunIndex].transform.GetChild(i).GetComponent<SimpleShoot>().maxShots = bulletAmount;
+                    gunList[gunIndex].transform.GetChild(i).GetComponent<SimpleShoot>().shootingCoolDown = shootingCoolDown;
+                    gunList[gunIndex].transform.GetChild(i).GetComponent<SimpleShoot>().bulletType = (SimpleShoot.BulletType)bulletType;
+                }
                 break;
         }
+        gunList[gunIndex].SetActive(true);
     }
     IEnumerator TimeToLeave()
     {
