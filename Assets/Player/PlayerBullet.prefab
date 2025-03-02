@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7587866357112523364}
   - component: {fileID: 8358166661927478347}
   - component: {fileID: 3195903437566757307}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Flash2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4911,7 +4911,7 @@ GameObject:
   - component: {fileID: 6027702065360469621}
   - component: {fileID: 4741234938837532636}
   - component: {fileID: 6975189626469990712}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9811,7 +9811,7 @@ GameObject:
   - component: {fileID: 6582722800545861084}
   - component: {fileID: 7705903166015425106}
   - component: {fileID: 2018097767026052875}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14718,7 +14718,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8236211185185384787}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14752,7 +14752,7 @@ GameObject:
   - component: {fileID: 203116287260480187}
   - component: {fileID: 3751426139995707976}
   - component: {fileID: 5024291995330615541}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Conus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19661,7 +19661,7 @@ GameObject:
   - component: {fileID: 8646682281952455516}
   - component: {fileID: 4276456082154156055}
   - component: {fileID: 2618579309330523551}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Flash2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24561,7 +24561,7 @@ GameObject:
   - component: {fileID: 5002297849404438780}
   - component: {fileID: 7492444826666737630}
   - component: {fileID: 1190961534074407808}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Hit 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29478,9 +29478,9 @@ GameObject:
   - component: {fileID: 2907724796469621019}
   - component: {fileID: 3859011530538175913}
   - component: {fileID: 9223245944213359068}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: PlayerBullet
-  m_TagString: Untagged
+  m_TagString: PlayerBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29566,7 +29566,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitEffectObject: {fileID: 0}
-  speed: 200
+  speed: 5
   sphereRadius: 0
 --- !u!1 &3770815891368596833
 GameObject:
@@ -29579,7 +29579,7 @@ GameObject:
   - component: {fileID: 218062142795783967}
   - component: {fileID: 108359331752407600}
   - component: {fileID: 4877827849139539099}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34501,7 +34501,7 @@ GameObject:
   - component: {fileID: 7048634537192514741}
   - component: {fileID: 3386628531554180377}
   - component: {fileID: 4538870954651801907}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Flash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39401,7 +39401,7 @@ GameObject:
   - component: {fileID: 1781724440939757544}
   - component: {fileID: 2644840592066472911}
   - component: {fileID: 4498687555296789349}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44243,7 +44243,7 @@ GameObject:
   - component: {fileID: 519604960572260685}
   - component: {fileID: 5227346568905132416}
   - component: {fileID: 791541111203749065}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Sparks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49153,7 +49153,7 @@ GameObject:
   - component: {fileID: 3304433487811523298}
   - component: {fileID: 8170912834261079332}
   - component: {fileID: 54581744314529046}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Flash 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54080,7 +54080,7 @@ GameObject:
   - component: {fileID: 6672597985687125333}
   - component: {fileID: 3131263096055609919}
   - component: {fileID: 612709611108854005}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ShockWave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58989,7 +58989,7 @@ GameObject:
   - component: {fileID: 2525470298508005392}
   - component: {fileID: 6217891877979906141}
   - component: {fileID: 6855847263012325671}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ShockWave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -63889,7 +63889,7 @@ GameObject:
   - component: {fileID: 3713094605420626730}
   - component: {fileID: 3781598222201391763}
   - component: {fileID: 1325904923970651061}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -68789,7 +68789,7 @@ GameObject:
   - component: {fileID: 5946177453826222474}
   - component: {fileID: 1045371347276992727}
   - component: {fileID: 6820999220942413568}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Sparks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73698,7 +73698,7 @@ GameObject:
   - component: {fileID: 4823878067336595914}
   - component: {fileID: 3261810776753501873}
   - component: {fileID: 7786526548363670518}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: SparksBack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -78607,7 +78607,7 @@ GameObject:
   - component: {fileID: 1310513325996611242}
   - component: {fileID: 4278732472429801570}
   - component: {fileID: 8781670198842478547}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ShockWave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -83507,7 +83507,7 @@ GameObject:
   - component: {fileID: 9080266236467684059}
   - component: {fileID: 5043853213340685280}
   - component: {fileID: 5382702270040209221}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Flash
   m_TagString: Untagged
   m_Icon: {fileID: 0}

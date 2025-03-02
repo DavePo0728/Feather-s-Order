@@ -6,22 +6,33 @@ public class AimDetect : MonoBehaviour
 {
     [SerializeField]
     PlayerAim playerAim;
+    [SerializeField]
+    GameObject AimObject;
+    private void Awake()
+    {
+        
+    }
+    private void Update()
+    {
+        transform.LookAt(AimObject.transform);
+    }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Enemy" && playerAim.lockedEnemy == this.gameObject)
+        Debug.Log(other.gameObject.tag);
+        if (other.gameObject.tag == "Enemy")
         {
             playerAim.lockedEnemy = other.gameObject;
             playerAim.isLocked = true;
-            //print("Locked");
+            print("Locked");
         }
     }
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject == playerAim.lockedEnemy)
         {
-            playerAim.lockedEnemy = this.gameObject;
+            playerAim.lockedEnemy =null;
             playerAim.isLocked = false;
-            //print("Unlocked");
+            print("Unlocked");
         }
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using Cinemachine;
-using UnityEditor.Animations;
+
 
 public class PlayerMove : MonoBehaviour
 {
@@ -12,7 +12,6 @@ public class PlayerMove : MonoBehaviour
     CinemachineVirtualCamera playerVCam,SceneVCam;
     [SerializeField]
     Animator playerAnimator;
-    Animation rollAnimation;
     [Space(height: 20)]
 
     [SerializeField]
@@ -37,10 +36,10 @@ public class PlayerMove : MonoBehaviour
     List<Material> playerMat;
     [SerializeField]
     GameObject body,flyinglean;
-    float rotationDuration = 0.5f; // Duration of the rotation in seconds
+    //float rotationDuration = 0.5f; // Duration of the rotation in seconds
     float rotateStartTime; // Time when the rotation starts
-    float leanStartTime;
-    Vector3 initialRotation; // Initial rotation of the object
+    //float leanStartTime;
+    //Vector3 initialRotation; // Initial rotation of the object
     Vector2 movementInput;
     float leanInput;
     bool manualLean = true;
@@ -219,7 +218,7 @@ public class PlayerMove : MonoBehaviour
         //}
         if (isRotating)
         {
-            Debug.Log(leanInput);
+            //Debug.Log(leanInput);
             //initialRotation = transform.rotation.ToEulerAngles();
             //transform.rotation = Quaternion.Euler(0, 0, 0);
             //float elapsedTime = Time.time - rotateStartTime;

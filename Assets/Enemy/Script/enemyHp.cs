@@ -26,27 +26,33 @@ public class enemyHp : MonoBehaviour
     [SerializeField]
     GameObject soundManager;
 
+    private void Awake()
+    {
+        DeathExplosion = Resources.Load<GameObject>("ShadowExplosion2");
+        scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
+        soundManager = GameObject.FindGameObjectWithTag("SoundManager");
+        shieldEffect = transform.GetChild(1).gameObject;
+        shieldHitAudioSource = soundManager.transform.GetChild(3).GetComponent<AudioSource>();
+        shieldBreakAudioSource = soundManager.transform.GetChild(4).GetComponent<AudioSource>();
+        hitimpact = soundManager.transform.GetChild(5).GetComponent<AudioSource>();
+        shieldExplosionEffect = transform.GetChild(3).gameObject;
+    }
     // Start is called before the first frame update
     void Start()
     {
         
         currentHp = Maxhp;
-        DeathExplosion = Resources.Load<GameObject>("ShadowExplosion2");
-        scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
+        //Debug.Log("haveShield" + haveshield);
 
         if (haveshield)
         {
-            soundManager = GameObject.FindGameObjectWithTag("SoundManager");
-            shieldHitAudioSource = soundManager.transform.GetChild(3).GetComponent<AudioSource>();
-            shieldBreakAudioSource = soundManager.transform.GetChild(4).GetComponent<AudioSource>();
-            hitimpact = soundManager.transform.GetChild(5).GetComponent<AudioSource>(); 
-            shieldEffect = transform.GetChild(2).gameObject;
-            shieldExplosionEffect = transform.GetChild(3).gameObject;
+            
             currentShieldHp = maxShieldHp;
             shieldEffect.SetActive(true);
         }
         else
         {
+            shieldEffect.SetActive(false);
             currentShieldHp = 0;
         }
     }

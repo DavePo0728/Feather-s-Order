@@ -8,11 +8,11 @@ public class EntryTypeA : IEntryBehaviour
     Tweener enterTweener;
     public void Enter(EnemyMove enemyMove)
     {
-        //Debug.Log("Enter Type A");
+        //Debug.Log(enemyMove.endPoint);
         CurvePathGenerator.pathInstance.SetPosition(enemyMove.startPoint, enemyMove.endPoint, enemyMove.curveHeight);
         enemyMove.path = CurvePathGenerator.pathInstance.GetPath();
-        enterTweener = enemyMove.transform.DOPath(enemyMove.path, enemyMove.enterTime).SetEase(Ease.InOutSine);
-        //enterTweener.OnComplete(() =>{ enemyMove.CallMove(); });
+        enterTweener = enemyMove.transform.DOPath(enemyMove.path, 1f).SetEase(Ease.InOutSine);
+        enterTweener.OnComplete(() =>{ enemyMove.CallMove(); });
     }
     public void StopEnter()
     {

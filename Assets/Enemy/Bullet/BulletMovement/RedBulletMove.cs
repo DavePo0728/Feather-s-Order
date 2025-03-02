@@ -5,6 +5,7 @@ using DG.Tweening;
 
 public class RedBulletMove : BulletBase
 {
+    Rigidbody bulletRigidbody;
     //bool initialMove = false;
     [SerializeField]
     bool moveToPlayer = false;
@@ -25,8 +26,11 @@ public class RedBulletMove : BulletBase
 
     private void Awake()
     {
-        ///bulletRigidbody = GetComponent<Rigidbody>();
+        bulletRigidbody = GetComponent<Rigidbody>();
         bulletData = Resources.Load<EnemyBulletData>("BulletData/RedBullet");
+        bulletBody= transform.GetChild(0).gameObject;
+        hitEffect = transform.GetChild(1).gameObject;
+        hitParticle = hitEffect.GetComponent<ParticleSystem>();
     }
     private void OnDisable()
     {
@@ -43,8 +47,8 @@ public class RedBulletMove : BulletBase
         moveToPlayer = false;
         StartCoroutine(CountDownInactive(BulletlifeTime));
         moveToPlayer = true;
-        //hitEffect.SetActive(false);
-        //bulletBody.SetActive(true);
+        hitEffect.SetActive(false);
+        bulletBody.SetActive(true);
     }
     public void NoMoveInitial()
     {
@@ -56,9 +60,13 @@ public class RedBulletMove : BulletBase
         //initialMove = false;
         moveToPlayer = false;
         StartCoroutine(CountDownInactive(BulletlifeTime));
+        hitEffect.SetActive(false);
+        bulletBody.SetActive(true);
     }
     public void HomingInitial()
     {
+        hitEffect.SetActive(false);
+        bulletBody.SetActive(true);
         BulletlifeTime = bulletData.lifeTime;
         speed = bulletData.speed;
         spreadSpeed = 0.2f;
@@ -77,6 +85,8 @@ public class RedBulletMove : BulletBase
     }
     public void FireWorkInitial()
     {
+        hitEffect.SetActive(false);
+        bulletBody.SetActive(true);
         BulletlifeTime = bulletData.lifeTime;
         speed = bulletData.speed;
         moveToPlayer = false;
@@ -134,6 +144,13 @@ public class RedBulletMove : BulletBase
         if (other.tag == "PlayerBullet")
         {
             gameObject.SetActive(false);
+        }
+        if (other.tag == "Player")
+        {
+            moveToPlayer = false;
+            bulletBody.SetActive(false);
+            //hitEffect.gameObject.SetActive(true);
+            hitParticle.Play();
         }
     }
     public void Speard()

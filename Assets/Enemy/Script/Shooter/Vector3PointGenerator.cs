@@ -36,7 +36,7 @@ public class Vector3PointGenerator : MonoBehaviour
             }
         }
         GeneratePoint();
-        SpawnPrefab();
+        //SpawnPrefab();
     }
     // Update is called once per frame
     void Update()

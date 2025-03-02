@@ -15,9 +15,9 @@ public class EnemyMove : MonoBehaviour
     [SerializeField]
     float lifeTime;
     protected float angle;
-    public Transform startPoint;
-    public Transform endPoint;
-    public Transform leavePoint;
+    public Vector3 startPoint;
+    public Vector3 endPoint;
+    public Vector3 leavePoint;
     public float curveHeight;
     public float enterTime;
     public float stayTime;
@@ -33,6 +33,7 @@ public class EnemyMove : MonoBehaviour
     public bool isMove =false;
 
     public List<GameObject> gunList;
+    GameObject activeGun, activeGun1;
 
     //public bool canShoot = false;
     public enum BulletType
@@ -56,20 +57,23 @@ public class EnemyMove : MonoBehaviour
     }
     private void Awake()
     {
-
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        //Debug.Log(transform.GetChild(3).childCount);
-        startPoint = gameObject.transform;
-        StartCoroutine(TimeToLeave());
-        //UpdateDebugLine();
-        entryBehavior.Enter(this);
+        gunList = new List<GameObject>();
         for (int i = 0; i < transform.GetChild(3).childCount; i++)
         {
             gunList.Add(transform.GetChild(3).GetChild(i).gameObject);
         }
+    }
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+        //Debug.Log(gunList.Count);
+        startPoint = gameObject.transform.position;
+        StartCoroutine(TimeToLeave());
+        //UpdateDebugLine();
+        
+        entryBehavior.Enter(this);
+        
     }
     void FixedUpdate()
     {
@@ -84,14 +88,23 @@ public class EnemyMove : MonoBehaviour
     }
     public void CallMove()
     {
+        if(activeGun != null)
+            activeGun.SetActive(true);
         originPos = transform.position;
         moveBehavior.Move(this);
         isMove = true;
     }
-    public void ActiveGun(int gunIndex, float rpm, float bulletAmount, float spinSpeed,float shootingCoolDown,BulletType bulletType)
+    public void ActiveGun(int gunIndex, float rpm, float bulletAmount, float spinSpeed,float shootingCoolDown,BulletType bulletType,float MaxShootWave)
     {
+        if (gunIndex < 0 || gunIndex >= gunList.Count)
+        {
+            Debug.LogError($"Invalid gunIndex: {gunIndex}. It must be between 0 and {gunList.Count - 1}.");
+            return;
+        }
+        
         switch (gunIndex)
         {
+            
             case 0: //strightShooting
                 gunList[gunIndex].GetComponent<SimpleShoot>().rpm = rpm;
                 gunList[gunIndex].GetComponent<SimpleShoot>().maxShots = bulletAmount;
@@ -99,10 +112,12 @@ public class EnemyMove : MonoBehaviour
                 gunList[gunIndex].GetComponent<SimpleShoot>().bulletType = (SimpleShoot.BulletType)bulletType;
                 break;
             case 1: //trackShooting
-                gunList[gunIndex].GetComponent<TrackShooting>().rpm = rpm;
-                gunList[gunIndex].GetComponent<TrackShooting>().maxShots = bulletAmount;
-                gunList[gunIndex].GetComponent<TrackShooting>().shootingCoolDown = shootingCoolDown;
-                gunList[gunIndex].GetComponent<TrackShooting>().bulletType = (TrackShooting.BulletType)bulletType;
+                TrackShooting track = gunList[gunIndex].GetComponent<TrackShooting>();
+                track.rpm = rpm;
+                track.maxShots = bulletAmount;
+                track.shootingCoolDown = shootingCoolDown;
+                track.bulletType = (TrackShooting.BulletType)bulletType;
+                track.MaxShootWave = MaxShootWave;
                 break;
             case 2: //shotGun
                 gunList[gunIndex].GetComponent<ShootShotGun>().bulletAmount = (int)bulletAmount;
@@ -130,17 +145,30 @@ public class EnemyMove : MonoBehaviour
                 }
                 break;
         }
-        gunList[gunIndex].SetActive(true);
+        activeGun = gunList[gunIndex];
     }
     IEnumerator TimeToLeave()
     {
         yield return new WaitForSeconds(lifeTime);
         isLeave = true;
-        //gun.SetActive(false);
+        foreach (GameObject gun in gunList)
+        {
+            if(gun.activeSelf)
+            {
+                gun.SetActive(false);
+            }
+        }
     }
     public void CallLeave()
     {
         leaveBehavior.Leave(this);
+        foreach (GameObject gun in gunList)
+        {
+            if (gun.activeSelf)
+            {
+                gun.SetActive(false);
+            }
+        }
     }
     public void DestroyNow()
     {

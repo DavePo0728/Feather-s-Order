@@ -2,23 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using PathCreation;
+using UnityEngine.InputSystem;
 
 public class WaveManager : MonoBehaviour
 {
     [SerializeField]
     List<GameObject> enemyList;
-    [SerializeField]
     [Space(10)]
-    List<GameObject> _12SpawnPointList, _6SpawnPointList, _3SpawnPointList, _3VerticalSpawnPointList;
-    [SerializeField]
-    [Space(10)]
-    List<GameObject> _12EndPointList, _6EndPointList, _3EndPointList, _3VerticalEndPointList;
-    [SerializeField]
-    List<GameObject> spawnTestList,endTestList,LeaveTestList;
+    //List<GameObject> _12SpawnPointList, _6SpawnPointList, _3SpawnPointList, _3VerticalSpawnPointList;
+    //List<GameObject> _12EndPointList, _6EndPointList, _3EndPointList, _3VerticalEndPointList;
+    //List<GameObject> spawnTestList,endTestList,LeaveTestList;
     [SerializeField]
     List<PathCreator> pathList;
-    [SerializeField]
-    List<GameObject> gunList;
     public enum BulletType
     {
         Black,
@@ -26,7 +21,7 @@ public class WaveManager : MonoBehaviour
         Purple,
         BlackRed,
     }
-    public BulletType bulletType;
+    //public BulletType bulletType;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,71 +31,75 @@ public class WaveManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            StartCoroutine(SpawnGroup1_1());
+        }
     }
     //spawn A
     void SpawnEnemy(GameObject enemy, float hp, bool haveShield,float shieldHp,
-        GameObject spawnPoint, GameObject endPoint,GameObject leavePoint, 
+        Vector3 spawnPoint, Vector3 endPoint, Vector3 leavePoint, 
         IEntryBehaviour entryBehaviour,IMoveBehaviour moveBehaviour , ILeaveBehaviour leaveBehaviour,float curveHeight,
-        int gunIndex,float rpm,float shootingCoolDown, float bulletAmount, float spinSpeed,BulletType bulletType)
+        int gunIndex,float rpm,float shootingCoolDown, float bulletAmount, float spinSpeed,BulletType bulletType,float MaxShootWave)
     {
-        GameObject temp = Instantiate(enemy, spawnPoint.transform.position, spawnPoint.transform.rotation);
+        GameObject temp = Instantiate(enemy, spawnPoint, Quaternion.identity);
         EnemyMove enemyMove = temp.GetComponent<EnemyMove>();
         enemyHp enemyHp = temp.GetComponent<enemyHp>();
         enemyHp.Maxhp = hp;
         enemyHp.haveshield = haveShield;
         enemyHp.maxShieldHp = shieldHp;
-        enemyMove.endPoint = endPoint.transform;
-        enemyMove.leavePoint = leavePoint.transform;
+        enemyMove.endPoint = endPoint;
+        enemyMove.leavePoint = leavePoint;
         enemyMove.curveHeight = curveHeight;
-        enemyMove.ActiveGun(gunIndex, rpm, bulletAmount, spinSpeed,shootingCoolDown,(EnemyMove.BulletType)bulletType);
+        //Debug.Log(gunIndex);
         IEntryBehaviour entry = entryBehaviour;
         IMoveBehaviour move = moveBehaviour;
         ILeaveBehaviour leave = leaveBehaviour;
         enemyMove.SetBehaviours(entry,move,leave);
+        enemyMove.ActiveGun(gunIndex, rpm, bulletAmount, spinSpeed, shootingCoolDown, (EnemyMove.BulletType)bulletType,MaxShootWave);
     }    
     //spawn B
-    void SpawnEnemy(GameObject enemy, float hp, bool haveShield, float shieldHp, 
-        GameObject spawnPoint, GameObject endPoint, GameObject leavePoint, 
+    void SpawnEnemy(GameObject enemy, float hp, bool haveShield, float shieldHp,
+        Vector3 spawnPoint, Vector3 endPoint, Vector3 leavePoint, 
         IEntryBehaviour entryBehaviour, IMoveBehaviour moveBehaviour, ILeaveBehaviour leaveBehaviour, float curveHeight, PathCreator CurvePath,
-        int gunIndex, float rpm, float shootingCoolDown, float bulletAmount, float spinSpeed, BulletType bulletType)
+        int gunIndex, float rpm, float shootingCoolDown, float bulletAmount, float spinSpeed, BulletType bulletType, float MaxShootWave)
     {
-        GameObject temp = Instantiate(enemy, spawnPoint.transform.position, spawnPoint.transform.rotation);
+        GameObject temp = Instantiate(enemy, spawnPoint, Quaternion.identity);
         EnemyMove enemyMove = temp.GetComponent<EnemyMove>();
         enemyHp enemyHp = temp.GetComponent<enemyHp>();
         enemyHp.Maxhp = hp;
         enemyHp.haveshield = haveShield;
         enemyHp.maxShieldHp = shieldHp;
-        enemyMove.endPoint = endPoint.transform;
-        enemyMove.leavePoint = leavePoint.transform;
+        enemyMove.endPoint = endPoint;
+        enemyMove.leavePoint = leavePoint;
         enemyMove.curveHeight = curveHeight;
         enemyMove.moveB_PathList = CurvePathGenerator.pathInstance.GetCurvePath(CurvePath);
-        enemyMove.ActiveGun(gunIndex, rpm, bulletAmount, spinSpeed,shootingCoolDown,(EnemyMove.BulletType)bulletType);
+        enemyMove.ActiveGun(gunIndex, rpm, bulletAmount, spinSpeed,shootingCoolDown,(EnemyMove.BulletType)bulletType, MaxShootWave);
         IEntryBehaviour entry = entryBehaviour;
         IMoveBehaviour move = moveBehaviour;
         ILeaveBehaviour leave = leaveBehaviour;
         enemyMove.SetBehaviours(entry, move, leave);
     }
     //spawn C
-    void SpawnEnemy(GameObject enemy,float hp, bool haveShield, float shieldHp, 
-        GameObject spawnPoint, GameObject endPoint, GameObject leavePoint, 
+    void SpawnEnemy(GameObject enemy,float hp, bool haveShield, float shieldHp,
+        Vector3 spawnPoint, Vector3 endPoint, Vector3 leavePoint, 
         IEntryBehaviour entryBehaviour, IMoveBehaviour moveBehaviour, ILeaveBehaviour leaveBehaviour, 
         float curveHeight,int pathListLength,float pointWaitTime,
-        int gunIndex, float rpm, float shootingCoolDown, float bulletAmount,float spinSpeed)
+        int gunIndex, float rpm, float shootingCoolDown, float bulletAmount,float spinSpeed, BulletType bulletType, float MaxShootWave)
     {
-        GameObject temp = Instantiate(enemy, spawnPoint.transform.position, spawnPoint.transform.rotation);
+        GameObject temp = Instantiate(enemy, spawnPoint, Quaternion.identity);
         EnemyMove enemyMove = temp.GetComponent<EnemyMove>();
         enemyHp enemyHp = temp.GetComponent<enemyHp>();
         enemyHp.Maxhp = hp;
         enemyHp.haveshield = haveShield;
         enemyHp.maxShieldHp = shieldHp;
-        enemyMove.endPoint = endPoint.transform;
-        enemyMove.leavePoint = leavePoint.transform;
+        enemyMove.endPoint = endPoint;
+        enemyMove.leavePoint = leavePoint;
         enemyMove.curveHeight = curveHeight;
         enemyMove.moveC_PathList = Vector3PointGenerator.instance.GetMoveCPathList(pathListLength);
         //enemyMove.stayTime = (float)pathListLength;
         enemyMove.pointWaitTime = pointWaitTime;
-        enemyMove.ActiveGun(gunIndex, rpm, bulletAmount, spinSpeed,shootingCoolDown, (EnemyMove.BulletType)bulletType);
+        enemyMove.ActiveGun(gunIndex, rpm, bulletAmount, spinSpeed,shootingCoolDown, (EnemyMove.BulletType)bulletType, MaxShootWave);
         IEntryBehaviour entry = entryBehaviour;
         IMoveBehaviour move = moveBehaviour;
         ILeaveBehaviour leave = leaveBehaviour;
@@ -140,17 +139,39 @@ public class WaveManager : MonoBehaviour
     new EntryTypeA(), new MoveTypeC(), new LeaveTypeA(), Random.Range(-100f, 100f),pathList[0],5,300,2.5f,4,2,BulletType.red);
     */
 
+    /*SpawnEnemy(GameObject enemy, float hp, bool haveShield,float shieldHp,
+    Vector3 spawnPoint, Vector3 endPoint, Vector3 leavePoint,
+    IEntryBehaviour entryBehaviour,IMoveBehaviour moveBehaviour, ILeaveBehaviour leaveBehaviour,float curveHeight,
+    int gunIndex,float rpm,float shootingCoolDown, float bulletAmount, float spinSpeed, BulletType bulletType)
+        */
     IEnumerator SpawnGroup1_1()
     {
-        SpawnEnemy(enemyList[0], 5, false, 0, spawnTestList[0], endTestList[0], LeaveTestList[Random.Range(0, 2)],
-     new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red);
+        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(2,1,1), Vector3PointGenerator.instance.GetPoint(2, 1, 5), Vector3PointGenerator.instance.GetPoint(19, 5, 14),
+     new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), 1, 1, 300, 1.5f, 3, 0, BulletType.Red,2);
         yield return new WaitForSeconds(0.1f);
+        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(3, 2, 1), Vector3PointGenerator.instance.GetPoint(3, 2, 5), Vector3PointGenerator.instance.GetPoint(19, 6, 14),
+     new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), 1, 1, 300, 1.5f, 3, 0, BulletType.Red,2);
+        yield return new WaitForSeconds(0.1f);
+        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(4, 1, 1), Vector3PointGenerator.instance.GetPoint(4, 1, 5), Vector3PointGenerator.instance.GetPoint(19, 5, 14),
+     new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red,2);
+        yield return new WaitForSeconds(0.1f);
+        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(6, 1, 1), Vector3PointGenerator.instance.GetPoint(6, 1, 5), Vector3PointGenerator.instance.GetPoint(19, 5, 14),
+     new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red,2);
+        yield return new WaitForSeconds(0.1f);
+        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(7, 2, 1), Vector3PointGenerator.instance.GetPoint(7, 2, 5), Vector3PointGenerator.instance.GetPoint(19, 6, 14),
+     new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red,2);
+        yield return new WaitForSeconds(0.1f);
+        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(8, 2, 1), Vector3PointGenerator.instance.GetPoint(8, 1, 5), Vector3PointGenerator.instance.GetPoint(19, 5, 14),
+     new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red,2);
+        yield return new WaitForSeconds(0.1f);
+    }
+    IEnumerator SpawnGroup1_2()
+    {
+        yield return null;
     }
     IEnumerator WaveSpawn()
     {
-        SpawnEnemy(enemyList[0], 5, false, 0, spawnTestList[0], endTestList[0], LeaveTestList[UnityEngine.Random.Range(0, 2)],
-        new EntryTypeA(), new MoveTypeA(), new LeaveTypeA(), UnityEngine.Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red);
-
+        StartCoroutine(SpawnGroup1_1());
         yield return new WaitForSeconds(10f);
     }
 }

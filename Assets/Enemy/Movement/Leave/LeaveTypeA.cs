@@ -10,7 +10,7 @@ public class LeaveTypeA : ILeaveBehaviour
     {
         if (enemyMove.gameObject !=null) 
         {
-            leaveTweener = enemyMove.transform.DOMove(enemyMove.leavePoint.position, 2.0f).SetEase(Ease.Linear);
+            leaveTweener = enemyMove.transform.DOMove(enemyMove.leavePoint, 1.0f).SetEase(Ease.Linear);
             leaveTweener.OnComplete(() => { enemyMove.DestroyNow(); });
         }
     }

@@ -26,7 +26,8 @@ public class BlackBulletMove : BulletBase
         moveToPlayer = false;
         StartCoroutine(CountDownInactive(BulletlifeTime));
         moveToPlayer = true;
-        //speed = bulletData.speed;
+        speed = bulletData.speed;
+        hitEffect= transform.GetChild(1).gameObject;
         hitEffect.gameObject.SetActive(false);
         bulletBody.SetActive(true);
     }

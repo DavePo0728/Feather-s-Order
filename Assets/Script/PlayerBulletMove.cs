@@ -16,26 +16,29 @@ public class PlayerBulletMove : MonoBehaviour
     GameObject lockedEnemy;
     Collider bulletCollider;
     ParticleSystem hitEffect;
+    EnemyBulletData bulletData;
+
     // Start is called before the first frame update
     private void Awake()
     {
         bulletRigidbody = GetComponent<Rigidbody>();
         bulletCollider = GetComponent<Collider>();
-        
+        hitEffectObject = transform.GetChild(1).gameObject;
+        hitEffect = hitEffectObject.GetComponent<ParticleSystem>();
+        bulletData = Resources.Load<EnemyBulletData>("BulletData/PlayerBullet");
     }
     void Start()
     {
-        StartCoroutine(CountDownInactive());
-        hitEffectObject = transform.GetChild(1).gameObject;
-        hitEffect = hitEffectObject.GetComponent<ParticleSystem>();
+        
     }
     private void OnEnable()
     {
+        StartCoroutine(CountDownInactive());
         if (lockedEnemy != null)
             transform.LookAt(lockedEnemy.transform);
         bulletCollider.enabled = true;
-        speed = 300;
-        
+        speed = bulletData.speed;
+
     }
     private void OnDisable()
     {
@@ -49,11 +52,11 @@ public class PlayerBulletMove : MonoBehaviour
         {
             //transform.LookAt(lockedEnemy.transform);
             //Debug.Log(transform.rotation);
-            transform.Translate(Vector3.forward * speed * Time.deltaTime);
+            transform.Translate(Vector3.forward * speed);
         }
         else
         {
-            transform.Translate(Vector3.forward * speed * Time.deltaTime);
+            transform.Translate(Vector3.forward * speed);
         }
 
     }
@@ -68,10 +71,10 @@ public class PlayerBulletMove : MonoBehaviour
     {
         yield return new WaitForSeconds(lifeTime);
         //Debug.Log("off");
-        if(gameObject.tag == "ChargeBullet")
-        {
-            Destroy(this.gameObject);
-        }
+        //if(gameObject.tag == "ChargeBullet")
+        //{
+        //    this.gameObject.SetActive(false);
+        //}
         this.gameObject.SetActive(false);
     }
     IEnumerator HitEffectOn()

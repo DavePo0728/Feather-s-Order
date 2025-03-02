@@ -22,8 +22,8 @@ public class PlayerAim : MonoBehaviour
     public bool isLocked = false;
     //Vector3 direction;
     public GameObject _lockedEnemy => lockedEnemy;
-    [SerializeField]
-    LayerMask raycastIgnore;
+    //[SerializeField]
+    //LayerMask raycastIgnore;
     private void Awake()
     {
         //RaycastIgnore = LayerMask.GetMask("Bullet");
