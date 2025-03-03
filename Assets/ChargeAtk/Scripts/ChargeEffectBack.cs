@@ -9,12 +9,12 @@ public class ChargeEffectBack : MonoBehaviour
 	{
 		GetComponent<Animator>().SetBool("back", false);
 	}
-	//public void canshoot()
-	//{
-	//	root.ChargeComplete();
-	//}
-	//public void Onshoot()
-	//{
-	//	root.shoot();
-	//}
+	public void canshoot()
+	{
+		root.ChargeComplete();
+	}
+	public void Onshoot()
+	{
+		root.shoot();
+	}
 }

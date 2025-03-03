@@ -9,11 +9,16 @@ public class WaveManager : MonoBehaviour
     [SerializeField]
     List<GameObject> enemyList;
     [Space(10)]
-    //List<GameObject> _12SpawnPointList, _6SpawnPointList, _3SpawnPointList, _3VerticalSpawnPointList;
-    //List<GameObject> _12EndPointList, _6EndPointList, _3EndPointList, _3VerticalEndPointList;
-    //List<GameObject> spawnTestList,endTestList,LeaveTestList;
     [SerializeField]
     List<PathCreator> pathList;
+    [SerializeField]
+    List<CustomPathData> customPathDataList;
+
+    [Header("UI")]
+    [SerializeField]
+    GameObject gameoverPanel;
+    [SerializeField]
+    GameObject gameOverText, GameClearText;
     public enum BulletType
     {
         Black,
@@ -21,6 +26,12 @@ public class WaveManager : MonoBehaviour
         Purple,
         BlackRed,
     }
+    private void Awake()
+    {
+        customPathDataList = new List<CustomPathData>();
+        customPathDataList.Add(Resources.Load<CustomPathData>("PathData/PathData1"));
+    }
+
     //public BulletType bulletType;
     // Start is called before the first frame update
     void Start()
@@ -35,11 +46,59 @@ public class WaveManager : MonoBehaviour
         {
             StartCoroutine(SpawnGroup1_1());
         }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            StartCoroutine(SpawnGroup1_2());
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            StartCoroutine(SpawnGroup1_3());
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            StartCoroutine(SpawnGroup1_4());
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            StartCoroutine(SpawnGroup1_5());
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            StartCoroutine(SpawnGroup1_6());
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha7))
+        {
+            StartCoroutine(SpawnGroup1_7());
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha8))
+        {
+            StartCoroutine(SpawnGroup1_8());
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha9))
+        {
+            StartCoroutine(SpawnGroup1_9());
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            StartCoroutine(SpawnGroup1_10());
+        }
+        if (Input.GetKeyDown(KeyCode.Minus))
+        {
+            StartCoroutine(SpawnGroup1_11());
+        }
+        if (Input.GetKeyDown(KeyCode.Equals))
+        {
+            StartCoroutine(SpawnGroup1_12());
+        }
+        if (Input.GetKeyDown(KeyCode.Backslash))
+        {
+            StartCoroutine(SpawnGroup1_13());
+        }
     }
     //spawn A
     void SpawnEnemy(GameObject enemy, float hp, bool haveShield,float shieldHp,
         Vector3 spawnPoint, Vector3 endPoint, Vector3 leavePoint, 
-        IEntryBehaviour entryBehaviour,IMoveBehaviour moveBehaviour , ILeaveBehaviour leaveBehaviour,float curveHeight,
+        IEntryBehaviour entryBehaviour,IMoveBehaviour moveABehaviour , ILeaveBehaviour leaveBehaviour,float curveHeight,
         int gunIndex,float rpm,float shootingCoolDown, float bulletAmount, float spinSpeed,BulletType bulletType,float MaxShootWave)
     {
         GameObject temp = Instantiate(enemy, spawnPoint, Quaternion.identity);
@@ -53,7 +112,7 @@ public class WaveManager : MonoBehaviour
         enemyMove.curveHeight = curveHeight;
         //Debug.Log(gunIndex);
         IEntryBehaviour entry = entryBehaviour;
-        IMoveBehaviour move = moveBehaviour;
+        IMoveBehaviour move = moveABehaviour;
         ILeaveBehaviour leave = leaveBehaviour;
         enemyMove.SetBehaviours(entry,move,leave);
         enemyMove.ActiveGun(gunIndex, rpm, bulletAmount, spinSpeed, shootingCoolDown, (EnemyMove.BulletType)bulletType,MaxShootWave);
@@ -61,7 +120,7 @@ public class WaveManager : MonoBehaviour
     //spawn B
     void SpawnEnemy(GameObject enemy, float hp, bool haveShield, float shieldHp,
         Vector3 spawnPoint, Vector3 endPoint, Vector3 leavePoint, 
-        IEntryBehaviour entryBehaviour, IMoveBehaviour moveBehaviour, ILeaveBehaviour leaveBehaviour, float curveHeight, PathCreator CurvePath,
+        IEntryBehaviour entryBehaviour, IMoveBehaviour moveBBehaviour, ILeaveBehaviour leaveBehaviour, float curveHeight, PathCreator CurvePath,
         int gunIndex, float rpm, float shootingCoolDown, float bulletAmount, float spinSpeed, BulletType bulletType, float MaxShootWave)
     {
         GameObject temp = Instantiate(enemy, spawnPoint, Quaternion.identity);
@@ -76,15 +135,15 @@ public class WaveManager : MonoBehaviour
         enemyMove.moveB_PathList = CurvePathGenerator.pathInstance.GetCurvePath(CurvePath);
         enemyMove.ActiveGun(gunIndex, rpm, bulletAmount, spinSpeed,shootingCoolDown,(EnemyMove.BulletType)bulletType, MaxShootWave);
         IEntryBehaviour entry = entryBehaviour;
-        IMoveBehaviour move = moveBehaviour;
+        IMoveBehaviour move = moveBBehaviour;
         ILeaveBehaviour leave = leaveBehaviour;
         enemyMove.SetBehaviours(entry, move, leave);
     }
     //spawn C
     void SpawnEnemy(GameObject enemy,float hp, bool haveShield, float shieldHp,
         Vector3 spawnPoint, Vector3 endPoint, Vector3 leavePoint, 
-        IEntryBehaviour entryBehaviour, IMoveBehaviour moveBehaviour, ILeaveBehaviour leaveBehaviour, 
-        float curveHeight,int pathListLength,float pointWaitTime,
+        IEntryBehaviour entryBehaviour, IMoveBehaviour moveCBehaviour, ILeaveBehaviour leaveBehaviour, 
+        float curveHeight,int pathListLength,float pointWaitTime,int pathListIndex,
         int gunIndex, float rpm, float shootingCoolDown, float bulletAmount,float spinSpeed, BulletType bulletType, float MaxShootWave)
     {
         GameObject temp = Instantiate(enemy, spawnPoint, Quaternion.identity);
@@ -96,46 +155,46 @@ public class WaveManager : MonoBehaviour
         enemyMove.endPoint = endPoint;
         enemyMove.leavePoint = leavePoint;
         enemyMove.curveHeight = curveHeight;
-        enemyMove.moveC_PathList = Vector3PointGenerator.instance.GetMoveCPathList(pathListLength);
+        enemyMove.moveC_PathList = Vector3PointGenerator.instance.GetMoveCPathList(4, customPathDataList[pathListIndex]);
         //enemyMove.stayTime = (float)pathListLength;
         enemyMove.pointWaitTime = pointWaitTime;
         enemyMove.ActiveGun(gunIndex, rpm, bulletAmount, spinSpeed,shootingCoolDown, (EnemyMove.BulletType)bulletType, MaxShootWave);
         IEntryBehaviour entry = entryBehaviour;
-        IMoveBehaviour move = moveBehaviour;
+        IMoveBehaviour move = moveCBehaviour;
         ILeaveBehaviour leave = leaveBehaviour;
         enemyMove.SetBehaviours(entry, move, leave);
     }
 
     /*A_01: done
-    SpawnEnemy(enemyList[0],5,false,0, spawnTestList[0], endTestList[0], LeaveTestList[Random.Range(0, 2)],
+    SpawnEnemy(enemyList[0],5,false,0, Vector3PointGenerator.instance.GetPoint(17, 3, 0), Vector3PointGenerator.instance.GetPoint(17, 3, 0), Vector3PointGenerator.instance.GetPoint(17, 3, 0),
     new EntryTypeA(), new MoveTypeA(), new LeaveTypeA(), Random.Range(-100f, 100f),1,300,1.5f,3,0,BulletType.Red);
     */
     /*A_01S: done
-     SpawnEnemy(enemyList[0],5,true,5, spawnTestList[0], endTestList[0], LeaveTestList[Random.Range(0, 2)],
+     SpawnEnemy(enemyList[0],5,true,5, Vector3PointGenerator.instance.GetPoint(17, 3, 0), Vector3PointGenerator.instance.GetPoint(17, 3, 0), Vector3PointGenerator.instance.GetPoint(17, 3, 0),
      new EntryTypeA(), new MoveTypeB(), new LeaveTypeA(), Random.Range(-100f, 100f),3,300,1f,6,0,BulletType.Black);
      */
     /*A_02: done
-     SpawnEnemy(enemyList[0],5,false,0, spawnTestList[0], endTestList[0], LeaveTestList[Random.Range(0, 2)],
+     SpawnEnemy(enemyList[0],5,false,0, Vector3PointGenerator.instance.GetPoint(17, 3, 0), Vector3PointGenerator.instance.GetPoint(17, 3, 0), Vector3PointGenerator.instance.GetPoint(17, 3, 0),
      new EntryTypeA(), new MoveTypeB(), new LeaveTypeA(), Random.Range(-100f, 100f),pathList[0],4,300,2.5f,4,0,BulletType.purple);
      */
     /*A_02S: done
-     SpawnEnemy(enemyList[0],5,true,5, spawnTestList[0], endTestList[0], LeaveTestList[Random.Range(0, 2)],
+     SpawnEnemy(enemyList[0],5,true,5, Vector3PointGenerator.instance.GetPoint(17, 3, 0), Vector3PointGenerator.instance.GetPoint(17, 3, 0), Vector3PointGenerator.instance.GetPoint(17, 3, 0),
      new EntryTypeA(), new MoveTypeC(), new LeaveTypeA(), Random.Range(-100f, 100f),pathList[0],4,300,2.5f,4,0,BulletType.purple);
      */
     /*A_03: done
-     SpawnEnemy(enemyList[0],5,false,0, spawnTestList[0], endTestList[0], LeaveTestList[Random.Range(0, 2)],
+     SpawnEnemy(enemyList[0],5,false,0, Vector3PointGenerator.instance.GetPoint(17, 3, 0), Vector3PointGenerator.instance.GetPoint(17, 3, 0), Vector3PointGenerator.instance.GetPoint(17, 3, 0),
      new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), Random.Range(-100f, 100f),1,300,1.5f,3,0,BulletType.Red);
      */
     /*A_04: done
-      SpawnEnemy(enemyList[0],5,false,0, spawnTestList[0], endTestList[0], LeaveTestList[Random.Range(0, 2)],
+      SpawnEnemy(enemyList[0],5,false,0, Vector3PointGenerator.instance.GetPoint(17, 3, 0), Vector3PointGenerator.instance.GetPoint(17, 3, 0), Vector3PointGenerator.instance.GetPoint(17, 3, 0),
      new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), Random.Range(-100f, 100f),1,300,1.5f,3,0,BulletType.Red);
      */
     /*A_05:
-     SpawnEnemy(enemyList[0],5,false,0, spawnTestList[0], endTestList[0], LeaveTestList[Random.Range(0, 2)],
+     SpawnEnemy(enemyList[0],5,false,0, Vector3PointGenerator.instance.GetPoint(17, 3, 0), Vector3PointGenerator.instance.GetPoint(17, 3, 0), Vector3PointGenerator.instance.GetPoint(17, 3, 0),
      new EntryTypeA(), new MoveTypeA(), new LeaveTypeA(), Random.Range(-100f, 100f),1,300,1.5f,3,0,BulletType.Red);
     */
     /*B_01:
-    SpawnEnemy(enemyList[1],20,false,0, spawnTestList[0], endTestList[0], LeaveTestList[Random.Range(0, 2)],
+    SpawnEnemy(enemyList[1],20,false,0, Vector3PointGenerator.instance.GetPoint(17, 3, 0), Vector3PointGenerator.instance.GetPoint(17, 3, 0), Vector3PointGenerator.instance.GetPoint(17, 3, 0),
     new EntryTypeA(), new MoveTypeC(), new LeaveTypeA(), Random.Range(-100f, 100f),pathList[0],5,300,2.5f,4,2,BulletType.red);
     */
 
@@ -146,32 +205,254 @@ public class WaveManager : MonoBehaviour
         */
     IEnumerator SpawnGroup1_1()
     {
-        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(2,1,1), Vector3PointGenerator.instance.GetPoint(2, 1, 5), Vector3PointGenerator.instance.GetPoint(19, 5, 14),
-     new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), 1, 1, 300, 1.5f, 3, 0, BulletType.Red,2);
-        yield return new WaitForSeconds(0.1f);
-        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(3, 2, 1), Vector3PointGenerator.instance.GetPoint(3, 2, 5), Vector3PointGenerator.instance.GetPoint(19, 6, 14),
-     new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), 1, 1, 300, 1.5f, 3, 0, BulletType.Red,2);
-        yield return new WaitForSeconds(0.1f);
-        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(4, 1, 1), Vector3PointGenerator.instance.GetPoint(4, 1, 5), Vector3PointGenerator.instance.GetPoint(19, 5, 14),
+        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(0,1,1), Vector3PointGenerator.instance.GetPoint(2, 1, 5), Vector3PointGenerator.instance.GetPoint(19, 5, 14),
      new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red,2);
         yield return new WaitForSeconds(0.1f);
-        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(6, 1, 1), Vector3PointGenerator.instance.GetPoint(6, 1, 5), Vector3PointGenerator.instance.GetPoint(19, 5, 14),
+        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(0, 2, 1), Vector3PointGenerator.instance.GetPoint(3, 2, 5), Vector3PointGenerator.instance.GetPoint(19, 6, 14),
      new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red,2);
         yield return new WaitForSeconds(0.1f);
-        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(7, 2, 1), Vector3PointGenerator.instance.GetPoint(7, 2, 5), Vector3PointGenerator.instance.GetPoint(19, 6, 14),
+        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(0, 1, 1), Vector3PointGenerator.instance.GetPoint(4, 1, 5), Vector3PointGenerator.instance.GetPoint(19, 5, 14),
      new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red,2);
         yield return new WaitForSeconds(0.1f);
-        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(8, 2, 1), Vector3PointGenerator.instance.GetPoint(8, 1, 5), Vector3PointGenerator.instance.GetPoint(19, 5, 14),
+        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(0, 1, 1), Vector3PointGenerator.instance.GetPoint(6, 1, 5), Vector3PointGenerator.instance.GetPoint(19, 5, 14),
      new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red,2);
         yield return new WaitForSeconds(0.1f);
+        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(0, 2, 1), Vector3PointGenerator.instance.GetPoint(7, 2, 5), Vector3PointGenerator.instance.GetPoint(19, 6, 14),
+     new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red,2);
+        yield return new WaitForSeconds(0.1f);
+        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(0, 1, 1), Vector3PointGenerator.instance.GetPoint(8, 1, 5), Vector3PointGenerator.instance.GetPoint(19, 5, 14),
+     new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red,2);
     }
     IEnumerator SpawnGroup1_2()
     {
-        yield return null;
+        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(19, 1, 1), Vector3PointGenerator.instance.GetPoint(11, 1, 5), Vector3PointGenerator.instance.GetPoint(0, 5, 14),
+     new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red, 2);
+        yield return new WaitForSeconds(0.1f);
+        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(19, 2, 1), Vector3PointGenerator.instance.GetPoint(12, 2, 5), Vector3PointGenerator.instance.GetPoint(0, 6, 14),
+     new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red, 2);
+        yield return new WaitForSeconds(0.1f);
+        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(19, 1, 1), Vector3PointGenerator.instance.GetPoint(13, 1, 5), Vector3PointGenerator.instance.GetPoint(0, 5, 14),
+     new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red, 2);
+        yield return new WaitForSeconds(0.1f);
+        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(19, 1, 1), Vector3PointGenerator.instance.GetPoint(15, 1, 5), Vector3PointGenerator.instance.GetPoint(0, 5, 14),
+     new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red, 2);
+        yield return new WaitForSeconds(0.1f);
+        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(19, 2, 1), Vector3PointGenerator.instance.GetPoint(16, 2, 5), Vector3PointGenerator.instance.GetPoint(0, 6, 14),
+     new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red, 2);
+        yield return new WaitForSeconds(0.1f);
+        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(19, 2, 1), Vector3PointGenerator.instance.GetPoint(17, 1, 5), Vector3PointGenerator.instance.GetPoint(0, 5, 14),
+     new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red, 2);
+    }
+    IEnumerator SpawnGroup1_3()
+    {
+        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(5, 2, 0), Vector3PointGenerator.instance.GetPoint(5, 5, 4), Vector3PointGenerator.instance.GetPoint(0, 5, 14),
+     new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red, 2);
+        yield return new WaitForSeconds(0.1f);
+        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(6, 3, 0), Vector3PointGenerator.instance.GetPoint(6, 6, 4), Vector3PointGenerator.instance.GetPoint(0, 6, 14),
+     new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red, 2);
+        yield return new WaitForSeconds(0.1f);
+        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(7, 2, 0), Vector3PointGenerator.instance.GetPoint(7, 5, 4), Vector3PointGenerator.instance.GetPoint(0, 5, 14),
+     new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red, 2);
+        yield return new WaitForSeconds(0.1f);
+        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(9, 2, 0), Vector3PointGenerator.instance.GetPoint(9, 5, 4), Vector3PointGenerator.instance.GetPoint(0, 5, 14),
+     new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red, 2);
+        yield return new WaitForSeconds(0.1f);
+        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(10, 3, 0), Vector3PointGenerator.instance.GetPoint(10, 6, 4), Vector3PointGenerator.instance.GetPoint(0, 6, 14),
+     new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red, 2);
+        yield return new WaitForSeconds(0.1f);
+        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(11, 2, 0), Vector3PointGenerator.instance.GetPoint(11, 5, 4), Vector3PointGenerator.instance.GetPoint(0, 5, 14),
+     new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red, 2);
+        yield return new WaitForSeconds(0.1f);        
+        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(13, 2, 0), Vector3PointGenerator.instance.GetPoint(13, 5, 4), Vector3PointGenerator.instance.GetPoint(0, 5, 14),
+     new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red, 2);
+        yield return new WaitForSeconds(0.1f);
+        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(14, 3, 0), Vector3PointGenerator.instance.GetPoint(14, 6, 4), Vector3PointGenerator.instance.GetPoint(0, 6, 14),
+     new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red, 2);
+        yield return new WaitForSeconds(0.1f);
+        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(15, 2, 0), Vector3PointGenerator.instance.GetPoint(15, 5, 4), Vector3PointGenerator.instance.GetPoint(0, 5, 14),
+     new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red, 2);
+    }
+    IEnumerator SpawnGroup1_4()
+    {
+        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(0, 0, 14), Vector3PointGenerator.instance.GetPoint(3, 3, 5), Vector3PointGenerator.instance.GetPoint(19, 5, 0),
+     new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red,2);
+        yield return new WaitForSeconds(0.1f);
+        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(0, 1, 14), Vector3PointGenerator.instance.GetPoint(4, 4, 5), Vector3PointGenerator.instance.GetPoint(19, 6, 0),
+     new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red, 2);
+        yield return new WaitForSeconds(0.1f);
+        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(0, 2, 14), Vector3PointGenerator.instance.GetPoint(3, 5, 5), Vector3PointGenerator.instance.GetPoint(19, 7, 0),
+     new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red, 2);
+    }
+    IEnumerator SpawnGroup1_5()
+    {
+        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(19, 9, 14), Vector3PointGenerator.instance.GetPoint(16, 5, 5), Vector3PointGenerator.instance.GetPoint(0, 3, 0),
+     new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red, 2);
+        yield return new WaitForSeconds(0.1f);
+        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(19, 10, 14), Vector3PointGenerator.instance.GetPoint(15, 6, 5), Vector3PointGenerator.instance.GetPoint(0, 4, 0),
+     new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red, 2);
+        yield return new WaitForSeconds(0.1f);
+        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(19, 11, 14), Vector3PointGenerator.instance.GetPoint(16, 7, 5), Vector3PointGenerator.instance.GetPoint(0, 5, 0),
+     new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red, 2);
+    }
+    IEnumerator SpawnGroup1_6()
+    {
+        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(0, 3, 0), Vector3PointGenerator.instance.GetPoint(3, 3, 7), Vector3PointGenerator.instance.GetPoint(19, 3, 14),
+     new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red, 2);
+        yield return new WaitForSeconds(0.1f);
+        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(2, 3, 0), Vector3PointGenerator.instance.GetPoint(5, 3, 7), Vector3PointGenerator.instance.GetPoint(19, 3, 14),
+     new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red, 2);
+        yield return new WaitForSeconds(0.1f);
+        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(0, 3, 0), Vector3PointGenerator.instance.GetPoint(3, 3, 7), Vector3PointGenerator.instance.GetPoint(19, 3, 14),
+     new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red, 2);
+    }
+    IEnumerator SpawnGroup1_7()
+    {
+        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(17, 3, 0), Vector3PointGenerator.instance.GetPoint(14, 3, 5), Vector3PointGenerator.instance.GetPoint(0, 5, 14),
+new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red, 2);
+        yield return new WaitForSeconds(0.1f);
+        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(19, 3, 0), Vector3PointGenerator.instance.GetPoint(16, 3, 5), Vector3PointGenerator.instance.GetPoint(0, 5, 14),
+     new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red, 2);
+    }
+    IEnumerator SpawnGroup1_8()
+    {
+        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(0, 8, 14), Vector3PointGenerator.instance.GetPoint(4, 3, 4), Vector3PointGenerator.instance.GetPoint(0, 3, 0),
+        new EntryTypeA(), new MoveTypeA(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red,2);
+        yield return new WaitForSeconds(0.1f);
+        SpawnEnemy(enemyList[0], 5, true, 5, Vector3PointGenerator.instance.GetPoint(2, 8, 14), Vector3PointGenerator.instance.GetPoint(6, 3, 4), Vector3PointGenerator.instance.GetPoint(0, 3, 0),
+        new EntryTypeA(), new MoveTypeB(), new LeaveTypeA(), Random.Range(-100f, 100f), 3, 300, 1f, 6, 0, BulletType.Black,3);
+        yield return new WaitForSeconds(0.1f);
+        SpawnEnemy(enemyList[0],5,false,0, Vector3PointGenerator.instance.GetPoint(4, 8, 14), Vector3PointGenerator.instance.GetPoint(8, 3, 4), Vector3PointGenerator.instance.GetPoint(0, 3, 0),
+        new EntryTypeA(), new MoveTypeA(), new LeaveTypeA(), Random.Range(-100f, 100f),1,300,1.5f,3,0,BulletType.Red,2);
+
+    }
+    IEnumerator SpawnGroup1_9()
+    {
+        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(15, 3, 14), Vector3PointGenerator.instance.GetPoint(12, 5, 4), Vector3PointGenerator.instance.GetPoint(0, 5, 5),
+new EntryTypeA(), new MoveTypeA(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red,2);
+        yield return new WaitForSeconds(0.1f);
+        SpawnEnemy(enemyList[0], 5, true, 5, Vector3PointGenerator.instance.GetPoint(17, 3, 14), Vector3PointGenerator.instance.GetPoint(14, 5, 4), Vector3PointGenerator.instance.GetPoint(0, 5, 5),
+        new EntryTypeA(), new MoveTypeB(), new LeaveTypeA(), Random.Range(-100f, 100f), 3, 300, 1f, 6, 0, BulletType.Black,3);
+        yield return new WaitForSeconds(0.1f);
+        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(19, 3, 14), Vector3PointGenerator.instance.GetPoint(16, 5, 4), Vector3PointGenerator.instance.GetPoint(0, 5, 5),
+new EntryTypeA(), new MoveTypeA(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red, 2);
+        yield return new WaitForSeconds(0.1f);
+
+    }
+    IEnumerator SpawnGroup1_10()
+    {
+        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(8, 5, 0), Vector3PointGenerator.instance.GetPoint(8, 5, 5), Vector3PointGenerator.instance.GetPoint(8, 5, 0),
+        new EntryTypeA(), new MoveTypeB(), new LeaveTypeA(), Random.Range(-100f, 100f), pathList[0], 4, 300, 2.5f, 4, 0, BulletType.Purple,5);
+        yield return new WaitForSeconds(0.1f);
+        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(10, 5, 0), Vector3PointGenerator.instance.GetPoint(10, 5, 5), Vector3PointGenerator.instance.GetPoint(10, 5, 0),
+        new EntryTypeA(), new MoveTypeB(), new LeaveTypeA(), Random.Range(-100f, 100f), pathList[0], 4, 300, 2.5f, 4, 0, BulletType.Purple,5);
+        yield return new WaitForSeconds(0.1f);
+        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(12, 5, 0), Vector3PointGenerator.instance.GetPoint(12, 5, 5), Vector3PointGenerator.instance.GetPoint(12, 5, 0),
+        new EntryTypeA(), new MoveTypeB(), new LeaveTypeA(), Random.Range(-100f, 100f), pathList[0], 4, 300, 2.5f, 4, 0, BulletType.Purple,5);
+    }
+    IEnumerator SpawnGroup1_11()
+    {
+        SpawnEnemy(enemyList[0], 5, true, 5, Vector3PointGenerator.instance.GetPoint(15, 2, 14), Vector3PointGenerator.instance.GetPoint(8, 5, 5), Vector3PointGenerator.instance.GetPoint(0, 5, 0),
+        new EntryTypeA(), new MoveTypeB(), new LeaveTypeA(), Random.Range(-100f, 100f), pathList[0], 4, 300, 2.5f, 4, 0, BulletType.Purple,5);
+        yield return new WaitForSeconds(0.1f);
+        SpawnEnemy(enemyList[0], 5, true, 5, Vector3PointGenerator.instance.GetPoint(17, 2, 14), Vector3PointGenerator.instance.GetPoint(9, 5, 5), Vector3PointGenerator.instance.GetPoint(2, 5, 0),
+        new EntryTypeA(), new MoveTypeB(), new LeaveTypeA(), Random.Range(-100f, 100f), pathList[0], 4, 300, 2.5f, 4, 0, BulletType.Purple,5);
+        yield return new WaitForSeconds(0.1f);
+        SpawnEnemy(enemyList[0], 5, true, 5, Vector3PointGenerator.instance.GetPoint(19, 2, 14), Vector3PointGenerator.instance.GetPoint(12, 5, 5), Vector3PointGenerator.instance.GetPoint(4, 5, 0),
+        new EntryTypeA(), new MoveTypeB(), new LeaveTypeA(), Random.Range(-100f, 100f), pathList[0], 4, 300, 2.5f, 4, 0, BulletType.Purple,5);
+    }
+    IEnumerator SpawnGroup1_12()
+    {
+        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(2, 1, 14), Vector3PointGenerator.instance.GetPoint(10, 3, 5), Vector3PointGenerator.instance.GetPoint(19, 6, 0),
+        new EntryTypeA(), new MoveTypeA(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red,4);
+        yield return new WaitForSeconds(0.1f);
+        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(4, 3, 14), Vector3PointGenerator.instance.GetPoint(12, 5, 5), Vector3PointGenerator.instance.GetPoint(19, 6, 0),
+        new EntryTypeA(), new MoveTypeA(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red,4);
+        yield return new WaitForSeconds(0.1f);
+        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(2, 5, 14), Vector3PointGenerator.instance.GetPoint(10, 7, 5), Vector3PointGenerator.instance.GetPoint(19, 6, 0),
+        new EntryTypeA(), new MoveTypeA(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red,4);
+        yield return new WaitForSeconds(0.1f);
+        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(0, 3, 14), Vector3PointGenerator.instance.GetPoint(8, 5, 5), Vector3PointGenerator.instance.GetPoint(19, 6, 0),
+        new EntryTypeA(), new MoveTypeA(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red,4);
+        yield return new WaitForSeconds(0.1f);
+        SpawnEnemy(enemyList[1], 20, false, 0, Vector3PointGenerator.instance.GetPoint(2, 3, 14), Vector3PointGenerator.instance.GetPoint(10, 5, 5), Vector3PointGenerator.instance.GetPoint(19, 6, 0),
+        new EntryTypeA(), new MoveTypeC(), new LeaveTypeA(), Random.Range(-100f, 100f),4,3,0, 5, 300, 2.5f, 4, 2, BulletType.Red,0);
+    }
+    IEnumerator SpawnGroup1_13()
+    {
+
+        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(6, 3, 0), Vector3PointGenerator.instance.GetPoint(6, 5, 4), Vector3PointGenerator.instance.GetPoint(0, 1, 14),
+        new EntryTypeA(), new MoveTypeA(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red,3);
+        yield return new WaitForSeconds(0.1f);
+        SpawnEnemy(enemyList[0], 5, true, 5, Vector3PointGenerator.instance.GetPoint(7, 2, 0), Vector3PointGenerator.instance.GetPoint(7, 4, 3), Vector3PointGenerator.instance.GetPoint(0, 1, 14),
+        new EntryTypeA(), new MoveTypeC(), new LeaveTypeA(), Random.Range(-100f, 100f), pathList[0], 4, 300, 2.5f, 4, 0, BulletType.Purple, 2);
+        yield return new WaitForSeconds(0.1f);
+        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(8, 3, 0), Vector3PointGenerator.instance.GetPoint(8, 5, 4), Vector3PointGenerator.instance.GetPoint(0, 1, 14),
+        new EntryTypeA(), new MoveTypeA(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red,3);
+        yield return new WaitForSeconds(0.1f);
+        SpawnEnemy(enemyList[0], 5, true, 5, Vector3PointGenerator.instance.GetPoint(9, 4, 0), Vector3PointGenerator.instance.GetPoint(9, 6, 6), Vector3PointGenerator.instance.GetPoint(0, 1, 14),
+        new EntryTypeA(), new MoveTypeC(), new LeaveTypeA(), Random.Range(-100f, 100f), pathList[0], 4, 300, 2.5f, 4, 0, BulletType.Purple, 3);
+        yield return new WaitForSeconds(0.1f);
+        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(10, 3, 0), Vector3PointGenerator.instance.GetPoint(10, 5, 4), Vector3PointGenerator.instance.GetPoint(0, 1, 14),
+        new EntryTypeA(), new MoveTypeA(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red,3);
+        yield return new WaitForSeconds(0.1f);
+        SpawnEnemy(enemyList[0], 5, true, 5, Vector3PointGenerator.instance.GetPoint(11, 2, 0), Vector3PointGenerator.instance.GetPoint(11, 4, 3), Vector3PointGenerator.instance.GetPoint(0, 1, 14),
+        new EntryTypeA(), new MoveTypeC(), new LeaveTypeA(), Random.Range(-100f, 100f), pathList[0], 4, 300, 2.5f, 4, 0, BulletType.Purple, 3);
+        yield return new WaitForSeconds(0.1f);
+        SpawnEnemy(enemyList[0], 5, false, 0, Vector3PointGenerator.instance.GetPoint(12, 3, 0), Vector3PointGenerator.instance.GetPoint(12, 5, 4), Vector3PointGenerator.instance.GetPoint(0, 1, 14),
+        new EntryTypeA(), new MoveTypeA(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red,3);
+        yield return new WaitForSeconds(0.1f);
     }
     IEnumerator WaveSpawn()
     {
+        yield return new WaitForSeconds(4f);
         StartCoroutine(SpawnGroup1_1());
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(5f);
+        StartCoroutine(SpawnGroup1_2());
+        yield return new WaitForSeconds(5f);
+        StartCoroutine(SpawnGroup1_3());
+        yield return new WaitForSeconds(6f);
+        StartCoroutine(SpawnGroup1_4());
+        StartCoroutine(SpawnGroup1_1());
+        yield return new WaitForSeconds(4f);
+        StartCoroutine(SpawnGroup1_5());
+        StartCoroutine(SpawnGroup1_2());
+        yield return new WaitForSeconds(4f);
+        StartCoroutine(SpawnGroup1_3());
+        yield return new WaitForSeconds(6f);
+        StartCoroutine(SpawnGroup1_6());
+        yield return new WaitForSeconds(3f);
+        StartCoroutine(SpawnGroup1_1());
+        yield return new WaitForSeconds(4f);
+        StartCoroutine (SpawnGroup1_2());
+        StartCoroutine (SpawnGroup1_4());
+        yield return new WaitForSeconds(4f);
+        StartCoroutine(SpawnGroup1_7());
+        yield return new WaitForSeconds(3f);
+        StartCoroutine(SpawnGroup1_8());
+        StartCoroutine(SpawnGroup1_2());
+        yield return new WaitForSeconds(5f);
+        StartCoroutine(SpawnGroup1_9());
+        yield return new WaitForSeconds(3f);
+        StartCoroutine(SpawnGroup1_10());
+        yield return new WaitForSeconds(5f);
+        StartCoroutine(SpawnGroup1_11());
+        yield return new WaitForSeconds(5f);
+        StartCoroutine(SpawnGroup1_4());
+        StartCoroutine(SpawnGroup1_1());
+        yield return new WaitForSeconds(4f);
+        StartCoroutine(SpawnGroup1_12());
+        StartCoroutine(SpawnGroup1_5());
+        yield return new WaitForSeconds(6f);
+        StartCoroutine(SpawnGroup1_13());
+        StartCoroutine(SpawnGroup1_7());
+        yield return new WaitForSeconds(11f);
+        GameFinish();
+    }
+    public void GameFinish()
+    {
+        gameoverPanel.SetActive(true);
+        gameOverText.SetActive(false);
+        GameClearText.SetActive(true);
+        Time.timeScale = 0.0f;
     }
 }

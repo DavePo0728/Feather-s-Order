@@ -13,6 +13,7 @@ public class ShootShotGun : MonoBehaviour
     public float shootingCoolDown = 1.5f;
     float shootCount;
     bool canShoot = false;
+    public float MaxShootWave;
     public enum BulletType
     {
         Black,

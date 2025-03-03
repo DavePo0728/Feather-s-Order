@@ -10,7 +10,7 @@ public class AimDetect : MonoBehaviour
     GameObject AimObject;
     private void Awake()
     {
-        
+        playerAim.lockedEnemy = AimObject;
     }
     private void Update()
     {
@@ -18,21 +18,21 @@ public class AimDetect : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.gameObject.tag);
+        //Debug.Log(other.gameObject.tag);
         if (other.gameObject.tag == "Enemy")
         {
             playerAim.lockedEnemy = other.gameObject;
             playerAim.isLocked = true;
-            print("Locked");
+            //print("Locked");
         }
     }
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject == playerAim.lockedEnemy)
         {
-            playerAim.lockedEnemy =null;
+            playerAim.lockedEnemy = AimObject;
             playerAim.isLocked = false;
-            print("Unlocked");
+            //print("Unlocked");
         }
     }
 }

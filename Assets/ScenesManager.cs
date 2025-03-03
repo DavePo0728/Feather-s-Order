@@ -10,6 +10,21 @@ public class ScenesManager : MonoBehaviour
     {
 
     }
+    private void Update()
+    {
+        
+    }
+    public void StartGame()
+    {
+        SceneManager.LoadScene(1);
+    }
+    public void GetStartInput(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            StartGame();
+        }
+    }
     public void GetReloadInput(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -19,6 +34,6 @@ public class ScenesManager : MonoBehaviour
     }
     public void ReloadScene()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 }

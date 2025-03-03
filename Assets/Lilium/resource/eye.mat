@@ -35,6 +35,7 @@ Material:
   - _HIGHLIGHTALPHACLIP
   - _HIGHLIGHTDARKEN
   - _OVERRIDELIGHTDIRTOGGLE
+  - _OVERRIDEZTEST
   - _RECEIVESHADOWS
   - _SPECULAR_LIGHTING_ON
   - _STYLE_CELSHADING
@@ -266,7 +267,7 @@ Material:
     - _FOVShiftX: 0
     - _FaceShadowMapPow: 0.2
     - _FaceShadowSmoothness: 0
-    - _FakeLightIntensity: 0
+    - _FakeLightIntensity: 1.05
     - _Farthest_Distance: 100
     - _FlattenAdditionalLighting: 1
     - _GI_Intensity: 0
@@ -353,9 +354,9 @@ Material:
     - _OutlineWidth: 0
     - _Outline_Width: 1
     - _OverrideLightColorIntensity: 0
-    - _OverrideLightColorIntensityToggle: 0
+    - _OverrideLightColorIntensityToggle: 1
     - _OverrideLightDirToggle: 0
-    - _OverrideZTest: 0
+    - _OverrideZTest: 1
     - _PBRInfluenceDirectLighting: 0
     - _PBRMetallic: 0
     - _PBROcclusionStrength: 0
@@ -455,7 +456,7 @@ Material:
     - _FaceFrontDirection: {r: 0, g: 0, b: 1, a: 0}
     - _FaceRightDirection: {r: 1, g: 0, b: 0, a: 0}
     - _FaceUVCtrl: {r: 0, g: 1, b: 0, a: 0}
-    - _FakeLightColor: {r: 0, g: 0, b: 0, a: 0}
+    - _FakeLightColor: {r: 1, g: 1, b: 1, a: 0}
     - _FakeLightEuler: {r: 180, g: 0, b: 0, a: 0}
     - _HairLightColor: {r: 1, g: 1, b: 1, a: 1}
     - _HairUVCtrl: {r: 0, g: 0, b: 1, a: 0}

@@ -31,6 +31,7 @@ public class RedBulletMove : BulletBase
         bulletBody= transform.GetChild(0).gameObject;
         hitEffect = transform.GetChild(1).gameObject;
         hitParticle = hitEffect.GetComponent<ParticleSystem>();
+        BulletCollider = GetComponent<Collider>();
     }
     private void OnDisable()
     {
@@ -49,6 +50,7 @@ public class RedBulletMove : BulletBase
         moveToPlayer = true;
         hitEffect.SetActive(false);
         bulletBody.SetActive(true);
+        BulletCollider.enabled = true;
     }
     public void NoMoveInitial()
     {
@@ -62,9 +64,11 @@ public class RedBulletMove : BulletBase
         StartCoroutine(CountDownInactive(BulletlifeTime));
         hitEffect.SetActive(false);
         bulletBody.SetActive(true);
+        BulletCollider.enabled = true;
     }
     public void HomingInitial()
     {
+        BulletCollider.enabled = true;
         hitEffect.SetActive(false);
         bulletBody.SetActive(true);
         BulletlifeTime = bulletData.lifeTime;
@@ -85,6 +89,7 @@ public class RedBulletMove : BulletBase
     }
     public void FireWorkInitial()
     {
+        BulletCollider.enabled = true;
         hitEffect.SetActive(false);
         bulletBody.SetActive(true);
         BulletlifeTime = bulletData.lifeTime;
@@ -147,10 +152,12 @@ public class RedBulletMove : BulletBase
         }
         if (other.tag == "Player")
         {
+            speed = 0;
             moveToPlayer = false;
             bulletBody.SetActive(false);
-            //hitEffect.gameObject.SetActive(true);
+            hitEffect.gameObject.SetActive(true);
             hitParticle.Play();
+            BulletCollider.enabled = false;
         }
     }
     public void Speard()
@@ -174,7 +181,7 @@ public class RedBulletMove : BulletBase
     public void FlatSpeard()
     {
         //destination = transform.position + new Vector3(Random.Range(minSpread, MaxSpread),0, Random.Range(minSpread, MaxSpread));
-        transform.rotation = Quaternion.Euler(0, Random.Range(135f,225f), 0);
+        transform.rotation = Quaternion.Euler(transform.rotation.x, Random.Range(135f,225f), transform.rotation.z);
         //speard = transform.DOMove(destination, spreadSpeed);
         //speard.OnComplete(() => { moveToPlayer = true; });
         //Debug.Log(destination);

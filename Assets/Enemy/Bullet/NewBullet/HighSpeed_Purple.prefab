@@ -10,9 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3463451149260415969}
   - component: {fileID: 1646564900088744981}
-  m_Layer: 0
+  - component: {fileID: 7891759008616268960}
+  m_Layer: 3
   m_Name: HighSpeed_Purple
-  m_TagString: Untagged
+  m_TagString: EnemyBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -53,12 +54,36 @@ MonoBehaviour:
   speed: 0
   BulletlifeTime: 0
   sphereRadius: 0
-  moveToPlayer: 0
+  moveToward: 0
   minSpread: 0
   MaxSpread: 0
   spreadSpeed: 0
   homing: 0
+  homingTime: 0
   fireWork: 0
+--- !u!136 &7891759008616268960
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3812506742602249460}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1
+  m_Height: 6.705975
+  m_Direction: 2
+  m_Center: {x: 0, y: 0, z: -2.3410552}
 --- !u!1001 &6409121050302247995
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -70,6 +95,18 @@ PrefabInstance:
     - target: {fileID: 1550477657380252, guid: b754cb6e007692245bcdfa629b37e171, type: 3}
       propertyPath: m_Name
       value: HighSpeed_Purple
+      objectReference: {fileID: 0}
+    - target: {fileID: 1550477657380252, guid: b754cb6e007692245bcdfa629b37e171, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1901841321192174, guid: b754cb6e007692245bcdfa629b37e171, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1983811055577964, guid: b754cb6e007692245bcdfa629b37e171, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4344047211202786, guid: b754cb6e007692245bcdfa629b37e171, type: 3}
       propertyPath: m_LocalPosition.z

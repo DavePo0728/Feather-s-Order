@@ -108,7 +108,7 @@ public class enemyHp : MonoBehaviour
         if (currentShieldHp > 0)
         {
             currentShieldHp -= damage * shieldDamageMultiplier;
-            
+
             if (shieldEffect != null && currentShieldHp <= 0)
             {
                 shieldEffect.SetActive(false);
@@ -119,23 +119,14 @@ public class enemyHp : MonoBehaviour
         }
         else
         {
-            if (currentShieldHp > 0)
+            currentHp -= damage;
+            if (currentHp <= 0)
             {
-                currentShieldHp -= damage;
-            }
-            else
-            {
-                if (currentHp <= 0)
-                {
-                    DeathEffect();
-                    scoreManager.AddScore();
-                }
-                else
-                {
-                    currentHp -= damage;
-                }
+                DeathEffect();
+                scoreManager.AddScore();
             }
         }
+                
     } 
 
     public void DeathEffect()
@@ -155,6 +146,7 @@ public class enemyHp : MonoBehaviour
         if (other.tag == "ChargeBullet")
         {
             ShieldHurt(10);
+            Debug.Log("hit");
         }
     }
 

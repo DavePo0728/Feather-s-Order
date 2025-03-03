@@ -106,10 +106,13 @@ public class EnemyMove : MonoBehaviour
         {
             
             case 0: //strightShooting
-                gunList[gunIndex].GetComponent<SimpleShoot>().rpm = rpm;
-                gunList[gunIndex].GetComponent<SimpleShoot>().maxShots = bulletAmount;
-                gunList[gunIndex].GetComponent<SimpleShoot>().shootingCoolDown = shootingCoolDown;
-                gunList[gunIndex].GetComponent<SimpleShoot>().bulletType = (SimpleShoot.BulletType)bulletType;
+                SimpleShoot simpleShoot = gunList[gunIndex].GetComponent<SimpleShoot>();
+                simpleShoot.rpm = rpm;
+                simpleShoot.maxShots = bulletAmount;
+                simpleShoot.shootingCoolDown = shootingCoolDown;
+                simpleShoot.bulletType = (SimpleShoot.BulletType)bulletType;
+                simpleShoot.maxShootWave = MaxShootWave;
+
                 break;
             case 1: //trackShooting
                 TrackShooting track = gunList[gunIndex].GetComponent<TrackShooting>();
@@ -117,31 +120,38 @@ public class EnemyMove : MonoBehaviour
                 track.maxShots = bulletAmount;
                 track.shootingCoolDown = shootingCoolDown;
                 track.bulletType = (TrackShooting.BulletType)bulletType;
-                track.MaxShootWave = MaxShootWave;
+                track.maxShootWave = MaxShootWave;
                 break;
             case 2: //shotGun
-                gunList[gunIndex].GetComponent<ShootShotGun>().bulletAmount = (int)bulletAmount;
-                gunList[gunIndex].GetComponent<ShootShotGun>().shootingCoolDown = shootingCoolDown;
-                gunList[gunIndex].GetComponent<ShootShotGun>().bulletType = (ShootShotGun.BulletType)bulletType;
+                ShootShotGun shootShotGun = gunList[gunIndex].GetComponent<ShootShotGun>();
+                shootShotGun.bulletAmount = (int)bulletAmount;
+                shootShotGun.shootingCoolDown = shootingCoolDown;
+                shootShotGun.bulletType = (ShootShotGun.BulletType)bulletType;
                 break;
             case 3: //SpreadShot
-                gunList[gunIndex].GetComponent<SpreadShot>().bulletAmount = (int)bulletAmount;
-                gunList[gunIndex].GetComponent<SpreadShot>().shootingCoolDown = shootingCoolDown;
-                gunList[gunIndex].GetComponent<SpreadShot>().bulletType = (SpreadShot.BulletType)bulletType;
+                SpreadShot spreadShot = gunList[gunIndex].GetComponent<SpreadShot>();
+                spreadShot.bulletAmount = (int)bulletAmount;
+                spreadShot.shootingCoolDown = shootingCoolDown;
+                spreadShot.bulletType = (SpreadShot.BulletType)bulletType;
+                spreadShot.MaxShootWave = MaxShootWave;
                 break;
             case 4: //HomingShooter
-                gunList[gunIndex].GetComponent<HomingShooter>().bulletAmount = (int)bulletAmount;
-                gunList[gunIndex].GetComponent<HomingShooter>().shootingCoolDown = shootingCoolDown;
-                gunList[gunIndex].GetComponent<HomingShooter>().bulletType = (HomingShooter.BulletType)bulletType;
+                HomingShooter homingShooter = gunList[gunIndex].GetComponent<HomingShooter>();
+                homingShooter.bulletAmount = (int)bulletAmount;
+                homingShooter.shootingCoolDown = shootingCoolDown;
+                homingShooter.bulletType = (HomingShooter.BulletType)bulletType;
+                homingShooter.MaxShootWave = MaxShootWave;
                 break;
             case 5: //FourWayGunSpin
-                gunList[gunIndex].GetComponent<FourWayGunSpin>().speed = spinSpeed;
+                FourWayGunSpin fourWayGunSpin = gunList[gunIndex].GetComponent<FourWayGunSpin>();
+                fourWayGunSpin.speed = spinSpeed;
                 for (int i = 0; i < gunList[gunIndex].transform.childCount; i++)
                 {
-                    gunList[gunIndex].transform.GetChild(i).GetComponent<SimpleShoot>().rpm = rpm;
-                    gunList[gunIndex].transform.GetChild(i).GetComponent<SimpleShoot>().maxShots = bulletAmount;
-                    gunList[gunIndex].transform.GetChild(i).GetComponent<SimpleShoot>().shootingCoolDown = shootingCoolDown;
-                    gunList[gunIndex].transform.GetChild(i).GetComponent<SimpleShoot>().bulletType = (SimpleShoot.BulletType)bulletType;
+                    simpleShoot = gunList[gunIndex].transform.GetChild(i).GetComponent<SimpleShoot>();
+                    simpleShoot.rpm = rpm;
+                    simpleShoot.maxShots = bulletAmount;
+                    simpleShoot.shootingCoolDown = shootingCoolDown;
+                    simpleShoot.bulletType = (SimpleShoot.BulletType)bulletType;
                 }
                 break;
         }
@@ -155,7 +165,7 @@ public class EnemyMove : MonoBehaviour
         {
             if(gun.activeSelf)
             {
-                gun.SetActive(false);
+               gun.SetActive(false);
             }
         }
     }

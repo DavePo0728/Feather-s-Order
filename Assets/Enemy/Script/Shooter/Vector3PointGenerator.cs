@@ -92,16 +92,15 @@ public class Vector3PointGenerator : MonoBehaviour
     {
         return _3dArray[x][y][z];
     }
-    public Vector3[] GetMoveCPathList(int Length) 
+    public Vector3[] GetMoveCPathList(int pathLength,CustomPathData pathData) 
     {
-        Vector3[] pathList = new Vector3[Length];
-        for (int i = 0; i < Length; i++)
+        Vector3[] pathList = new Vector3[pathLength];
+        Debug.Log(pathList.Length);
+        for (int i = 0; i < pathLength; i++)
         {
-            int RandomX = Random.Range(0, xCount);
-            int RandomY = Random.Range(0, yCount);
-            int RandomZ = Random.Range(0, ZCount);
-            pathList[i] = GetPoint(RandomX, RandomY, RandomZ);
+            pathList[i] = GetPoint(pathData.pathX[i], pathData.pathY[i], pathData.pathZ[i]);
         }
+
         return pathList;
     }
     //private void OnDrawGizmos()

@@ -12,11 +12,11 @@ public class MoveTypeC : IMoveBehaviour
         pointWaitTime = enemyMove.pointWaitTime;
         if (enemyMove.gameObject != null)
         {
-            for (int i = 0; i < enemyMove.moveC_PathList.Length; i++)
-            {
-                onMoveC = enemyMove.transform.DOMove(enemyMove.moveC_PathList[i], enemyMove.stayTime).SetEase(Ease.Linear).SetDelay(pointWaitTime);
-            }
-            //onMoveC = enemyMove.transform.DOPath(enemyMove.moveC_PathList, enemyMove.stayTime).SetEase(Ease.Linear);
+            //for (int i = 0; i < enemyMove.moveC_PathList.Length; i++)
+            //{
+            //    onMoveC = enemyMove.transform.DOMove(enemyMove.moveC_PathList[i], 2f).SetEase(Ease.Linear).SetDelay(pointWaitTime);
+            //}
+            onMoveC = enemyMove.transform.DOPath(enemyMove.moveC_PathList, 8).SetEase(Ease.Linear);
 
             onMoveC.OnComplete(() => { enemyMove.CallLeave(); });
         }

@@ -6,6 +6,7 @@ using TMPro;
 
 public class ScoreManager : MonoBehaviour
 {
+    public PlayerHP playerHP;
     [SerializeField]
     TMP_Text scoreTxt, timerTxt;
     float score;
@@ -28,9 +29,11 @@ public class ScoreManager : MonoBehaviour
     {
         score += 10;
         UpdateScore();
+        playerHP.GetMp(2);
     }
     public void UpdateScore()
     {
         scoreTxt.text =  score.ToString();
+        
     }
 }

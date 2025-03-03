@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.InputSystem;
 
 public class PlayerHP : MonoBehaviour
 {
@@ -17,9 +18,12 @@ public class PlayerHP : MonoBehaviour
     [SerializeField]
     TMP_Text HPText;
     [SerializeField]
-    GameObject GameOverUI;
-    [SerializeField]
-    List<Material> playerMat;
+    GameObject GameOverUI,gameOverText,GameClearText;
+    public TMP_Text mpText;
+    public GameObject heal, healBack;
+    public float maxMp;
+    public float currentMp;
+    public float mpCost;
     //[SerializeField]
     //GameObject body;
     //bool isRotating= false;
@@ -32,9 +36,7 @@ public class PlayerHP : MonoBehaviour
     private void Awake()
     {
         Time.timeScale = 1;
-        playerMat[0].color = Color.white;
-        playerMat[1].color = Color.white;
-        playerMat[2].color = Color.white;
+        currentMp = 0;
     }
 
     // Start is called before the first frame update
@@ -43,6 +45,7 @@ public class PlayerHP : MonoBehaviour
         playerHp = maxHp;
         UpdateHpUI();
         playerRigidbody = GetComponent<Rigidbody>();
+        UpdateMpUI();
     }
 
     // Update is called once per frame
@@ -55,9 +58,6 @@ public class PlayerHP : MonoBehaviour
         playerHp -= damage;
         UpdateHpUI();
         StartCoroutine(MuTeKiTime(0.1f));
-        playerMat[0].color = Color.red;
-        playerMat[1].color = Color.red;
-        playerMat[2].color = Color.red;
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -91,10 +91,55 @@ public class PlayerHP : MonoBehaviour
             GameOver();
         }
     }
-    void GameOver()
+    public void UpdateMpUI()
+    {
+        
+        //Debug.Log(HpAmount);
+        if (currentMp >= maxHp)
+        {
+            currentMp = maxHp;
+        }
+        mpText.text = currentMp.ToString();
+        if(currentMp >= mpCost)
+        {
+            heal.SetActive(true);
+            healBack.SetActive(false);
+        }
+        else
+        {
+            heal.SetActive(false);
+            healBack.SetActive(true);
+        }
+    }
+    public void GetMp(float amount)
+    {
+        currentMp += amount;
+        UpdateMpUI();
+    }
+    public void GetHealInput(InputAction.CallbackContext context)
     {
 
+        if (context.performed&&currentMp>=mpCost)
+        {
+            Heal(30);
+            currentMp -= mpCost;
+            UpdateMpUI();
+        }
+    }
+    public void Heal(int healAmount)
+    {
+        playerHp += healAmount;
+        if (playerHp > maxHp)
+        {
+            playerHp = maxHp;
+        }
+        UpdateHpUI();
+    }
+    void GameOver()
+    {
         GameOverUI.SetActive(true);
+        gameOverText.SetActive(true);
+        GameClearText.SetActive(false);
         Time.timeScale = 0;
     }
     IEnumerator MuTeKiTime(float mutekiTime)
@@ -104,8 +149,5 @@ public class PlayerHP : MonoBehaviour
         yield return new WaitForSeconds(mutekiTime);
         isMuteki = false;
         //Physics.IgnoreLayerCollision(8, 6, false);
-        playerMat[0].color = Color.white;
-        playerMat[1].color = Color.white;
-        playerMat[2].color = Color.white;
     }
 }

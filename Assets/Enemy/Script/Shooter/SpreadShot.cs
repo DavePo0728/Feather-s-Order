@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class SpreadShot : MonoBehaviour
 {
+    [SerializeField]
+    GameObject player;
     public float bulletAmount;
     GameObject bullet;
 
-    public float shootingCoolDown = 1.5f;
+    public float shootingCoolDown;
+    float shootWaveCount = 0;
+    public float MaxShootWave;
     //float shootCount;
     bool canShoot = false;
     public enum BulletType
@@ -20,12 +24,14 @@ public class SpreadShot : MonoBehaviour
     public BulletType bulletType;
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         canShoot = true;
     }
 
     void Update()
     {
-        if (canShoot)
+        AimPlayer();
+        if (canShoot && shootWaveCount < MaxShootWave)
         {
             StartCoroutine(ShootRoutine());
         }
@@ -34,16 +40,51 @@ public class SpreadShot : MonoBehaviour
     {
         canShoot = false;
         SpreadShotMode(bulletAmount);
+        MaxShootWave++;
         yield return new WaitForSeconds(shootingCoolDown);// Wait for cooldown
         canShoot = true;// Enable shooting again
-        //Debug.Log("ShootRoutine");
+                        //Debug.Log("ShootRoutine");
     }
-    IEnumerator ShootGoldBullet()
+    void ShootBlackBullet()
     {
-        canShoot = false;
-        //Instantiate(goldBullet, transform.position, transform.rotation);
-        yield return new WaitForSeconds(shootingCoolDown);
-        canShoot = true;
+        bullet = BulletPool.poolInstance.GetBlackBulletPooledObject();
+        if (bullet != null)
+        {
+            bullet.transform.position = transform.position;
+            bullet.transform.rotation = transform.rotation;
+            //Debug.Log("rotation:" + transform.localRotation.x + "BulletRotation:" + bullet.transform.rotation);
+            bullet.SetActive(true);
+            BlackBulletMove bulletMove = bullet.GetComponent<BlackBulletMove>();
+            bulletMove.FlatSpeard();
+            bulletMove.Initial();
+        }
+    }
+    void ShootRedBullet()
+    {
+        bullet = BulletPool.poolInstance.GetRedBulletPooledObject();
+        if (bullet != null)
+        {
+            bullet.transform.position = transform.position;
+            bullet.transform.rotation = transform.rotation;
+            bullet.SetActive(true);
+            RedBulletMove bulletMove = bullet.GetComponent<RedBulletMove>();
+            bulletMove.FlatSpeard();
+            bulletMove.Initial();
+        }
+
+    }
+    void ShootPurpleBullet()
+    {
+        bullet = BulletPool.poolInstance.GetPurpleBulletPooledObject();
+        if (bullet != null)
+        {
+            bullet.transform.position = transform.position;
+            bullet.transform.rotation = transform.rotation;
+            bullet.SetActive(true);
+            HighSpeedVioletBulletMove purpleBulletMove = bullet.GetComponent<HighSpeedVioletBulletMove>();
+            purpleBulletMove.FlatSpeard();
+            purpleBulletMove.Initial();
+        }
     }
     public void SpreadShotMode(float amount)
     {
@@ -54,14 +95,26 @@ public class SpreadShot : MonoBehaviour
             if (bullet != null)
             {
 
-                bullet.transform.position = transform.position;
-                bullet.transform.rotation = transform.rotation;
-                bullet.SetActive(true);
-                RedBulletMove bulletMove = bullet.GetComponent<RedBulletMove>();
-                bulletMove.FlatSpeard();
-                bulletMove.Initial();
-                //Debug.Log("ShotGunMode");
+                switch (bulletType)
+                {
+                    case BulletType.Black:
+                        ShootBlackBullet();
+                        break;
+                    case BulletType.Red:
+                        ShootRedBullet();
+                        break;
+                    case BulletType.Purple:
+                        ShootPurpleBullet();
+                        break;
+                    case BulletType.BlackRed:
+                        //ShootBlackRedBullet();
+                        break;
+                }
             }
         }
+    }
+    void AimPlayer()
+    {
+        transform.LookAt(player.transform);
     }
 }

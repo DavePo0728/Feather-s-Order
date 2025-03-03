@@ -7,7 +7,7 @@ public class HighSpeedVioletBulletMove : BulletBase
 {
     //bool initialMove = false;
     [SerializeField]
-    bool moveToPlayer = false;
+    bool moveToward = false;
     [SerializeField]
     float minSpread, MaxSpread;
     [SerializeField]
@@ -15,34 +15,39 @@ public class HighSpeedVioletBulletMove : BulletBase
     private Vector3 destination;
     public bool homing = false;
     bool homingMove = false;
-    float homingTime;
+    public float homingTime;
     float maxRotateAngle;
     GameObject player;
     float homingTimer;
     Tweener speard;
     public bool fireWork = false;
     Vector3 direction;
+    private Transform homingShooterTransform; // 存儲 HomingShooter 的 Transform
 
     private void Awake()
     {
         ///bulletRigidbody = GetComponent<Rigidbody>();
-        bulletData = Resources.Load<EnemyBulletData>("BulletData/PurpleBullet");
+        bulletData = Resources.Load<EnemyBulletData>("BulletData/VioletBullet");
+        player = GameObject.FindGameObjectWithTag("Player");
+        BulletCollider = GetComponent<Collider>();
     }
+
     private void OnDisable()
     {
         fireWork = false;
         homing = false;
         homingMove = false;
-        moveToPlayer = false;
+        moveToward = false;
     }
+
     public void Initial()
     {
         speed = bulletData.speed;
         BulletlifeTime = bulletData.lifeTime;
         //initialMove = false;
-        moveToPlayer = false;
+        moveToward = false;
         StartCoroutine(CountDownInactive(BulletlifeTime));
-        moveToPlayer = true;
+        moveToward = true;
         //hitEffect.SetActive(false);
         //bulletBody.SetActive(true);
     }
@@ -54,32 +59,25 @@ public class HighSpeedVioletBulletMove : BulletBase
         minSpread = -5f;
         MaxSpread = 5f;
         //initialMove = false;
-        moveToPlayer = false;
+        moveToward = false;
         StartCoroutine(CountDownInactive(BulletlifeTime));
     }
-    public void HomingInitial()
+    public void HomingInitial(GameObject point)
     {
+        homingMove = false;
+        homingTimer = 0;
+        moveToward = false;
+        speed = 0;
         BulletlifeTime = bulletData.lifeTime;
-        speed = bulletData.speed;
-        spreadSpeed = 0.2f;
-        minSpread = -10f;
-        MaxSpread = 10f;
-        if (homing)
-        {
-            homingTime = 2f;
-            maxRotateAngle = 15f;
-            homingTimer = 0;
-        }
-        destination = CurvePathGenerator.pathInstance.GetLandingPosZ(transform.position, 10);
-        //initialMove = false;
-        moveToPlayer = false;
         StartCoroutine(CountDownInactive(BulletlifeTime));
+        Tweener homing = transform.DOMove(point.transform.position, 0.5f);
+        homing.OnComplete(() => { homingMove = true; speed = bulletData.speed; }).SetDelay(0.5f);
     }
     public void FireWorkInitial()
     {
         BulletlifeTime = bulletData.lifeTime;
         speed = bulletData.speed;
-        moveToPlayer = false;
+        moveToward = false;
         fireWork = true;
         StartCoroutine(CountDownInactive(BulletlifeTime));
     }
@@ -93,49 +91,49 @@ public class HighSpeedVioletBulletMove : BulletBase
     void FixedUpdate()
     {
         if (homingMove)
-            homingTimer += Time.deltaTime;
-        //if (initialMove)
-        //{
-        //var step = spreadSpeed * Time.deltaTime; // calculate distance to move
-        //transform.position = Vector3.MoveTowards(transform.position, destination, step);
-        //initialMove = false;
-        if (homing)
         {
-            IsHoming();
-            if (homingMove && homingTimer <= homingTime)
-            {
-                Homing();
-            }
-            else
-            {
-                homingMove = false;
-                moveToPlayer = true;
-            }
+            homingTimer += Time.deltaTime;
+            //Debug.Log(homingTimer);
+        }
+
+        if (homingMove && homingTimer <= homingTime)
+        {
+            Debug.Log("Homing");
+            Vector3 targetDirection = (player.transform.position - transform.position).normalized;
+
+            // 計算每秒最大旋轉角度
+            float maxRotationAngle = 45f * Time.deltaTime;
+
+            // 計算目標旋轉
+            Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
+
+            // 旋轉到目標方向
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, maxRotationAngle);
+            //transform.Translate(Vector3.forward * speed);
+        }
+        else if (homingShooterTransform != null && !homingMove)
+        {
+            // 跟隨 HomingShooter 的位置
+            transform.position = homingShooterTransform.position;
         }
         else
         {
-            moveToPlayer = true;
+            moveToward = true;
         }
-        //}
-        if (fireWork)
-        {
-            transform.Translate(transform.forward * speed);
-            Debug.Log(direction);
-        }
-
-        if (moveToPlayer)
+        if (moveToward)
         {
             transform.Translate(Vector3.forward * speed);
-            //Debug.Log(speed);
         }
     }
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "PlayerBullet")
+        if (other.tag == "Player")
         {
             gameObject.SetActive(false);
         }
     }
+
     public void Speard()
     {
         destination = transform.position + new Vector3(Random.Range(minSpread, MaxSpread), Random.Range(minSpread, MaxSpread), Random.Range(minSpread, MaxSpread));
@@ -146,46 +144,33 @@ public class HighSpeedVioletBulletMove : BulletBase
         }
         else
         {
-            speard.OnComplete(() => { moveToPlayer = true; });
+            speard.OnComplete(() => { moveToward = true; });
         }
-        //Debug.Log(destination);
-        //initialMove = true;
     }
+
     public void IsHoming()
     {
         homingMove = true;
     }
+
     public void FlatSpeard()
     {
-        //destination = transform.position + new Vector3(Random.Range(minSpread, MaxSpread),0, Random.Range(minSpread, MaxSpread));
-        transform.rotation = Quaternion.Euler(0, Random.Range(135f, 225f), 0);
-        //speard = transform.DOMove(destination, spreadSpeed);
-        //speard.OnComplete(() => { moveToPlayer = true; });
-        //Debug.Log(destination);
-        //initialMove = true;
+        transform.rotation = Quaternion.Euler(transform.rotation.x, Random.Range(135f, 225f), transform.rotation.z);
     }
+
     public void SphereSpread(Vector3 dir)
     {
         direction = dir.normalized;
     }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, sphereRadius);
     }
-    void Homing()
+
+    public void SetHomingShooterTransform(Transform shooterTransform)
     {
-        Debug.Log("Homing");
-        Vector3 targetDirection = (player.transform.position - transform.position).normalized;
-
-        // 計算每秒最大旋轉角度
-        float maxRotationAngle = 15f * Time.deltaTime;
-
-        // 計算目標旋轉
-        Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
-
-        // 旋轉到目標方向
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, maxRotationAngle);
-
+        homingShooterTransform = shooterTransform;
     }
 }

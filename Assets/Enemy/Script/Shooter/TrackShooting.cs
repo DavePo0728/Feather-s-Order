@@ -15,7 +15,7 @@ public class TrackShooting : MonoBehaviour
     public float maxShots; 
     int shotCount = 0; // 計數器
     float shootWaveCount=0;
-    public float MaxShootWave;
+    public float maxShootWave;
     public enum BulletType
     {
         Black,
@@ -35,8 +35,8 @@ public class TrackShooting : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(canShoot && shootWaveCount < MaxShootWave);
-        if (canShoot&&(shootWaveCount)<MaxShootWave)
+        //Debug.Log(canShoot && shootWaveCount < MaxShootWave);
+        if (canShoot&&(shootWaveCount)<maxShootWave)
         {
             timeSinceLastShot += Time.deltaTime;
             if (timeSinceLastShot >= timeBetweenShots)
@@ -111,8 +111,8 @@ public class TrackShooting : MonoBehaviour
             bullet.transform.position = transform.position;
             bullet.transform.rotation = transform.rotation;
             bullet.SetActive(true);
-            BlackBulletMove bulletMove = bullet.GetComponent<BlackBulletMove>();
-            bulletMove.Initial();
+            HighSpeedVioletBulletMove purpleBulletMove = bullet.GetComponent<HighSpeedVioletBulletMove>();
+            purpleBulletMove.Initial();
             timeSinceLastShot = 0.0f;
             shotCount++; // 增加計數器
             if (shotCount >= maxShots)

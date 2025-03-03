@@ -14,6 +14,8 @@ public class SimpleShoot : MonoBehaviour
     public float maxShots;
     int shotCount = 0;
     public bool canShoot = false;
+    float shootWaveCount = 0;
+    public float maxShootWave;
     public enum BulletType
     {
         Black,
