@@ -121,6 +121,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "BackTotitle",
+                    "type": "Button",
+                    "id": "d1a0a3fe-5e57-4ace-bf5d-02975c906ca5",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -380,11 +389,22 @@
                 {
                     "name": "",
                     "id": "5d0ff971-487d-44ca-b0f0-dd560e483287",
-                    "path": "<Gamepad>/dpad/left",
+                    "path": "<Gamepad>/leftShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "HeartUse",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "06365577-26ee-455f-9215-810d766e773d",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "BackTotitle",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -19,12 +19,13 @@ Material:
   - _SPECULAR_LIGHTING_ON
   - _STYLE_CELSHADING
   m_InvalidKeywords:
+  - _OVERRIDEZTEST
   - _RECEIVESHADOWS
   - _SPECULAR_SETUP
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2000
+  m_CustomRenderQueue: 2001
   stringTagMap:
     RenderType: Opaque
   disabledShaderPasses: []
@@ -192,10 +193,10 @@ Material:
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _OffsetShadowDistance: 15
-    - _OutlineWidth: 0.1
-    - _OverrideLightColorIntensityToggle: 1
+    - _OutlineWidth: 0
+    - _OverrideLightColorIntensityToggle: 0
     - _OverrideLightDirToggle: 0
-    - _OverrideZTest: 0
+    - _OverrideZTest: 1
     - _PBRInfluenceDirectLighting: 0
     - _PBRMetallic: 0
     - _PBROcclusionStrength: 0
@@ -245,8 +246,8 @@ Material:
     - _FakeLightEuler: {r: 180, g: 0, b: 0, a: 0}
     - _HairLightColor: {r: 1, g: 1, b: 1, a: 1}
     - _HairUVCtrl: {r: 0, g: 0, b: 1, a: 0}
-    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
-    - _OutlineDistancFade: {r: -25, g: 50, b: 0, a: 0}
+    - _OutlineColor: {r: 1, g: 1, b: 1, a: 0}
+    - _OutlineDistancFade: {r: 50, g: 50, b: 0, a: 0}
     - _OverrideGIColor: {r: 0, g: 0, b: 0, a: 1}
     - _ReceivedShadowColor: {r: 0.8, g: 0.8, b: 0.8, a: 1}
     - _RimLightColor: {r: 1, g: 1, b: 1, a: 1}

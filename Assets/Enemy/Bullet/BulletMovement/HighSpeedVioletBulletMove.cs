@@ -70,8 +70,9 @@ public class HighSpeedVioletBulletMove : BulletBase
         speed = 0;
         BulletlifeTime = bulletData.lifeTime;
         StartCoroutine(CountDownInactive(BulletlifeTime));
-        Tweener homing = transform.DOMove(point.transform.position, 0.5f);
-        homing.OnComplete(() => { homingMove = true; speed = bulletData.speed; }).SetDelay(0.5f);
+        Tweener homing = transform.DOMove(point.transform.position, 0.1f);
+        speed = bulletData.speed;
+        homing.OnComplete(() => { homingMove = true; speed = bulletData.speed; });
     }
     public void FireWorkInitial()
     {
@@ -102,19 +103,19 @@ public class HighSpeedVioletBulletMove : BulletBase
             Vector3 targetDirection = (player.transform.position - transform.position).normalized;
 
             // 計算每秒最大旋轉角度
-            float maxRotationAngle = 45f * Time.deltaTime;
+            float maxRotationAngle = 120f * Time.deltaTime;  
 
             // 計算目標旋轉
             Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
 
             // 旋轉到目標方向
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, maxRotationAngle);
-            //transform.Translate(Vector3.forward * speed);
-        }
-        else if (homingShooterTransform != null && !homingMove)
-        {
-            // 跟隨 HomingShooter 的位置
-            transform.position = homingShooterTransform.position;
+            transform.Translate(transform.forward* speed);
+            if (Vector3.Distance(transform.position, player.transform.position) < 10)
+            {
+                homingMove = false;
+            }
+
         }
         else
         {

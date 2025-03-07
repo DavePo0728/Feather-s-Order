@@ -19,6 +19,8 @@ public class WaveManager : MonoBehaviour
     GameObject gameoverPanel;
     [SerializeField]
     GameObject gameOverText, GameClearText;
+    [SerializeField]
+    bool debug = false;
     public enum BulletType
     {
         Black,
@@ -36,6 +38,7 @@ public class WaveManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if(!debug)
         StartCoroutine(WaveSpawn());
     }
 
@@ -425,6 +428,49 @@ new EntryTypeA(), new MoveTypeA(), new LeaveTypeA(), Random.Range(-100f, 100f), 
         yield return new WaitForSeconds(4f);
         StartCoroutine (SpawnGroup1_2());
         StartCoroutine (SpawnGroup1_4());
+        yield return new WaitForSeconds(4f);
+        StartCoroutine(SpawnGroup1_7());
+        yield return new WaitForSeconds(3f);
+        StartCoroutine(SpawnGroup1_8());
+        StartCoroutine(SpawnGroup1_2());
+        yield return new WaitForSeconds(5f);
+        StartCoroutine(SpawnGroup1_9());
+        yield return new WaitForSeconds(3f);
+        StartCoroutine(SpawnGroup1_10());
+        yield return new WaitForSeconds(5f);
+        StartCoroutine(SpawnGroup1_11());
+        yield return new WaitForSeconds(5f);
+        StartCoroutine(SpawnGroup1_4());
+        StartCoroutine(SpawnGroup1_1());
+        yield return new WaitForSeconds(4f);
+        StartCoroutine(SpawnGroup1_12());
+        StartCoroutine(SpawnGroup1_5());
+        yield return new WaitForSeconds(6f);
+        StartCoroutine(SpawnGroup1_13());
+        StartCoroutine(SpawnGroup1_7());
+        yield return new WaitForSeconds(13f);
+        //wave 2
+        yield return new WaitForSeconds(4f);
+        StartCoroutine(SpawnGroup1_1());
+        yield return new WaitForSeconds(5f);
+        StartCoroutine(SpawnGroup1_2());
+        yield return new WaitForSeconds(5f);
+        StartCoroutine(SpawnGroup1_3());
+        yield return new WaitForSeconds(6f);
+        StartCoroutine(SpawnGroup1_4());
+        StartCoroutine(SpawnGroup1_1());
+        yield return new WaitForSeconds(4f);
+        StartCoroutine(SpawnGroup1_5());
+        StartCoroutine(SpawnGroup1_2());
+        yield return new WaitForSeconds(4f);
+        StartCoroutine(SpawnGroup1_3());
+        yield return new WaitForSeconds(6f);
+        StartCoroutine(SpawnGroup1_6());
+        yield return new WaitForSeconds(3f);
+        StartCoroutine(SpawnGroup1_1());
+        yield return new WaitForSeconds(4f);
+        StartCoroutine(SpawnGroup1_2());
+        StartCoroutine(SpawnGroup1_4());
         yield return new WaitForSeconds(4f);
         StartCoroutine(SpawnGroup1_7());
         yield return new WaitForSeconds(3f);
