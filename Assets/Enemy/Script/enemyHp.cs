@@ -1,47 +1,96 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class enemyHp : MonoBehaviour
 {
+    
     [SerializeField]
-    public float Maxhp;
+    public float maxHp;
+    [SerializeField]
     float currentHp;
+
+    [Header("Corrupt Data")]
     [SerializeField]
-    GameObject shieldEffect, shieldExplosionEffect;
+    GameObject corruptEffect;
+    [SerializeField]
+    GameObject corruptionExplosionEffect;
+    public bool corrupted;
+    bool corruption;
+    float CorruptionDamageModifier;
+
+    [Header("Shield Data")]
+    [SerializeField]
+    GameObject shieldEffect;
+    [SerializeField]
+    GameObject shieldExplosionEffect;
     public bool haveshield;
     [SerializeField]
     float currentShieldHp;
     [SerializeField]
     public float maxShieldHp;
-    float shieldDamageMultiplier;
+    float ShieldDamageModifier;
     GameObject DeathExplosion;
     ScoreManager scoreManager;
+
+    ParticleSystem slashHitEffectYellow, slashHitEffectRed;
+    GameObject slashHitEffectYellowObject, slashHitEffectRedObject;
+    int hitCounter;
+    bool slashDetectBool =false;
+
+    [Header("Audio")]
     [SerializeField]
-    AudioSource shieldHitAudioSource; // 擊中盾音效播放器
+    AudioClip shieldHitAudioClip; // 擊中盾音效
     [SerializeField]
-    AudioSource shieldBreakAudioSource; // 破盾音效播放器
+    AudioClip shieldBreakAudioClip; // 破盾音效
     [SerializeField]
-    AudioSource hitimpact; // 擊中敵人聲
+    AudioClip hitimpactAudioClip; // 擊中敵人聲
+    AudioSource audioSource;
+
+
+    [Header("UI")]
     [SerializeField]
-    GameObject soundManager;
+    Canvas canvas;
+    Image hpImage;
 
     private void Awake()
     {
+        canvas = transform.GetChild(7).GetComponent<Canvas>();
+        audioSource = GetComponent<AudioSource>();
+        shieldEffect = transform.GetChild(1).gameObject;
+        shieldExplosionEffect = transform.GetChild(3).gameObject;
+        corruptEffect = transform.GetChild(2).gameObject;
+        slashHitEffectYellowObject = transform.GetChild(5).gameObject;
+        slashHitEffectRedObject = transform.GetChild(6).gameObject;
+        slashHitEffectYellow = slashHitEffectYellowObject.GetComponent<ParticleSystem>();
+        slashHitEffectRed = slashHitEffectRedObject.GetComponent<ParticleSystem>();
+        canvas = transform.GetChild(8).GetComponent<Canvas>();
+        canvas.worldCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        hpImage = transform.GetChild(8).GetChild(0).GetChild(0).GetComponent<Image>();
         DeathExplosion = Resources.Load<GameObject>("ShadowExplosion2");
         scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
-        soundManager = GameObject.FindGameObjectWithTag("SoundManager");
-        shieldEffect = transform.GetChild(1).gameObject;
-        shieldHitAudioSource = soundManager.transform.GetChild(3).GetComponent<AudioSource>();
-        shieldBreakAudioSource = soundManager.transform.GetChild(4).GetComponent<AudioSource>();
-        hitimpact = soundManager.transform.GetChild(5).GetComponent<AudioSource>();
-        shieldExplosionEffect = transform.GetChild(3).gameObject;
+        shieldHitAudioClip = Resources.Load<AudioClip>("Sound/ShieldHitSound");
+        shieldBreakAudioClip = Resources.Load<AudioClip>("Sound/ShieldBreakSound");
+        hitimpactAudioClip = Resources.Load<AudioClip>("Sound/HitImpactSound");
     }
     // Start is called before the first frame update
     void Start()
     {
-        
-        currentHp = Maxhp;
+        if (corrupted)
+        {
+            corruption = true;
+            corruptEffect.SetActive(true);
+        }
+        else 
+        {
+            corruption = false;
+            corruptEffect.SetActive(false);
+        }
+        CorruptionDamageModifier = 0.5f;
+        //ShieldDamageModifier = 1.5f;
+        currentHp = maxHp;
+        UpdateUI();
         //Debug.Log("haveShield" + haveshield);
 
         if (haveshield)
@@ -63,52 +112,60 @@ public class enemyHp : MonoBehaviour
         
     }
 
-    public void Hurt(float damage)
+    public void ShootHurt(float damage)
     {
-        shieldDamageMultiplier = 0.5f;
-        if (currentShieldHp > 0) // 擊中盾的音效
+        if (haveshield)     //打到盾無效
         {
-            PlayShieldHitSound(); // 播放擊中盾音效
-            currentShieldHp -= damage * shieldDamageMultiplier;
-            
+            Debug.Log("Source :"+gameObject.name+" "+"ShieldBlock");
+            //播抵消特效
+            return;
         }
-        else
+        if (corrupted)      //如果有污穢
         {
-            if (shieldEffect != null&&haveshield) // 破盾的音效
+            if(corruption == true)      //如果污穢未被解除
             {
-                haveshield = false;
-                shieldEffect.SetActive(false);
-                shieldExplosionEffect.SetActive(true);
-                
-                PlayShieldBreakSound(); // 播放破盾音效
-            }
-            if (currentShieldHp > 0)
-            {
-                currentShieldHp -= damage;
-            }
-            else
-            {
+                Playhitimpact();
+                currentHp -= damage * CorruptionDamageModifier;
+                UpdateUI();
+                Debug.Log("Source :" + gameObject.name + " " + "CorruptionDamage:"+ damage * CorruptionDamageModifier);
                 if (currentHp <= 0)
                 {
                     DeathEffect();
                     scoreManager.AddScore();
                 }
-                else
-                {
+            }
+            else       //如果污穢被解除
+            {
                     Playhitimpact();
                     currentHp -= damage;
-                }
+                    UpdateUI();
+                    if (currentHp <= 0)
+                    {
+                        DeathEffect();
+                        scoreManager.AddScore();
+                    }
             }
+            
+        }
+        else       //沒有污穢
+        {
+                Playhitimpact();
+                currentHp -= damage;
+                UpdateUI();
+                if (currentHp <= 0)
+                {
+                    DeathEffect();
+                    scoreManager.AddScore();
+                }
         }
     }
 
-    public void ShieldHurt(float damage)
+    public void ShieldHurt(float damage) //只有近攻會觸發這個
     {
-        shieldDamageMultiplier = 1.5f;
         if (currentShieldHp > 0)
         {
-            currentShieldHp -= damage * shieldDamageMultiplier;
-
+            currentShieldHp -= damage;
+            UpdateUI();
             if (shieldEffect != null && currentShieldHp <= 0)
             {
                 shieldEffect.SetActive(false);
@@ -119,14 +176,44 @@ public class enemyHp : MonoBehaviour
         }
         else
         {
-            currentHp -= damage;
-            if (currentHp <= 0)
+            if (corrupted)
             {
-                DeathEffect();
-                scoreManager.AddScore();
+                if (corruption == false)
+                {
+                    currentHp -= damage;
+                    UpdateUI();
+                    Debug.Log("Source :" + gameObject.name + " " + "CorruptionClean");
+                    if (currentHp <= 0)
+                    {
+                        DeathEffect();
+                        scoreManager.AddScore();
+                    }
+
+                }
+                else
+                {
+                    currentHp -= damage * CorruptionDamageModifier;
+                    UpdateUI();
+                    Debug.Log("Source :" + gameObject.name + " " + "CorruptionNotClean"+ damage * CorruptionDamageModifier);
+                    if (currentHp <= 0)
+                    {
+                        DeathEffect();
+                        scoreManager.AddScore();
+                    }
+                }
             }
-        }
-                
+            else
+            {
+                currentHp -= damage;
+                UpdateUI();
+                Debug.Log("Source :" + gameObject.name + " " + "NoCSorruption");
+                if (currentHp <= 0)
+                {
+                    DeathEffect();
+                    scoreManager.AddScore();
+                }
+            }
+        }   
     } 
 
     public void DeathEffect()
@@ -140,40 +227,90 @@ public class enemyHp : MonoBehaviour
     {
         if (other.tag == "PlayerBullet")
         {
-            Hurt(1);
-            // Debug.Log("hit");
+            ShootHurt(1);
         }
         if (other.tag == "ChargeBullet")
         {
-            ShieldHurt(10);
-            Debug.Log("hit");
+            if(currentShieldHp <= 0)
+            {
+                if (corrupted)
+                {
+                    StartCoroutine(CleanseCorruption());
+                    ShootHurt(1);
+                }
+                else
+                {
+                    ShootHurt(1);
+                }
+            }
+
+            //Debug.Log("hit");
+        }
+        if(other.tag == "SlashCollider"&&slashDetectBool==false)
+        {
+            SlashHurt();
         }
     }
-
+    void SlashHurt()
+    {
+        slashDetectBool = true;
+        if (hitCounter < 3)
+        {
+            slashHitEffectYellowObject.SetActive(true);
+            slashHitEffectYellow.Play();
+            hitCounter++;
+            ShieldHurt(10);
+            Invoke("SetSlashDetectBool", 0.3f);
+        }
+        else if (hitCounter >= 3)
+        {
+            slashHitEffectRedObject.SetActive(true);
+            slashHitEffectRed.Play();
+            hitCounter = 0;
+            ShieldHurt(10);
+            Invoke("SetSlashDetectBool", 0.3f);
+        }
+    }
+    void SetSlashDetectBool()
+    {
+        slashDetectBool = false;
+    }
+    IEnumerator CleanseCorruption()
+    {
+        corruption = false;
+        corruptEffect.SetActive(false);
+        yield return new WaitForSeconds(10); 
+        corruptEffect.SetActive(true);
+        corruption = true;
+    }
+    void UpdateUI()
+    {
+        float HpAmount = (float)currentHp / (float)maxHp;
+        //Debug.Log(HpAmount);
+        hpImage.fillAmount = HpAmount;
+    }
     private void PlayShieldHitSound()
     {
-        //soundManager = GameObject.Find("SoundManager").GetComponent<GameObject>();
-        //shieldHitAudioSource = soundManager.transform.GetChild(3).GetComponent<AudioSource>();
-        if (shieldHitAudioSource != null && shieldHitAudioSource.clip != null)
+        if (audioSource != null && shieldHitAudioClip != null)
         {
-            shieldHitAudioSource.Play();
+            audioSource.PlayOneShot(shieldHitAudioClip);
         }
     }
 
     private void PlayShieldBreakSound()
     {
-        if (shieldBreakAudioSource != null && shieldBreakAudioSource.clip != null)
+        if (audioSource != null && shieldBreakAudioClip != null)
         {
-            shieldBreakAudioSource.Play();
+            audioSource.PlayOneShot(shieldBreakAudioClip);
         }
     }
 
     private void Playhitimpact()
     {
-        if (hitimpact != null && hitimpact.clip != null)
+        if (audioSource != null && hitimpactAudioClip != null)
         {
-            hitimpact.Play();
+            audioSource.PlayOneShot(hitimpactAudioClip);
         }
     }
-    
+
 }

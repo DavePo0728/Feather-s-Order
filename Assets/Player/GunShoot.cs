@@ -20,7 +20,7 @@ public class GunShoot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.LookAt(EmptyAimObject.transform);
+        //transform.LookAt(EmptyAimObject.transform);
     }
     public void Shoot()
     {

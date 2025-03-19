@@ -11,6 +11,11 @@ TagManager:
   - Block
   - ModeStart
   - ChargeBullet
+  - SoundManager
+  - HPCollider
+  - BulletGrazeCollider
+  - PlayerGrazeCollider
+  - SlashCollider
   layers:
   - Default
   - TransparentFX

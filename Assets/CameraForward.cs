@@ -18,7 +18,7 @@ public class CameraForward : MonoBehaviour
     void FixedUpdate()
     {
         transform.rotation = PlayerCam.transform.rotation;
-        Vector3 movement = Vector3.forward.normalized * speed * Time.deltaTime;
-        transform.position += movement;
+        //Vector3 movement = Vector3.forward.normalized * speed * Time.deltaTime;
+        //transform.position += movement;
     }
 }

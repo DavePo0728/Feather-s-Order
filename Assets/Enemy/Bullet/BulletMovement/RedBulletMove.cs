@@ -23,6 +23,7 @@ public class RedBulletMove : BulletBase
     Tweener speard;
     public bool fireWork =false;
     Vector3 direction;
+    public Collider bulletGrazeCollider;
 
     private void Awake()
     {
@@ -32,6 +33,7 @@ public class RedBulletMove : BulletBase
         hitEffect = transform.GetChild(1).gameObject;
         hitParticle = hitEffect.GetComponent<ParticleSystem>();
         BulletCollider = GetComponent<Collider>();
+        bulletGrazeCollider =transform.GetChild(0).GetComponent<Collider>();
     }
     private void OnDisable()
     {
@@ -51,6 +53,7 @@ public class RedBulletMove : BulletBase
         hitEffect.SetActive(false);
         bulletBody.SetActive(true);
         BulletCollider.enabled = true;
+        bulletGrazeCollider.enabled = true;
     }
     public void NoMoveInitial()
     {
@@ -65,10 +68,12 @@ public class RedBulletMove : BulletBase
         hitEffect.SetActive(false);
         bulletBody.SetActive(true);
         BulletCollider.enabled = true;
+        bulletGrazeCollider.enabled = true;
     }
     public void HomingInitial()
     {
         BulletCollider.enabled = true;
+        bulletGrazeCollider.enabled = true;
         hitEffect.SetActive(false);
         bulletBody.SetActive(true);
         BulletlifeTime = bulletData.lifeTime;
@@ -90,6 +95,7 @@ public class RedBulletMove : BulletBase
     public void FireWorkInitial()
     {
         BulletCollider.enabled = true;
+        bulletGrazeCollider.enabled = true;
         hitEffect.SetActive(false);
         bulletBody.SetActive(true);
         BulletlifeTime = bulletData.lifeTime;
@@ -146,11 +152,15 @@ public class RedBulletMove : BulletBase
     }
     private void OnTriggerEnter(Collider other)
     {
+        if (other.tag == "Player")
+        {
+            bulletGrazeCollider.enabled = false;
+        }
         if (other.tag == "PlayerBullet")
         {
             gameObject.SetActive(false);
         }
-        if (other.tag == "Player")
+        if (other.tag == "HPCollider")
         {
             speed = 0;
             moveToPlayer = false;
@@ -159,6 +169,7 @@ public class RedBulletMove : BulletBase
             hitParticle.Play();
             BulletCollider.enabled = false;
         }
+
     }
     public void Speard()
     {

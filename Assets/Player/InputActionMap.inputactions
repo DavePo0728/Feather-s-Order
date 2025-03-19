@@ -42,55 +42,19 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ReloadScene",
-                    "type": "Button",
-                    "id": "b6b953b8-b8d7-4037-a565-ed9b9b53967e",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "ChargeShoot",
+                    "name": "CleanseSlash",
                     "type": "Button",
                     "id": "721a0341-9c34-41f9-b10e-3be9477706fd",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Lean",
-                    "type": "Value",
-                    "id": "65e8ac71-4954-4791-adf8-42f81b79b88b",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "PauseMenu",
-                    "type": "Button",
-                    "id": "f9885de0-8cae-49fa-978d-59ebe2f66b9c",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "SpawnEnemy",
-                    "type": "Button",
-                    "id": "9ee09ffe-6151-48a2-b685-cf1344b9c646",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
+                    "interactions": "Hold",
                     "initialStateCheck": false
                 },
                 {
                     "name": "SkillSwitch",
                     "type": "Button",
                     "id": "1a2b3291-5a44-4e4e-ae69-ba8f42208683",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -99,7 +63,16 @@
                     "name": "SkillActive",
                     "type": "Button",
                     "id": "f6225a09-e242-44df-b94d-9ea865305071",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "PauseMenu",
+                    "type": "Button",
+                    "id": "f9885de0-8cae-49fa-978d-59ebe2f66b9c",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -123,9 +96,36 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "ReloadScene",
+                    "type": "Button",
+                    "id": "b6b953b8-b8d7-4037-a565-ed9b9b53967e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "BackTotitle",
                     "type": "Button",
                     "id": "d1a0a3fe-5e57-4ace-bf5d-02975c906ca5",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "MeleeDash",
+                    "type": "Button",
+                    "id": "ad0ca4af-7b3c-4c19-820c-1902f3331aa1",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Slash",
+                    "type": "Button",
+                    "id": "d523748f-a0e2-4f27-8aab-da816a6ba468",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -202,7 +202,7 @@
                 {
                     "name": "",
                     "id": "48dbbbf9-9824-4570-b083-eff90124cdf4",
-                    "path": "<Gamepad>/rightTrigger",
+                    "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -267,34 +267,12 @@
                 },
                 {
                     "name": "",
-                    "id": "c440706b-3bd7-470f-9339-6219adc71abb",
-                    "path": "<Keyboard>/backquote",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "SpawnEnemy",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "ea16ba99-f726-4786-a13f-6227a77bba3b",
                     "path": "<Keyboard>/r",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "ReloadScene",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "93328b7c-5fc3-4601-8382-35f351509348",
-                    "path": "<Gamepad>/rightShoulder",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "SkillSwitch",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -310,46 +288,13 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "1D Axis",
-                    "id": "6102617e-4389-4e7f-8914-0c2111f69e0f",
-                    "path": "1DAxis",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Lean",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "negative",
-                    "id": "c533fcda-7a5b-4af4-9ee6-e82a3a54c943",
-                    "path": "<Gamepad>/rightShoulder",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Lean",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "positive",
-                    "id": "8c389aa6-6da3-4989-9763-1f07be452fc1",
-                    "path": "<Gamepad>/leftShoulder",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Lean",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
                     "name": "",
                     "id": "600c0a5a-fd25-46bb-9f66-fa8bcefa405b",
-                    "path": "<Gamepad>/leftTrigger",
+                    "path": "<Gamepad>/buttonNorth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ChargeShoot",
+                    "action": "CleanseSlash",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -360,7 +305,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "ChargeShoot",
+                    "action": "CleanseSlash",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -405,6 +350,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "BackTotitle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4ec4a783-b362-4717-8e9a-46e9f018079f",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MeleeDash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "839f27fc-2713-46d2-b379-31429ce92889",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Slash",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

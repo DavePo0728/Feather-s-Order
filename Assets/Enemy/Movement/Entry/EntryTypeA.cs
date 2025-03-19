@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-
+using System;
 public class EntryTypeA : IEntryBehaviour
 {
     Tweener enterTweener;
@@ -12,6 +12,7 @@ public class EntryTypeA : IEntryBehaviour
         CurvePathGenerator.pathInstance.SetPosition(enemyMove.startPoint, enemyMove.endPoint, enemyMove.curveHeight);
         enemyMove.path = CurvePathGenerator.pathInstance.GetPath();
         enterTweener = enemyMove.transform.DOPath(enemyMove.path, 1f).SetEase(Ease.InOutSine);
+        enterTweener.Play();
         enterTweener.OnComplete(() =>{ enemyMove.CallMove(); });
     }
     public void StopEnter()

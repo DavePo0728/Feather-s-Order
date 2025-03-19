@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerHP : MonoBehaviour
 {
+    public BulletGraze bulletGraze;
     Rigidbody playerRigidbody;
     [SerializeField]
     int maxHp;
@@ -24,6 +25,9 @@ public class PlayerHP : MonoBehaviour
     public float maxMp;
     public float currentMp;
     public float mpCost;
+    [SerializeField]
+    bool debug;
+
     //[SerializeField]
     //GameObject body;
     //bool isRotating= false;
@@ -42,7 +46,16 @@ public class PlayerHP : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerHp = maxHp;
+        if (debug)
+        {
+            maxHp = 8964;
+            playerHp = maxHp;
+        }
+        else
+        {
+            maxHp = 100;
+            playerHp = maxHp;
+        }
         UpdateHpUI();
         playerRigidbody = GetComponent<Rigidbody>();
         UpdateMpUI();
@@ -57,14 +70,19 @@ public class PlayerHP : MonoBehaviour
     {
         playerHp -= damage;
         UpdateHpUI();
+        bulletGraze.UpdateGrazeEnergyOutside(10);
         StartCoroutine(MuTeKiTime(0.1f));
+        
     }
     private void OnTriggerEnter(Collider other)
     {
+        //Debug.Log("來自的物件：" + other.gameObject.name);
+        //Debug.Log("被觸發的 Collider：" + other.name);
         if (other.tag == "EnemyBullet")
         {
             if(!isMuteki)
             getHit(5);
+            Debug.Log("hit");
             //other.gameObject.SetActive(false);
         }
         if (other.tag == "Block")
@@ -72,13 +90,13 @@ public class PlayerHP : MonoBehaviour
             if (!isMuteki)
                 getHit(10);
         }
-        if(other.tag == "Enemy")
-        {
-            if (!isMuteki)
-                getHit(10);
-            enemyHp _enemyHp = other.GetComponent<enemyHp>();
-            _enemyHp.DeathEffect();
-        }
+        //if(other.tag == "Enemy")
+        //{
+        //    if (!isMuteki)
+        //        getHit(10);
+        //    enemyHp _enemyHp = other.GetComponent<enemyHp>();
+        //    _enemyHp.DeathEffect();
+        //}
     }
     private void UpdateHpUI()
     {
