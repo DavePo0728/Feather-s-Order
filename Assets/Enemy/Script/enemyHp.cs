@@ -180,6 +180,7 @@ public class enemyHp : MonoBehaviour
             {
                 if (corruption == false)
                 {
+                    Playhitimpact();
                     currentHp -= damage;
                     UpdateUI();
                     Debug.Log("Source :" + gameObject.name + " " + "CorruptionClean");
@@ -192,6 +193,7 @@ public class enemyHp : MonoBehaviour
                 }
                 else
                 {
+                    Playhitimpact();
                     currentHp -= damage * CorruptionDamageModifier;
                     UpdateUI();
                     Debug.Log("Source :" + gameObject.name + " " + "CorruptionNotClean"+ damage * CorruptionDamageModifier);
@@ -204,6 +206,7 @@ public class enemyHp : MonoBehaviour
             }
             else
             {
+                Playhitimpact();
                 currentHp -= damage;
                 UpdateUI();
                 Debug.Log("Source :" + gameObject.name + " " + "NoCSorruption");
@@ -260,7 +263,7 @@ public class enemyHp : MonoBehaviour
             slashHitEffectYellow.Play();
             hitCounter++;
             ShieldHurt(10);
-            Invoke("SetSlashDetectBool", 0.3f);
+            Invoke("SetSlashDetectBool", 0.2f);
         }
         else if (hitCounter >= 3)
         {

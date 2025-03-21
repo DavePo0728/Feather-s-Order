@@ -105,7 +105,7 @@ public class BulletGraze : MonoBehaviour
             }
         }
     }
-    public void Vibrate(float lowFrequency, float highFrequency, float duration)
+    void Vibrate(float lowFrequency, float highFrequency, float duration)
     {
         if (Gamepad.current != null) // 確保手把已連接
         {

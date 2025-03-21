@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerSlash : MonoBehaviour
+public class PlayerCleanseShot : MonoBehaviour
 {
     [SerializeField]
-    GameObject slashBullet;
+    GameObject cleanseBullet;
     [SerializeField]
     Transform shootposition;
     [SerializeField]
-    Animator ChargeEffect;
+    Animator chargeEffect;
     bool canShoot;
     bool startCharge;
 
@@ -19,7 +19,7 @@ public class PlayerSlash : MonoBehaviour
     float chargeTimer;
     [SerializeField]
     BulletGraze bulletGraze;
-    public float slashCost;
+    public float shootCost;
 
     private void Awake()
     {
@@ -49,23 +49,23 @@ public class PlayerSlash : MonoBehaviour
     {
         if (context.performed)
         {
-            if (bulletGraze.CheckGrazeEnergy(slashCost))
+            if (bulletGraze.CheckGrazeEnergy(shootCost))
             {
                 startCharge = true;
-                ChargeEffect.SetTrigger("Charge");
+                chargeEffect.SetTrigger("Charge");
             }
         }
         if (context.canceled)
         {
             if (startCharge&&chargeTimer <= maxChargeTime)
             {
-                ChargeEffect.SetTrigger("Return");
+                chargeEffect.SetTrigger("Return");
                 startCharge = false;
             }
             if (canShoot == true)
             {
                 shoot();
-                ChargeEffect.SetTrigger("Shoot");
+                chargeEffect.SetTrigger("Shoot");
                 chargeTimer = 0;
                 canShoot = false;
                 startCharge = false;
@@ -74,8 +74,8 @@ public class PlayerSlash : MonoBehaviour
     }
     public void shoot()
 	{
-        bulletGraze.UpdateGrazeEnergyOutside(slashCost);
-        Instantiate(slashBullet, transform.position, transform.rotation);
+        bulletGraze.UpdateGrazeEnergyOutside(shootCost);
+        Instantiate(cleanseBullet, transform.position, transform.rotation);
 		canShoot = false;
 	}
 }

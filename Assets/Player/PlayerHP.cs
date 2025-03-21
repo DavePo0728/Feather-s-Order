@@ -68,6 +68,7 @@ public class PlayerHP : MonoBehaviour
     }
     public void getHit(int damage)
     {
+        Vibrate(0.5f,0.5f,0.1f);
         playerHp -= damage;
         UpdateHpUI();
         bulletGraze.UpdateGrazeEnergyOutside(10);
@@ -167,5 +168,20 @@ public class PlayerHP : MonoBehaviour
         yield return new WaitForSeconds(mutekiTime);
         isMuteki = false;
         //Physics.IgnoreLayerCollision(8, 6, false);
+    }
+    void Vibrate(float lowFrequency, float highFrequency, float duration)
+    {
+        if (Gamepad.current != null) // 確保手把已連接
+        {
+            Gamepad.current.SetMotorSpeeds(lowFrequency, highFrequency);
+            Invoke(nameof(StopVibration), duration); // 設定定時停止震動
+        }
+    }
+    void StopVibration()
+    {
+        if (Gamepad.current != null)
+        {
+            Gamepad.current.SetMotorSpeeds(0f, 0f); // 停止震動
+        }
     }
 }

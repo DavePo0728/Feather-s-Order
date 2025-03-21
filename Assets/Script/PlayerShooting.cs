@@ -23,7 +23,7 @@ public class PlayerShooting : MonoBehaviour
         timeBetweenShots = 1 / (800 / 60.0f);
         gunPoint1Img.enabled = false;
         gunPoint2Img.enabled = false;
-        gunSound = transform.parent.parent.parent.GetComponent<AudioSource>();
+        gunSound = transform.parent.parent.parent.parent.GetComponent<AudioSource>();
     }
 
     public void GetShootInput(InputAction.CallbackContext context)

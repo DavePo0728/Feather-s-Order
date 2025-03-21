@@ -36,10 +36,10 @@ public class PlayerMove : MonoBehaviour
     List<Material> playerMat;
     [SerializeField]
     GameObject body,flyinglean;
-    //float rotationDuration = 0.5f; // Duration of the rotation in seconds
+    float rotationDuration = 0.5f; // Duration of the rotation in seconds
     float rotateStartTime; // Time when the rotation starts
     //float leanStartTime;
-    //Vector3 initialRotation; // Initial rotation of the object
+    Vector3 initialRotation; // Initial rotation of the object
     Vector2 movementInput;
     float leanInput;
     //bool manualLean = true;
@@ -49,8 +49,6 @@ public class PlayerMove : MonoBehaviour
     [SerializeField]
     ParticleSystem speedLine;
     Vector3 movement;
-    //bool isBoosting = false;
-    //bool isBraking = false;
     bool isBouncing = false;
     [SerializeField]
     float goldspeedMulti;
@@ -185,21 +183,21 @@ public class PlayerMove : MonoBehaviour
             if (isRotating)
             {
                 //Debug.Log(leanInput);
-                //initialRotation = transform.rotation.ToEulerAngles();
-                //transform.rotation = Quaternion.Euler(0, 0, 0);
-                //float elapsedTime = Time.time - rotateStartTime;
-                //float angle = Mathf.Lerp(transform.rotation.z, 360f, Mathf.SmoothStep(0f, 1f, elapsedTime / rotationDuration));
+                initialRotation = transform.rotation.ToEulerAngles();
+                transform.rotation = Quaternion.Euler(0, 0, 0);
+                float elapsedTime = Time.time - rotateStartTime;
+                float angle = Mathf.Lerp(transform.rotation.z, 360f, Mathf.SmoothStep(0f, 1f, elapsedTime / rotationDuration));
                 if (playerRigidbody.velocity.x >= 0)
                 {
 
-                    //body.transform.eulerAngles = initialRotation + new Vector3(0f, 0f, angle);
-                    playerAnimator.SetTrigger("RightRoll");
+                    body.transform.eulerAngles = initialRotation + new Vector3(0f, 0f, angle);
+                    //playerAnimator.SetTrigger("RightRoll");
                 }
                 else
                 {
 
-                    playerAnimator.SetTrigger("LeftRoll");
-                    //body.transform.eulerAngles = initialRotation - new Vector3(0f, 0f, angle);
+                    //playerAnimator.SetTrigger("LeftRoll");
+                    body.transform.eulerAngles = initialRotation - new Vector3(0f, 0f, angle);
                 }
                 isRotating = false;
 
