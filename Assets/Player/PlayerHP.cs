@@ -48,7 +48,7 @@ public class PlayerHP : MonoBehaviour
     {
         if (debug)
         {
-            maxHp = 8964;
+            maxHp = 9999;
             playerHp = maxHp;
         }
         else

@@ -94,7 +94,7 @@ public class BulletGraze : MonoBehaviour
             {
                 Vibrate(0.1f, 0.1f, 0.05f);
                 grazeSound.PlayOneShot(grazeClip);
-                Debug.Log("Graze");
+                Debug.Log(other.transform.parent.name);
                 StartCoroutine(GrazeCD());
                 currentGrazeEnergy += grazeEnergyGain;
                 if (currentGrazeEnergy > maxGrazeEnergy)

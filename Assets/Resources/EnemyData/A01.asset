@@ -17,6 +17,7 @@ MonoBehaviour:
     hp: 5
     haveShield: 0
     shieldHp: 0
+    corrupted: 0
     spawnPosition: {x: 0, y: 1, z: 1}
     endPosition: {x: 2, y: 1, z: 5}
     LeavePositon: {x: 19, y: 5, z: 14}

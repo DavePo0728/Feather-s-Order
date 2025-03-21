@@ -13,9 +13,9 @@ public class MoveTypeA : IMoveBehaviour
         if (enemyMove.gameObject != null)
         {
             _nextPos = CurvePathGenerator.pathInstance.GetLandingPosZ(enemyMove.originPos, 10);
-            onMoveA = enemyMove.transform.DOMove(_nextPos, 0.5f).SetEase(Ease.Linear);
-
-            onMoveA.OnComplete(() => { Move(enemyMove); });
+            onMoveA = enemyMove.transform.DOMove(_nextPos, 0.5f).SetEase(Ease.Linear)/*.OnStart(() => { Debug.Log("MoveATweenStart"); })*/;
+            onMoveA.Play();
+            onMoveA.OnComplete(() => { Move(enemyMove);/*Debug.Log("MoveATweenFinish");*/ });
             if (enemyMove.isLeave)
             {
                 StopMove();

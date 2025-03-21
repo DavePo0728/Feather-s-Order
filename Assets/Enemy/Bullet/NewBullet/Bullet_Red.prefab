@@ -4915,11 +4915,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc48273a3b92c844f9786e703d86cdb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitEffect: {fileID: 0}
-  hitParticle: {fileID: 0}
-  bulletBody: {fileID: 0}
-  muzzleFlash: {fileID: 0}
-  BulletCollider: {fileID: 0}
+  hitEffect: {fileID: 5154301249706719684}
+  hitParticle: {fileID: 4990284253702136040}
+  bulletBody: {fileID: 834006386159488840}
+  muzzleFlash: {fileID: 1568273496740998691}
+  BulletCollider: {fileID: 364782299617999328}
   speed: 0
   BulletlifeTime: 0
   sphereRadius: 0
@@ -48803,6 +48803,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e9d1f52e709876143b75f93f52a48156, type: 3}
+--- !u!1 &1568273496740998691 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1840367976591474, guid: e9d1f52e709876143b75f93f52a48156, type: 3}
+  m_PrefabInstance: {fileID: 1568705819433246289}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1570109850437860627 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4238852237075266, guid: e9d1f52e709876143b75f93f52a48156, type: 3}
@@ -48865,6 +48870,16 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7e33fe33aff4f49449f51ed88f138e9c, type: 3}
+--- !u!198 &4990284253702136040 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 198311681815850752, guid: 7e33fe33aff4f49449f51ed88f138e9c, type: 3}
+  m_PrefabInstance: {fileID: 5152547308496588776}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5154301249706719684 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1767841913861676, guid: 7e33fe33aff4f49449f51ed88f138e9c, type: 3}
+  m_PrefabInstance: {fileID: 5152547308496588776}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5156412853365659112 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4156505390307840, guid: 7e33fe33aff4f49449f51ed88f138e9c, type: 3}

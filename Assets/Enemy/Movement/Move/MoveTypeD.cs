@@ -9,6 +9,7 @@ public class MoveTypeD : IMoveBehaviour
     public void Move(EnemyMove enemyMove)
     {
         onMoveD = enemyMove.transform.DOMove(enemyMove.leavePoint, 6.5f) .SetEase(Ease.Linear);
+        onMoveD.Play();
         onMoveD.OnComplete(() => { enemyMove.DestroyNow(); });
     }
     public void StopMove()

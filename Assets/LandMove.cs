@@ -20,7 +20,7 @@ public class LandMove : MonoBehaviour
     void FixedUpdate()
     {
         transform.Translate(-Vector3.forward * speed);
-        if(transform.position.z < -11000)
+        if(transform.position.z < -100)
         {
             originPoint.z += zOffset;
             transform.position = originPoint;

@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.InputSystem;
 //[ExecuteInEditMode]
 public class Vector3PointGenerator : MonoBehaviour
 {
@@ -41,17 +40,17 @@ public class Vector3PointGenerator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-    }
-    public void ReDraw(InputAction.CallbackContext context)
-    {
-        foreach (Transform child in transform)
+        if (Input.GetKey(KeyCode.BackQuote))
         {
-            Destroy(child.gameObject);
+            foreach (Transform child in transform)
+            {
+                Destroy(child.gameObject);
+            }
+            GeneratePointList.Clear();
+            GeneratePoint();
+            SpawnPrefab();
+            Debug.Log("gen");
         }
-        GeneratePointList.Clear();
-        GeneratePoint();
-        SpawnPrefab();
     }
     public void GeneratePoint()
     {
@@ -95,7 +94,7 @@ public class Vector3PointGenerator : MonoBehaviour
     public Vector3[] GetMoveCPathList(int pathLength,CustomPathData pathData) 
     {
         Vector3[] pathList = new Vector3[pathLength];
-        Debug.Log(pathList.Length);
+        //Debug.Log(pathList.Length);
         for (int i = 0; i < pathLength; i++)
         {
             pathList[i] = GetPoint(pathData.pathX[i], pathData.pathY[i], pathData.pathZ[i]);

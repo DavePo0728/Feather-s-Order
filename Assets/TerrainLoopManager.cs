@@ -8,7 +8,7 @@ public class TerrainLoopManager : MonoBehaviour
     public static TerrainLoopManager terrainInstance;
     [SerializeField]
     List<GameObject> terrainList,blockList,specialList;
-    Vector3 InitialPos = new Vector3(2050,-25f,6100f);
+    Vector3 InitialPos = new Vector3(-50f,331.5f, 600f);
     [SerializeField]
     float loopRoundNum = 0;
     [SerializeField]

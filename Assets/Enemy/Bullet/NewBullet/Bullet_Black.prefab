@@ -304,6 +304,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6155507993739197254, guid: 4dc8f0b02fff55047b330e91ef60430d, type: 3}
+      propertyPath: m_Radius
+      value: 0.45
+      objectReference: {fileID: 0}
     - target: {fileID: 8158596611259367600, guid: 4dc8f0b02fff55047b330e91ef60430d, type: 3}
       propertyPath: InitialModule.startLifetime.scalar
       value: 0.1
