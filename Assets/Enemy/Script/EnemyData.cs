@@ -40,9 +40,8 @@ public enum BulletType
     public BulletType bulletType;
     public float MaxShootWave;
     [Header("typeB")]
-    public PathCreator CurvePath;
+    public int pathNum;
     [Header("typeC")]
-    public int pathListLength;
+    public int customPathNum;
     public float pointWaitTime;
-    public int pathListIndex;
 }
