@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 041b92316204044419b73e0c5e54944f, type: 3}
+  m_Name: A02
+  m_EditorClassIdentifier: 
+  data:
+    enemy: {fileID: 0}
+    hp: 0
+    lifeTime: 0
+    haveShield: 0
+    shieldHp: 0
+    corrupted: 0
+    corruptionStack: 0
+    paralyzeTime: 0
+    spawnPosition: {x: 0, y: 0, z: 0}
+    endPosition: {x: 0, y: 0, z: 0}
+    LeavePositon: {x: 0, y: 0, z: 0}
+    curveHeight: 0
+    gunIndex: 0
+    rpm: 0
+    shootingCoolDown: 0
+    bulletAmount: 0
+    spinSpeed: 0
+    bulletType: 0
+    MaxShootWave: 0
+    CurvePath: {fileID: 0}
+    pathListLength: 0
+    pointWaitTime: 0
+    pathListIndex: 0
