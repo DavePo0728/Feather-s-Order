@@ -55,8 +55,7 @@ public class WaveManager : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.Alpha1))
         {
-            //StartCoroutine(SpawnGroup1_1());
-            StartCoroutine(TestSpawn());
+            StartCoroutine(SpawnGroup1_1());
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
@@ -198,6 +197,7 @@ public class WaveManager : MonoBehaviour
         enemyHp enemyHp = temp.GetComponent<enemyHp>();
         enemyHp.maxHp = enemyData.data.hp;
         enemyMove.lifeTime = enemyData.data.lifeTime;
+        enemyMove.moveTime = enemyData.data.moveTime;
         enemyMove.paralyzeTime = enemyData.data.paralyzeTime;
         enemyHp.corrupted = enemyData.data.corrupted;
         enemyHp.haveshield = enemyData.data.haveShield;
@@ -229,6 +229,7 @@ public class WaveManager : MonoBehaviour
         enemyHp enemyHp = temp.GetComponent<enemyHp>();
         enemyHp.maxHp = enemyData.data.hp;
         enemyMove.lifeTime = enemyData.data.lifeTime;
+        enemyMove.moveTime = enemyData.data.moveTime;
         enemyMove.paralyzeTime = enemyData.data.paralyzeTime;
         enemyHp.corrupted = enemyData.data.corrupted;
         enemyHp.haveshield = enemyData.data.haveShield;
@@ -261,6 +262,7 @@ public class WaveManager : MonoBehaviour
         enemyHp enemyHp = temp.GetComponent<enemyHp>();
         enemyHp.maxHp = enemyData.data.hp;
         enemyMove.lifeTime = enemyData.data.lifeTime;
+        enemyMove.moveTime = enemyData.data.moveTime;
         enemyMove.paralyzeTime = enemyData.data.paralyzeTime;
         enemyHp.corrupted = enemyData.data.corrupted;
         enemyHp.haveshield = enemyData.data.haveShield;
@@ -335,16 +337,7 @@ public class WaveManager : MonoBehaviour
     {
         NewSpawn(enemyDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.1f);
-        NewSpawn(enemyDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
-        yield return new WaitForSeconds(0.1f);
-        NewSpawn(enemyDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
-        yield return new WaitForSeconds(0.1f);
-        NewSpawn(enemyDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
-        yield return new WaitForSeconds(0.1f);
-        NewSpawn(enemyDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
-        yield return new WaitForSeconds(0.1f);
-        NewSpawn(enemyDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
-        yield return new WaitForSeconds(0.1f);
+        
 
      //   SpawnEnemy(enemyList[0], 5,10,false, 0,0, false, 0, Vector3PointGenerator.instance.GetPoint(0,1,1), Vector3PointGenerator.instance.GetPoint(2, 1, 5), Vector3PointGenerator.instance.GetPoint(19, 5, 14),
      //new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red,2);

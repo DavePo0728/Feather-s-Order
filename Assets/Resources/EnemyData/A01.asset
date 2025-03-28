@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data:
     enemy: {fileID: 5113663619280529763, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
+    moveTime: 0
     hp: 5
     lifeTime: 10
     haveShield: 0
@@ -32,7 +33,6 @@ MonoBehaviour:
     spinSpeed: 0
     bulletType: 1
     MaxShootWave: 1
-    CurvePath: {fileID: 0}
-    pathListLength: 0
+    pathNum: 0
+    customPathNum: 0
     pointWaitTime: 0
-    pathListIndex: 0
