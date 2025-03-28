@@ -7,15 +7,17 @@ public class MoveTypeA : IMoveBehaviour
 {
     Vector3 _nextPos;
     public Tweener onMoveA;
+    float waitTime;
     public void Move(EnemyMove enemyMove)
     {
+        waitTime = enemyMove.pointWaitTime;
         //Debug.Log("Enter Move Type A");
         if (enemyMove.gameObject != null)
         {
             _nextPos = CurvePathGenerator.pathInstance.GetLandingPosZ(enemyMove.originPos, 10);
-            onMoveA = enemyMove.transform.DOMove(_nextPos, enemyMove.moveTime).SetEase(Ease.Linear)/*.OnStart(() => { Debug.Log("MoveATweenStart"); })*/;
+            onMoveA = enemyMove.transform.DOMove(_nextPos, enemyMove.moveTime).SetEase(Ease.Linear).SetDelay(waitTime)/*.OnStart(() => { Debug.Log("MoveATweenStart"); })*/;
             onMoveA.Play();
-            onMoveA.OnComplete(() => { Move(enemyMove);/*Debug.Log("MoveATweenFinish");*/ });
+            onMoveA.OnComplete(() => { Move(enemyMove); });
             if (enemyMove.isLeave)
             {
                 StopMove();

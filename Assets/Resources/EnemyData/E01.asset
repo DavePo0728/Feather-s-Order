@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 041b92316204044419b73e0c5e54944f, type: 3}
-  m_Name: A01
+  m_Name: E01
   m_EditorClassIdentifier: 
   data:
     enemy: {fileID: 5113663619280529763, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
     entryTime: 1
-    moveTime: 0.5
-    leaveTime: 1
+    moveTime: 3
+    leaveTime: 0
     hp: 5
-    lifeTime: 15
+    lifeTime: 10
     haveShield: 0
     shieldHp: 0
     corrupted: 0
@@ -37,4 +37,4 @@ MonoBehaviour:
     MaxShootWave: 1
     pathNum: 0
     customPathNum: 0
-    pointWaitTime: 0.5
+    pointWaitTime: 5

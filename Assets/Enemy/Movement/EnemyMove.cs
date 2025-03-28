@@ -61,6 +61,10 @@ public class EnemyMove : MonoBehaviour
     }
     private void Awake()
     {
+        if (entryTime+moveTime+leaveTime>lifeTime)
+        {
+            Debug.LogError("you are idoit sandwich!!!!");
+        }
         if (!isDebug)
         {
             gunList = new List<GameObject>();

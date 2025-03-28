@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using PathCreation;
@@ -201,6 +201,7 @@ public class WaveManager : MonoBehaviour
         enemyMove.entryTime = enemyData.data.entryTime;
         enemyMove.moveTime = enemyData.data.moveTime;
         enemyMove.leaveTime = enemyData.data.leaveTime;
+        enemyMove.pointWaitTime = enemyData.data.pointWaitTime;
         enemyMove.paralyzeTime = enemyData.data.paralyzeTime;
         enemyHp.corrupted = enemyData.data.corrupted;
         enemyHp.haveshield = enemyData.data.haveShield;
@@ -332,11 +333,18 @@ public class WaveManager : MonoBehaviour
     IEntryBehaviour entryBehaviour,IMoveBehaviour moveBehaviour, ILeaveBehaviour leaveBehaviour,float curveHeight,
     int gunIndex,float rpm,float shootingCoolDown, float bulletAmount, float spinSpeed, BulletType bulletType)
         */
+    // MoveTypeA :小範圍隨機移動
+    // MoveTypeB :固定軌道移動
+    // MoveTypeC :大範圍節點移動​
+    // MoveTypeD :直進直出
+    // MoveTypeE :自訂進停退時間
     IEnumerator TestSpawn()
     {
         NewSpawn(enemyDatas[0],new EntryTypeA(), new MoveTypeA(), new LeaveTypeA());   ///MoveTypeA  Or   MovetypeD
 
-        NewSpawn(enemyDatas[3],new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());   ///MoveTypeA  Or   MovetypeD
+        //NewSpawn(enemyDatas[3],new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());   ///MoveTypeA  Or   MovetypeD
+        NewSpawn(enemyDatas[4],new EntryTypeA(), new MoveTypeE(), new LeaveTypeA());   ///MoveTypeA  Or   MovetypeD
+
         yield return new WaitForSeconds(0.1f);
         //NewSpawnB(enemyDatas[1], new EntryTypeA(), new MoveTypeB(), new LeaveTypeA());   //MoveTypeB
         yield return new WaitForSeconds(0.1f);
