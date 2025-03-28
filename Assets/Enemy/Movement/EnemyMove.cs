@@ -11,9 +11,10 @@ public class EnemyMove : MonoBehaviour
     IMoveBehaviour moveBehavior;
     ILeaveBehaviour leaveBehavior;
     //[SerializeField]
-    public float moveSpeed;
+    //public float moveSpeed;
+    public float lifeTime;
     [SerializeField]
-    float lifeTime;
+    public float paralyzeTime;
     protected float angle;
     public Vector3 startPoint;
     public Vector3 endPoint;
@@ -24,6 +25,7 @@ public class EnemyMove : MonoBehaviour
     public float pointWaitTime;
     public Vector3 originPos;
     public bool isLeave = false;
+    
     //[HideInInspector]
     public Vector3[] path;
     public Vector3[] moveB_PathList;
@@ -34,7 +36,7 @@ public class EnemyMove : MonoBehaviour
 
     public List<GameObject> gunList;
     GameObject activeGun, activeGun1;
-
+    EnemyData testData;
     //public bool canShoot = false;
     public enum BulletType
     {
@@ -57,23 +59,43 @@ public class EnemyMove : MonoBehaviour
     }
     private void Awake()
     {
-        gunList = new List<GameObject>();
-        for (int i = 0; i < transform.GetChild(4).childCount; i++)
+        if (!isDebug)
         {
-            gunList.Add(transform.GetChild(4).GetChild(i).gameObject);
+            gunList = new List<GameObject>();
+            for (int i = 0; i < transform.GetChild(4).childCount; i++)
+            {
+                gunList.Add(transform.GetChild(4).GetChild(i).gameObject);
+            }
+        }
+        else
+        {
+            testData = Resources.Load<EnemyData>("EnemyData/A01");
+            gunList = new List<GameObject>();
+            for (int i = 0; i < transform.GetChild(4).childCount; i++)
+            {
+                gunList.Add(transform.GetChild(4).GetChild(i).gameObject);
+            }
+            ActiveGun(testData.data.gunIndex,testData.data.rpm,testData.data.bulletAmount,0,testData.data.shootingCoolDown, (EnemyMove.BulletType)testData.data.bulletType,99);
         }
     }
     // Start is called before the first frame update
     void Start()
     {
-        
-        //Debug.Log(gunList.Count);
-        startPoint = gameObject.transform.position;
-        StartCoroutine(TimeToLeave());
-        //UpdateDebugLine();
-        
-        entryBehavior.Enter(this);
-        
+        if (!isDebug)
+        {
+            startPoint = gameObject.transform.position;
+            StartCoroutine(TimeToLeave());
+            entryBehavior.Enter(this);
+        }
+        else
+        {
+            if (activeGun != null)
+                activeGun.SetActive(true);
+            originPos = transform.position;
+            moveBehavior = new MoveTypeA();
+            moveBehavior.Move(this);
+            isMove = true;
+        }
     }
     void FixedUpdate()
     {
@@ -157,17 +179,50 @@ public class EnemyMove : MonoBehaviour
         }
         activeGun = gunList[gunIndex];
     }
+    public IEnumerator Paralyze()
+    {
+        if(activeGun!=null&&activeGun.activeSelf == true)
+        activeGun.SetActive(false);
+        if (entryBehavior !=null&& entryBehavior.CheckEntryStatus())
+        {
+            entryBehavior.ParalyzePause();
+        }
+        if (moveBehavior !=null&&moveBehavior.CheckMoveStatus())
+        {
+            moveBehavior.ParalyzePause();
+        }
+        if (leaveBehavior !=null&&leaveBehavior.CheckLeaveStatus())
+        {
+            leaveBehavior.ParalyzePause();
+        }
+        yield return new WaitForSeconds(paralyzeTime);
+        if (activeGun != null && activeGun.activeSelf == false)
+            activeGun.SetActive(true);
+        if (entryBehavior != null&&entryBehavior.CheckEntryStatus()==false)
+        {
+            entryBehavior.ParalyzeRecover();
+        }
+        if (moveBehavior!=null&&moveBehavior.CheckMoveStatus() == false)
+        {
+            moveBehavior.ParalyzeRecover();
+        }
+        if (leaveBehavior!=null &&leaveBehavior.CheckLeaveStatus() == false)
+        {
+            leaveBehavior.ParalyzeRecover();
+        }
+    }
     IEnumerator TimeToLeave()
     {
         yield return new WaitForSeconds(lifeTime);
         isLeave = true;
-        foreach (GameObject gun in gunList)
-        {
-            if(gun.activeSelf)
-            {
-               gun.SetActive(false);
-            }
-        }
+        activeGun.SetActive(false );
+        //foreach (GameObject gun in gunList)
+        //{
+        //    if(gun.activeSelf)
+        //    {
+        //       gun.SetActive(false);
+        //    }
+        //}
     }
     public void CallLeave()
     {

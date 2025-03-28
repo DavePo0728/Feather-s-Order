@@ -5,4 +5,7 @@ public interface ILeaveBehaviour
 {
     void Leave(EnemyMove enemyMove);
     void StopLeave();
+    bool CheckLeaveStatus();
+    void ParalyzePause();
+    void ParalyzeRecover();
 }

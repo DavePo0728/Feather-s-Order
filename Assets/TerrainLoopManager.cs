@@ -7,15 +7,22 @@ public class TerrainLoopManager : MonoBehaviour
 {
     public static TerrainLoopManager terrainInstance;
     [SerializeField]
-    List<GameObject> terrainList,blockList,specialList;
+    List<GameObject> terrainList,outsideLeftList,outSideRightList,blockList,specialList;
     Vector3 InitialPos = new Vector3(-50f,331.5f, 600f);
     [SerializeField]
     float loopRoundNum = 0;
     [SerializeField]
     float loopNum = 0;
-    private void Start()
+    public List<GameObject> _terrainList=>terrainList;
+    public List<GameObject> _outSideLeftList => outsideLeftList;
+    public List<GameObject> _outSideRightList => outSideRightList;
+    private void Awake()
     {
         terrainInstance = this;
+    }
+    private void Start()
+    {
+        
         
     }
     private void FixedUpdate()

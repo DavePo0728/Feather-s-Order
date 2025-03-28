@@ -110,7 +110,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Active: 1
   m_layer: 0
-  m_renderingLayerMask: 4
+  m_renderingLayerMask: 2147483647
   InjectPoint: 400
 --- !u!114 &11400000
 MonoBehaviour:
@@ -271,4 +271,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Active: 1
   m_layer: 0
-  m_renderingLayerMask: 2
+  m_renderingLayerMask: 2147483647

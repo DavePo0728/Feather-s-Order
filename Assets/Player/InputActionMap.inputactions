@@ -51,12 +51,12 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "SkillSwitch",
+                    "name": "MissileShoot",
                     "type": "Button",
                     "id": "1a2b3291-5a44-4e4e-ae69-ba8f42208683",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Hold",
                     "initialStateCheck": false
                 },
                 {
@@ -372,6 +372,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Slash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b6574a62-8fdb-4c9d-90ae-dc6ac34be6cd",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MissileShoot",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -15,9 +15,28 @@ public class LeaveTypeA : ILeaveBehaviour
             leaveTweener.OnComplete(() => { enemyMove.DestroyNow(); });
         }
     }
+    public bool CheckLeaveStatus()
+    {
+        if (leaveTweener.IsPlaying())
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
     public void StopLeave()
     {
         if (leaveTweener != null&&leaveTweener.IsPlaying())
             leaveTweener.Kill();
+    }
+    public void ParalyzePause()
+    {
+        leaveTweener.Pause();
+    }
+    public void ParalyzeRecover()
+    {
+        leaveTweener.Play();
     }
 }

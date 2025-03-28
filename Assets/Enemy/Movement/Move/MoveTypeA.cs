@@ -23,10 +23,28 @@ public class MoveTypeA : IMoveBehaviour
             }
         }
     }
+    public bool CheckMoveStatus()
+    {
+        if (onMoveA.IsPlaying())
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
     public void StopMove()
     {
         if(onMoveA != null&&onMoveA.IsPlaying())
             onMoveA.Kill();
     }
-    
+    public void ParalyzePause()
+    {
+        onMoveA.Pause();
+    }
+    public void ParalyzeRecover()
+    {
+        onMoveA.Play();
+    }
 }

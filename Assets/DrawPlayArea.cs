@@ -5,12 +5,12 @@ using UnityEngine;
 public class DrawPlayArea : MonoBehaviour
 {
     [SerializeField]
-    Camera playerCamera;
+    Camera playerCamera,Cam2;
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireCube(new Vector3(transform.position.x,transform.position.y+4.5f,transform.position.z+500), new Vector3(160,24,1000));
+        Gizmos.DrawWireCube(new Vector3(transform.position.x,transform.position.y-5f,transform.position.z+500), new Vector3(360,60,1000));
         Gizmos.color = Color.cyan;
-        
+        Gizmos.DrawWireCube(new Vector3(Cam2.transform.position.x, Cam2.transform.position.y - 5f, Cam2.transform.position.z + 500), new Vector3(360, 60, 1000));
     }
 }

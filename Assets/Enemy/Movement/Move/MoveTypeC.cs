@@ -21,9 +21,28 @@ public class MoveTypeC : IMoveBehaviour
             onMoveC.OnComplete(() => { enemyMove.CallLeave(); });
         }
     }
+    public bool CheckMoveStatus()
+    {
+        if (onMoveC.IsPlaying())
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
     public void StopMove()
     {
         if (onMoveC != null && onMoveC.IsPlaying())
             onMoveC.Kill();
+    }
+    public void ParalyzePause()
+    {
+        onMoveC.Pause();
+    }
+    public void ParalyzeRecover()
+    {
+        onMoveC.Play();
     }
 }

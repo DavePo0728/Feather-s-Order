@@ -10,10 +10,14 @@ public class PlayerMove : MonoBehaviour
 {
     [SerializeField]
     CinemachineVirtualCamera playerVCam,SceneVCam;
+    CinemachineFramingTransposer playerVCamFramingTransposer;
     [SerializeField]
     Animator playerAnimator;
     [Space(height: 20)]
 
+    [SerializeField]
+    AudioSource DashAudioSource;
+    AudioClip DashAudioClip;
     [SerializeField]
     float dashForce;
     Rigidbody playerRigidbody;
@@ -30,8 +34,9 @@ public class PlayerMove : MonoBehaviour
     bool canDash = true;
     bool isDashing = false;
     float dashingTime = 0.2f;
-    float dashCooldown = 0.3f;
+    float dashCooldown = 0.2f;
     bool isRotating = false;
+    AudioSource dashSound;
     [SerializeField]
     List<Material> playerMat;
     [SerializeField]
@@ -62,7 +67,7 @@ public class PlayerMove : MonoBehaviour
         playerRigidbody = GetComponent<Rigidbody>();
         zSpeed = oriZSpeed;
         playerSlashAttack = GetComponent<PlayerSlashAttack>();
-
+        playerVCamFramingTransposer = playerVCam.GetCinemachineComponent<CinemachineFramingTransposer>();
         //manualLean = false;
     }
     // Start is called before the first frame update
@@ -85,6 +90,7 @@ public class PlayerMove : MonoBehaviour
             {
                 rotateStartTime = Time.time;
                 StartCoroutine(OnDash());
+                DashAudioSource.Play();
                 //currentEnergy -= 20;
                 //UpdateUI();
                // timeSinceLastEnergyUse = 0f;   // 重置時間計數器
@@ -126,7 +132,7 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, 90*leanInput), lerpTime * Time.deltaTime * lerpMultiplier);
+        
         //transform.Translate(Vector3.forward* zSpeed * Time.deltaTime);
         //Debug.Log(movementInput.x);
         //playerRigidbody.velocity = Vector3.right * moveSpeed;
@@ -135,6 +141,7 @@ public class PlayerMove : MonoBehaviour
         // Normal Movement
         if (!isDashing)
         {
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, 90 * leanInput), lerpTime * Time.deltaTime * lerpMultiplier);
             if (movementInput.x>0.2f||movementInput.y>0.2f|| movementInput.x < -0.2f || movementInput.y < -0.2f)
             {
                 movement = new Vector3(movementInput.x, movementInput.y, 0);
@@ -145,7 +152,6 @@ public class PlayerMove : MonoBehaviour
             }
             if(!playerSlashAttack.isSlashDashing)
             {
-
                 playerRigidbody.velocity = new Vector3(movement.x * moveHspeed, movement.y * moveVspeed, 0);
                 playerRigidbody.velocity = Vector3.ClampMagnitude(playerRigidbody.velocity, maxVelocity);
                 //Debug.Log(playerRigidbody.velocity);
@@ -183,7 +189,7 @@ public class PlayerMove : MonoBehaviour
             if (isRotating)
             {
                 //Debug.Log(leanInput);
-                initialRotation = transform.rotation.ToEulerAngles();
+                //initialRotation = transform.rotation.EulerAngles();
                 transform.rotation = Quaternion.Euler(0, 0, 0);
                 float elapsedTime = Time.time - rotateStartTime;
                 float angle = Mathf.Lerp(transform.rotation.z, 360f, Mathf.SmoothStep(0f, 1f, elapsedTime / rotationDuration));
@@ -211,6 +217,18 @@ public class PlayerMove : MonoBehaviour
         canDash = false;
         isDashing = true;
         isRotating = true;
+        playerVCamFramingTransposer.m_SoftZoneWidth = 0.8f;
+        playerVCamFramingTransposer.m_XDamping = 1.2f;
+        leanAngle = 75f;
+        //if (playerRigidbody.velocity.x < -0.2f)
+        //{
+        //    transform.DORotate(new Vector3(0, 0, 40f), 0.05f);
+        //}
+        //else if (playerRigidbody.velocity.x > 0.2f)
+        //{
+        //    transform.DORotate(new Vector3(0, 0, -40f), 0.05f);
+        //}
+        
         if (playerRigidbody.velocity.x != 0)
         {
             playerRigidbody.AddForce(playerRigidbody.velocity * dashForce, ForceMode.Impulse);
@@ -218,6 +236,9 @@ public class PlayerMove : MonoBehaviour
         
         yield return new WaitForSeconds(dashingTime);
         isDashing = false;
+        DOTween.To(() => leanAngle, x => leanAngle = x, 30f, 1.5f).Play();
+        DOTween.To(() => playerVCamFramingTransposer.m_XDamping, x => playerVCamFramingTransposer.m_XDamping = x, 0.4f, 0.4f).Play();
+        DOTween.To(() => playerVCamFramingTransposer.m_SoftZoneWidth, x => playerVCamFramingTransposer.m_SoftZoneWidth = x, 0.4f, 0.4f).Play();
         StartCoroutine(StartCountdown());
         yield return new WaitForSeconds(dashCooldown);
         canDash = true;

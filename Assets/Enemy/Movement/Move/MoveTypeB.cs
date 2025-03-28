@@ -24,9 +24,28 @@ public class MoveTypeB : IMoveBehaviour
             }
         }
     }
+    public bool CheckMoveStatus()
+    {
+        if (onMoveB.IsPlaying())
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
     public void StopMove()
     {
         if (onMoveB != null && onMoveB.IsPlaying())
             onMoveB.Kill();
+    }
+    public void ParalyzePause()
+    {
+        onMoveB.Pause();
+    }
+    public void ParalyzeRecover()
+    {
+        onMoveB.Play();
     }
 }

@@ -34,8 +34,7 @@ public class PlayerCleanseShot : MonoBehaviour
             //Debug.Log(chargeTimer);
         }
         else
-        {
-            
+        { 
             chargeTimer = 0;
         }
         if (chargeTimer >= maxChargeTime)

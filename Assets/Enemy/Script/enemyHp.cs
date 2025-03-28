@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class enemyHp : MonoBehaviour
 {
-    
+    [SerializeField]
+    EnemyMove enemyMove;
     [SerializeField]
     public float maxHp;
     [SerializeField]
@@ -18,7 +19,9 @@ public class enemyHp : MonoBehaviour
     GameObject corruptionExplosionEffect;
     public bool corrupted;
     bool corruption;
-    float CorruptionDamageModifier;
+    float corruptionDamageModifier;
+    public float MaxcorruptionStack;
+    float currentCorruptionStack;
 
     [Header("Shield Data")]
     [SerializeField]
@@ -73,6 +76,7 @@ public class enemyHp : MonoBehaviour
         shieldHitAudioClip = Resources.Load<AudioClip>("Sound/ShieldHitSound");
         shieldBreakAudioClip = Resources.Load<AudioClip>("Sound/ShieldBreakSound");
         hitimpactAudioClip = Resources.Load<AudioClip>("Sound/HitImpactSound");
+        currentCorruptionStack = 0;
     }
     // Start is called before the first frame update
     void Start()
@@ -87,7 +91,7 @@ public class enemyHp : MonoBehaviour
             corruption = false;
             corruptEffect.SetActive(false);
         }
-        CorruptionDamageModifier = 0.5f;
+        corruptionDamageModifier = 0.5f;
         //ShieldDamageModifier = 1.5f;
         currentHp = maxHp;
         UpdateUI();
@@ -116,6 +120,7 @@ public class enemyHp : MonoBehaviour
     {
         if (haveshield)     //打到盾無效
         {
+            PlayShieldHitSound();
             Debug.Log("Source :"+gameObject.name+" "+"ShieldBlock");
             //播抵消特效
             return;
@@ -125,9 +130,9 @@ public class enemyHp : MonoBehaviour
             if(corruption == true)      //如果污穢未被解除
             {
                 Playhitimpact();
-                currentHp -= damage * CorruptionDamageModifier;
+                currentHp -= damage * corruptionDamageModifier;
                 UpdateUI();
-                Debug.Log("Source :" + gameObject.name + " " + "CorruptionDamage:"+ damage * CorruptionDamageModifier);
+                Debug.Log("Source :" + gameObject.name + " " + "CorruptionDamage:"+ damage * corruptionDamageModifier);
                 if (currentHp <= 0)
                 {
                     DeathEffect();
@@ -164,6 +169,7 @@ public class enemyHp : MonoBehaviour
     {
         if (currentShieldHp > 0)
         {
+            PlayShieldHitSound();
             currentShieldHp -= damage;
             UpdateUI();
             if (shieldEffect != null && currentShieldHp <= 0)
@@ -194,9 +200,9 @@ public class enemyHp : MonoBehaviour
                 else
                 {
                     Playhitimpact();
-                    currentHp -= damage * CorruptionDamageModifier;
+                    currentHp -= damage * corruptionDamageModifier;
                     UpdateUI();
-                    Debug.Log("Source :" + gameObject.name + " " + "CorruptionNotClean"+ damage * CorruptionDamageModifier);
+                    Debug.Log("Source :" + gameObject.name + " " + "CorruptionNotClean"+ damage * corruptionDamageModifier);
                     if (currentHp <= 0)
                     {
                         DeathEffect();
@@ -280,11 +286,16 @@ public class enemyHp : MonoBehaviour
     }
     IEnumerator CleanseCorruption()
     {
-        corruption = false;
-        corruptEffect.SetActive(false);
-        yield return new WaitForSeconds(10); 
-        corruptEffect.SetActive(true);
-        corruption = true;
+        currentCorruptionStack++;
+        if (currentCorruptionStack>=MaxcorruptionStack)
+        {
+            corruption = false;
+            corruptEffect.SetActive(false);
+            StartCoroutine(enemyMove.Paralyze());
+            yield return new WaitForSeconds(enemyMove.paralyzeTime);
+            corruptEffect.SetActive(true);
+            corruption = true;
+        }
     }
     void UpdateUI()
     {

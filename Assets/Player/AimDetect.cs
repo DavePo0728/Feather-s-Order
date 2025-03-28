@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,6 +24,7 @@ public class AimDetect : MonoBehaviour
         {
             playerAim.lockedEnemy = other.gameObject;
             playerAim.isLocked = true;
+            playerAim.CallFarReactive();
             //print("Locked");
         }
     }

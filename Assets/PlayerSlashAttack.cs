@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Unity.UI;
+using UnityEngine.UI;
 
 public class PlayerSlashAttack : MonoBehaviour
 {
@@ -30,6 +30,8 @@ public class PlayerSlashAttack : MonoBehaviour
     CinemachineImpulseSource impulseSource;
     [SerializeField]
     CinemachineFollowZoom followZoom;
+    [SerializeField]
+    GameObject flashImage;
     int hitCounter;
     float SlashTimer;
     float slashCD = 0.2f;
@@ -73,7 +75,7 @@ public class PlayerSlashAttack : MonoBehaviour
                 PlayerOriginalPos.z = 13f;
                 DashToEnemy();
                 playerAim.aimmingImage.SetActive(false);
-                playerAim.lockImage.SetActive(false);
+                playerAim.FarLockImage.SetActive(false);
             }
             else
             {
@@ -106,6 +108,8 @@ public class PlayerSlashAttack : MonoBehaviour
                     slashAudio.Play();
                     slashCollider.enabled = true;
                     Invoke("InactiveCollider", 0.1f);
+                    flashImage.SetActive(true);
+                    Invoke("InactiveFlashImage", 0.01f);
                     slashEffectRedObject.SetActive(true);
                     slashEffectRed.Play();
                     hitCounter = 0;
@@ -126,12 +130,18 @@ public class PlayerSlashAttack : MonoBehaviour
         slashAudio.Play();
         slashCollider.enabled = true;
         Invoke("InactiveCollider", 0.1f);
+        flashImage.SetActive(true);
+        Invoke("InactiveFlashImage", 0.02f);
         slashEffectYellowObject.SetActive(true);
         slashEffectYellow.Play();
         Shake(0.5f);
         Time.timeScale = 0.1f;
         Invoke("TimeScaleNormal", 0.01f);
         Invoke("DelayDetect",0.05f);
+    }
+    void InactiveFlashImage()
+    {
+        flashImage.SetActive(false);
     }
     void DelayDetect()
     {
@@ -211,7 +221,7 @@ public class PlayerSlashAttack : MonoBehaviour
     {
         isSlashDashing = true;
         Tween tweener1, tweenCam;
-        tweener1 = playerRigidbody.DOMoveZ(PlayerOriginalPos.z, 1f).OnStart(() => tween1Playing = true);
+        tweener1 = playerRigidbody.DOMoveZ(PlayerOriginalPos.z, 1f).OnStart(() => { tween1Playing = true; isAttacking = false; });
         tweenCam = playerVCam.transform.DOLocalRotateQuaternion(Quaternion.Euler(1.8f, 0, 0), 1f).OnStart(() => camTweenPlaying = true).OnComplete(() => camTweenPlaying = false); followZoom.m_Width = 50;
         if (!tween1Playing)
         {
@@ -229,7 +239,7 @@ public class PlayerSlashAttack : MonoBehaviour
             //playerVCam.m_Lens.FieldOfView = 30;
             //transform.position = new Vector3(transform.position.x, transform.position.y, PlayerOriginalPos.z);
             isSlashDashing = false;
-            isAttacking = false;
+            
             playerAim.aimmingImage.SetActive(true);
             shieldEffect.SetActive(true);  
         });

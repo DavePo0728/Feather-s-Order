@@ -28,6 +28,8 @@ public class PlayerHP : MonoBehaviour
     [SerializeField]
     bool debug;
 
+    AudioSource hurtAudioSource;
+    AudioClip hurtClip1, hurtClip2;
     //[SerializeField]
     //GameObject body;
     //bool isRotating= false;
@@ -41,6 +43,9 @@ public class PlayerHP : MonoBehaviour
     {
         Time.timeScale = 1;
         currentMp = 0;
+        hurtAudioSource = GetComponent<AudioSource>();
+        hurtClip1 = Resources.Load<AudioClip>("Sound/PlayerGetHit01");
+        hurtClip2 = Resources.Load<AudioClip>("Sound/PlayerGetHit02");
     }
 
     // Start is called before the first frame update
@@ -68,6 +73,16 @@ public class PlayerHP : MonoBehaviour
     }
     public void getHit(int damage)
     {
+        int temp = Random.Range(0, 2);
+        switch (temp)
+        {
+            case 0:
+                hurtAudioSource.PlayOneShot(hurtClip1);
+                break;
+            case 1:
+                hurtAudioSource.PlayOneShot(hurtClip2);
+                break;
+        }
         Vibrate(0.5f,0.5f,0.1f);
         playerHp -= damage;
         UpdateHpUI();

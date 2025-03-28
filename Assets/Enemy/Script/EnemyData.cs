@@ -21,9 +21,12 @@ public enum BulletType
     [Header("Basic Data")]
     public GameObject enemy;
     public float hp;
+    public float lifeTime;
     public bool haveShield;
     public float shieldHp;
     public bool corrupted;
+    public float corruptionStack;
+    public float paralyzeTime;
     [Header("Spawn Data")]
     public Vector3 spawnPosition;
     public Vector3 endPosition;
