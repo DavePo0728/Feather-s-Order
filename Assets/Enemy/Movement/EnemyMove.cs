@@ -11,7 +11,9 @@ public class EnemyMove : MonoBehaviour
     IMoveBehaviour moveBehavior;
     ILeaveBehaviour leaveBehavior;
     //[SerializeField]
-    //public float moveSpeed;
+    public float entryTime;
+    public float moveTime;
+    public float leaveTime;
     public float lifeTime;
     [SerializeField]
     public float paralyzeTime;

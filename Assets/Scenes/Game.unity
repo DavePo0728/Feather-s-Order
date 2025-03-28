@@ -123457,6 +123457,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0e2aaaf9ec7f1ed4aad2db3de1a6a3ac, type: 2}
   - {fileID: 11400000, guid: 90474ee0e9acf6342875b459521b81c0, type: 2}
   - {fileID: 11400000, guid: 7fd11cebd423bb945a46e2ecb48a302a, type: 2}
+  - {fileID: 11400000, guid: e6b2c5500900d55488c49776bbc7ab73, type: 2}
 --- !u!4 &2096026180
 Transform:
   m_ObjectHideFlags: 0
@@ -210280,6 +210281,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cd254f68e1e7454eb298a5a6627ef8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  entryTime: 0
+  moveTime: 0
+  leaveTime: 0
   lifeTime: 10
   paralyzeTime: 3
   startPoint: {x: 0, y: 0, z: 0}
@@ -502301,6 +502305,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cd254f68e1e7454eb298a5a6627ef8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  entryTime: 0
+  moveTime: 0
+  leaveTime: 0
   lifeTime: 10
   paralyzeTime: 3
   startPoint: {x: 0, y: 0, z: 0}
@@ -556912,6 +556919,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cd254f68e1e7454eb298a5a6627ef8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  entryTime: 0
+  moveTime: 0
+  leaveTime: 0
   lifeTime: 10
   paralyzeTime: 3
   startPoint: {x: 0, y: 0, z: 0}
@@ -556942,6 +556952,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cd254f68e1e7454eb298a5a6627ef8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  entryTime: 0
+  moveTime: 0
+  leaveTime: 0
   lifeTime: 10
   paralyzeTime: 3
   startPoint: {x: 0, y: 0, z: 0}
@@ -710417,6 +710430,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cd254f68e1e7454eb298a5a6627ef8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  entryTime: 0
+  moveTime: 0
+  leaveTime: 0
   lifeTime: 10
   paralyzeTime: 3
   startPoint: {x: 0, y: 0, z: 0}

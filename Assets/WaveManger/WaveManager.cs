@@ -198,6 +198,9 @@ public class WaveManager : MonoBehaviour
         enemyHp enemyHp = temp.GetComponent<enemyHp>();
         enemyHp.maxHp = enemyData.data.hp;
         enemyMove.lifeTime = enemyData.data.lifeTime;
+        enemyMove.entryTime = enemyData.data.entryTime;
+        enemyMove.moveTime = enemyData.data.moveTime;
+        enemyMove.leaveTime = enemyData.data.leaveTime;
         enemyMove.paralyzeTime = enemyData.data.paralyzeTime;
         enemyHp.corrupted = enemyData.data.corrupted;
         enemyHp.haveshield = enemyData.data.haveShield;
@@ -229,6 +232,9 @@ public class WaveManager : MonoBehaviour
         enemyHp enemyHp = temp.GetComponent<enemyHp>();
         enemyHp.maxHp = enemyData.data.hp;
         enemyMove.lifeTime = enemyData.data.lifeTime;
+        enemyMove.entryTime = enemyData.data.entryTime;
+        enemyMove.moveTime = enemyData.data.moveTime;
+        enemyMove.leaveTime = enemyData.data.leaveTime;
         enemyMove.paralyzeTime = enemyData.data.paralyzeTime;
         enemyHp.corrupted = enemyData.data.corrupted;
         enemyHp.haveshield = enemyData.data.haveShield;
@@ -261,6 +267,9 @@ public class WaveManager : MonoBehaviour
         enemyHp enemyHp = temp.GetComponent<enemyHp>();
         enemyHp.maxHp = enemyData.data.hp;
         enemyMove.lifeTime = enemyData.data.lifeTime;
+        enemyMove.entryTime = enemyData.data.entryTime;
+        enemyMove.moveTime = enemyData.data.moveTime;
+        enemyMove.leaveTime = enemyData.data.leaveTime;
         enemyMove.paralyzeTime = enemyData.data.paralyzeTime;
         enemyHp.corrupted = enemyData.data.corrupted;
         enemyHp.haveshield = enemyData.data.haveShield;
@@ -325,11 +334,13 @@ public class WaveManager : MonoBehaviour
         */
     IEnumerator TestSpawn()
     {
-        NewSpawn(enemyDatas[0],new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());   ///MoveTypeA  Or   MovetypeD
+        NewSpawn(enemyDatas[0],new EntryTypeA(), new MoveTypeA(), new LeaveTypeA());   ///MoveTypeA  Or   MovetypeD
+
+        NewSpawn(enemyDatas[3],new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());   ///MoveTypeA  Or   MovetypeD
         yield return new WaitForSeconds(0.1f);
-        NewSpawnB(enemyDatas[1], new EntryTypeA(), new MoveTypeB(), new LeaveTypeA());   //MoveTypeB
+        //NewSpawnB(enemyDatas[1], new EntryTypeA(), new MoveTypeB(), new LeaveTypeA());   //MoveTypeB
         yield return new WaitForSeconds(0.1f);
-        NewSpawnC(enemyDatas[2], new EntryTypeA(), new MoveTypeC(), new LeaveTypeA());   //MoveTypeC
+        //NewSpawnC(enemyDatas[2], new EntryTypeA(), new MoveTypeC(), new LeaveTypeA());   //MoveTypeC
     }
     IEnumerator SpawnGroup1_1()
     {

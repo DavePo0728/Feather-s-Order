@@ -16,7 +16,7 @@ public class MoveTypeC : IMoveBehaviour
             //{
             //    onMoveC = enemyMove.transform.DOMove(enemyMove.moveC_PathList[i], 2f).SetEase(Ease.Linear).SetDelay(pointWaitTime);
             //}
-            onMoveC = enemyMove.transform.DOPath(enemyMove.moveC_PathList, 8).SetEase(Ease.Linear);
+            onMoveC = enemyMove.transform.DOPath(enemyMove.moveC_PathList, enemyMove.moveTime).SetEase(Ease.Linear);
             onMoveC.Play();
             onMoveC.OnComplete(() => { enemyMove.CallLeave(); });
         }

@@ -20,6 +20,9 @@ public enum BulletType
 {
     [Header("Basic Data")]
     public GameObject enemy;
+    public float entryTime;
+    public float moveTime;
+    public float leaveTime;
     public float hp;
     public float lifeTime;
     public bool haveShield;
