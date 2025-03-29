@@ -32,6 +32,7 @@ public class SimpleShoot : MonoBehaviour
     {
         timeBetweenShots = 1 / (rpm / 60.0f);
         blackRedBulletPrefab = Resources.Load<GameObject>("Prefabs/Enemy/Bullet/BlackRedBullet");
+        canShoot = true;
         //StartCoroutine(AimToPlayer());
     }
     public void SetGun(int rpm)
@@ -41,23 +42,26 @@ public class SimpleShoot : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        timeSinceLastShot += Time.deltaTime;
-        if (timeSinceLastShot >= timeBetweenShots)
+        if (canShoot && shootWaveCount < maxShootWave)
         {
-            switch(bulletType)
+            timeSinceLastShot += Time.deltaTime;
+            if (timeSinceLastShot >= timeBetweenShots)
             {
-                case BulletType.Black:
-                    ShootBlackBullet();
-                    break;
-                case BulletType.Red:
-                    ShootRedBullet();
-                    break;
-                case BulletType.Purple:
-                    ShootPurpleBullet();
-                    break;
-                case BulletType.BlackRed:
-                    ShootBlackRedBullet();
-                    break;
+                switch (bulletType)
+                {
+                    case BulletType.Black:
+                        ShootBlackBullet();
+                        break;
+                    case BulletType.Red:
+                        ShootRedBullet();
+                        break;
+                    case BulletType.Purple:
+                        ShootPurpleBullet();
+                        break;
+                    case BulletType.BlackRed:
+                        ShootBlackRedBullet();
+                        break;
+                }
             }
         }
     }
@@ -76,6 +80,11 @@ public class SimpleShoot : MonoBehaviour
             BlackBulletMove bulletMove = bullet.GetComponent<BlackBulletMove>();
             bulletMove.Initial();
             timeSinceLastShot = 0.0f;
+            shotCount++; // 糤璸计竟
+            if (shotCount >= maxShots)
+            {
+                StartCoroutine(ShootRoutine());
+            }
         }
     }
     void ShootRedBullet()
@@ -89,6 +98,11 @@ public class SimpleShoot : MonoBehaviour
             RedBulletMove bulletMove = bullet.GetComponent<RedBulletMove>();
             bulletMove.Initial();
             timeSinceLastShot = 0.0f;
+            shotCount++; // 糤璸计竟
+            if (shotCount >= maxShots)
+            {
+                StartCoroutine(ShootRoutine());
+            }
         }
     }
     void ShootPurpleBullet()
@@ -102,7 +116,19 @@ public class SimpleShoot : MonoBehaviour
             BlackBulletMove bulletMove = bullet.GetComponent<BlackBulletMove>();
             bulletMove.Initial();
             timeSinceLastShot = 0.0f;
+            shotCount++; // 糤璸计竟
+            if (shotCount >= maxShots)
+            {
+                StartCoroutine(ShootRoutine());
+            }
         }
     }
-
+    IEnumerator ShootRoutine()
+    {
+        canShoot = false;
+        shotCount = 0; // 竚璸计竟
+        shootWaveCount++;
+        yield return new WaitForSeconds(shootingCoolDown);
+        canShoot = true;
+    }
 }

@@ -36,7 +36,7 @@ public class TrackShooting : MonoBehaviour
     void Update()
     {
         //Debug.Log(canShoot && shootWaveCount < MaxShootWave);
-        if (canShoot&&(shootWaveCount)<maxShootWave)
+        if (canShoot&&shootWaveCount<maxShootWave)
         {
             timeSinceLastShot += Time.deltaTime;
             if (timeSinceLastShot >= timeBetweenShots)

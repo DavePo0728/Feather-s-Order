@@ -16679,11 +16679,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7db2a10030882344bbfcd749dd69f931, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyMove: {fileID: 0}
   maxHp: 10
   currentHp: 0
   corruptEffect: {fileID: 0}
   corruptionExplosionEffect: {fileID: 0}
   corrupted: 0
+  MaxcorruptionStack: 0
   shieldEffect: {fileID: 0}
   shieldExplosionEffect: {fileID: 0}
   haveshield: 0
@@ -16732,13 +16734,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cd254f68e1e7454eb298a5a6627ef8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 0
+  entryTime: 0
+  moveTime: 0
+  leaveTime: 0
   lifeTime: 10
+  paralyzeTime: 0
   startPoint: {x: 0, y: 0, z: 0}
   endPoint: {x: 0, y: 0, z: 0}
   leavePoint: {x: 0, y: 0, z: 0}
   curveHeight: 0
-  enterTime: 1
   stayTime: 4
   pointWaitTime: 0
   originPos: {x: 0, y: 0, z: 0}
@@ -17091,13 +17095,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6711691231238446872}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5830263055534267372}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &7376926804862026642
 MonoBehaviour:
   m_ObjectHideFlags: 0

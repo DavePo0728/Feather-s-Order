@@ -10,19 +10,16 @@ public class EnemyMove : MonoBehaviour
     IEntryBehaviour entryBehavior;
     IMoveBehaviour moveBehavior;
     ILeaveBehaviour leaveBehavior;
-    //[SerializeField]
     public float entryTime;
     public float moveTime;
     public float leaveTime;
     public float lifeTime;
-    [SerializeField]
     public float paralyzeTime;
     protected float angle;
     public Vector3 startPoint;
     public Vector3 endPoint;
     public Vector3 leavePoint;
     public float curveHeight;
-    public float enterTime;
     public float stayTime;
     public float pointWaitTime;
     public Vector3 originPos;
@@ -39,6 +36,7 @@ public class EnemyMove : MonoBehaviour
     public List<GameObject> gunList;
     GameObject activeGun, activeGun1;
     EnemyData testData;
+    GunData testGunData;
     //public bool canShoot = false;
     public enum BulletType
     {
@@ -75,13 +73,14 @@ public class EnemyMove : MonoBehaviour
         }
         else
         {
-            testData = Resources.Load<EnemyData>("EnemyData/A01");
+            testData = Resources.Load<EnemyData>("EnemyData/Test");
+            testGunData = Resources.Load<GunData>("GunData/Test");
             gunList = new List<GameObject>();
             for (int i = 0; i < transform.GetChild(4).childCount; i++)
             {
                 gunList.Add(transform.GetChild(4).GetChild(i).gameObject);
             }
-            ActiveGun(testData.data.gunIndex,testData.data.rpm,testData.data.bulletAmount,0,testData.data.shootingCoolDown, (EnemyMove.BulletType)testData.data.bulletType,99);
+            ActiveGun(testGunData.data.gunIndex, testGunData.data.rpm, testGunData.data.bulletAmount, testGunData.data.spinSpeed, testGunData.data.shootingCoolDown, (EnemyMove.BulletType)testGunData.data.bulletType, testGunData.data.MaxShootWave);
         }
     }
     // Start is called before the first frame update
@@ -95,6 +94,7 @@ public class EnemyMove : MonoBehaviour
         }
         else
         {
+            moveTime = 1f;
             if (activeGun != null)
                 activeGun.SetActive(true);
             originPos = transform.position;

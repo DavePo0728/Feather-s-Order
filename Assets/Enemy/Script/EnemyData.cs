@@ -30,21 +30,4 @@ public enum BulletType
     public bool corrupted;
     public float corruptionStack;
     public float paralyzeTime;
-    [Header("Spawn Data")]
-    public Vector3 spawnPosition;
-    public Vector3 endPosition;
-    public Vector3 LeavePositon;
-    public float curveHeight;
-    public int gunIndex;
-    public float rpm;
-    public float shootingCoolDown;
-    public float bulletAmount;
-    public float spinSpeed;
-    public BulletType bulletType;
-    public float MaxShootWave;
-    [Header("typeB")]
-    public int pathNum;
-    [Header("typeC")]
-    public int customPathNum;
-    public float pointWaitTime;
 }

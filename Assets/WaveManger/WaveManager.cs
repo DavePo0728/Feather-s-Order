@@ -23,7 +23,14 @@ public class WaveManager : MonoBehaviour
     [SerializeField]
     bool debug = false;
     [SerializeField]
-    EnemyData[] enemyDatas;
+    EnemyDataList enemyDataList;
+    EnemyData[] enemyDatas => enemyDataList.enemyDatas;
+    [SerializeField]
+    SpawnDataList spawnDataList;
+    SpawnData[] spawnDatas => spawnDataList.spawnDatas;
+    [SerializeField]
+    GunDataList gunDataList;
+    GunData[] gunDatas =>gunDataList.gunDatas;
     public enum BulletType
     {
         Black,
@@ -188,11 +195,11 @@ public class WaveManager : MonoBehaviour
         ILeaveBehaviour leave = leaveBehaviour;
         enemyMove.SetBehaviours(entry, move, leave);
     }
-    void NewSpawn(EnemyData enemyData,IEntryBehaviour entryBehaviour, IMoveBehaviour moveABehaviour, ILeaveBehaviour leaveBehaviour)
+    void NewSpawn(EnemyData enemyData,SpawnData spawnData,GunData gunData,IEntryBehaviour entryBehaviour, IMoveBehaviour moveABehaviour, ILeaveBehaviour leaveBehaviour)
     {
-        Vector3 spawnPoint = Vector3PointGenerator.instance.GetPoint((int)enemyData.data.spawnPosition.x, (int)enemyData.data.spawnPosition.y, (int)enemyData.data.spawnPosition.z);
-        Vector3 endPoint = Vector3PointGenerator.instance.GetPoint((int)enemyData.data.endPosition.x, (int)enemyData.data.endPosition.y, (int)enemyData.data.endPosition.z);
-        Vector3 leavePoint = Vector3PointGenerator.instance.GetPoint((int)enemyData.data.LeavePositon.x, (int)enemyData.data.LeavePositon.y, (int)enemyData.data.LeavePositon.z);
+        Vector3 spawnPoint = Vector3PointGenerator.instance.GetPoint((int)spawnData.data.spawnPosition.x, (int)spawnData.data.spawnPosition.y, (int)spawnData.data.spawnPosition.z);
+        Vector3 endPoint = Vector3PointGenerator.instance.GetPoint((int)spawnData.data.endPosition.x, (int)spawnData.data.endPosition.y, (int)spawnData.data.endPosition.z);
+        Vector3 leavePoint = Vector3PointGenerator.instance.GetPoint((int)spawnData.data.LeavePositon.x, (int)spawnData.data.LeavePositon.y, (int)spawnData.data.LeavePositon.z);
         GameObject temp = Instantiate(enemyData.data.enemy, spawnPoint, Quaternion.identity);
         EnemyMove enemyMove = temp.GetComponent<EnemyMove>();
         enemyHp enemyHp = temp.GetComponent<enemyHp>();
@@ -201,7 +208,7 @@ public class WaveManager : MonoBehaviour
         enemyMove.entryTime = enemyData.data.entryTime;
         enemyMove.moveTime = enemyData.data.moveTime;
         enemyMove.leaveTime = enemyData.data.leaveTime;
-        enemyMove.pointWaitTime = enemyData.data.pointWaitTime;
+        enemyMove.pointWaitTime = spawnData.data.pointWaitTime;
         enemyMove.paralyzeTime = enemyData.data.paralyzeTime;
         enemyHp.corrupted = enemyData.data.corrupted;
         enemyHp.haveshield = enemyData.data.haveShield;
@@ -209,25 +216,25 @@ public class WaveManager : MonoBehaviour
         enemyHp.MaxcorruptionStack = enemyData.data.corruptionStack;
         enemyMove.endPoint = endPoint;
         enemyMove.leavePoint = leavePoint;
-        if(enemyData.data.curveHeight == 0)
+        if(spawnData.data.curveHeight == 0)
         {
-            enemyData.data.curveHeight = Random.Range(-100f, 100f);
+            spawnData.data.curveHeight = Random.Range(-100f, 100f);
         }
         else
         {
-            enemyMove.curveHeight = enemyData.data.curveHeight;
+            enemyMove.curveHeight = spawnData.data.curveHeight;
         }
         IEntryBehaviour entry = entryBehaviour;
         IMoveBehaviour move = moveABehaviour;
         ILeaveBehaviour leave = leaveBehaviour;
         enemyMove.SetBehaviours(entry, move, leave);
-        enemyMove.ActiveGun(enemyData.data.gunIndex, enemyData.data.rpm, enemyData.data.bulletAmount, enemyData.data.spinSpeed, enemyData.data.shootingCoolDown, (EnemyMove.BulletType)enemyData.data.bulletType, enemyData.data.MaxShootWave);
+        enemyMove.ActiveGun(gunData.data.gunIndex, gunData.data.rpm, gunData.data.bulletAmount, gunData.data.spinSpeed, gunData.data.shootingCoolDown, (EnemyMove.BulletType)gunData.data.bulletType, gunData.data.MaxShootWave);
     }
-    void NewSpawnB(EnemyData enemyData, IEntryBehaviour entryBehaviour, IMoveBehaviour moveABehaviour, ILeaveBehaviour leaveBehaviour)
+    void NewSpawnB(EnemyData enemyData, SpawnData spawnData, GunData gunData, IEntryBehaviour entryBehaviour, IMoveBehaviour moveABehaviour, ILeaveBehaviour leaveBehaviour)
     {
-        Vector3 spawnPoint = Vector3PointGenerator.instance.GetPoint((int)enemyData.data.spawnPosition.x, (int)enemyData.data.spawnPosition.y, (int)enemyData.data.spawnPosition.z);
-        Vector3 endPoint = Vector3PointGenerator.instance.GetPoint((int)enemyData.data.endPosition.x, (int)enemyData.data.endPosition.y, (int)enemyData.data.endPosition.z);
-        Vector3 leavePoint = Vector3PointGenerator.instance.GetPoint((int)enemyData.data.LeavePositon.x, (int)enemyData.data.LeavePositon.y, (int)enemyData.data.LeavePositon.z);
+        Vector3 spawnPoint = Vector3PointGenerator.instance.GetPoint((int)spawnData.data.spawnPosition.x, (int)spawnData.data.spawnPosition.y, (int)spawnData.data.spawnPosition.z);
+        Vector3 endPoint = Vector3PointGenerator.instance.GetPoint((int)spawnData.data.endPosition.x, (int)spawnData.data.endPosition.y, (int)spawnData.data.endPosition.z);
+        Vector3 leavePoint = Vector3PointGenerator.instance.GetPoint((int)spawnData.data.LeavePositon.x, (int)spawnData.data.LeavePositon.y, (int)spawnData.data.LeavePositon.z);
         GameObject temp = Instantiate(enemyData.data.enemy, spawnPoint, Quaternion.identity);
         EnemyMove enemyMove = temp.GetComponent<EnemyMove>();
         enemyHp enemyHp = temp.GetComponent<enemyHp>();
@@ -243,26 +250,26 @@ public class WaveManager : MonoBehaviour
         enemyHp.MaxcorruptionStack = enemyData.data.corruptionStack;
         enemyMove.endPoint = endPoint;
         enemyMove.leavePoint = leavePoint;
-        if (enemyData.data.curveHeight == 0)
+        if (spawnData.data.curveHeight == 0)
         {
-            enemyData.data.curveHeight = Random.Range(-100f, 100f);
+            spawnData.data.curveHeight = Random.Range(-100f, 100f);
         }
         else
         {
-            enemyMove.curveHeight = enemyData.data.curveHeight;
+            enemyMove.curveHeight = spawnData.data.curveHeight;
         }
-        enemyMove.moveB_PathList = CurvePathGenerator.pathInstance.GetCurvePath(pathList[enemyData.data.pathNum]);
+        enemyMove.moveB_PathList = CurvePathGenerator.pathInstance.GetCurvePath(pathList[spawnData.data.pathNum]);
         IEntryBehaviour entry = entryBehaviour;
         IMoveBehaviour move = moveABehaviour;
         ILeaveBehaviour leave = leaveBehaviour;
         enemyMove.SetBehaviours(entry, move, leave);
-        enemyMove.ActiveGun(enemyData.data.gunIndex, enemyData.data.rpm, enemyData.data.bulletAmount, enemyData.data.spinSpeed, enemyData.data.shootingCoolDown, (EnemyMove.BulletType)enemyData.data.bulletType, enemyData.data.MaxShootWave);
+        enemyMove.ActiveGun(gunData.data.gunIndex, gunData.data.rpm, gunData.data.bulletAmount, gunData.data.spinSpeed, gunData.data.shootingCoolDown, (EnemyMove.BulletType)gunData.data.bulletType, gunData.data.MaxShootWave);
     }
-    void NewSpawnC(EnemyData enemyData, IEntryBehaviour entryBehaviour, IMoveBehaviour moveABehaviour, ILeaveBehaviour leaveBehaviour)
+    void NewSpawnC(EnemyData enemyData, SpawnData spawnData, GunData gunData, IEntryBehaviour entryBehaviour, IMoveBehaviour moveABehaviour, ILeaveBehaviour leaveBehaviour)
     {
-        Vector3 spawnPoint = Vector3PointGenerator.instance.GetPoint((int)enemyData.data.spawnPosition.x, (int)enemyData.data.spawnPosition.y, (int)enemyData.data.spawnPosition.z);
-        Vector3 endPoint = Vector3PointGenerator.instance.GetPoint((int)enemyData.data.endPosition.x, (int)enemyData.data.endPosition.y, (int)enemyData.data.endPosition.z);
-        Vector3 leavePoint = Vector3PointGenerator.instance.GetPoint((int)enemyData.data.LeavePositon.x, (int)enemyData.data.LeavePositon.y, (int)enemyData.data.LeavePositon.z);
+        Vector3 spawnPoint = Vector3PointGenerator.instance.GetPoint((int)spawnData.data.spawnPosition.x, (int)spawnData.data.spawnPosition.y, (int)spawnData.data.spawnPosition.z);
+        Vector3 endPoint = Vector3PointGenerator.instance.GetPoint((int)spawnData.data.endPosition.x, (int)spawnData.data.endPosition.y, (int)spawnData.data.endPosition.z);
+        Vector3 leavePoint = Vector3PointGenerator.instance.GetPoint((int)spawnData.data.LeavePositon.x, (int)spawnData.data.LeavePositon.y, (int)spawnData.data.LeavePositon.z);
         GameObject temp = Instantiate(enemyData.data.enemy, spawnPoint, Quaternion.identity);
         EnemyMove enemyMove = temp.GetComponent<EnemyMove>();
         enemyHp enemyHp = temp.GetComponent<enemyHp>();
@@ -278,22 +285,22 @@ public class WaveManager : MonoBehaviour
         enemyHp.MaxcorruptionStack = enemyData.data.corruptionStack;
         enemyMove.endPoint = endPoint;
         enemyMove.leavePoint = leavePoint;
-        if (enemyData.data.curveHeight == 0)
+        if (spawnData.data.curveHeight == 0)
         {
-            enemyData.data.curveHeight = Random.Range(-100f, 100f);
+            spawnData.data.curveHeight = Random.Range(-100f, 100f);
         }
         else
         {
-            enemyMove.curveHeight = enemyData.data.curveHeight;
+            enemyMove.curveHeight = spawnData.data.curveHeight;
         }
-        CustomPathData path = customPathDataList[enemyData.data.customPathNum];
+        CustomPathData path = customPathDataList[spawnData.data.customPathNum];
         enemyMove.moveC_PathList = Vector3PointGenerator.instance.GetMoveCPathList(path.pathX.Count, path);
-        enemyMove.pointWaitTime = enemyData.data.pointWaitTime;
+        enemyMove.pointWaitTime = spawnData.data.pointWaitTime;
         IEntryBehaviour entry = entryBehaviour;
         IMoveBehaviour move = moveABehaviour;
         ILeaveBehaviour leave = leaveBehaviour;
         enemyMove.SetBehaviours(entry, move, leave);
-        enemyMove.ActiveGun(enemyData.data.gunIndex, enemyData.data.rpm, enemyData.data.bulletAmount, enemyData.data.spinSpeed, enemyData.data.shootingCoolDown, (EnemyMove.BulletType)enemyData.data.bulletType, enemyData.data.MaxShootWave);
+        enemyMove.ActiveGun(gunData.data.gunIndex, gunData.data.rpm, gunData.data.bulletAmount, gunData.data.spinSpeed, gunData.data.shootingCoolDown, (EnemyMove.BulletType)gunData.data.bulletType, gunData.data.MaxShootWave);
     }
     /*A_01: done
     SpawnEnemy(enemyList[0],5,false,0, Vector3PointGenerator.instance.GetPoint(17, 3, 0), Vector3PointGenerator.instance.GetPoint(17, 3, 0), Vector3PointGenerator.instance.GetPoint(17, 3, 0),
@@ -340,29 +347,29 @@ public class WaveManager : MonoBehaviour
     // MoveTypeE :自訂進停退時間
     IEnumerator TestSpawn()
     {
-        NewSpawn(enemyDatas[0],new EntryTypeA(), new MoveTypeA(), new LeaveTypeA());   ///MoveTypeA  Or   MovetypeD
+        NewSpawn(enemyDatas[0], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeA(), new LeaveTypeA());   ///MoveTypeA  Or   MovetypeD
 
-        //NewSpawn(enemyDatas[3],new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());   ///MoveTypeA  Or   MovetypeD
-        NewSpawn(enemyDatas[4],new EntryTypeA(), new MoveTypeE(), new LeaveTypeA());   ///MoveTypeA  Or   MovetypeD
+        NewSpawn(enemyDatas[3], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());   ///MoveTypeA  Or   MovetypeD
+        NewSpawn(enemyDatas[4], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeE(), new LeaveTypeA());   ///MoveTypeA  Or   MovetypeD
 
         yield return new WaitForSeconds(0.1f);
-        //NewSpawnB(enemyDatas[1], new EntryTypeA(), new MoveTypeB(), new LeaveTypeA());   //MoveTypeB
+        NewSpawnB(enemyDatas[1], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeB(), new LeaveTypeA());   //MoveTypeB
         yield return new WaitForSeconds(0.1f);
-        //NewSpawnC(enemyDatas[2], new EntryTypeA(), new MoveTypeC(), new LeaveTypeA());   //MoveTypeC
+        NewSpawnC(enemyDatas[2], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeC(), new LeaveTypeA());   //MoveTypeC
     }
     IEnumerator SpawnGroup1_1()
     {
-        NewSpawn(enemyDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn(enemyDatas[0], spawnDatas[0],gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.1f);
-        NewSpawn(enemyDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn(enemyDatas[0], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.1f);
-        NewSpawn(enemyDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn(enemyDatas[0], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.1f);
-        NewSpawn(enemyDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn(enemyDatas[0], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.1f);
-        NewSpawn(enemyDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn(enemyDatas[0], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.1f);
-        NewSpawn(enemyDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn(enemyDatas[0], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.1f);
 
      //   SpawnEnemy(enemyList[0], 5,10,false, 0,0, false, 0, Vector3PointGenerator.instance.GetPoint(0,1,1), Vector3PointGenerator.instance.GetPoint(2, 1, 5), Vector3PointGenerator.instance.GetPoint(19, 5, 14),
@@ -385,7 +392,7 @@ public class WaveManager : MonoBehaviour
     }
     IEnumerator SpawnGroup1_2()
     {
-        NewSpawn(enemyDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn(enemyDatas[0], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.1f);
 
         //   SpawnEnemy(enemyList[0], 5, 10, false,0, 0, false, 0, Vector3PointGenerator.instance.GetPoint(19, 1, 1), Vector3PointGenerator.instance.GetPoint(11, 1, 5), Vector3PointGenerator.instance.GetPoint(0, 5, 14),
@@ -408,7 +415,7 @@ public class WaveManager : MonoBehaviour
     }
     IEnumerator SpawnGroup1_3()
     {
-        NewSpawn(enemyDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn(enemyDatas[0], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.1f);
         //   SpawnEnemy(enemyList[0], 5, 10, false,0, 0, false, 0, Vector3PointGenerator.instance.GetPoint(5, 2, 0), Vector3PointGenerator.instance.GetPoint(5, 5, 4), Vector3PointGenerator.instance.GetPoint(0, 5, 14),
         //new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red, 0);
@@ -439,7 +446,7 @@ public class WaveManager : MonoBehaviour
     }
     IEnumerator SpawnGroup1_4()
     {
-        NewSpawn(enemyDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn(enemyDatas[0], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.1f);
         //   SpawnEnemy(enemyList[0], 5, 10, false, 0, 0, false, 0, Vector3PointGenerator.instance.GetPoint(0, 0, 14), Vector3PointGenerator.instance.GetPoint(3, 3, 5), Vector3PointGenerator.instance.GetPoint(19, 5, 0),
         //new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red,2);
@@ -452,7 +459,7 @@ public class WaveManager : MonoBehaviour
     }
     IEnumerator SpawnGroup1_5()
     {
-        NewSpawn(enemyDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn(enemyDatas[0], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.1f);
         //   SpawnEnemy(enemyList[0], 5, 10, false, 0, 0, false, 0, Vector3PointGenerator.instance.GetPoint(19, 9, 14), Vector3PointGenerator.instance.GetPoint(16, 5, 5), Vector3PointGenerator.instance.GetPoint(0, 3, 0),
         //new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red, 2);
@@ -465,7 +472,7 @@ public class WaveManager : MonoBehaviour
     }
     IEnumerator SpawnGroup1_6()
     {
-        NewSpawn(enemyDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn(enemyDatas[0], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.1f);
         //   SpawnEnemy(enemyList[0], 5, 10, false, 0, 0, false, 0, Vector3PointGenerator.instance.GetPoint(0, 3, 0), Vector3PointGenerator.instance.GetPoint(3, 3, 7), Vector3PointGenerator.instance.GetPoint(19, 3, 14),
         //new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red, 2);
@@ -478,7 +485,7 @@ public class WaveManager : MonoBehaviour
     }
     IEnumerator SpawnGroup1_7()
     {
-        NewSpawn(enemyDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn(enemyDatas[0], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.1f);
         //        SpawnEnemy(enemyList[0], 5, 10, false, 0, 0, false, 0, Vector3PointGenerator.instance.GetPoint(17, 3, 0), Vector3PointGenerator.instance.GetPoint(14, 3, 5), Vector3PointGenerator.instance.GetPoint(0, 5, 14),
         //new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red, 2);
@@ -488,7 +495,7 @@ public class WaveManager : MonoBehaviour
     }
     IEnumerator SpawnGroup1_8()
     {
-        NewSpawn(enemyDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn(enemyDatas[0], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.1f);
         //SpawnEnemy(enemyList[0], 5, 10, false, 0, 0, false, 0, Vector3PointGenerator.instance.GetPoint(0, 8, 14), Vector3PointGenerator.instance.GetPoint(4, 3, 4), Vector3PointGenerator.instance.GetPoint(0, 3, 0),
         //new EntryTypeA(), new MoveTypeA(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red,2);
@@ -502,7 +509,7 @@ public class WaveManager : MonoBehaviour
     }
     IEnumerator SpawnGroup1_9()
     {
-        NewSpawn(enemyDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn(enemyDatas[0], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.1f);
         //SpawnEnemy(enemyList[0], 5, 10, false, 0, 0, false, 0, Vector3PointGenerator.instance.GetPoint(15, 3, 14), Vector3PointGenerator.instance.GetPoint(12, 5, 4), Vector3PointGenerator.instance.GetPoint(0, 5, 5),
         //new EntryTypeA(), new MoveTypeA(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red, 2);
@@ -517,7 +524,7 @@ public class WaveManager : MonoBehaviour
     }
     IEnumerator SpawnGroup1_10()
     {
-        NewSpawn(enemyDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn(enemyDatas[0], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.1f);
         //SpawnEnemy(enemyList[0], 5, 10, false, 0, 0, false, 0, Vector3PointGenerator.instance.GetPoint(8, 5, 0), Vector3PointGenerator.instance.GetPoint(8, 5, 5), Vector3PointGenerator.instance.GetPoint(8, 5, 0),
         //new EntryTypeA(), new MoveTypeB(), new LeaveTypeA(), Random.Range(-100f, 100f), pathList[0], 4, 300, 2.5f, 4, 0, BulletType.Purple,5);
@@ -530,7 +537,7 @@ public class WaveManager : MonoBehaviour
     }
     IEnumerator SpawnGroup1_11()
     {
-        NewSpawn(enemyDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn(enemyDatas[0], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.1f);
         //SpawnEnemy(enemyList[0], 5, 10, false, 0, 0, true, 5, Vector3PointGenerator.instance.GetPoint(15, 2, 14), Vector3PointGenerator.instance.GetPoint(8, 5, 5), Vector3PointGenerator.instance.GetPoint(0, 5, 0),
         //new EntryTypeA(), new MoveTypeB(), new LeaveTypeA(), Random.Range(-100f, 100f), pathList[0], 4, 300, 2.5f, 4, 0, BulletType.Purple,5);
@@ -543,7 +550,7 @@ public class WaveManager : MonoBehaviour
     }
     IEnumerator SpawnGroup1_12()
     {
-        NewSpawn(enemyDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn(enemyDatas[0], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.1f);
         //SpawnEnemy(enemyList[0], 5, 10, true,1,3, false, 0, Vector3PointGenerator.instance.GetPoint(2, 1, 14), Vector3PointGenerator.instance.GetPoint(10, 3, 5), Vector3PointGenerator.instance.GetPoint(19, 6, 0),
         //new EntryTypeA(), new MoveTypeA(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red,4);
@@ -562,7 +569,7 @@ public class WaveManager : MonoBehaviour
     }
     IEnumerator SpawnGroup1_13()
     {
-        NewSpawn(enemyDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn(enemyDatas[0], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.1f);
 
         //SpawnEnemy(enemyList[0], 5, 10, true,1,3, false, 0, Vector3PointGenerator.instance.GetPoint(6, 3, 0), Vector3PointGenerator.instance.GetPoint(6, 5, 4), Vector3PointGenerator.instance.GetPoint(0, 1, 14),
