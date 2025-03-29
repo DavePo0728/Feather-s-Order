@@ -29477,6 +29477,7 @@ GameObject:
   - component: {fileID: 2796654497614407119}
   - component: {fileID: 3859011530538175913}
   - component: {fileID: 9223245944213359068}
+  - component: {fileID: 495397159921924506}
   m_Layer: 3
   m_Name: PlayerBullet
   m_TagString: PlayerBullet
@@ -29540,6 +29541,33 @@ MonoBehaviour:
   hitEffectObject: {fileID: 0}
   speed: 10
   sphereRadius: 0
+--- !u!54 &495397159921924506
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3078343033866295817}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 0
+  m_ImplicitTensor: 0
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!1 &3770815891368596833
 GameObject:
   m_ObjectHideFlags: 0
