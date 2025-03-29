@@ -9,9 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 020630e1ead07b64c808f9917b65c821, type: 3}
-  m_Name: GunDataList
+  m_Script: {fileID: 11500000, guid: a1d36a8fb6caf1640a57d3e453e56159, type: 3}
+  m_Name: StraightShooter
   m_EditorClassIdentifier: 
-  gunDatas:
-  - {fileID: 11400000, guid: 29604e18117a42f40a328d8e065f396c, type: 2}
-  - {fileID: 11400000, guid: fca87e42ef20a2a44bc7f414de57e8c7, type: 2}
+  data:
+    gunIndex: 0
+    rpm: 250
+    shootingCoolDown: 1.5
+    bulletAmount: 3
+    spinSpeed: 0
+    bulletType: 1
+    MaxShootWave: 99

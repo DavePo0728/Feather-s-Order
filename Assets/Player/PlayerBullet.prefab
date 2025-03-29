@@ -29477,7 +29477,7 @@ GameObject:
   - component: {fileID: 2796654497614407119}
   - component: {fileID: 3859011530538175913}
   - component: {fileID: 9223245944213359068}
-  - component: {fileID: 1280416391121746006}
+  - component: {fileID: 495397159921924506}
   m_Layer: 3
   m_Name: PlayerBullet
   m_TagString: PlayerBullet
@@ -29541,7 +29541,7 @@ MonoBehaviour:
   hitEffectObject: {fileID: 0}
   speed: 10
   sphereRadius: 0
---- !u!54 &1280416391121746006
+--- !u!54 &495397159921924506
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

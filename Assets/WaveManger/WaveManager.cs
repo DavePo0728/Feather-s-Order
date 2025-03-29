@@ -62,8 +62,8 @@ public class WaveManager : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.Alpha1))
         {
-            //StartCoroutine(SpawnGroup1_1());
-            StartCoroutine(TestSpawn());
+            StartCoroutine(SpawnGroup1_1());
+            //StartCoroutine(TestSpawn());
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
@@ -357,94 +357,93 @@ public class WaveManager : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         NewSpawnC(enemyDatas[2], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeC(), new LeaveTypeA());   //MoveTypeC
     }
-    IEnumerator SpawnGroup1_1()
+    IEnumerator SpawnGroup1_1() //R
     {
-        NewSpawn(enemyDatas[0], spawnDatas[0],gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
-        yield return new WaitForSeconds(0.1f);
         NewSpawn(enemyDatas[0], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.5f);
         NewSpawn(enemyDatas[0], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.5f);
         NewSpawn(enemyDatas[0], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
-        yield return new WaitForSeconds(0.1f);
-        NewSpawn(enemyDatas[0], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
-        yield return new WaitForSeconds(0.1f);
-        NewSpawn(enemyDatas[0], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.5f);
 
-     //   SpawnEnemy(enemyList[0], 5,10,false, 0,0, false, 0, Vector3PointGenerator.instance.GetPoint(0,1,1), Vector3PointGenerator.instance.GetPoint(2, 1, 5), Vector3PointGenerator.instance.GetPoint(19, 5, 14),
-     //new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red,2);
-     //   yield return new WaitForSeconds(0.1f);
-     //   SpawnEnemy(enemyList[0], 5,10, false, 0,0, false, 0, Vector3PointGenerator.instance.GetPoint(0, 2, 1), Vector3PointGenerator.instance.GetPoint(3, 2, 5), Vector3PointGenerator.instance.GetPoint(19, 6, 14),
-     //new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red,2);
-     //   yield return new WaitForSeconds(0.1f);
-     //   SpawnEnemy(enemyList[0], 5, 10, false, 0, 0, false, 0, Vector3PointGenerator.instance.GetPoint(0, 1, 1), Vector3PointGenerator.instance.GetPoint(4, 1, 5), Vector3PointGenerator.instance.GetPoint(19, 5, 14),
-     //new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red,2);
-     //   yield return new WaitForSeconds(0.1f);
-     //   SpawnEnemy(enemyList[0], 5, 10, false, 0, 0, false, 0, Vector3PointGenerator.instance.GetPoint(0, 1, 1), Vector3PointGenerator.instance.GetPoint(6, 1, 5), Vector3PointGenerator.instance.GetPoint(19, 5, 14),
-     //new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red,2);
-     //   yield return new WaitForSeconds(0.1f);
-     //   SpawnEnemy(enemyList[0], 5, 10, false, 0, 0, false, 0, Vector3PointGenerator.instance.GetPoint(0, 2, 1), Vector3PointGenerator.instance.GetPoint(7, 2, 5), Vector3PointGenerator.instance.GetPoint(19, 6, 14),
-     //new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red,2);
-     //   yield return new WaitForSeconds(0.1f);
-     //   SpawnEnemy(enemyList[0], 5, 10, false, 0, 0, false, 0, Vector3PointGenerator.instance.GetPoint(0, 1, 1), Vector3PointGenerator.instance.GetPoint(8, 1, 5), Vector3PointGenerator.instance.GetPoint(19, 5, 14),
-     //new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), Random.Range(-100f, 100f), 1, 300, 1.5f, 3, 0, BulletType.Red,2);
-    }
-    IEnumerator SpawnGroup1_2()
-    {
-        NewSpawn(enemyDatas[0], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
-        yield return new WaitForSeconds(0.1f);
 
     }
-    IEnumerator SpawnGroup1_3()
+    IEnumerator SpawnGroup1_2() //L
     {
-        NewSpawn(enemyDatas[0], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
-        yield return new WaitForSeconds(0.1f);
+        NewSpawn(enemyDatas[0], spawnDatas[1], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        yield return new WaitForSeconds(0.5f);
+        NewSpawn(enemyDatas[0], spawnDatas[1], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        yield return new WaitForSeconds(0.5f);
+        NewSpawn(enemyDatas[0], spawnDatas[1], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        yield return new WaitForSeconds(0.5f);
+
+
+    }
+    IEnumerator SpawnGroup1_3() //blackbullet
+    {
+        NewSpawn(enemyDatas[0], spawnDatas[2], gunDatas[1], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        yield return new WaitForSeconds(0.5f);
+        NewSpawn(enemyDatas[0], spawnDatas[2], gunDatas[1], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        yield return new WaitForSeconds(0.5f);
+        NewSpawn(enemyDatas[0], spawnDatas[2], gunDatas[1], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        yield return new WaitForSeconds(0.5f);
+
     }
     IEnumerator SpawnGroup1_4()
     {
         NewSpawn(enemyDatas[0], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.1f);
+
     }
     IEnumerator SpawnGroup1_5()
     {
         NewSpawn(enemyDatas[0], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.1f);
+
     }
     IEnumerator SpawnGroup1_6()
     {
         NewSpawn(enemyDatas[0], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.1f);
+
     }
     IEnumerator SpawnGroup1_7()
     {
         NewSpawn(enemyDatas[0], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.1f);
+
     }
     IEnumerator SpawnGroup1_8()
     {
         NewSpawn(enemyDatas[0], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.1f);
+
+
     }
     IEnumerator SpawnGroup1_9()
     {
         NewSpawn(enemyDatas[0], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.1f);
+
+
     }
     IEnumerator SpawnGroup1_10()
     {
         NewSpawn(enemyDatas[0], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.1f);
+
     }
     IEnumerator SpawnGroup1_11()
     {
         NewSpawn(enemyDatas[0], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.1f);
+
     }
     IEnumerator SpawnGroup1_12()
     {
         NewSpawn(enemyDatas[0], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.1f);
+
     }
     IEnumerator SpawnGroup1_13()
     {
@@ -454,96 +453,112 @@ public class WaveManager : MonoBehaviour
     }
     IEnumerator WaveSpawn()
     {
-        //start
-        yield return new WaitForSeconds(4f);
+        //wave1
+        yield return new WaitForSeconds(1f);
         StartCoroutine(SpawnGroup1_1());
 
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(3f);
         StartCoroutine(SpawnGroup1_2());
 
         yield return new WaitForSeconds(5f);
+        StartCoroutine(SpawnGroup1_1());
+
+        yield return new WaitForSeconds(3f);
+        StartCoroutine(SpawnGroup1_2());
+        //wave2
+        yield return new WaitForSeconds(5f);
         StartCoroutine(SpawnGroup1_3());
 
-        yield return new WaitForSeconds(6f);
-        StartCoroutine(SpawnGroup1_4());
-        StartCoroutine(SpawnGroup1_1());
-        yield return new WaitForSeconds(4f);
-        StartCoroutine(SpawnGroup1_5());
-        StartCoroutine(SpawnGroup1_2());
-        yield return new WaitForSeconds(4f);
-        StartCoroutine(SpawnGroup1_3());
-        yield return new WaitForSeconds(6f);
-        StartCoroutine(SpawnGroup1_6());
-        yield return new WaitForSeconds(3f);
-        StartCoroutine(SpawnGroup1_1());
-        yield return new WaitForSeconds(4f);
-        StartCoroutine (SpawnGroup1_2());
-        StartCoroutine (SpawnGroup1_4());
-        yield return new WaitForSeconds(4f);
-        StartCoroutine(SpawnGroup1_7());
-        yield return new WaitForSeconds(3f);
-        StartCoroutine(SpawnGroup1_8());
-        StartCoroutine(SpawnGroup1_2());
-        yield return new WaitForSeconds(5f);
-        StartCoroutine(SpawnGroup1_9());
-        yield return new WaitForSeconds(3f);
-        StartCoroutine(SpawnGroup1_10());
-        yield return new WaitForSeconds(5f);
-        StartCoroutine(SpawnGroup1_11());
-        yield return new WaitForSeconds(5f);
-        StartCoroutine(SpawnGroup1_4());
-        StartCoroutine(SpawnGroup1_1());
-        yield return new WaitForSeconds(4f);
-        StartCoroutine(SpawnGroup1_12());
-        StartCoroutine(SpawnGroup1_5());
-        yield return new WaitForSeconds(6f);
-        StartCoroutine(SpawnGroup1_13());
-        StartCoroutine(SpawnGroup1_7());
-        yield return new WaitForSeconds(13f);
-        //wave 2
-        yield return new WaitForSeconds(4f);
-        StartCoroutine(SpawnGroup1_1());
-        yield return new WaitForSeconds(5f);
-        StartCoroutine(SpawnGroup1_2());
-        yield return new WaitForSeconds(5f);
-        StartCoroutine(SpawnGroup1_3());
-        yield return new WaitForSeconds(6f);
-        StartCoroutine(SpawnGroup1_4());
-        StartCoroutine(SpawnGroup1_1());
-        yield return new WaitForSeconds(4f);
-        StartCoroutine(SpawnGroup1_5());
-        StartCoroutine(SpawnGroup1_2());
-        yield return new WaitForSeconds(4f);
-        StartCoroutine(SpawnGroup1_3());
-        yield return new WaitForSeconds(6f);
-        StartCoroutine(SpawnGroup1_6());
-        yield return new WaitForSeconds(3f);
-        StartCoroutine(SpawnGroup1_1());
-        yield return new WaitForSeconds(4f);
-        StartCoroutine(SpawnGroup1_2());
-        StartCoroutine(SpawnGroup1_4());
-        yield return new WaitForSeconds(4f);
-        StartCoroutine(SpawnGroup1_7());
-        yield return new WaitForSeconds(3f);
-        StartCoroutine(SpawnGroup1_8());
-        StartCoroutine(SpawnGroup1_2());
-        yield return new WaitForSeconds(5f);
-        StartCoroutine(SpawnGroup1_9());
-        yield return new WaitForSeconds(3f);
-        StartCoroutine(SpawnGroup1_10());
-        yield return new WaitForSeconds(5f);
-        StartCoroutine(SpawnGroup1_11());
-        yield return new WaitForSeconds(5f);
-        StartCoroutine(SpawnGroup1_4());
-        StartCoroutine(SpawnGroup1_1());
-        yield return new WaitForSeconds(4f);
-        StartCoroutine(SpawnGroup1_12());
-        StartCoroutine(SpawnGroup1_5());
-        yield return new WaitForSeconds(6f);
-        StartCoroutine(SpawnGroup1_13());
-        StartCoroutine(SpawnGroup1_7());
-        yield return new WaitForSeconds(11f);
-        GameFinish();
+        //GameFinish();
+        //yield return new WaitForSeconds(4f);
+        //StartCoroutine(SpawnGroup1_1());
+
+        //yield return new WaitForSeconds(5f);
+        //StartCoroutine(SpawnGroup1_2());
+
+        //yield return new WaitForSeconds(5f);
+        //StartCoroutine(SpawnGroup1_3());
+
+        //yield return new WaitForSeconds(6f);
+        //StartCoroutine(SpawnGroup1_4());
+        //StartCoroutine(SpawnGroup1_1());
+        //yield return new WaitForSeconds(4f);
+        //StartCoroutine(SpawnGroup1_5());
+        //StartCoroutine(SpawnGroup1_2());
+        //yield return new WaitForSeconds(4f);
+        //StartCoroutine(SpawnGroup1_3());
+        //yield return new WaitForSeconds(6f);
+        //StartCoroutine(SpawnGroup1_6());
+        //yield return new WaitForSeconds(3f);
+        //StartCoroutine(SpawnGroup1_1());
+        //yield return new WaitForSeconds(4f);
+        //StartCoroutine (SpawnGroup1_2());
+        //StartCoroutine (SpawnGroup1_4());
+        //yield return new WaitForSeconds(4f);
+        //StartCoroutine(SpawnGroup1_7());
+        //yield return new WaitForSeconds(3f);
+        //StartCoroutine(SpawnGroup1_8());
+        //StartCoroutine(SpawnGroup1_2());
+        //yield return new WaitForSeconds(5f);
+        //StartCoroutine(SpawnGroup1_9());
+        //yield return new WaitForSeconds(3f);
+        //StartCoroutine(SpawnGroup1_10());
+        //yield return new WaitForSeconds(5f);
+        //StartCoroutine(SpawnGroup1_11());
+        //yield return new WaitForSeconds(5f);
+        //StartCoroutine(SpawnGroup1_4());
+        //StartCoroutine(SpawnGroup1_1());
+        //yield return new WaitForSeconds(4f);
+        //StartCoroutine(SpawnGroup1_12());
+        //StartCoroutine(SpawnGroup1_5());
+        //yield return new WaitForSeconds(6f);
+        //StartCoroutine(SpawnGroup1_13());
+        //StartCoroutine(SpawnGroup1_7());
+        //yield return new WaitForSeconds(13f);
+        ////wave 2
+        //yield return new WaitForSeconds(4f);
+        //StartCoroutine(SpawnGroup1_1());
+        //yield return new WaitForSeconds(5f);
+        //StartCoroutine(SpawnGroup1_2());
+        //yield return new WaitForSeconds(5f);
+        //StartCoroutine(SpawnGroup1_3());
+        //yield return new WaitForSeconds(6f);
+        //StartCoroutine(SpawnGroup1_4());
+        //StartCoroutine(SpawnGroup1_1());
+        //yield return new WaitForSeconds(4f);
+        //StartCoroutine(SpawnGroup1_5());
+        //StartCoroutine(SpawnGroup1_2());
+        //yield return new WaitForSeconds(4f);
+        //StartCoroutine(SpawnGroup1_3());
+        //yield return new WaitForSeconds(6f);
+        //StartCoroutine(SpawnGroup1_6());
+        //yield return new WaitForSeconds(3f);
+        //StartCoroutine(SpawnGroup1_1());
+        //yield return new WaitForSeconds(4f);
+        //StartCoroutine(SpawnGroup1_2());
+        //StartCoroutine(SpawnGroup1_4());
+        //yield return new WaitForSeconds(4f);
+        //StartCoroutine(SpawnGroup1_7());
+        //yield return new WaitForSeconds(3f);
+        //StartCoroutine(SpawnGroup1_8());
+        //StartCoroutine(SpawnGroup1_2());
+        //yield return new WaitForSeconds(5f);
+        //StartCoroutine(SpawnGroup1_9());
+        //yield return new WaitForSeconds(3f);
+        //StartCoroutine(SpawnGroup1_10());
+        //yield return new WaitForSeconds(5f);
+        //StartCoroutine(SpawnGroup1_11());
+        //yield return new WaitForSeconds(5f);
+        //StartCoroutine(SpawnGroup1_4());
+        //StartCoroutine(SpawnGroup1_1());
+        //yield return new WaitForSeconds(4f);
+        //StartCoroutine(SpawnGroup1_12());
+        //StartCoroutine(SpawnGroup1_5());
+        //yield return new WaitForSeconds(6f);
+        //StartCoroutine(SpawnGroup1_13());
+        //StartCoroutine(SpawnGroup1_7());
+        //yield return new WaitForSeconds(11f);
+        //GameFinish();
     }
     public void GameFinish()
     {

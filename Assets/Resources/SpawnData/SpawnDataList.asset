@@ -12,4 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dd92f37787fdd549a7ed2053a3c79a6, type: 3}
   m_Name: SpawnDataList
   m_EditorClassIdentifier: 
-  spawnDatas: []
+  spawnDatas:
+  - {fileID: 11400000, guid: a594b3e740e812749a80e647b8545901, type: 2}
+  - {fileID: 11400000, guid: feb16fc625440a745bff67cd129c69ec, type: 2}
+  - {fileID: 11400000, guid: 77665c2e06c39844ebf15f5e7ed06344, type: 2}
