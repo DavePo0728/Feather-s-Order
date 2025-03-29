@@ -7,6 +7,11 @@ using UnityEngine.InputSystem;
 public class MissileShooter : MonoBehaviour
 {
     [SerializeField]
+    float shootCost;
+    bool canShoot;
+    [SerializeField]
+    BulletGraze bulletGraze;
+    [SerializeField]
     Collider missileCoillder;
     [SerializeField]
     Camera playerVcam;
@@ -42,25 +47,35 @@ public class MissileShooter : MonoBehaviour
     }
     public void GetMissileShootInput(InputAction.CallbackContext context)
     {
+
         if (context.performed)
         {
-            startCharge = true;
-            missileCoillder.enabled = true;
+            if (bulletGraze.CheckGrazeEnergy(shootCost))
+            {
+                startCharge = true;
+                missileCoillder.enabled = true;
+                canShoot = true;
+            }
         }
         if (context.canceled)
         {
-            startCharge = false;
-            missileCoillder.enabled = false;
-            if(lockedEnemies.Count > 0)
+            if (canShoot)
             {
-                ShootMissile(lockedEnemies.Count);
+                bulletGraze.UpdateGrazeEnergyOutside(shootCost);
+                startCharge = false;
+                missileCoillder.enabled = false;
+                if (lockedEnemies.Count > 0)
+                {
+                    ShootMissile(lockedEnemies.Count);
+                }
+                lockedEnemies.Clear();
+                foreach (var image in lockEnemyImageList)
+                {
+                    Destroy(image);
+                }
+                lockEnemyImageList.Clear();
+                canShoot = false;
             }
-            lockedEnemies.Clear();
-            foreach (var image in lockEnemyImageList)
-            {
-                Destroy(image);
-            }
-            lockEnemyImageList.Clear();
         }
     }
     // Update is called once per frame

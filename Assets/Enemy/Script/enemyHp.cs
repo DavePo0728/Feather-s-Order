@@ -18,6 +18,7 @@ public class enemyHp : MonoBehaviour
     [SerializeField]
     GameObject corruptionExplosionEffect;
     public bool corrupted;
+    [SerializeField]
     bool corruption;
     float corruptionDamageModifier;
     public float MaxcorruptionStack;
@@ -59,6 +60,7 @@ public class enemyHp : MonoBehaviour
 
     private void Awake()
     {
+        enemyMove = gameObject.GetComponent<EnemyMove>();
         canvas = transform.GetChild(7).GetComponent<Canvas>();
         audioSource = GetComponent<AudioSource>();
         shieldEffect = transform.GetChild(1).gameObject;
@@ -234,6 +236,21 @@ public class enemyHp : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if ((other.tag=="PlayerMissile"))
+        {
+            if (currentShieldHp <= 0)
+            {
+                if (corrupted)
+                {
+                    StartCoroutine(CleanseCorruption());
+                    ShootHurt(5);
+                }
+                else
+                {
+                    ShootHurt(5);
+                }
+            }
+        }
         if (other.tag == "PlayerBullet")
         {
             ShootHurt(1);

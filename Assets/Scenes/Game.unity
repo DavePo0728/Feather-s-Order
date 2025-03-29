@@ -37440,6 +37440,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6242838b4d7d5f4e877ebce50738d20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shootCost: 10
+  bulletGraze: {fileID: 1171135990}
   missileCoillder: {fileID: 0}
   playerVcam: {fileID: 963194227}
   missile: {fileID: 3812506742602249460, guid: f2de3becabb255d4ab2ad2e63cb1045b, type: 3}
@@ -166815,12 +166817,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7db2a10030882344bbfcd749dd69f931, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyMove: {fileID: 6806084061443023652}
+  enemyMove: {fileID: 1582948648762808658}
   maxHp: 10
   currentHp: 0
   corruptEffect: {fileID: 0}
   corruptionExplosionEffect: {fileID: 0}
   corrupted: 0
+  corruption: 0
   MaxcorruptionStack: 0
   shieldEffect: {fileID: 0}
   shieldExplosionEffect: {fileID: 0}
@@ -535185,12 +535188,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7db2a10030882344bbfcd749dd69f931, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyMove: {fileID: 6806084061443023652}
+  enemyMove: {fileID: 5531840776376491279}
   maxHp: 10
   currentHp: 0
   corruptEffect: {fileID: 0}
   corruptionExplosionEffect: {fileID: 0}
   corrupted: 0
+  corruption: 0
   MaxcorruptionStack: 0
   shieldEffect: {fileID: 0}
   shieldExplosionEffect: {fileID: 0}
@@ -541028,12 +541032,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7db2a10030882344bbfcd749dd69f931, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyMove: {fileID: 6806084061443023652}
+  enemyMove: {fileID: 9180425679189236846}
   maxHp: 100
   currentHp: 0
   corruptEffect: {fileID: 0}
   corruptionExplosionEffect: {fileID: 0}
   corrupted: 1
+  corruption: 0
   MaxcorruptionStack: 0
   shieldEffect: {fileID: 0}
   shieldExplosionEffect: {fileID: 0}
@@ -690406,12 +690411,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7db2a10030882344bbfcd749dd69f931, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyMove: {fileID: 6806084061443023652}
+  enemyMove: {fileID: 6806084060221220447}
   maxHp: 100
   currentHp: 0
   corruptEffect: {fileID: 0}
   corruptionExplosionEffect: {fileID: 0}
   corrupted: 1
+  corruption: 0
   MaxcorruptionStack: 0
   shieldEffect: {fileID: 0}
   shieldExplosionEffect: {fileID: 0}
@@ -690440,6 +690446,7 @@ MonoBehaviour:
   corruptEffect: {fileID: 0}
   corruptionExplosionEffect: {fileID: 0}
   corrupted: 1
+  corruption: 0
   MaxcorruptionStack: 0
   shieldEffect: {fileID: 0}
   shieldExplosionEffect: {fileID: 0}

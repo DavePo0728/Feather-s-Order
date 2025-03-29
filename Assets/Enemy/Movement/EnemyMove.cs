@@ -187,6 +187,7 @@ public class EnemyMove : MonoBehaviour
     }
     public IEnumerator Paralyze()
     {
+        Debug.Log("paralyze");
         if(activeGun!=null&&activeGun.activeSelf == true)
         activeGun.SetActive(false);
         if (entryBehavior !=null&& entryBehavior.CheckEntryStatus())
