@@ -12,15 +12,20 @@ public class BulletGraze : MonoBehaviour
     public float maxGrazeEnergy;
     public float currentGrazeEnergy;
     public float grazeEnergyGain;
-
+    float grazeGapTimer;
+    [SerializeField]
+    float maxGrazeGapTime;
     public Image grazeEnergyBar;
     AudioSource grazeSound;
     AudioClip grazeClip;
-
+    GameObject grazeEffect;
+    ParticleSystem grazeEffectParticle;
     private void Awake()
     {
         grazeSound = GetComponent<AudioSource>();
         grazeClip = Resources.Load<AudioClip>("Sound/BulletGrazing");
+        grazeEffect = transform.GetChild(0).gameObject;
+        grazeEffectParticle = grazeEffect.GetComponent<ParticleSystem>();
     }
     // Start is called before the first frame update
     void Start()
@@ -32,6 +37,13 @@ public class BulletGraze : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        grazeGapTimer += Time.deltaTime;
+        if( grazeGapTimer > maxGrazeGapTime)
+        {
+            grazeEffect.SetActive(false);
+            grazeGapTimer = 0;
+            
+        }
         if (Input.GetKeyDown(KeyCode.P))
         {
             currentGrazeEnergy += maxGrazeEnergy;
@@ -92,6 +104,11 @@ public class BulletGraze : MonoBehaviour
         {
             if (canGraze)
             {
+                grazeGapTimer = 0;
+                grazeEffect.SetActive(true);
+                if(!grazeEffectParticle.isPlaying)
+                grazeEffectParticle.Play();
+                
                 Vibrate(0.1f, 0.1f, 0.05f);
                 grazeSound.PlayOneShot(grazeClip);
                 //Debug.Log(other.transform.parent.name);
@@ -104,6 +121,10 @@ public class BulletGraze : MonoBehaviour
                 UpdateGrazeUI();
             }
         }
+    }
+    void InactiveGrazeEffect()
+    {
+        grazeEffect.SetActive(false);
     }
     void Vibrate(float lowFrequency, float highFrequency, float duration)
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class enemyHp : MonoBehaviour
+public class EnemyHp : MonoBehaviour
 {
     [SerializeField]
     EnemyMove enemyMove;
@@ -20,9 +20,13 @@ public class enemyHp : MonoBehaviour
     public bool corrupted;
     [SerializeField]
     bool corruption;
+    public bool corruption_P => corruption;
     float corruptionDamageModifier;
     public float MaxcorruptionStack;
     float currentCorruptionStack;
+    [SerializeField]
+    GameObject corruptionCleanseObject,chainEffectObject;
+    ParticleSystem corruptionCleanseParticle, chainEffectParticle;
 
     [Header("Shield Data")]
     [SerializeField]
@@ -79,6 +83,10 @@ public class enemyHp : MonoBehaviour
         shieldBreakAudioClip = Resources.Load<AudioClip>("Sound/ShieldBreakSound");
         hitimpactAudioClip = Resources.Load<AudioClip>("Sound/HitImpactSound");
         currentCorruptionStack = 0;
+        corruptionCleanseObject = transform.GetChild(9).gameObject;
+        corruptionCleanseParticle =corruptionCleanseObject.GetComponent<ParticleSystem>();
+        chainEffectObject = transform.GetChild(10).gameObject;
+        chainEffectParticle = chainEffectObject.GetComponent<ParticleSystem>();
     }
     // Start is called before the first frame update
     void Start()
@@ -131,7 +139,7 @@ public class enemyHp : MonoBehaviour
         {
             if(corruption == true)      //如果污穢未被解除
             {
-                Playhitimpact();
+                PlayhitimpactAudio();
                 currentHp -= damage * corruptionDamageModifier;
                 UpdateUI();
                 Debug.Log("Source :" + gameObject.name + " " + "CorruptionDamage:"+ damage * corruptionDamageModifier);
@@ -143,7 +151,7 @@ public class enemyHp : MonoBehaviour
             }
             else       //如果污穢被解除
             {
-                    Playhitimpact();
+                    PlayhitimpactAudio();
                     currentHp -= damage;
                     UpdateUI();
                     if (currentHp <= 0)
@@ -156,7 +164,7 @@ public class enemyHp : MonoBehaviour
         }
         else       //沒有污穢
         {
-                Playhitimpact();
+                PlayhitimpactAudio();
                 currentHp -= damage;
                 UpdateUI();
                 if (currentHp <= 0)
@@ -188,7 +196,7 @@ public class enemyHp : MonoBehaviour
             {
                 if (corruption == false)
                 {
-                    Playhitimpact();
+                    PlayhitimpactAudio();
                     currentHp -= damage;
                     UpdateUI();
                     Debug.Log("Source :" + gameObject.name + " " + "CorruptionClean");
@@ -201,7 +209,7 @@ public class enemyHp : MonoBehaviour
                 }
                 else
                 {
-                    Playhitimpact();
+                    PlayhitimpactAudio();
                     currentHp -= damage * corruptionDamageModifier;
                     UpdateUI();
                     Debug.Log("Source :" + gameObject.name + " " + "CorruptionNotClean"+ damage * corruptionDamageModifier);
@@ -214,7 +222,7 @@ public class enemyHp : MonoBehaviour
             }
             else
             {
-                Playhitimpact();
+                PlayhitimpactAudio();
                 currentHp -= damage;
                 UpdateUI();
                 Debug.Log("Source :" + gameObject.name + " " + "NoCSorruption");
@@ -307,9 +315,15 @@ public class enemyHp : MonoBehaviour
         if (currentCorruptionStack>=MaxcorruptionStack)
         {
             corruption = false;
+            corruptionCleanseObject.SetActive(true);
+            chainEffectObject.SetActive(true);
+            chainEffectParticle.Play();
+            corruptionCleanseParticle.Play();
             corruptEffect.SetActive(false);
             StartCoroutine(enemyMove.Paralyze());
             yield return new WaitForSeconds(enemyMove.paralyzeTime);
+            corruptionCleanseObject.SetActive(false);
+            chainEffectObject.SetActive(false);
             corruptEffect.SetActive(true);
             corruption = true;
         }
@@ -336,7 +350,7 @@ public class enemyHp : MonoBehaviour
         }
     }
 
-    private void Playhitimpact()
+    private void PlayhitimpactAudio()
     {
         if (audioSource != null && hitimpactAudioClip != null)
         {

@@ -17,6 +17,7 @@ public class PlayerAim : MonoBehaviour
     FarLockTweenAnim farLockAnim;
     [SerializeField]
     public float zOffset;
+    EnemyHp enemyHp;
     //Vector2 aimInput;
     //Vector3 aimPos;
     //float MaxYBottom, MaxYTop,MaxXLeft,MaxXRight,ab;
@@ -66,24 +67,40 @@ public class PlayerAim : MonoBehaviour
             {
                 FarLockImage.SetActive(true);
                 FarLockImage.transform.position = playerCamera.WorldToScreenPoint(lockedEnemy.transform.position);
+                enemyHp = lockedEnemy.GetComponent<EnemyHp>();
+                if (!enemyHp.corruption_P)
+                {
+                    NearLockImage.SetActive(true);
+                    NearLockImage.transform.position = playerCamera.WorldToScreenPoint(lockedEnemy.transform.position);
+                }
+                else
+                {
+                    NearLockImage.SetActive(false);
+                }
             }
             else if(lockedEnemy == null)
             {
                 isLocked = false;
                 FarLockImage.SetActive(false);
+                NearLockImage.SetActive(false);
                 lockedEnemy = emptyAimObject;
             }
         }
         else
         {
             FarLockImage.SetActive(false);
+            NearLockImage.SetActive(false);
         }
     }
     public void CallFarReactive()
     {
         farLockAnim.ReActive();
     }
-    
+    public void CallNearReactive()
+    {
+        nearLockAnim.ReActive();
+    }
+
     //void CalculateMaxYBottom()
     //{
     //    MaxYBottom = ab * Mathf.Tan(50f * Mathf.Deg2Rad);

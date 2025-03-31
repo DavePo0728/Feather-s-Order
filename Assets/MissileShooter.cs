@@ -61,11 +61,12 @@ public class MissileShooter : MonoBehaviour
         {
             if (canShoot)
             {
-                bulletGraze.UpdateGrazeEnergyOutside(shootCost);
+                
                 startCharge = false;
                 missileCoillder.enabled = false;
                 if (lockedEnemies.Count > 0)
                 {
+                    bulletGraze.UpdateGrazeEnergyOutside(shootCost);
                     ShootMissile(lockedEnemies.Count);
                 }
                 lockedEnemies.Clear();

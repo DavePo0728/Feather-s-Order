@@ -51,6 +51,7 @@ public class PlayerCleanseShot : MonoBehaviour
             if (bulletGraze.CheckGrazeEnergy(shootCost))
             {
                 startCharge = true;
+                chargeEffect.speed = 1 / maxChargeTime;
                 chargeEffect.SetTrigger("Charge");
             }
         }

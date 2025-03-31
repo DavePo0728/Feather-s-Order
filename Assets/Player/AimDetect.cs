@@ -25,6 +25,7 @@ public class AimDetect : MonoBehaviour
             playerAim.lockedEnemy = other.gameObject;
             playerAim.isLocked = true;
             playerAim.CallFarReactive();
+            playerAim.CallNearReactive();
             //print("Locked");
         }
     }

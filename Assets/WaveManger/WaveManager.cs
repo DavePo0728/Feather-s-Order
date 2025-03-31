@@ -122,7 +122,7 @@ public class WaveManager : MonoBehaviour
     {
         GameObject temp = Instantiate(enemy, spawnPoint, Quaternion.identity);
         EnemyMove enemyMove = temp.GetComponent<EnemyMove>();
-        enemyHp enemyHp = temp.GetComponent<enemyHp>();
+        EnemyHp enemyHp = temp.GetComponent<EnemyHp>();
         enemyHp.maxHp = hp;
         enemyHp.corrupted = corrupted;
         enemyHp.haveshield = haveShield;
@@ -148,7 +148,7 @@ public class WaveManager : MonoBehaviour
     {
         GameObject temp = Instantiate(enemy, spawnPoint, Quaternion.identity);
         EnemyMove enemyMove = temp.GetComponent<EnemyMove>();
-        enemyHp enemyHp = temp.GetComponent<enemyHp>();
+        EnemyHp enemyHp = temp.GetComponent<EnemyHp>();
         enemyHp.maxHp = hp;
         enemyHp.corrupted = corrupted;
         enemyHp.haveshield = haveShield;
@@ -175,7 +175,7 @@ public class WaveManager : MonoBehaviour
     {
         GameObject temp = Instantiate(enemy, spawnPoint, Quaternion.identity);
         EnemyMove enemyMove = temp.GetComponent<EnemyMove>();
-        enemyHp enemyHp = temp.GetComponent<enemyHp>();
+        EnemyHp enemyHp = temp.GetComponent<EnemyHp>();
         enemyHp.maxHp = hp;
         enemyHp.corrupted = corrupted;
         enemyHp.haveshield = haveShield;
@@ -202,7 +202,7 @@ public class WaveManager : MonoBehaviour
         Vector3 leavePoint = Vector3PointGenerator.instance.GetPoint((int)spawnData.data.LeavePositon.x, (int)spawnData.data.LeavePositon.y, (int)spawnData.data.LeavePositon.z);
         GameObject temp = Instantiate(enemyData.data.enemy, spawnPoint, Quaternion.identity);
         EnemyMove enemyMove = temp.GetComponent<EnemyMove>();
-        enemyHp enemyHp = temp.GetComponent<enemyHp>();
+        EnemyHp enemyHp = temp.GetComponent<EnemyHp>();
         enemyHp.maxHp = enemyData.data.hp;
         enemyMove.lifeTime = enemyData.data.lifeTime;
         enemyMove.entryTime = enemyData.data.entryTime;
@@ -237,7 +237,7 @@ public class WaveManager : MonoBehaviour
         Vector3 leavePoint = Vector3PointGenerator.instance.GetPoint((int)spawnData.data.LeavePositon.x, (int)spawnData.data.LeavePositon.y, (int)spawnData.data.LeavePositon.z);
         GameObject temp = Instantiate(enemyData.data.enemy, spawnPoint, Quaternion.identity);
         EnemyMove enemyMove = temp.GetComponent<EnemyMove>();
-        enemyHp enemyHp = temp.GetComponent<enemyHp>();
+        EnemyHp enemyHp = temp.GetComponent<EnemyHp>();
         enemyHp.maxHp = enemyData.data.hp;
         enemyMove.lifeTime = enemyData.data.lifeTime;
         enemyMove.entryTime = enemyData.data.entryTime;
@@ -272,7 +272,7 @@ public class WaveManager : MonoBehaviour
         Vector3 leavePoint = Vector3PointGenerator.instance.GetPoint((int)spawnData.data.LeavePositon.x, (int)spawnData.data.LeavePositon.y, (int)spawnData.data.LeavePositon.z);
         GameObject temp = Instantiate(enemyData.data.enemy, spawnPoint, Quaternion.identity);
         EnemyMove enemyMove = temp.GetComponent<EnemyMove>();
-        enemyHp enemyHp = temp.GetComponent<enemyHp>();
+        EnemyHp enemyHp = temp.GetComponent<EnemyHp>();
         enemyHp.maxHp = enemyData.data.hp;
         enemyMove.lifeTime = enemyData.data.lifeTime;
         enemyMove.entryTime = enemyData.data.entryTime;

@@ -80,7 +80,7 @@ public class GoldBulletMove : BulletBase
                     destroyList[i].gameObject.SetActive(false);
                     break;
                 case "Enemy":
-                    enemyHp _enemyHp = destroyList[i].gameObject.GetComponent<enemyHp>();
+                    EnemyHp _enemyHp = destroyList[i].gameObject.GetComponent<EnemyHp>();
                     _enemyHp.DeathEffect();
                     scoreManager.AddScore();
                     break;
