@@ -79,25 +79,13 @@ public class PlayerBulletMove : MonoBehaviour
     }
     IEnumerator HitEffectOn()
     {
-        if (gameObject.tag =="PlayerBullet")
-        {
-            speed = 0;
-            bulletCollider.enabled = false;
-        }
+        speed = 0;
+        bulletCollider.enabled = false;
         hitEffectObject.SetActive(true);
         hitEffect.Play();
-        if (hitEffect.isPlaying)
-        {
-            //Debug.Log("hitEffectPlaying");
-        }
-
-
-        yield return new WaitForSeconds(1f);
-        if (gameObject.tag == "PlayerBullet")
-        {
-            gameObject.SetActive(false);
-            hitEffectObject.SetActive(false);
-        }
+        yield return new WaitForSeconds(0.5f);
+        gameObject.SetActive(false);
+        hitEffectObject.SetActive(false);
     }
     public void SetLockedEnemy(GameObject enemy)
     {

@@ -8,12 +8,14 @@ using UnityEngine.UI;
 
 public class PlayerSlashAttack : MonoBehaviour
 {
+    PlayerMove playerMove;
     [SerializeField]
     CinemachineVirtualCamera playerVCam;
     Rigidbody playerRigidbody;
     public bool isSlashDashing;
     public bool arrived = false;
     bool isAttacking;
+    public bool isFallBack;
     [SerializeField]
     Collider slashCollider;
     [SerializeField]
@@ -43,8 +45,11 @@ public class PlayerSlashAttack : MonoBehaviour
     bool tween1Playing = false;
     bool camTweenPlaying = false;
     bool camtween1Playing = false;
+    GameObject target;
+    EnemyHp enemyHp;
     private void Awake()
     {
+        playerMove = GetComponent<PlayerMove>();
         playerAim = GetComponent<PlayerAim>();
         isSlashDashing = false;
         isAttacking = false;
@@ -71,8 +76,8 @@ public class PlayerSlashAttack : MonoBehaviour
                     return;
                 }
                     
-                PlayerOriginalPos = transform.position;
-                PlayerOriginalPos.z = 13f;
+                //PlayerOriginalPos = transform.position;
+                //PlayerOriginalPos.z = 13f;
                 DashToEnemy();
                 playerAim.aimmingImage.SetActive(false);
                 playerAim.FarLockImage.SetActive(false);
@@ -156,8 +161,9 @@ public class PlayerSlashAttack : MonoBehaviour
     {
         Tween tweener,tweenCam;
 
-        
-        slashtarget = playerAim._lockedEnemy.transform.GetChild(7).transform.position;
+        target = playerAim._lockedEnemy;
+        enemyHp = target.GetComponent<EnemyHp>();
+        slashtarget = target.transform.GetChild(7).transform.position;
         tweener = playerRigidbody.DOMove(slashtarget, 0.5f).OnStart(() => tweenPlaying = true);
         tweenCam = playerVCam.transform.DOLocalRotateQuaternion(Quaternion.Euler(5, -15, 0), 0.3f).OnStart(() => camTweenPlaying = true).OnComplete(() => camTweenPlaying = false);
         if (isSlashDashing ==false&&arrived==false)
@@ -216,33 +222,39 @@ public class PlayerSlashAttack : MonoBehaviour
                 ResetTimer();
             }
         }
+        if(target != null)
+        {
+            enemyHp= target.GetComponent<EnemyHp>();
+            if (enemyHp.corruption_P)
+            {
+                ReturnAnimation();
+                target = null;
+            }
+        }
+
     }
     void ReturnAnimation()
     {
-        isSlashDashing = true;
-        Tween tweener1, tweenCam;
-        tweener1 = playerRigidbody.DOMoveZ(PlayerOriginalPos.z, 1f).OnStart(() => { tween1Playing = true; isAttacking = false; });
+        ResetTimer();
+        isSlashDashing = false;
+        isAttacking = false;
+        playerMove.CalculateFallbackSpeed();
+        isFallBack = true;
+        Tween /*tweener1,*/ tweenCam;
+        //tweener1 = playerRigidbody.DOMove(PlayerOriginalPos, 0.5f).OnStart(() => { tween1Playing = true;  });
         tweenCam = playerVCam.transform.DOLocalRotateQuaternion(Quaternion.Euler(1.8f, 0, 0), 1f).OnStart(() => camTweenPlaying = true).OnComplete(() => camTweenPlaying = false); followZoom.m_Width = 50;
-        if (!tween1Playing)
-        {
-            tweener1.Play();
-            //Debug.Log("Playing");
-        }
         if (!camTweenPlaying)
         {
             tweenCam.Play();
         }
-        tweener1.OnComplete(() =>
-        {
-            tween1Playing = false;
-            arrived = false;
-            //playerVCam.m_Lens.FieldOfView = 30;
-            //transform.position = new Vector3(transform.position.x, transform.position.y, PlayerOriginalPos.z);
-            isSlashDashing = false;
-            
-            playerAim.aimmingImage.SetActive(true);
-            shieldEffect.SetActive(true);  
-        });
+    }
+    public void FallBackFinish()
+    {
+        isFallBack = false;
+        arrived = false;
+        isSlashDashing = false;
+        playerAim.aimmingImage.SetActive(true);
+        shieldEffect.SetActive(true);
     }
     void Vibrate(float lowFrequency, float highFrequency, float duration)
     {
