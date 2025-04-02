@@ -399,15 +399,19 @@ public class WaveManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
     }
-    IEnumerator SpawnGroup1_5()
+    IEnumerator SpawnGroup1_5() // CT_to_RB red
     {
-        NewSpawn(enemyDatas[0], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
-        yield return new WaitForSeconds(0.1f);
+        NewSpawn(enemyDatas[0], spawnDatas[6], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+
+        NewSpawn(enemyDatas[0], spawnDatas[7], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+
+        NewSpawn(enemyDatas[0], spawnDatas[8], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        yield return new WaitForSeconds(0.5f);
 
     }
-    IEnumerator SpawnGroup1_6()
+    IEnumerator SpawnGroup1_6() //LB_to_RT red
     {
-        NewSpawn(enemyDatas[0], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn(enemyDatas[0], spawnDatas[9], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.1f);
 
     }
