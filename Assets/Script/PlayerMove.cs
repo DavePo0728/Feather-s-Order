@@ -163,7 +163,7 @@ public class PlayerMove : MonoBehaviour
                     }
                     else
                     {
-                        Debug.Log("FallBackFinish");
+                        //Debug.Log("FallBackFinish");
                         playerSlashAttack.FallBackFinish();
                     }
                 }
@@ -237,7 +237,7 @@ public class PlayerMove : MonoBehaviour
         // 速度 = 距離 ÷ 時間（0.5秒）
         fallbackspeed = distance / fallBackTime;
 
-        Debug.Log($"Calculated fallbackspeed: {fallbackspeed}");
+        //Debug.Log($"Calculated fallbackspeed: {fallbackspeed}");
     }
     IEnumerator OnDash()
     {
