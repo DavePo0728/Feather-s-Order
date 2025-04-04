@@ -4,7 +4,10 @@ using UnityEngine;
 using PathCreation;
 using UnityEngine.InputSystem;
 using System.Net;
+#if UNITY_EDITOR
+using UnityEditor;
 
+#endif
 public class WaveManager : MonoBehaviour
 {
     [SerializeField]
@@ -31,6 +34,242 @@ public class WaveManager : MonoBehaviour
     [SerializeField]
     GunDataList gunDataList;
     GunData[] gunDatas =>gunDataList.gunDatas;
+
+    [Header("Recording")]
+    [SerializeField] private bool isRecording = false;
+    [SerializeField] private RecordedWaveData currentRecording;
+    [SerializeField] private float recordStartTime;
+    [SerializeField] private string savePath = "Assets/WaveRecordings/";
+    [SerializeField] private List<RecordedWaveData> recordedWaveDataList;
+    [Header("Debug UI")]
+    [SerializeField] private bool showDebugUI = true;
+    [SerializeField] private Vector2 debugUIPosition = new Vector2(10, 10);
+    [SerializeField] private Vector2 debugUISize = new Vector2(300, 200);
+    [SerializeField] private GUIStyle debugTextStyle;
+    [SerializeField] private bool autoStartRecording = false;
+    [SerializeField] List<RecordedWaveData> recordedWaves;
+    private int currentRecordingIndex = 0;
+
+    IEnumerator PlayRecordedWave(RecordedWaveData data, float delay = 0f)
+    {
+        yield return new WaitForSeconds(delay);
+        float lastTime = 0f;
+
+        foreach (var record in data.spawnRecords)
+        {
+            float wait = record.timestamp - lastTime;
+            if (wait > 0) yield return new WaitForSeconds(wait);
+            lastTime = record.timestamp;
+
+            // 建立行為類別
+            IEntryBehaviour entry = System.Activator.CreateInstance(System.Type.GetType(record.entryTypeName)) as IEntryBehaviour;
+            IMoveBehaviour move = System.Activator.CreateInstance(System.Type.GetType(record.moveTypeName)) as IMoveBehaviour;
+            ILeaveBehaviour leave = System.Activator.CreateInstance(System.Type.GetType(record.leaveTypeName)) as ILeaveBehaviour;
+
+            if (entry == null || move == null || leave == null)
+            {
+                Debug.LogWarning("Replay failed: missing behaviour");
+                continue;
+            }
+
+            NewSpawn(enemyDatas[record.enemyIndex], spawnDatas[record.spawnDataIndex], gunDatas[record.gunDataIndex], entry, move, leave);
+        }
+    }
+    private void OnGUI()
+    {
+        if (!showDebugUI) return;
+
+        debugTextStyle.normal.textColor = Color.white;
+
+        GUILayout.BeginArea(new Rect(debugUIPosition.x, debugUIPosition.y, debugUISize.x, debugUISize.y), GUI.skin.box);
+
+        GUILayout.Label("<b><size=16>🎛️ Wave Debug UI</size></b>", debugTextStyle);
+
+        if (recordedWaveDataList.Count > 0)
+        {
+            GUILayout.Label($"當前錄製資料：<b>{currentRecording.name}</b>", debugTextStyle);
+
+            if (GUILayout.Button("🔁 切換錄製資料 (F4)"))
+            {
+                currentRecordingIndex = (currentRecordingIndex + 1) % recordedWaveDataList.Count;
+                currentRecording = recordedWaveDataList[currentRecordingIndex];
+                Debug.Log($"切換到錄製資料：{currentRecording.name}");
+            }
+
+            if (GUILayout.Button("▶️ 播放當前錄製 (F5)"))
+            {
+                ReplayRecording(currentRecording);
+                Debug.Log($"播放錄製資料：{currentRecording.name}");
+            }
+        }
+        else
+        {
+            GUILayout.Label("⚠️ 無錄製資料");
+        }
+
+        GUILayout.Space(10);
+        GUILayout.Label($"錄製狀態：<color={(isRecording ? "green" : "red")}><b>{(isRecording ? "錄製中" : "未錄製")}</b></color>", debugTextStyle);
+
+        GUILayout.EndArea();
+    }
+
+    public static class RecordingHelper
+    {
+        public static bool isRecording;
+        public static float recordStartTime;
+        public static void Start(RecordedWaveData data)
+        {
+            recordStartTime = Time.time;
+            isRecording = true;
+            data.spawnRecords.Clear();
+#if UNITY_EDITOR
+            UnityEditor.EditorUtility.SetDirty(data);
+            UnityEditor.AssetDatabase.SaveAssets();
+#endif
+            Debug.Log("Recording started.");
+        }
+
+        public static void Stop(RecordedWaveData data)
+        {
+            isRecording = false;
+#if UNITY_EDITOR
+            UnityEditor.EditorUtility.SetDirty(data);
+            UnityEditor.AssetDatabase.SaveAssets();
+#endif
+            Debug.Log("Recording saved.");
+        }
+
+        public static void Record(RecordedWaveData data, int enemyIndex, int spawnIndex, int gunIndex, IEntryBehaviour entry, IMoveBehaviour move, ILeaveBehaviour leave)
+        {
+            if (!isRecording || data == null) return;
+
+            var record = new RecordedWaveData.SpawnRecord
+            {
+                timestamp = Time.time - recordStartTime,
+                enemyIndex = enemyIndex,
+                spawnDataIndex = spawnIndex,
+                gunDataIndex = gunIndex,
+                entryTypeName = entry.GetType().Name,
+                moveTypeName = move.GetType().Name,
+                leaveTypeName = leave.GetType().Name
+            };
+            data.spawnRecords.Add(record);
+        }
+
+        public static IEnumerator Replay(RecordedWaveData data, System.Action<int, int, int, IEntryBehaviour, IMoveBehaviour, ILeaveBehaviour> spawnAction)
+        {
+            if (data == null || data.spawnRecords == null || data.spawnRecords.Count == 0)
+            {
+                Debug.LogWarning("No records to replay");
+                yield break;
+            }
+
+            float lastTime = 0f;
+            foreach (var record in data.spawnRecords)
+            {
+                float waitTime = record.timestamp - lastTime;
+                if (waitTime > 0f)
+                    yield return new WaitForSeconds(waitTime);
+                lastTime = record.timestamp;
+
+                IEntryBehaviour entry = System.Activator.CreateInstance(System.Type.GetType(record.entryTypeName)) as IEntryBehaviour;
+                IMoveBehaviour move = System.Activator.CreateInstance(System.Type.GetType(record.moveTypeName)) as IMoveBehaviour;
+                ILeaveBehaviour leave = System.Activator.CreateInstance(System.Type.GetType(record.leaveTypeName)) as ILeaveBehaviour;
+
+                if (entry == null || move == null || leave == null)
+                {
+                    Debug.LogWarning("Replay failed: could not instantiate behaviours.");
+                    continue;
+                }
+
+                spawnAction(record.enemyIndex, record.spawnDataIndex, record.gunDataIndex, entry, move, leave);
+            }
+        }
+    }
+    public void StartRecording(RecordedWaveData recording)
+    {
+        // 自動建立資料夾（如果不存在）
+        if (!System.IO.Directory.Exists(savePath))
+        {
+            System.IO.Directory.CreateDirectory(savePath);
+#if UNITY_EDITOR
+            UnityEditor.AssetDatabase.Refresh(); // 確保 Unity 看得到新資料夾
+#endif
+        }
+
+        currentRecording = recording;
+        currentRecording.spawnRecords.Clear();
+        recordStartTime = Time.time;
+        isRecording = true;
+        Debug.Log("Recording started.");
+    }
+
+    public void StopRecording()
+    {
+        isRecording = false;
+#if UNITY_EDITOR
+        UnityEditor.EditorUtility.SetDirty(currentRecording);
+        UnityEditor.AssetDatabase.SaveAssets();
+#endif
+        Debug.Log("Recording stopped and saved.");
+    }
+
+    public void NewSpawn_WithRecord(int enemyIndex, int spawnIndex, int gunIndex,
+    IEntryBehaviour entry, IMoveBehaviour move, ILeaveBehaviour leave)
+    {
+        NewSpawn(enemyDatas[enemyIndex], spawnDatas[spawnIndex], gunDatas[gunIndex], entry, move, leave);
+
+        if (!isRecording || currentRecording == null) return;
+
+        var record = new RecordedWaveData.SpawnRecord
+        {
+            timestamp = Time.time - recordStartTime,
+            enemyIndex = enemyIndex,
+            spawnDataIndex = spawnIndex,
+            gunDataIndex = gunIndex,
+            entryTypeName = entry.GetType().Name,
+            moveTypeName = move.GetType().Name,
+            leaveTypeName = leave.GetType().Name
+        };
+
+        currentRecording.spawnRecords.Add(record);
+    }
+
+    public void ReplayRecording(RecordedWaveData data)
+    {
+        StartCoroutine(ReplayCoroutine(data));
+    }
+
+    private IEnumerator ReplayCoroutine(RecordedWaveData data)
+    {
+        float lastTimestamp = 0f;
+
+        foreach (var record in data.spawnRecords)
+        {
+            float waitTime = record.timestamp - lastTimestamp;
+            yield return new WaitForSeconds(waitTime);
+            lastTimestamp = record.timestamp;
+
+            IEntryBehaviour entry = System.Activator.CreateInstance(System.Type.GetType(record.entryTypeName)) as IEntryBehaviour;
+            IMoveBehaviour move = System.Activator.CreateInstance(System.Type.GetType(record.moveTypeName)) as IMoveBehaviour;
+            ILeaveBehaviour leave = System.Activator.CreateInstance(System.Type.GetType(record.leaveTypeName)) as ILeaveBehaviour;
+
+            if (entry == null || move == null || leave == null)
+            {
+                Debug.LogWarning($"[Replay] Failed to spawn. entry: {entry}, move: {move}, leave: {leave}");
+                continue;
+            }
+
+            Debug.Log($"[Replay] Spawn enemy at {record.timestamp:F2}s (waited {waitTime:F2}s)");
+
+            NewSpawn(
+                enemyDatas[record.enemyIndex],
+                spawnDatas[record.spawnDataIndex],
+                gunDatas[record.gunDataIndex],
+                entry, move, leave
+            );
+        }
+    }
     public enum BulletType
     {
         Black,
@@ -42,15 +281,26 @@ public class WaveManager : MonoBehaviour
     {
         //customPathDataList = new List<CustomPathData>();
         //customPathDataList.Add(Resources.Load<CustomPathData>("PathData/PathData1"));
-
+        if (debugTextStyle == null)
+        {
+            debugTextStyle = new GUIStyle(GUI.skin.label);
+            debugTextStyle.richText = true;
+            debugTextStyle.fontSize = 14;
+        }
     }
 
     //public BulletType bulletType;
     // Start is called before the first frame update
     void Start()
     {
-        if(!debug)
-        StartCoroutine(WaveSpawn());
+        isRecording = false; // 強制關閉錄製，避免 Inspector 影響
+        if (!debug)
+            StartCoroutine(WaveSpawn());
+
+        if (autoStartRecording && currentRecording != null)
+        {
+            StartRecording(currentRecording);
+        }
     }
 
     // Update is called once per frame
@@ -112,6 +362,40 @@ public class WaveManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Backslash))
         {
             StartCoroutine(SpawnGroup1_13());
+        }
+        // === 錄製控制 ===
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            StartRecording(currentRecording);
+        }
+        if (Input.GetKeyDown(KeyCode.F2))
+        {
+            StopRecording();
+        }
+        if (Input.GetKeyDown(KeyCode.F3))
+        {
+            ReplayRecording(currentRecording);
+        }
+        if (Input.GetKeyDown(KeyCode.F5))
+        {
+            CreateNewRecordingAsset("NewWaveRecording"); // 可以自訂名稱
+        }
+        // === 切換錄製資料 ===
+        if (Input.GetKeyDown(KeyCode.F4))
+        {
+            if (recordedWaveDataList.Count == 0) return;
+            currentRecordingIndex = (currentRecordingIndex + 1) % recordedWaveDataList.Count;
+            currentRecording = recordedWaveDataList[currentRecordingIndex];
+            Debug.Log($"切換到錄製資料：{currentRecording.name}");
+        }
+
+        if (Input.GetKeyDown(KeyCode.F5))
+        {
+            if (currentRecording != null)
+            {
+                ReplayRecording(currentRecording);
+                Debug.Log($"播放錄製資料：{currentRecording.name}");
+            }
         }
     }
     //spawn A
@@ -357,63 +641,61 @@ public class WaveManager : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         NewSpawnC(enemyDatas[2], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeC(), new LeaveTypeA());   //MoveTypeC
     }
-    IEnumerator SpawnGroup1_1() //R
+    IEnumerator SpawnGroup1_1() // R
     {
-        NewSpawn(enemyDatas[0], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
-        yield return new WaitForSeconds(0.5f);
-        NewSpawn(enemyDatas[0], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
-        yield return new WaitForSeconds(0.5f);
-        NewSpawn(enemyDatas[0], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 0, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.5f);
 
+        NewSpawn_WithRecord(0, 0, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        yield return new WaitForSeconds(0.5f);
 
+        NewSpawn_WithRecord(0, 0, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        yield return new WaitForSeconds(0.5f);
     }
-    IEnumerator SpawnGroup1_2() //L
+    IEnumerator SpawnGroup1_2() // L
     {
-        NewSpawn(enemyDatas[0], spawnDatas[1], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
-        yield return new WaitForSeconds(0.5f);
-        NewSpawn(enemyDatas[0], spawnDatas[1], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
-        yield return new WaitForSeconds(0.5f);
-        NewSpawn(enemyDatas[0], spawnDatas[1], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 1, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.5f);
 
+        NewSpawn_WithRecord(0, 1, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        yield return new WaitForSeconds(0.5f);
 
+        NewSpawn_WithRecord(0, 1, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        yield return new WaitForSeconds(0.5f);
     }
-    IEnumerator SpawnGroup1_3() //blackbullet
+    IEnumerator SpawnGroup1_3() // blackbullet
     {
-        NewSpawn(enemyDatas[0], spawnDatas[2], gunDatas[1], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
-        yield return new WaitForSeconds(0.5f);
-        NewSpawn(enemyDatas[0], spawnDatas[2], gunDatas[1], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
-        yield return new WaitForSeconds(0.5f);
-        NewSpawn(enemyDatas[0], spawnDatas[2], gunDatas[1], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 2, 1, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.5f);
 
+        NewSpawn_WithRecord(0, 2, 1, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        yield return new WaitForSeconds(0.5f);
+
+        NewSpawn_WithRecord(0, 2, 1, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        yield return new WaitForSeconds(0.5f);
     }
-    IEnumerator SpawnGroup1_4() //M_to_LB red
+    IEnumerator SpawnGroup1_4() // M_to_LB red
     {
-        NewSpawn(enemyDatas[0], spawnDatas[3], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
-        
-        NewSpawn(enemyDatas[0], spawnDatas[4], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
-        
-        NewSpawn(enemyDatas[0], spawnDatas[5], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 3, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 4, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 5, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.5f);
-
     }
     IEnumerator SpawnGroup1_5() // CT_to_RB red
     {
-        NewSpawn(enemyDatas[0], spawnDatas[6], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
-
-        NewSpawn(enemyDatas[0], spawnDatas[7], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
-
-        NewSpawn(enemyDatas[0], spawnDatas[8], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 6, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 7, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 8, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.5f);
 
     }
-    IEnumerator SpawnGroup1_6() //LB_to_RT red
+    IEnumerator SpawnGroup1_6() // LB_to_RT red
     {
-        NewSpawn(enemyDatas[0], spawnDatas[9], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
-        yield return new WaitForSeconds(0.1f);
-
+        NewSpawn_WithRecord(0, 0, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        yield return new WaitForSeconds(0.5f);
+        NewSpawn_WithRecord(0, 0, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        yield return new WaitForSeconds(0.5f);
+        NewSpawn_WithRecord(0, 0, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
     }
     IEnumerator SpawnGroup1_7()
     {
@@ -462,6 +744,15 @@ public class WaveManager : MonoBehaviour
     IEnumerator WaveSpawn()
     {
         //wave1
+        
+        StartCoroutine(PlayRecordedWave(recordedWaves[0]));
+
+        yield return new WaitForSeconds(2f);
+        StartCoroutine(PlayRecordedWave(recordedWaves[1]));
+
+        yield return new WaitForSeconds(3f);
+        StartCoroutine(PlayRecordedWave(recordedWaves[2]));
+
         yield return new WaitForSeconds(1f);
         StartCoroutine(SpawnGroup1_1());
 
@@ -476,6 +767,8 @@ public class WaveManager : MonoBehaviour
         //wave2
         yield return new WaitForSeconds(5f);
         StartCoroutine(SpawnGroup1_3());
+
+         
 
         //GameFinish();
         //yield return new WaitForSeconds(4f);
@@ -575,4 +868,30 @@ public class WaveManager : MonoBehaviour
         GameClearText.SetActive(true);
         Time.timeScale = 0.0f;
     }
+    public void CreateNewRecordingAsset(string fileName)
+    {
+#if UNITY_EDITOR
+        string fullPath = savePath + fileName + ".asset";
+
+        // 如果已經存在，就不再建立
+        var existing = AssetDatabase.LoadAssetAtPath<RecordedWaveData>(fullPath);
+        if (existing != null)
+        {
+            Debug.LogWarning($"Recording asset already exists: {fullPath}");
+            currentRecording = existing;
+            return;
+        }
+
+        var newRecording = ScriptableObject.CreateInstance<RecordedWaveData>();
+        AssetDatabase.CreateAsset(newRecording, fullPath);
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
+
+        Debug.Log($"Created new RecordedWaveData asset at: {fullPath}");
+        currentRecording = newRecording;
+#else
+    Debug.LogError("CreateNewRecordingAsset only works in the Unity Editor.");
+#endif
+    }
+
 }
