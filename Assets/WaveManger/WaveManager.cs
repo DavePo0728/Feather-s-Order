@@ -472,7 +472,6 @@ public class WaveManager : MonoBehaviour
         //wave2
         yield return new WaitForSeconds(5f);
         StartCoroutine(SpawnGroup1_3());
-
         //GameFinish();
         //yield return new WaitForSeconds(4f);
         //StartCoroutine(SpawnGroup1_1());
