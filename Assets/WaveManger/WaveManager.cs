@@ -376,7 +376,7 @@ public class WaveManager : MonoBehaviour
         {
             ReplayRecording(currentRecording);
         }
-        if (Input.GetKeyDown(KeyCode.F5))
+        if (Input.GetKeyDown(KeyCode.F6))
         {
             CreateNewRecordingAsset("NewWaveRecording"); // 可以自訂名稱
         }

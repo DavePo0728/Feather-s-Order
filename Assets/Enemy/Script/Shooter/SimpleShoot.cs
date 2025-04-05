@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SimpleShoot : MonoBehaviour
 {
-
+    [SerializeField] private Transform playerTransform;
     GameObject bullet;
     GameObject blackRedBulletPrefab;
     public float rpm;
@@ -95,10 +95,13 @@ public class SimpleShoot : MonoBehaviour
             bullet.transform.position = transform.position;
             bullet.transform.rotation = transform.rotation;
             bullet.SetActive(true);
+
             RedBulletMove bulletMove = bullet.GetComponent<RedBulletMove>();
+            bulletMove.playerTransform = playerTransform; //  設定玩家位置
             bulletMove.Initial();
+
             timeSinceLastShot = 0.0f;
-            shotCount++; // 增加計數器
+            shotCount++;
             if (shotCount >= maxShots)
             {
                 StartCoroutine(ShootRoutine());

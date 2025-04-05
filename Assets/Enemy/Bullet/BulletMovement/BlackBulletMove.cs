@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BlackBulletMove : BulletBase
 {
-    [SerializeField]
+    //[SerializeField] public Transform playerTransform;
     private float spreadSpeed;
     //protected Rigidbody bulletRigidbody;
     [SerializeField]
@@ -21,7 +21,32 @@ public class BlackBulletMove : BulletBase
     private Vector3 destination;
     Vector3 direction;
     GameObject player;
+    public GameObject grazeEffectPrefab;
 
+    //擦彈特效
+    public void PlayGrazeEffect(Transform grazePoint)
+    {
+        if (grazeEffectPrefab != null)
+        {
+            Vector3 spawnPos = grazePoint.position;
+
+            ////  若有玩家參考，加個偏移會更爽感
+            //if (playerTransform != null)
+            //{
+            //    Vector3 dir = (playerTransform.position - grazePoint.position).normalized;
+            //    spawnPos += dir * -0.5f; // 可微調距離
+            //}
+
+            GameObject effect = Instantiate(grazeEffectPrefab, spawnPos, Quaternion.identity);
+            effect.transform.localScale = Vector3.one;
+            ParticleSystem ps = effect.GetComponent<ParticleSystem>();
+            if (ps != null)
+            {
+                ps.Play();
+            }
+            Destroy(effect, 1f);
+        }
+    }
 
     private void Awake()
     {
