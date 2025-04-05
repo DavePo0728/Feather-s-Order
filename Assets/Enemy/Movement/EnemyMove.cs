@@ -31,6 +31,8 @@ public class EnemyMove : MonoBehaviour
     public Vector3[] moveC_PathList;
     [SerializeField]
     bool isDebug;
+    [SerializeField]
+    bool isDebugHaveGun;
     public bool isMove =false;
 
     public List<GameObject> gunList;
@@ -71,7 +73,7 @@ public class EnemyMove : MonoBehaviour
                 gunList.Add(transform.GetChild(4).GetChild(i).gameObject);
             }
         }
-        else
+        else if (isDebugHaveGun)
         {
             testData = Resources.Load<EnemyData>("EnemyData/Test");
             testGunData = Resources.Load<GunData>("GunData/Test");

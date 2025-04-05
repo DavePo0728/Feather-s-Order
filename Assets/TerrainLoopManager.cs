@@ -5,15 +5,22 @@ using DG.Tweening;
 
 public class TerrainLoopManager : MonoBehaviour
 {
+    [HideInInspector]
+    public int usingListNum;
     public static TerrainLoopManager terrainInstance;
     [SerializeField]
     List<GameObject> terrainList,outsideLeftList,outSideRightList,blockList,specialList;
-    Vector3 InitialPos = new Vector3(-50f,331.5f, 600f);
     [SerializeField]
-    float loopRoundNum = 0;
+    List<GameObject> terrainList2,terrainList3;
+    [HideInInspector]
+    public Vector3 InitialPos;
     [SerializeField]
-    float loopNum = 0;
+    float loopRoundNum;
+    [SerializeField]
+    float loopNum = 1;
     public List<GameObject> _terrainList=>terrainList;
+    public List<GameObject> _terrainList2 => terrainList2;
+    public List<GameObject> _terrainList3 => terrainList3;
     public List<GameObject> _outSideLeftList => outsideLeftList;
     public List<GameObject> _outSideRightList => outSideRightList;
     private void Awake()
@@ -33,14 +40,44 @@ public class TerrainLoopManager : MonoBehaviour
     }
     public void Refresh()
     {
-        if (loopNum < 7)
+        if (loopNum < 6)
         {
             loopNum++;
         }
-        else if (loopNum == 7)
+        else if (loopNum == 6)
         {
             loopNum = 1;
             loopRoundNum++;
         }
+    }
+    public void ChangeMap(int listNum)
+    {
+        if (usingListNum == listNum) return;
+        
+        switch (usingListNum)
+        {
+            case 1:
+                LandMove landMove = _terrainList[_terrainList.Count - 1].GetComponent<LandMove>();
+                landMove.isEnding = true;
+                LandMove firstLandMove = _terrainList[0].GetComponent<LandMove>();
+                firstLandMove.nextListNum = listNum;
+                
+                break;
+            case 2:
+                LandMove landMove2 = _terrainList2[_terrainList2.Count - 1].GetComponent<LandMove>();
+                landMove2.isEnding = true;
+                LandMove firstLandMove2 = _terrainList2[0].GetComponent<LandMove>();
+                firstLandMove2.nextListNum = listNum;
+                
+                break;
+            case 3:
+                LandMove landMove3 = _terrainList3[_terrainList3.Count - 1].GetComponent<LandMove>();
+                landMove3.isEnding = true;
+                LandMove firstLandMove3 = _terrainList3[0].GetComponent<LandMove>();
+                firstLandMove3.nextListNum = listNum;
+
+                break;
+        }
+
     }
 }

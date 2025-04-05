@@ -158,7 +158,12 @@ public class RedBulletMove : BulletBase
         }
         if (other.tag == "PlayerBullet")
         {
-            gameObject.SetActive(false);
+            speed = 0;
+            moveToPlayer = false;
+            bulletBody.SetActive(false);
+            hitEffect.gameObject.SetActive(true);
+            hitParticle.Play();
+            BulletCollider.enabled = false;
         }
         if (other.tag == "HPCollider")
         {

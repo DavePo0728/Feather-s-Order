@@ -30,7 +30,7 @@ public class PlayerShooting : MonoBehaviour
     {
         if (context.performed)
         {
-            if (playerSlashAttack.arrived)
+            if (playerSlashAttack.isSlashDashing)
             {
                 return;
             }

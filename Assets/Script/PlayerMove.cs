@@ -14,7 +14,6 @@ public class PlayerMove : MonoBehaviour
     [SerializeField]
     Animator playerAnimator;
     [Space(height: 20)]
-
     [SerializeField]
     AudioSource DashAudioSource;
     AudioClip DashAudioClip;
@@ -29,7 +28,9 @@ public class PlayerMove : MonoBehaviour
     float leanAngle, lerpTime, lerpMultiplier;
     [SerializeField]
     float dutchMultiplier;
-    
+    [SerializeField]
+    float fallBackTime;
+    float fallbackspeed;
     //Dash
     bool canDash = true;
     bool isDashing = false;
@@ -152,8 +153,25 @@ public class PlayerMove : MonoBehaviour
             }
             if(!playerSlashAttack.isSlashDashing)
             {
-                playerRigidbody.velocity = new Vector3(movement.x * moveHspeed, movement.y * moveVspeed, 0);
-                playerRigidbody.velocity = Vector3.ClampMagnitude(playerRigidbody.velocity, maxVelocity);
+                if (playerSlashAttack.isFallBack)
+                {
+                    if(transform.position.z > 13)
+                    {
+                        playerRigidbody.velocity = new Vector3(movement.x * moveHspeed, movement.y * moveVspeed, -fallbackspeed);
+                        Vector2 clampedXY = Vector2.ClampMagnitude(new Vector2(playerRigidbody.velocity.x, playerRigidbody.velocity.y), maxVelocity);
+                        playerRigidbody.velocity = new Vector3(clampedXY.x, clampedXY.y, playerRigidbody.velocity.z);
+                    }
+                    else
+                    {
+                        //Debug.Log("FallBackFinish");
+                        playerSlashAttack.FallBackFinish();
+                    }
+                }
+                else
+                {
+                    playerRigidbody.velocity = new Vector3(movement.x * moveHspeed, movement.y * moveVspeed, 0);
+                    playerRigidbody.velocity = Vector3.ClampMagnitude(playerRigidbody.velocity, maxVelocity);
+                }
                 //Debug.Log(playerRigidbody.velocity);
                 // flying lean
                 if (playerRigidbody.velocity.x < -0.2f)
@@ -211,7 +229,16 @@ public class PlayerMove : MonoBehaviour
 
         }
     }
-    
+    public void CalculateFallbackSpeed()
+    {
+        // 計算目標點 Z 軸的距離
+        float distance = Mathf.Abs(13f - transform.position.z);
+        //Debug.Log($"Calculated fallbackspeed: {distance}");
+        // 速度 = 距離 ÷ 時間（0.5秒）
+        fallbackspeed = distance / fallBackTime;
+
+        //Debug.Log($"Calculated fallbackspeed: {fallbackspeed}");
+    }
     IEnumerator OnDash()
     {
         canDash = false;
