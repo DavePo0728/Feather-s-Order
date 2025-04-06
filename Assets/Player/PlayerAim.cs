@@ -10,7 +10,7 @@ public class PlayerAim : MonoBehaviour
     [SerializeField]
     Camera playerCamera;
     [SerializeField]
-    public GameObject aimmingImage,FarLockImage,NearLockImage;
+    public GameObject aimmingImage, FarLockImage, NearLockImage;
     public GameObject lockedEnemy;
     public GameObject emptyAimObject;
     NearLockTweenAnim nearLockAnim;
@@ -31,7 +31,7 @@ public class PlayerAim : MonoBehaviour
     //LayerMask raycastIgnore;
     private void Awake()
     {
-        nearLockAnim =NearLockImage.GetComponent<NearLockTweenAnim>();
+        nearLockAnim = NearLockImage.GetComponent<NearLockTweenAnim>();
         farLockAnim = FarLockImage.GetComponent<FarLockTweenAnim>();
         //RaycastIgnore = LayerMask.GetMask("Bullet");
     }
@@ -57,7 +57,7 @@ public class PlayerAim : MonoBehaviour
         //{
         //    aimPos = Vector3.zero;
         //}
-        emptyAimObject.transform.position=new Vector3(transform.position.x, transform.position.y, transform.position.z+zOffset);
+        emptyAimObject.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + zOffset);
         //emptyAimObject.transform.position = new Vector3(Mathf.Clamp(emptyAimObject.transform.position.x, MaxXLeft, MaxXRight), Mathf.Clamp(emptyAimObject.transform.position.y, MaxYBottom, MaxYTop), emptyAimObject.transform.position.z);
         aimmingImage.transform.position = playerCamera.WorldToScreenPoint(emptyAimObject.transform.position);
 
@@ -68,7 +68,8 @@ public class PlayerAim : MonoBehaviour
                 FarLockImage.SetActive(true);
                 FarLockImage.transform.position = playerCamera.WorldToScreenPoint(lockedEnemy.transform.position);
                 enemyHp = lockedEnemy.GetComponent<EnemyHp>();
-                if (!enemyHp.corruption_P)
+               
+                if (enemyHp.corrupted&&!enemyHp.corruption_P||enemyHp.haveshield)
                 {
                     NearLockImage.SetActive(true);
                     NearLockImage.transform.position = playerCamera.WorldToScreenPoint(lockedEnemy.transform.position);
@@ -78,7 +79,7 @@ public class PlayerAim : MonoBehaviour
                     NearLockImage.SetActive(false);
                 }
             }
-            else if(lockedEnemy == null)
+            else if (lockedEnemy == null)
             {
                 isLocked = false;
                 FarLockImage.SetActive(false);
@@ -100,38 +101,18 @@ public class PlayerAim : MonoBehaviour
     {
         nearLockAnim.ReActive();
     }
-
-    //void CalculateMaxYBottom()
-    //{
-    //    MaxYBottom = ab * Mathf.Tan(50f * Mathf.Deg2Rad);
-    //    //MaxYBottom = playerOriPos.y-MaxYBottom;
-    //    //Debug.Log("ab : " +ab);
-    //    //Debug.Log(MaxYBottom);
-    //}
-    //void CalculateMaxYTop()
-    //{
-    //    MaxYTop = ab * Mathf.Tan(70f * Mathf.Deg2Rad);
-    //    //MaxYTop = Mathf.Abs(MaxYTop);
-    //    //MaxYTop = playerOriPos.y + MaxYTop;
-
-    //    //Debug.Log(MaxYTop);
-    //}
-    //void CalculateMaxXLeft()
-    //{
-    //    MaxXLeft = ab * Mathf.Tan(82.8f * Mathf.Deg2Rad);
-    //    //MaxXLeft = playerOriPos.x - MaxXLeft;
-    //    //Debug.Log(MaxXLeft);
-    //}
-    //void CalculateMaxXRight()
-    //{
-    //    MaxXRight = ab * Mathf.Tan(85.26f * Mathf.Deg2Rad);
-    //    //MaxXRight = playerOriPos.x + MaxXRight;
-    //    //Debug.Log(MaxXRight);
-    //}
-    //public void GetAimInput(InputAction.CallbackContext context)
-    //{
-    //    aimInput = context.ReadValue<Vector2>();
-    //}
-    // Update is called once per frame
+    public bool CheckLockedEnemy()
+    {
+        if (lockedEnemy.tag == "Enemy")
+        {
+            Debug.Log("Locked " + lockedEnemy.tag);
+            return true;
+        }
+        else
+        {
+            Debug.Log("Missed " + lockedEnemy.tag);
+            return false;
+        }
+    }
 }
 

@@ -22,6 +22,10 @@ public class LockImageUpdate : MonoBehaviour
         {
             transform.position = playerVcam.WorldToScreenPoint(lockEnemy.transform.position);
         }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
     public void SetTarget(GameObject target)
     {

@@ -30,9 +30,12 @@ public class PlayerShooting : MonoBehaviour
     {
         if (context.performed)
         {
-            if (playerSlashAttack.isSlashDashing)
+            if(playerSlashAttack!= null)
             {
-                return;
+                if (playerSlashAttack.isSlashDashing)
+                {
+                    return;
+                }
             }
             shooting = true;
             gunPoint1Img.enabled = true;

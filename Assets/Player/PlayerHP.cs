@@ -20,8 +20,8 @@ public class PlayerHP : MonoBehaviour
     TMP_Text HPText;
     [SerializeField]
     GameObject GameOverUI,gameOverText,GameClearText;
-    public TMP_Text mpText;
-    public GameObject heal, healBack;
+    //public TMP_Text mpText;
+    //public GameObject heal, healBack;
     public float maxMp;
     public float currentMp;
     public float mpCost;
@@ -128,22 +128,22 @@ public class PlayerHP : MonoBehaviour
     public void UpdateMpUI()
     {
         
-        //Debug.Log(HpAmount);
-        if (currentMp >= maxHp)
-        {
-            currentMp = maxHp;
-        }
-        mpText.text = currentMp.ToString();
-        if(currentMp >= mpCost)
-        {
-            heal.SetActive(true);
-            healBack.SetActive(false);
-        }
-        else
-        {
-            heal.SetActive(false);
-            healBack.SetActive(true);
-        }
+        ////Debug.Log(HpAmount);
+        //if (currentMp >= maxHp)
+        //{
+        //    currentMp = maxHp;
+        //}
+        ////mpText.text = currentMp.ToString();
+        //if(currentMp >= mpCost)
+        //{
+        //    heal.SetActive(true);
+        //    healBack.SetActive(false);
+        //}
+        //else
+        //{
+        //    heal.SetActive(false);
+        //    healBack.SetActive(true);
+        //}
     }
     public void GetMp(float amount)
     {

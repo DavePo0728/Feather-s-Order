@@ -39,6 +39,7 @@ public class EnemyHp : MonoBehaviour
     [SerializeField]
     public float maxShieldHp;
     float ShieldDamageModifier;
+    [SerializeField]
     GameObject DeathExplosion;
     ScoreManager scoreManager;
 
@@ -204,6 +205,8 @@ public class EnemyHp : MonoBehaviour
                     {
                         DeathEffect();
                         scoreManager.AddScore();
+                        PlayerHP playerHP = GameObject.FindGameObjectWithTag("HPCollider").GetComponent<PlayerHP>();
+                        playerHP.Heal(10);
                     }
 
                 }
@@ -217,6 +220,8 @@ public class EnemyHp : MonoBehaviour
                     {
                         DeathEffect();
                         scoreManager.AddScore();
+                        PlayerHP playerHP = GameObject.FindGameObjectWithTag("HPCollider").GetComponent<PlayerHP>();
+                        playerHP.Heal(10);
                     }
                 }
             }
@@ -230,6 +235,8 @@ public class EnemyHp : MonoBehaviour
                 {
                     DeathEffect();
                     scoreManager.AddScore();
+                    PlayerHP playerHP = GameObject.FindGameObjectWithTag("HPCollider").GetComponent<PlayerHP>();
+                    playerHP.Heal(10);
                 }
             }
         }   
@@ -282,10 +289,10 @@ public class EnemyHp : MonoBehaviour
         }
         if(other.tag == "SlashCollider"&&slashDetectBool==false)
         {
-            SlashHurt();
+            SlashHurt(20);
         }
     }
-    void SlashHurt()
+    void SlashHurt(float damage)
     {
         slashDetectBool = true;
         if (hitCounter < 3)
@@ -293,7 +300,7 @@ public class EnemyHp : MonoBehaviour
             slashHitEffectYellowObject.SetActive(true);
             slashHitEffectYellow.Play();
             hitCounter++;
-            ShieldHurt(10);
+            ShieldHurt(damage);
             Invoke("SetSlashDetectBool", 0.2f);
         }
         else if (hitCounter >= 3)
@@ -301,7 +308,7 @@ public class EnemyHp : MonoBehaviour
             slashHitEffectRedObject.SetActive(true);
             slashHitEffectRed.Play();
             hitCounter = 0;
-            ShieldHurt(10);
+            ShieldHurt(damage);
             Invoke("SetSlashDetectBool", 0.3f);
         }
     }

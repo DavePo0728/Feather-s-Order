@@ -20,12 +20,14 @@ public class BulletGraze : MonoBehaviour
     AudioClip grazeClip;
     GameObject grazeEffect;
     ParticleSystem grazeEffectParticle;
+    PlayerHP playerHP;
     private void Awake()
     {
         grazeSound = GetComponent<AudioSource>();
         grazeClip = Resources.Load<AudioClip>("Sound/BulletGrazing");
         grazeEffect = transform.GetChild(0).gameObject;
         grazeEffectParticle = grazeEffect.GetComponent<ParticleSystem>();
+        playerHP = GameObject.Find("HPCollider").GetComponent<PlayerHP>();
     }
     // Start is called before the first frame update
     void Start()
@@ -114,6 +116,7 @@ public class BulletGraze : MonoBehaviour
                 //Debug.Log(other.transform.parent.name);
                 StartCoroutine(GrazeCD());
                 currentGrazeEnergy += grazeEnergyGain;
+                playerHP.Heal(1);
                 if (currentGrazeEnergy > maxGrazeEnergy)
                 {
                     currentGrazeEnergy = maxGrazeEnergy;

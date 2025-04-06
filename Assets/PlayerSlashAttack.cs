@@ -72,22 +72,33 @@ public class PlayerSlashAttack : MonoBehaviour
         {
             if (isSlashDashing == false&&arrived==false&&isFallBack==false)
             {
-                if (!playerAim._lockedEnemy.CompareTag("Enemy"))
+                //if (!playerAim._lockedEnemy.CompareTag("Enemy"))
+                //{
+                //    Debug.Log("1");
+                //    ReturnAnimation();
+                //    return;
+                //}
+                if (playerAim.CheckLockedEnemy())
                 {
-                    Debug.Log("1");
-                    ReturnAnimation();
-                    return;
+                    target = playerAim._lockedEnemy;
+                    enemyHp = target.GetComponent<EnemyHp>();
+
+                }
+                if (enemyHp != null)
+                {
+                    if (enemyHp.haveshield == true)
+                    {
+                        DashToShieldEnemy();
+                        return;
+                    }
+                    if (enemyHp.corrupted&&enemyHp.corruption_P == false)
+                    {
+                        DashToEnemy();
+                        playerAim.aimmingImage.SetActive(false);
+                        playerAim.FarLockImage.SetActive(false);
+                    }
                 }
 
-                //PlayerOriginalPos = transform.position;
-                //PlayerOriginalPos.z = 13f;
-                enemyHp = playerAim._lockedEnemy.GetComponent<EnemyHp>();
-                if (enemyHp.corruption_P ==false)
-                {
-                    DashToEnemy();
-                    playerAim.aimmingImage.SetActive(false);
-                    playerAim.FarLockImage.SetActive(false);
-                }
             }
             else if(isSlashDashing && arrived)
             {
@@ -162,11 +173,11 @@ public class PlayerSlashAttack : MonoBehaviour
             return;
         }
     }
+
     void DashToEnemy()
     {
         playerRigidbody.velocity = Vector3.zero;
-        target = playerAim._lockedEnemy;
-        enemyHp = target.GetComponent<EnemyHp>();
+        if (target != null) 
         slashTarget = target.transform.GetChild(7).transform.position;
         Vector3 lastTargetPos = slashTarget;
         tweener = playerRigidbody.DOMove(slashTarget, 0.5f).OnStart(() => { tweenPlaying = true;}).OnUpdate(() =>
@@ -184,6 +195,7 @@ public class PlayerSlashAttack : MonoBehaviour
             }
         }).OnComplete(() =>
         {
+            target = null;
             tweenPlaying = false;
             arrived = true;
             playerRigidbody.velocity = Vector3.zero;
@@ -210,11 +222,45 @@ public class PlayerSlashAttack : MonoBehaviour
             }
             //transform.position = new Vector3(transform.position.x, transform.position.y, slashtarget.position.z);
         }
-        else if(arrived) 
+    }
+    void DashToShieldEnemy()
+    {
+        playerRigidbody.velocity = Vector3.zero;
+        target = playerAim._lockedEnemy;
+        enemyHp = target.GetComponent<EnemyHp>();
+        slashTarget = target.transform.GetChild(7).transform.position;
+        Vector3 lastTargetPos = slashTarget;
+        tweener = playerRigidbody.DOMove(slashTarget, 0.5f).OnStart(() => { tweenPlaying = true;}).OnUpdate(() =>
         {
-            Debug.Log("4");
-            ReturnAnimation();
-        }
+            // 持續更新目標位置
+            if ((slashTarget - lastTargetPos).sqrMagnitude > 0.01f) // 有改變才更新
+            {
+                lastTargetPos = slashTarget;
+                tweener.ChangeEndValue(slashTarget, true);
+            }
+            // 計算當前位置與目標位置的距離
+            if (Vector3.Distance(transform.position, slashTarget) <= 0.1f)
+            {
+                tweener.Complete();// 直接完成動畫
+            }
+        }).OnComplete(() =>
+        {
+            tweenPlaying = false;
+            arrived = true;
+            playerRigidbody.velocity = Vector3.zero;
+
+            playerVCam.m_Lens.FieldOfView = 15;
+            followZoom.m_Width = 0;
+            Debug.Log("arrived: "+arrived);
+            shieldEffect.SetActive(false);
+            TriggerSlash();
+            Invoke("ReturnAnimation", 0.5f);
+        });
+            isSlashDashing = true;
+            if (!tweenPlaying)
+            {
+                tweener.Play();
+            }
     }
     void SetAttack() 
     {

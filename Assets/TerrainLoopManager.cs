@@ -57,23 +57,23 @@ public class TerrainLoopManager : MonoBehaviour
         switch (usingListNum)
         {
             case 1:
-                LandMove landMove = _terrainList[_terrainList.Count - 1].GetComponent<LandMove>();
+                LandMove landMove = terrainList[terrainList.Count - 1].GetComponent<LandMove>();
                 landMove.isEnding = true;
-                LandMove firstLandMove = _terrainList[0].GetComponent<LandMove>();
+                LandMove firstLandMove = terrainList[0].GetComponent<LandMove>();
                 firstLandMove.nextListNum = listNum;
                 
                 break;
             case 2:
-                LandMove landMove2 = _terrainList2[_terrainList2.Count - 1].GetComponent<LandMove>();
+                LandMove landMove2 = terrainList2[terrainList2.Count - 1].GetComponent<LandMove>();
                 landMove2.isEnding = true;
-                LandMove firstLandMove2 = _terrainList2[0].GetComponent<LandMove>();
+                LandMove firstLandMove2 = terrainList2[0].GetComponent<LandMove>();
                 firstLandMove2.nextListNum = listNum;
                 
                 break;
             case 3:
-                LandMove landMove3 = _terrainList3[_terrainList3.Count - 1].GetComponent<LandMove>();
+                LandMove landMove3 = terrainList3[terrainList3.Count - 1].GetComponent<LandMove>();
                 landMove3.isEnding = true;
-                LandMove firstLandMove3 = _terrainList3[0].GetComponent<LandMove>();
+                LandMove firstLandMove3 = terrainList3[0].GetComponent<LandMove>();
                 firstLandMove3.nextListNum = listNum;
 
                 break;

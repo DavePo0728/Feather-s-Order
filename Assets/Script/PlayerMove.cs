@@ -35,13 +35,14 @@ public class PlayerMove : MonoBehaviour
     bool canDash = true;
     bool isDashing = false;
     float dashingTime = 0.2f;
-    float dashCooldown = 0.2f;
+    [SerializeField]
+    float dashCooldown;
     bool isRotating = false;
     AudioSource dashSound;
     [SerializeField]
     List<Material> playerMat;
     [SerializeField]
-    GameObject body,flyinglean;
+    GameObject body;
     float rotationDuration = 0.5f; // Duration of the rotation in seconds
     float rotateStartTime; // Time when the rotation starts
     //float leanStartTime;
@@ -50,14 +51,8 @@ public class PlayerMove : MonoBehaviour
     float leanInput;
     //bool manualLean = true;
     [Header("Effect")]
-    [SerializeField]
-    GameObject BounceExpolsion;
-    [SerializeField]
-    ParticleSystem speedLine;
     Vector3 movement;
-    bool isBouncing = false;
     [SerializeField]
-    float goldspeedMulti;
     PlayerSlashAttack playerSlashAttack;
 
 
@@ -99,20 +94,20 @@ public class PlayerMove : MonoBehaviour
             }
         }
     }
-    public void GetBounce(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            rotateStartTime = Time.time;
-            isBouncing = true;
-            isRotating = true;
-            StartCoroutine(MuTeKiTime(0.2f));
-            //currentEnergy -= 20;
-            //UpdateUI();
-            //timeSinceLastEnergyUse = 0f;   // 重置時間計數器
-            //isRegening = false;
-        }
-    }
+    //public void GetBounce(InputAction.CallbackContext context)
+    //{
+    //    if (context.performed)
+    //    {
+    //        rotateStartTime = Time.time;
+    //        isBouncing = true;
+    //        isRotating = true;
+    //        StartCoroutine(MuTeKiTime(0.2f));
+    //        //currentEnergy -= 20;
+    //        //UpdateUI();
+    //        //timeSinceLastEnergyUse = 0f;   // 重置時間計數器
+    //        //isRegening = false;
+    //    }
+    //}
 
     
     //public void GetLean(InputAction.CallbackContext context)
@@ -181,7 +176,10 @@ public class PlayerMove : MonoBehaviour
                     //float t = (Time.time - rotateStartTime) / 2.0f;
                     //vCam.m_Lens.Dutch = Mathf.SmoothStep(vCam.m_Lens.Dutch, -10, t);
                     playerVCam.m_Lens.Dutch = Mathf.Lerp(playerVCam.m_Lens.Dutch, -10, 0.2f * Time.deltaTime * 8);
-                    SceneVCam.m_Lens.Dutch = Mathf.Lerp(playerVCam.m_Lens.Dutch, -10, 0.2f * Time.deltaTime * 8);
+                    if(SceneVCam != null)
+                    {
+                        SceneVCam.m_Lens.Dutch = Mathf.Lerp(playerVCam.m_Lens.Dutch, -10, 0.2f * Time.deltaTime * 8);
+                    }
                 }
                 else if (playerRigidbody.velocity.x > 0.2f)
                 {
@@ -190,8 +188,10 @@ public class PlayerMove : MonoBehaviour
                     //float t = (Time.time - rotateStartTime) / 2.0f;
                     //vCam.m_Lens.Dutch = Mathf.SmoothStep(vCam.m_Lens.Dutch, 10, t);
                     playerVCam.m_Lens.Dutch = Mathf.Lerp(playerVCam.m_Lens.Dutch, 10, 0.2f * Time.deltaTime * 8);
-                    SceneVCam.m_Lens.Dutch = Mathf.Lerp(playerVCam.m_Lens.Dutch, 10, 0.2f * Time.deltaTime * 8);
-
+                    if (SceneVCam != null)
+                    {
+                        SceneVCam.m_Lens.Dutch = Mathf.Lerp(playerVCam.m_Lens.Dutch, 10, 0.2f * Time.deltaTime * 8);
+                    }
                 }
                 else if (playerRigidbody.velocity.x == 0 && !isDashing)
                 {
@@ -200,8 +200,10 @@ public class PlayerMove : MonoBehaviour
                     //float t = (Time.time - rotateStartTime) / 2.0f;
                     //vCam.m_Lens.Dutch = Mathf.SmoothStep(vCam.m_Lens.Dutch, 0, t);
                     playerVCam.m_Lens.Dutch = Mathf.Lerp(playerVCam.m_Lens.Dutch, 0, 0.2f * Time.deltaTime * 8);
-                    SceneVCam.m_Lens.Dutch = Mathf.Lerp(playerVCam.m_Lens.Dutch, 0, 0.2f * Time.deltaTime * 8);
-
+                    if (SceneVCam != null)
+                    {
+                        SceneVCam.m_Lens.Dutch = Mathf.Lerp(playerVCam.m_Lens.Dutch, 0, 0.2f * Time.deltaTime * 8);
+                    }
                 }
             }
             if (isRotating)
@@ -297,19 +299,19 @@ public class PlayerMove : MonoBehaviour
         playerMat[1].color = Color.white;
         playerMat[2].color = Color.white;
     }
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.tag == "EnemyGoldBullet"&&isBouncing)
-        {
-            Debug.Log("Gold");
-            GoldBulletMove gold = other.GetComponent<GoldBulletMove>();
-            gold.speed *= goldspeedMulti;
-            gold.bounceBack = true;
-            Vector3 spawnEffectPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z - 1f);
-            GameObject explosionInstance = Instantiate(BounceExpolsion, transform);
-            Destroy(explosionInstance, 1f);
-        }
-    }
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if(other.tag == "EnemyGoldBullet"&&isBouncing)
+    //    {
+    //        Debug.Log("Gold");
+    //        GoldBulletMove gold = other.GetComponent<GoldBulletMove>();
+    //        gold.speed *= goldspeedMulti;
+    //        gold.bounceBack = true;
+    //        Vector3 spawnEffectPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z - 1f);
+    //        GameObject explosionInstance = Instantiate(BounceExpolsion, transform);
+    //        Destroy(explosionInstance, 1f);
+    //    }
+    //}
     //private void UpdateUI()
     //{
     //    float EnergyAmount = (float)currentEnergy / (float)maxEnergy;

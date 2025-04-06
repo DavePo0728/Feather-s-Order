@@ -10,7 +10,11 @@ public class DrawPlayArea : MonoBehaviour
     {
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireCube(new Vector3(transform.position.x,transform.position.y-5f,transform.position.z+500), new Vector3(360,60,1000));
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawWireCube(new Vector3(Cam2.transform.position.x, Cam2.transform.position.y - 5f, Cam2.transform.position.z + 500), new Vector3(360, 60, 1000));
+        if(Cam2 != null)
+        {
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawWireCube(new Vector3(Cam2.transform.position.x, Cam2.transform.position.y - 5f, Cam2.transform.position.z + 500), new Vector3(360, 60, 1000));
+
+        }
     }
 }
