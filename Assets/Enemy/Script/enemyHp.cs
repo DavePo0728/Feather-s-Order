@@ -39,7 +39,7 @@ public class EnemyHp : MonoBehaviour
     [SerializeField]
     public float maxShieldHp;
     float ShieldDamageModifier;
-    GameObject DeathExplosion;
+    [SerializeField] GameObject DeathExplosion;
     ScoreManager scoreManager;
 
     ParticleSystem slashHitEffectYellow, slashHitEffectRed;

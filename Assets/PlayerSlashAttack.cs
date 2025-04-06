@@ -164,6 +164,7 @@ public class PlayerSlashAttack : MonoBehaviour
     }
     void DashToEnemy()
     {
+        shieldEffect.SetActive(false);
         playerRigidbody.velocity = Vector3.zero;
         target = playerAim._lockedEnemy;
         enemyHp = target.GetComponent<EnemyHp>();
@@ -190,7 +191,7 @@ public class PlayerSlashAttack : MonoBehaviour
 
             //playerVCam.m_Lens.FieldOfView = 15;
             Debug.Log("arrived: "+arrived);
-            shieldEffect.SetActive(false);
+            
             isCounting = true;
             followZoom.m_Width = 0;
             TriggerSlash();
