@@ -33,7 +33,11 @@ public class MissileShooter : MonoBehaviour
     List<GameObject> lockedEnemies = new List<GameObject>();
     [SerializeField]
     List<GameObject> lockEnemyImageList = new List<GameObject>();
+    [SerializeField] AudioClip farLockSFX;
+    [SerializeField] AudioSource audioSource;
     // Start is called before the first frame update
+
+    private HashSet<GameObject> alreadyPlayedLockSFX = new HashSet<GameObject>();
     private void Awake()
     {
         startScaleX = false; 
@@ -75,6 +79,7 @@ public class MissileShooter : MonoBehaviour
                     Destroy(image);
                 }
                 lockEnemyImageList.Clear();
+                alreadyPlayedLockSFX.Clear();
                 canShoot = false;
             }
         }
@@ -133,10 +138,17 @@ public class MissileShooter : MonoBehaviour
             {
                 Vector3 lockPos = playerVcam.WorldToScreenPoint(other.gameObject.transform.position);
                 lockedEnemies.Add(other.gameObject);
-                GameObject temp = Instantiate(lockImage, lockPos,Quaternion.identity,canvas.transform);
+                GameObject temp = Instantiate(lockImage, lockPos, Quaternion.identity, canvas.transform);
                 LockImageUpdate lockImageUpdate = temp.GetComponent<LockImageUpdate>();
                 lockImageUpdate.SetTarget(other.gameObject);
                 lockEnemyImageList.Add(temp);
+
+                //  播放遠距離瞄準音效（只播放一次）
+                if (!alreadyPlayedLockSFX.Contains(other.gameObject))
+                {
+                    audioSource.PlayOneShot(farLockSFX);
+                    alreadyPlayedLockSFX.Add(other.gameObject);
+                }
             }
         }
     }

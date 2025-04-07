@@ -731,7 +731,7 @@ public class WaveManager : MonoBehaviour
 
 
     }
-    IEnumerator SpawnGroup1_10()
+    IEnumerator SpawnGroup1_10() //RC_to_LC
     {
         NewSpawn(enemyDatas[0], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.1f);

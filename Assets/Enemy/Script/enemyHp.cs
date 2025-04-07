@@ -56,7 +56,7 @@ public class EnemyHp : MonoBehaviour
     [SerializeField]
     AudioClip hitimpactAudioClip; // 擊中敵人聲
     AudioSource audioSource;
-
+    [SerializeField] AudioClip deathAudioClip; // 敵人死亡音效
 
     [Header("UI")]
     [SerializeField]
@@ -88,6 +88,7 @@ public class EnemyHp : MonoBehaviour
         corruptionCleanseParticle =corruptionCleanseObject.GetComponent<ParticleSystem>();
         chainEffectObject = transform.GetChild(10).gameObject;
         chainEffectParticle = chainEffectObject.GetComponent<ParticleSystem>();
+        deathAudioClip = Resources.Load<AudioClip>("Sound/EnemyDeathSound");
     }
     // Start is called before the first frame update
     void Start()
@@ -240,13 +241,35 @@ public class EnemyHp : MonoBehaviour
                 }
             }
         }   
-    } 
+    }
 
     public void DeathEffect()
     {
+        GameObject sfxPlayer = new GameObject("DeathSFX");
+        sfxPlayer.transform.position = transform.position;
+
+        AudioSource sfxAudio = sfxPlayer.AddComponent<AudioSource>();
+        sfxAudio.clip = deathAudioClip;
+
+        //  音量控制（你可以這裡調整音量大小）
+        sfxAudio.volume = 0.8f;
+
+        //  空間感：讓聲音根據距離遠近衰減
+        sfxAudio.spatialBlend = 1f;       // 3D 音效
+        sfxAudio.minDistance = 50f;        // 在這距離內聲音不變
+        sfxAudio.maxDistance = 300f;       // 超過這距離聲音最小
+
+        //  混音群組（可選，如果你用 Audio Mixer）
+        // sfxAudio.outputAudioMixerGroup = yourEnemySFXGroup;
+
+        sfxAudio.Play();
+
+        Destroy(sfxPlayer, deathAudioClip.length);
+
         GameObject effect = Instantiate(DeathExplosion, transform.position, Quaternion.identity);
         Destroy(effect, 1.5f);
-        Destroy(gameObject);
+
+        Destroy(gameObject); // 本體照常清除
     }
 
     private void OnTriggerEnter(Collider other)
