@@ -176,6 +176,7 @@ public class PlayerSlashAttack : MonoBehaviour
 
     void DashToEnemy()
     {
+        shieldEffect.SetActive(false);
         playerRigidbody.velocity = Vector3.zero;
         if (target != null) 
         slashTarget = target.transform.GetChild(7).transform.position;
@@ -202,7 +203,7 @@ public class PlayerSlashAttack : MonoBehaviour
 
             //playerVCam.m_Lens.FieldOfView = 15;
             Debug.Log("arrived: "+arrived);
-            shieldEffect.SetActive(false);
+            
             isCounting = true;
             followZoom.m_Width = 0;
             TriggerSlash();

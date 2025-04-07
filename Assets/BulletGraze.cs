@@ -104,17 +104,30 @@ public class BulletGraze : MonoBehaviour
     {
         if (other.tag == "BulletGrazeCollider")
         {
+            //  無論 cooldown，都呼叫子彈的擦彈反應
+            RedBulletMove bullet = other.GetComponentInParent<RedBulletMove>();
+            if (bullet != null)
+            {
+                bullet.PlayGrazeEffect(other.transform);
+            }
+            BlackBulletMove blackBullet = other.GetComponentInParent<BlackBulletMove>();
+            if (blackBullet != null)
+            {
+                blackBullet.PlayGrazeEffect(other.transform);
+            }
+
+            //  玩家擦彈效果（只有 cooldown 時才觸發）
             if (canGraze)
             {
                 grazeGapTimer = 0;
                 grazeEffect.SetActive(true);
-                if(!grazeEffectParticle.isPlaying)
-                grazeEffectParticle.Play();
-                
+                if (!grazeEffectParticle.isPlaying)
+                    grazeEffectParticle.Play();
+
                 Vibrate(0.1f, 0.1f, 0.05f);
                 grazeSound.PlayOneShot(grazeClip);
-                //Debug.Log(other.transform.parent.name);
                 StartCoroutine(GrazeCD());
+
                 currentGrazeEnergy += grazeEnergyGain;
                 playerHP.Heal(1);
                 if (currentGrazeEnergy > maxGrazeEnergy)
@@ -175,5 +188,6 @@ public class BulletGraze : MonoBehaviour
         yield return new WaitForSeconds(grazeCD);
         canGraze = true;
     }
+    
 }
 

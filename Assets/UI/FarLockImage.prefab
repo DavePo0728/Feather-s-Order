@@ -89,6 +89,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5888e9192c73f794c85d0dd48e3cc39f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  farLockImage: {fileID: 8399211693487912471}
+  maxScale: 1
+  animDuration: 0.2
 --- !u!114 &6299887079514333919
 MonoBehaviour:
   m_ObjectHideFlags: 0

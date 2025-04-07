@@ -9,14 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbc2ec931fe6c5f468160c04b38f041f, type: 3}
-  m_Name: L_to_R
+  m_Script: {fileID: 11500000, guid: a1d36a8fb6caf1640a57d3e453e56159, type: 3}
+  m_Name: ShotGun
   m_EditorClassIdentifier: 
   data:
-    spawnPosition: {x: 3, y: 4, z: 1}
-    endPosition: {x: 4, y: 4, z: 5}
-    LeavePositon: {x: 19, y: 5, z: 10}
-    curveHeight: -4.825035
-    pathNum: 0
-    customPathNum: 0
-    pointWaitTime: 0
+    gunIndex: 2
+    rpm: 300
+    shootingCoolDown: 1
+    bulletAmount: 6
+    spinSpeed: 0
+    bulletType: 1
+    MaxShootWave: 99

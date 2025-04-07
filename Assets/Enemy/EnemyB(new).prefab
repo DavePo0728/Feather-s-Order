@@ -847,6 +847,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cde5590423314a40a2200a998f77121, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerTransform: {fileID: 0}
   rpm: 0
   shootingCoolDown: 0
   maxShots: 0
@@ -16259,6 +16260,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cde5590423314a40a2200a998f77121, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerTransform: {fileID: 0}
   rpm: 0
   shootingCoolDown: 0
   maxShots: 0
@@ -26873,6 +26875,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cde5590423314a40a2200a998f77121, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerTransform: {fileID: 0}
   rpm: 0
   shootingCoolDown: 0
   maxShots: 0
@@ -27385,6 +27388,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cde5590423314a40a2200a998f77121, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerTransform: {fileID: 0}
   rpm: 0
   shootingCoolDown: 0
   maxShots: 0
@@ -48972,6 +48976,7 @@ MonoBehaviour:
   moveB_PathList: []
   moveC_PathList: []
   isDebug: 0
+  isDebugHaveGun: 0
   isMove: 0
   gunList: []
   bulletType: 0
@@ -55185,6 +55190,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cde5590423314a40a2200a998f77121, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerTransform: {fileID: 0}
   rpm: 0
   shootingCoolDown: 0
   maxShots: 0
