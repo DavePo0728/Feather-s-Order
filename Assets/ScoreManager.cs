@@ -29,7 +29,6 @@ public class ScoreManager : MonoBehaviour
     {
         score += 10;
         UpdateScore();
-        playerHP.GetMp(2);
     }
     public void UpdateScore()
     {

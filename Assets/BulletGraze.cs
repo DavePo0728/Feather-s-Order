@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using TMPro;
 
 public class BulletGraze : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class BulletGraze : MonoBehaviour
     [SerializeField]
     float maxGrazeGapTime;
     public Image grazeEnergyBar;
+    [SerializeField]
+    TMP_Text grazeEnergyText;
     AudioSource grazeSound;
     AudioClip grazeClip;
     GameObject grazeEffect;
@@ -181,6 +184,7 @@ public class BulletGraze : MonoBehaviour
     public void UpdateGrazeUI()
     {
         grazeEnergyBar.fillAmount = currentGrazeEnergy / maxGrazeEnergy;
+        grazeEnergyText.text = currentGrazeEnergy.ToString("0");
     }
     IEnumerator GrazeCD()
     {
