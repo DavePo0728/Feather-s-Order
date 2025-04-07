@@ -89,6 +89,7 @@ public class EnemyHp : MonoBehaviour
         chainEffectObject = transform.GetChild(10).gameObject;
         chainEffectParticle = chainEffectObject.GetComponent<ParticleSystem>();
         playerSlashAttack = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSlashAttack>();
+        deathAudioClip = Resources.Load<AudioClip>("Sound/EnemyDeathSound");
     }
     // Start is called before the first frame update
     void Start()
