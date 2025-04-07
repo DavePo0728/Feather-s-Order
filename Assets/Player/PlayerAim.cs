@@ -29,6 +29,10 @@ public class PlayerAim : MonoBehaviour
     public GameObject _lockedEnemy => lockedEnemy;
     //[SerializeField]
     //LayerMask raycastIgnore;
+    [SerializeField] AudioClip farLockSFX;
+    [SerializeField] AudioClip nearLockSFX;
+    [SerializeField] AudioSource audioSource;
+    private GameObject lastLockedEnemy = null;
     private void Awake()
     {
         nearLockAnim = NearLockImage.GetComponent<NearLockTweenAnim>();
@@ -49,16 +53,7 @@ public class PlayerAim : MonoBehaviour
     }
     void FixedUpdate()
     {
-        //if (aimInput.x > 0.2f || aimInput.y > 0.2f || aimInput.x < -0.2f || aimInput.y < -0.2f)
-        //{
-        //    aimPos = new Vector3(aimInput.x, aimInput.y, 0);
-        //}
-        //else
-        //{
-        //    aimPos = Vector3.zero;
-        //}
         emptyAimObject.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + zOffset);
-        //emptyAimObject.transform.position = new Vector3(Mathf.Clamp(emptyAimObject.transform.position.x, MaxXLeft, MaxXRight), Mathf.Clamp(emptyAimObject.transform.position.y, MaxYBottom, MaxYTop), emptyAimObject.transform.position.z);
         aimmingImage.transform.position = playerCamera.WorldToScreenPoint(emptyAimObject.transform.position);
 
         if (isLocked)
@@ -68,8 +63,23 @@ public class PlayerAim : MonoBehaviour
                 FarLockImage.SetActive(true);
                 FarLockImage.transform.position = playerCamera.WorldToScreenPoint(lockedEnemy.transform.position);
                 enemyHp = lockedEnemy.GetComponent<EnemyHp>();
-               
-                if (enemyHp.corrupted&&!enemyHp.corruption_P||enemyHp.haveshield)
+
+                //  音效判斷：只有在第一次鎖定新敵人時播放
+                if (lockedEnemy != lastLockedEnemy)
+                {
+                    lastLockedEnemy = lockedEnemy;
+
+                    if (enemyHp.corrupted && !enemyHp.corruption_P || enemyHp.haveshield)
+                    {
+                        audioSource.PlayOneShot(nearLockSFX);
+                    }
+                    else
+                    {
+                        audioSource.PlayOneShot(farLockSFX);
+                    }
+                }
+
+                if (enemyHp.corrupted && !enemyHp.corruption_P || enemyHp.haveshield)
                 {
                     NearLockImage.SetActive(true);
                     NearLockImage.transform.position = playerCamera.WorldToScreenPoint(lockedEnemy.transform.position);
@@ -79,18 +89,20 @@ public class PlayerAim : MonoBehaviour
                     NearLockImage.SetActive(false);
                 }
             }
-            else if (lockedEnemy == null)
+            else
             {
                 isLocked = false;
                 FarLockImage.SetActive(false);
                 NearLockImage.SetActive(false);
                 lockedEnemy = emptyAimObject;
+                lastLockedEnemy = null; //  清除紀錄
             }
         }
         else
         {
             FarLockImage.SetActive(false);
             NearLockImage.SetActive(false);
+            lastLockedEnemy = null; //  清除紀錄
         }
     }
     public void CallFarReactive()

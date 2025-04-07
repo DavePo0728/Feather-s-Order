@@ -306,7 +306,7 @@ public class WaveManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyUp(KeyCode.KeypadPlus))
+        if(Input.GetKeyUp(KeyCode.KeypadEnter))
         {
             StartCoroutine(WaveSpawn());
         }
@@ -362,6 +362,11 @@ public class WaveManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Backslash))
         {
             StartCoroutine(SpawnGroup1_13());
+        }
+        //特殊陣行
+        if (Input.GetKeyDown(KeyCode.Keypad0))
+        {
+            StartCoroutine(SpawnGroup1_14());
         }
         // === 錄製控制 ===
         if (Input.GetKeyDown(KeyCode.F1))
@@ -708,15 +713,21 @@ public class WaveManager : MonoBehaviour
     }
     IEnumerator SpawnGroup1_8() //LT_RB
     {
-        NewSpawn(enemyDatas[0], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
-        yield return new WaitForSeconds(0.1f);
+        NewSpawn_WithRecord(0, 11, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        yield return new WaitForSeconds(0.5f);
+        NewSpawn_WithRecord(1, 11, 2, new EntryTypeA(), new MoveTypeA(), new LeaveTypeA());
+        yield return new WaitForSeconds(0.5f);
+        NewSpawn_WithRecord(0, 11, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
 
 
     }
-    IEnumerator SpawnGroup1_9()
+    IEnumerator SpawnGroup1_9() //RB_LT
     {
-        NewSpawn(enemyDatas[0], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
-        yield return new WaitForSeconds(0.1f);
+        NewSpawn_WithRecord(0, 12, 3, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        yield return new WaitForSeconds(0.5f);
+        NewSpawn_WithRecord(1, 12, 2, new EntryTypeA(), new MoveTypeA(), new LeaveTypeA());
+        yield return new WaitForSeconds(0.5f);
+        NewSpawn_WithRecord(0, 12, 3, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
 
 
     }
@@ -744,10 +755,17 @@ public class WaveManager : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
 
     }
+    //特殊陣行
+    IEnumerator SpawnGroup1_14() //
+    {
+        NewSpawn(enemyDatas[0], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        yield return new WaitForSeconds(0.1f);
+
+    }
     IEnumerator WaveSpawn()
     {
         //wave1
-        
+        Debug.Log("Start wave 1");
         StartCoroutine(PlayRecordedWave(recordedWaves[0]));
 
         yield return new WaitForSeconds(2f);
