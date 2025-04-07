@@ -98,7 +98,7 @@ public class PlayerHP : MonoBehaviour
         {
             if(!isMuteki)
             getHit(5);
-            Debug.Log("hit");
+            //Debug.Log("hit");
             //other.gameObject.SetActive(false);
         }
         if (other.tag == "Block")

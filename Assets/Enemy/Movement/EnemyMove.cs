@@ -58,6 +58,7 @@ public class EnemyMove : MonoBehaviour
         entryBehavior = entry;
         moveBehavior = move;
         leaveBehavior = leave;
+        Debug.Log(this.name+" SetBehaviours "+"Entry: "+ entry+" Move: "+ move+" Leave: "+leave);
     }
     private void Awake()
     {

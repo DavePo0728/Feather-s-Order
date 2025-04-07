@@ -31,7 +31,11 @@ public class TrackShooting : MonoBehaviour
         timeBetweenShots = 1 / (rpm / 60.0f);
         canShoot = true;
     }
-
+    void OnEnable()
+    {
+        if (canShoot == false)
+            canShoot = true;
+    }
     // Update is called once per frame
     void Update()
     {

@@ -35,6 +35,11 @@ public class SimpleShoot : MonoBehaviour
         canShoot = true;
         //StartCoroutine(AimToPlayer());
     }
+    void OnEnable()
+    {
+        if(canShoot==false)
+        canShoot = true;
+    }
     public void SetGun(int rpm)
     {
         this.rpm = rpm;

@@ -26,7 +26,11 @@ public class HomingShooter : MonoBehaviour
     {
         canShoot = true;
     }
-
+    void OnEnable()
+    {
+        if (canShoot == false)
+            canShoot = true;
+    }
     // Update is called once per frame
     void Update()
     {

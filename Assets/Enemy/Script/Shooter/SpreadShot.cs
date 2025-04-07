@@ -22,6 +22,11 @@ public class SpreadShot : MonoBehaviour
         BlackRed,
     }
     public BulletType bulletType;
+    void OnEnable()
+    {
+        if (canShoot == false)
+            canShoot = true;
+    }
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");

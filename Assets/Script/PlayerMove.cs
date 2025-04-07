@@ -4,8 +4,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Cinemachine;
 using DG.Tweening;
-
-
 public class PlayerMove : MonoBehaviour
 {
     [SerializeField]

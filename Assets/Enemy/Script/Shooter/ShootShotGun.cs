@@ -22,6 +22,11 @@ public class ShootShotGun : MonoBehaviour
         BlackRed,
     }
     public BulletType bulletType;
+    void OnEnable()
+    {
+        if (canShoot == false)
+            canShoot = true;
+    }
     void Start()
     {
         canShoot = true;
