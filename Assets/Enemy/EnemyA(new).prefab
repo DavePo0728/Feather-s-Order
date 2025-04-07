@@ -16703,6 +16703,7 @@ MonoBehaviour:
   shieldHitAudioClip: {fileID: 0}
   shieldBreakAudioClip: {fileID: 0}
   hitimpactAudioClip: {fileID: 0}
+  deathAudioClip: {fileID: 0}
   canvas: {fileID: 0}
 --- !u!54 &48920970644535995
 Rigidbody:
@@ -16773,8 +16774,8 @@ AudioSource:
   m_GameObject: {fileID: 5113663619280529763}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: 8529532715631985236, guid: 60662cf2cb9cfd642af8a3cda9f26050, type: 2}
+  m_audioClip: {fileID: 8300000, guid: 5726b94a5d586834897f63c1d1614fdb, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
