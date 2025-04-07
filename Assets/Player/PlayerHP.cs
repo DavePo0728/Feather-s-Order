@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.InputSystem;
+using Cinemachine;
 
 public class PlayerHP : MonoBehaviour
 {
@@ -15,21 +16,21 @@ public class PlayerHP : MonoBehaviour
     int playerHp;
     [Header("UI")]
     [SerializeField]
-    Image HpBar;
+    Image hpBarImage;
     [SerializeField]
-    TMP_Text HPText;
+    TMP_Text hpText;
     [SerializeField]
-    GameObject GameOverUI,gameOverText,GameClearText;
-    //public TMP_Text mpText;
-    //public GameObject heal, healBack;
-    public float maxMp;
-    public float currentMp;
-    public float mpCost;
+    GameObject gameOverUI,gameOverText,gameClearText;
+    [SerializeField]
+    GameObject hpDamageImage;
+    [SerializeField]
+    CinemachineImpulseSource impulseSource;
     [SerializeField]
     bool debug;
 
     AudioSource hurtAudioSource;
     AudioClip hurtClip1, hurtClip2;
+
     //[SerializeField]
     //GameObject body;
     //bool isRotating= false;
@@ -42,7 +43,6 @@ public class PlayerHP : MonoBehaviour
     private void Awake()
     {
         Time.timeScale = 1;
-        currentMp = 0;
         hurtAudioSource = GetComponent<AudioSource>();
         hurtClip1 = Resources.Load<AudioClip>("Sound/PlayerGetHit01");
         hurtClip2 = Resources.Load<AudioClip>("Sound/PlayerGetHit02");
@@ -63,7 +63,6 @@ public class PlayerHP : MonoBehaviour
         }
         UpdateHpUI();
         playerRigidbody = GetComponent<Rigidbody>();
-        UpdateMpUI();
     }
 
     // Update is called once per frame
@@ -84,11 +83,18 @@ public class PlayerHP : MonoBehaviour
                 break;
         }
         Vibrate(0.5f,0.5f,0.1f);
+        hpDamageImage.SetActive(true);
+        Invoke("InactiveFlashImage", 0.02f);
+        Shake(0.5f);
         playerHp -= damage;
         UpdateHpUI();
         bulletGraze.UpdateGrazeEnergyOutside(10);
         StartCoroutine(MuTeKiTime(0.1f));
         
+    }
+    void InactiveFlashImage()
+    {
+        hpDamageImage.SetActive(false);
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -116,48 +122,13 @@ public class PlayerHP : MonoBehaviour
     }
     private void UpdateHpUI()
     {
-        float HpAmount = (float)playerHp / (float)maxHp;
+        float hpAmount = (float)playerHp / (float)maxHp;
         //Debug.Log(HpAmount);
-        HpBar.fillAmount = HpAmount;
-        HPText.text = playerHp.ToString();
+        hpBarImage.fillAmount = hpAmount;
+        hpText.text = playerHp.ToString();
         if (playerHp <= 0)
         {
             GameOver();
-        }
-    }
-    public void UpdateMpUI()
-    {
-        
-        ////Debug.Log(HpAmount);
-        //if (currentMp >= maxHp)
-        //{
-        //    currentMp = maxHp;
-        //}
-        ////mpText.text = currentMp.ToString();
-        //if(currentMp >= mpCost)
-        //{
-        //    heal.SetActive(true);
-        //    healBack.SetActive(false);
-        //}
-        //else
-        //{
-        //    heal.SetActive(false);
-        //    healBack.SetActive(true);
-        //}
-    }
-    public void GetMp(float amount)
-    {
-        currentMp += amount;
-        UpdateMpUI();
-    }
-    public void GetHealInput(InputAction.CallbackContext context)
-    {
-
-        if (context.performed&&currentMp>=mpCost)
-        {
-            Heal(30);
-            currentMp -= mpCost;
-            UpdateMpUI();
         }
     }
     public void Heal(int healAmount)
@@ -171,9 +142,9 @@ public class PlayerHP : MonoBehaviour
     }
     void GameOver()
     {
-        GameOverUI.SetActive(true);
+        gameOverUI.SetActive(true);
         gameOverText.SetActive(true);
-        GameClearText.SetActive(false);
+        gameClearText.SetActive(false);
         Time.timeScale = 0;
     }
     IEnumerator MuTeKiTime(float mutekiTime)
@@ -198,5 +169,9 @@ public class PlayerHP : MonoBehaviour
         {
             Gamepad.current.SetMotorSpeeds(0f, 0f); // °±¤î¾_°Ê
         }
+    }
+    void Shake(float intensity)
+    {
+        impulseSource.GenerateImpulseWithForce(intensity);
     }
 }

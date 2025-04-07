@@ -117,12 +117,12 @@ public class PlayerAim : MonoBehaviour
     {
         if (lockedEnemy.tag == "Enemy")
         {
-            Debug.Log("Locked " + lockedEnemy.tag);
+            //Debug.Log("Locked " + lockedEnemy.tag);
             return true;
         }
         else
         {
-            Debug.Log("Missed " + lockedEnemy.tag);
+            //Debug.Log("Missed " + lockedEnemy.tag);
             return false;
         }
     }

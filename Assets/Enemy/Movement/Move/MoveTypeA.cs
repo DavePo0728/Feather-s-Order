@@ -16,17 +16,17 @@ public class MoveTypeA : IMoveBehaviour
         if (enemyMove.gameObject != null)
         {
             _nextPos = CurvePathGenerator.pathInstance.GetLandingPosZ(enemyMove.originPos, 10);
-            Debug.Log("EnemyName: "+enemyMove.name+" NextPos: " + _nextPos);
-            onMoveA = enemyMove.transform.DOMove(_nextPos, enemyMove.moveTime).SetEase(Ease.Linear).SetDelay(waitTime).OnStart(() => { tweenPlaying = true; Debug.Log("MoveATweenStart"); });
+            //Debug.Log("EnemyName: "+enemyMove.name+" NextPos: " + _nextPos);
+            onMoveA = enemyMove.transform.DOMove(_nextPos, enemyMove.moveTime).SetEase(Ease.Linear).SetDelay(waitTime).OnStart(() => { tweenPlaying = true; /*Debug.Log("MoveATweenStart"); */});
             if(!tweenPlaying)
             onMoveA.Play();
-            onMoveA.OnComplete(() => { tweenPlaying = false; Move(enemyMove); Debug.Log("TweenComplete"); });
+            onMoveA.OnComplete(() => { tweenPlaying = false; Move(enemyMove); /*Debug.Log("TweenComplete");*/ });
             if (enemyMove.isLeave)
             {
                 StopMove();
                 enemyMove.CallLeave();
             }
-            onMoveA.OnKill(() => { tweenPlaying = false; Debug.Log("TweenKill"); });
+            //onMoveA.OnKill(() => { tweenPlaying = false; Debug.Log("TweenKill"); });
         }
     }
     public bool CheckMoveStatus()

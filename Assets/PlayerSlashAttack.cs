@@ -47,6 +47,7 @@ public class PlayerSlashAttack : MonoBehaviour
     bool camtween1Playing = false;
     bool isTracking = false;
     Tweener tweener, tweenCam;
+    [SerializeField]
     GameObject target;
     EnemyHp enemyHp;
     private void Awake()
@@ -82,7 +83,7 @@ public class PlayerSlashAttack : MonoBehaviour
                 {
                     target = playerAim._lockedEnemy;
                     enemyHp = target.GetComponent<EnemyHp>();
-
+                    Debug.Log("SlashInputTrigger");
                 }
                 if (enemyHp != null)
                 {
@@ -196,13 +197,12 @@ public class PlayerSlashAttack : MonoBehaviour
             }
         }).OnComplete(() =>
         {
-            target = null;
             tweenPlaying = false;
             arrived = true;
             playerRigidbody.velocity = Vector3.zero;
 
             //playerVCam.m_Lens.FieldOfView = 15;
-            Debug.Log("arrived: "+arrived);
+            //Debug.Log("arrived: "+arrived);
             
             isCounting = true;
             followZoom.m_Width = 0;
@@ -227,8 +227,7 @@ public class PlayerSlashAttack : MonoBehaviour
     void DashToShieldEnemy()
     {
         playerRigidbody.velocity = Vector3.zero;
-        target = playerAim._lockedEnemy;
-        enemyHp = target.GetComponent<EnemyHp>();
+        //target = playerAim._lockedEnemy;
         slashTarget = target.transform.GetChild(7).transform.position;
         Vector3 lastTargetPos = slashTarget;
         tweener = playerRigidbody.DOMove(slashTarget, 0.5f).OnStart(() => { tweenPlaying = true;}).OnUpdate(() =>
@@ -252,7 +251,7 @@ public class PlayerSlashAttack : MonoBehaviour
 
             playerVCam.m_Lens.FieldOfView = 15;
             followZoom.m_Width = 0;
-            Debug.Log("arrived: "+arrived);
+            //Debug.Log("arrived: "+arrived);
             shieldEffect.SetActive(false);
             TriggerSlash();
             Invoke("ReturnAnimation", 0.5f);
@@ -274,7 +273,7 @@ public class PlayerSlashAttack : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (isCounting)
         {
@@ -288,17 +287,43 @@ public class PlayerSlashAttack : MonoBehaviour
                 ResetTimer();
             }
         }
-        if(target != null)
+
+
+    }
+    public void ForceFallBack()
+    {
+        
+        if (target != null)
         {
-            enemyHp= target.GetComponent<EnemyHp>();
-            if (arrived&&enemyHp.corruption_P)
+            Debug.Log("Target: " + target.name);
+            enemyHp = target.GetComponent<EnemyHp>();
+            Debug.Log("Target: " + target.name + "Corruption: " + enemyHp.corruption_P);
+            if (enemyHp.corruption_P)
             {
-                Debug.Log("6");
-                ReturnAnimation();
-                target = null;
+
+                if (tweener.IsPlaying()||isSlashDashing)
+                {
+                    Debug.Log("6");
+                    tweener.Kill();
+                    ReturnAnimation();
+                    return;
+                }
+                if (arrived)
+                {
+                    Debug.Log("8");
+                    ReturnAnimation();
+                    return;
+                }
+                if (isCounting)
+                {
+                    Debug.Log("7");
+                    ReturnAnimation();
+                    isCounting = false;
+                    attackTimer = 0f;
+                    return;
+                }
             }
         }
-
     }
     void ReturnAnimation()
     {
@@ -323,6 +348,7 @@ public class PlayerSlashAttack : MonoBehaviour
         isSlashDashing = false;
         playerAim.aimmingImage.SetActive(true);
         shieldEffect.SetActive(true);
+        target = null;
     }
     void Vibrate(float lowFrequency, float highFrequency, float duration)
     {

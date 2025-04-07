@@ -17,7 +17,7 @@ public class LeaveTypeA : ILeaveBehaviour
     }
     public bool CheckLeaveStatus()
     {
-        if (leaveTweener.IsPlaying())
+        if (leaveTweener!= null&&leaveTweener.IsPlaying())
         {
             return true;
         }

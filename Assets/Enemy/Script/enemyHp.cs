@@ -27,7 +27,7 @@ public class EnemyHp : MonoBehaviour
     [SerializeField]
     GameObject corruptionCleanseObject,chainEffectObject;
     ParticleSystem corruptionCleanseParticle, chainEffectParticle;
-
+    PlayerSlashAttack playerSlashAttack;
     [Header("Shield Data")]
     [SerializeField]
     GameObject shieldEffect;
@@ -88,6 +88,7 @@ public class EnemyHp : MonoBehaviour
         corruptionCleanseParticle =corruptionCleanseObject.GetComponent<ParticleSystem>();
         chainEffectObject = transform.GetChild(10).gameObject;
         chainEffectParticle = chainEffectObject.GetComponent<ParticleSystem>();
+        playerSlashAttack = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSlashAttack>();
     }
     // Start is called before the first frame update
     void Start()
@@ -143,7 +144,7 @@ public class EnemyHp : MonoBehaviour
                 PlayhitimpactAudio();
                 currentHp -= damage * corruptionDamageModifier;
                 UpdateUI();
-                Debug.Log("Source :" + gameObject.name + " " + "CorruptionDamage:"+ damage * corruptionDamageModifier);
+                //Debug.Log("Source :" + gameObject.name + " " + "CorruptionDamage:"+ damage * corruptionDamageModifier);
                 if (currentHp <= 0)
                 {
                     DeathEffect();
@@ -200,7 +201,7 @@ public class EnemyHp : MonoBehaviour
                     PlayhitimpactAudio();
                     currentHp -= damage;
                     UpdateUI();
-                    Debug.Log("Source :" + gameObject.name + " " + "CorruptionClean");
+                    //Debug.Log("Source :" + gameObject.name + " " + "CorruptionClean");
                     if (currentHp <= 0)
                     {
                         DeathEffect();
@@ -215,7 +216,7 @@ public class EnemyHp : MonoBehaviour
                     PlayhitimpactAudio();
                     currentHp -= damage * corruptionDamageModifier;
                     UpdateUI();
-                    Debug.Log("Source :" + gameObject.name + " " + "CorruptionNotClean"+ damage * corruptionDamageModifier);
+                    //Debug.Log("Source :" + gameObject.name + " " + "CorruptionNotClean"+ damage * corruptionDamageModifier);
                     if (currentHp <= 0)
                     {
                         DeathEffect();
@@ -329,10 +330,12 @@ public class EnemyHp : MonoBehaviour
             corruptEffect.SetActive(false);
             StartCoroutine(enemyMove.Paralyze());
             yield return new WaitForSeconds(enemyMove.paralyzeTime);
+            corruption = true;
+            playerSlashAttack.ForceFallBack();
             corruptionCleanseObject.SetActive(false);
             chainEffectObject.SetActive(false);
             corruptEffect.SetActive(true);
-            corruption = true;
+            
         }
     }
     void UpdateUI()

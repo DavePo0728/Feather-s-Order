@@ -58,7 +58,7 @@ public class EnemyMove : MonoBehaviour
         entryBehavior = entry;
         moveBehavior = move;
         leaveBehavior = leave;
-        Debug.Log(this.name+" SetBehaviours "+"Entry: "+ entry+" Move: "+ move+" Leave: "+leave);
+        //Debug.Log(this.name+" SetBehaviours "+"Entry: "+ entry+" Move: "+ move+" Leave: "+leave);
     }
     private void Awake()
     {
@@ -190,7 +190,7 @@ public class EnemyMove : MonoBehaviour
     }
     public IEnumerator Paralyze()
     {
-        Debug.Log("paralyze");
+        //Debug.Log("paralyze");
         if(activeGun!=null&&activeGun.activeSelf == true)
         activeGun.SetActive(false);
         if (entryBehavior !=null&& entryBehavior.CheckEntryStatus())
