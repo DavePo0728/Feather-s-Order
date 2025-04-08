@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 041b92316204044419b73e0c5e54944f, type: 3}
+  m_Name: A03
+  m_EditorClassIdentifier: 
+  data:
+    enemy: {fileID: 5113663619280529763, guid: d29194059cb63e84e8b97f5dfdbdc6a4, type: 3}
+    entryTime: 1
+    moveTime: 8
+    leaveTime: 1
+    hp: 5
+    lifeTime: 10
+    haveShield: 0
+    shieldHp: 0
+    corrupted: 0
+    corruptionStack: 0
+    paralyzeTime: 0
