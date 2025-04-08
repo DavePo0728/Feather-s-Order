@@ -51,15 +51,18 @@ public class PlayerSlashAttack : MonoBehaviour
     [SerializeField]
     GameObject target;
     EnemyHp enemyHp;
-    /*
+    
+	/*
      * Asuisui
         動畫控制
     */
-    [SerializeField]
+	[SerializeField]
     Animator playerAnimator;
-
+	public DynamicBone clothDB;
     public GameObject sword;
-    private void Awake()
+    bool IsReturnAnimation = false;
+
+	private void Awake()
     {
         playerMove = GetComponent<PlayerMove>();
         playerAim = GetComponent<PlayerAim>();
@@ -90,8 +93,12 @@ public class PlayerSlashAttack : MonoBehaviour
                 {
                     if (enemyHp.haveshield == true)
                     {
-                        DashToShieldEnemy();
-                        return;
+						playerAnimator.SetTrigger("dash");
+						sword.SetActive(true);
+						DashToShieldEnemy();
+						playerAim.aimmingImage.SetActive(false);
+						playerAim.FarLockImage.SetActive(false);
+						return;
                     }
                     if (enemyHp.corrupted&&enemyHp.corruption_P == false)
                     {
@@ -168,6 +175,7 @@ public class PlayerSlashAttack : MonoBehaviour
     }
 	public void TriggerSlash4()
     {
+		clothDB.enabled = false;
 		Vibrate(0.5f, 0.5f, 0.05f);
 		slashAudio.Play();
 		slashCollider.enabled = true;
@@ -224,6 +232,7 @@ public class PlayerSlashAttack : MonoBehaviour
         {
             Debug.Log("3");
             ReturnAnimation();
+            IsReturnAnimation = true;
             return;
         }
     }
@@ -337,7 +346,8 @@ public class PlayerSlashAttack : MonoBehaviour
             attackTimer += Time.deltaTime;
             if (attackTimer >= 1f)
             {
-				playerAnimator.SetBool("OnAttack", false);
+                playerAnimator.SetBool("OnAttack", false);
+				clothDB.enabled = true;
 			}
             //Debug.Log(attackTimer);
             if (attackTimer > maxTime)
@@ -389,9 +399,21 @@ public class PlayerSlashAttack : MonoBehaviour
     {
         //Asuisui
         hitCounter = 0;
-        playerAnimator.SetTrigger("ReFly");
-		sword.SetActive(false);
-		print("ReFly");
+		clothDB.enabled = true;
+        playerAnimator.SetBool("OnAttack", false);
+        if (IsReturnAnimation)
+        {
+            IsReturnAnimation = false;
+		}
+		else
+        {
+			playerAnimator.SetTrigger("ReFly");
+			print("ReFly");
+		}
+        sword.SetActive(false);
+       
+
+		
         //--
         ResetTimer();
         isSlashDashing = false;
