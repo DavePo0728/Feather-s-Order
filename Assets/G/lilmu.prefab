@@ -1028,6 +1028,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: -6940958944321754177, guid: f81ab152b8e27014287240ba799b8bcf, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d672a3df7dc478841a541b188c13fcfb, type: 2}
     - target: {fileID: -6926961384087432709, guid: f81ab152b8e27014287240ba799b8bcf, type: 3}
       propertyPath: m_Name
       value: leg

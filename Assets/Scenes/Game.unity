@@ -29315,10 +29315,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2852604150741255728}
     m_Modifications:
-    - target: {fileID: 451962974766153550, guid: ef9a44eca7e62fa41bc5be78d6bced8f, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 478688095041657607, guid: ef9a44eca7e62fa41bc5be78d6bced8f, type: 3}
       propertyPath: m_Name
       value: lilmu
@@ -29363,10 +29359,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1569802462620421609, guid: ef9a44eca7e62fa41bc5be78d6bced8f, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: d672a3df7dc478841a541b188c13fcfb, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
