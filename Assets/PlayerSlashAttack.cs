@@ -59,8 +59,10 @@ public class PlayerSlashAttack : MonoBehaviour
 	[SerializeField]
     Animator playerAnimator;
 	public DynamicBone clothDB;
-	public GameObject sword;
-    private void Awake()
+    public GameObject sword;
+    bool IsReturnAnimation = false;
+
+	private void Awake()
     {
         playerMove = GetComponent<PlayerMove>();
         playerAim = GetComponent<PlayerAim>();
@@ -230,6 +232,7 @@ public class PlayerSlashAttack : MonoBehaviour
         {
             Debug.Log("3");
             ReturnAnimation();
+            IsReturnAnimation = true;
             return;
         }
     }
@@ -397,12 +400,20 @@ public class PlayerSlashAttack : MonoBehaviour
         //Asuisui
         hitCounter = 0;
 		clothDB.enabled = true;
-		playerAnimator.SetBool("OnAttack", false);
-		playerAnimator.SetTrigger("ReFly");
+        playerAnimator.SetBool("OnAttack", false);
+        if (IsReturnAnimation)
+        {
+            IsReturnAnimation = false;
+		}
+		else
+        {
+			playerAnimator.SetTrigger("ReFly");
+			print("ReFly");
+		}
         sword.SetActive(false);
        
 
-		print("ReFly");
+		
         //--
         ResetTimer();
         isSlashDashing = false;

@@ -12143,6 +12143,17 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.045986168, y: -0.26654023, z: 0.31606832}
     m_Extent: {x: 0.22928071, y: 0.21387148, z: 0.23814306}
   m_DirtyAABB: 0
+--- !u!114 &860866018 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8987389536121174734, guid: ef9a44eca7e62fa41bc5be78d6bced8f, type: 3}
+  m_PrefabInstance: {fileID: 1899593178}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9ac8d30c6a0d9642a11e5be4c440740, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &862077653
 GameObject:
   m_ObjectHideFlags: 0
@@ -29357,6 +29368,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1004149772541149629, guid: ef9a44eca7e62fa41bc5be78d6bced8f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8987389536121174734, guid: ef9a44eca7e62fa41bc5be78d6bced8f, type: 3}
+      propertyPath: m_UpdateMode
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -79164,6 +79179,7 @@ MonoBehaviour:
   flashImage: {fileID: 1033508791827913940}
   target: {fileID: 0}
   playerAnimator: {fileID: 1399657340}
+  clothDB: {fileID: 860866018}
   sword: {fileID: 796422238}
 --- !u!114 &788946425941840451
 MonoBehaviour:
@@ -154095,7 +154111,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &2289652872324425500
 GameObject:
   m_ObjectHideFlags: 0
@@ -362304,7 +362320,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!199 &5096051114249337083
 ParticleSystemRenderer:
   serializedVersion: 6
@@ -372079,7 +372095,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!33 &5114616241477584653
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -519931,7 +519947,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &7471975175568937712
 GameObject:
   m_ObjectHideFlags: 0
