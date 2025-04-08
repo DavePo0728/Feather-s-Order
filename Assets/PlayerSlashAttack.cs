@@ -393,7 +393,8 @@ public class PlayerSlashAttack : MonoBehaviour
     {
         //Asuisui
         hitCounter = 0;
-        playerAnimator.SetTrigger("ReFly");
+		playerAnimator.SetBool("OnAttack", false);
+		playerAnimator.SetTrigger("ReFly");
 		sword.SetActive(false);
 		print("ReFly");
         //--
