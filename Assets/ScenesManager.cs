@@ -19,6 +19,14 @@ public class ScenesManager : MonoBehaviour
     {
         SceneManager.LoadScene(1);
     }
+    public void GetSkipInput(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            StopAllCoroutines();
+            StartGame();
+        }
+    }
     public void GetStartInput(InputAction.CallbackContext context)
     {
         if (context.performed)

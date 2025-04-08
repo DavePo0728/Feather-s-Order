@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using PathCreation;
+using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using System.Net;
+using TMPro;
+
 #if UNITY_EDITOR
 using UnityEditor;
 
@@ -23,6 +26,10 @@ public class WaveManager : MonoBehaviour
     GameObject gameoverPanel;
     [SerializeField]
     GameObject gameOverText, GameClearText;
+    [Header("Tutorial Settings")]
+    [SerializeField] 
+    private Image tutorialImage;
+
     [SerializeField]
     bool debug = false;
     [SerializeField]
@@ -49,6 +56,9 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private bool autoStartRecording = false;
     [SerializeField] List<RecordedWaveData> recordedWaves;
     private int currentRecordingIndex = 0;
+    private Dictionary<string, System.Func<IEnumerator>> spawnGroupMap;
+    [SerializeField]
+    private WaveSpawnController currentWaveController;
 
     IEnumerator PlayRecordedWave(RecordedWaveData data, float delay = 0f)
     {
@@ -277,8 +287,42 @@ public class WaveManager : MonoBehaviour
         Purple,
         BlackRed,
     }
+    public IEnumerator GetSpawnGroup(string index)
+    {
+        if (spawnGroupMap.TryGetValue(index, out var routine))
+        {
+            yield return routine();
+        }
+        else
+        {
+            Debug.LogWarning($"❌ 沒有編號 {index} 的波次！");
+            yield break;
+        }
+    }
     private void Awake()
     {
+        spawnGroupMap = new Dictionary<string, System.Func<IEnumerator>>()
+    {
+        { "R", SpawnGroup_R },
+        { "L", SpawnGroup_L },
+        { "BlackBullet", SpawnGroup_BlackBullet },
+        { "M_to_LB", SpawnGroup_M_to_LB },
+        { "CT_to_RB_red", SpawnGroup_CT_to_RB_red },
+        { "LB_to_RT", SpawnGroup_LB_to_RT },
+        { "LC_to_R", SpawnGroup_LC_to_R },
+        { "LT_RB", SpawnGroup_LT_RB },
+        { "RB_LT", SpawnGroup_RB_LT },
+        { "RC_to_LC", SpawnGroup_RC_to_LC },
+        { "11", SpawnGroup1_11 },
+        { "12", SpawnGroup1_12 },
+        { "13", SpawnGroup1_13 },
+        { "14", SpawnGroup1_14 },
+        {"t1",TutorialWave1 },
+        {"t2",TutorialWave2 },
+        {"t3",TutorialWave3 },
+        {"t4",TutorialWave4 },
+        {"t5",TutorialWave5 },
+    };
         //customPathDataList = new List<CustomPathData>();
         //customPathDataList.Add(Resources.Load<CustomPathData>("PathData/PathData1"));
         if (debugTextStyle == null)
@@ -294,8 +338,11 @@ public class WaveManager : MonoBehaviour
     void Start()
     {
         isRecording = false; // 強制關閉錄製，避免 Inspector 影響
-        if (!debug)
-            StartCoroutine(WaveSpawn());
+
+        if (!debug && currentWaveController != null)
+        {
+            StartCoroutine(currentWaveController.GenerateWave(this));
+        }
 
         if (autoStartRecording && currentRecording != null)
         {
@@ -308,48 +355,48 @@ public class WaveManager : MonoBehaviour
     {
         if(Input.GetKeyUp(KeyCode.KeypadEnter))
         {
-            StartCoroutine(WaveSpawn());
+            
         }
         if(Input.GetKeyDown(KeyCode.Alpha1))
         {
-            StartCoroutine(SpawnGroup1_1());
+            StartCoroutine(SpawnGroup_R());
             //StartCoroutine(TestSpawn());
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            StartCoroutine(SpawnGroup1_2());
+            StartCoroutine(SpawnGroup_L());
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            StartCoroutine(SpawnGroup1_3());
+            StartCoroutine(SpawnGroup_BlackBullet());
         }
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-            StartCoroutine(SpawnGroup1_4());
+            StartCoroutine(SpawnGroup_M_to_LB());
         }
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {
-            StartCoroutine(SpawnGroup1_5());
+            StartCoroutine(SpawnGroup_CT_to_RB_red());
         }
         if (Input.GetKeyDown(KeyCode.Alpha6))
         {
-            StartCoroutine(SpawnGroup1_6());
+            StartCoroutine(SpawnGroup_LB_to_RT());
         }
         if (Input.GetKeyDown(KeyCode.Alpha7))
         {
-            StartCoroutine(SpawnGroup1_7());
+            StartCoroutine(SpawnGroup_LC_to_R());
         }
         if (Input.GetKeyDown(KeyCode.Alpha8))
         {
-            StartCoroutine(SpawnGroup1_8());
+            StartCoroutine(SpawnGroup_LT_RB());
         }
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
-            StartCoroutine(SpawnGroup1_9());
+            StartCoroutine(SpawnGroup_RB_LT());
         }
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {
-            StartCoroutine(SpawnGroup1_10());
+            StartCoroutine(SpawnGroup_RC_to_LC());
         }
         if (Input.GetKeyDown(KeyCode.Minus))
         {
@@ -646,7 +693,37 @@ public class WaveManager : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         NewSpawnC(enemyDatas[2], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeC(), new LeaveTypeA());   //MoveTypeC
     }
-    IEnumerator SpawnGroup1_1() // R
+    IEnumerator TutorialWave1() {
+        NewSpawn_WithRecord(0, 0, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        yield return new WaitForSeconds(0.5f);
+        NewSpawn_WithRecord(0, 0, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        yield return new WaitForSeconds(0.5f);
+    }
+    IEnumerator TutorialWave2() {
+        NewSpawn_WithRecord(0, 0, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        yield return new WaitForSeconds(0.5f);
+        NewSpawn_WithRecord(0, 0, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        yield return new WaitForSeconds(0.5f);
+    }
+    IEnumerator TutorialWave3() {
+        NewSpawn_WithRecord(0, 0, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        yield return new WaitForSeconds(0.5f);
+        NewSpawn_WithRecord(0, 0, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        yield return new WaitForSeconds(0.5f);
+    }
+    IEnumerator TutorialWave4() {
+        NewSpawn_WithRecord(0, 0, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        yield return new WaitForSeconds(0.5f);
+        NewSpawn_WithRecord(0, 0, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        yield return new WaitForSeconds(0.5f);
+    }
+    IEnumerator TutorialWave5() {
+        NewSpawn_WithRecord(0, 0, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        yield return new WaitForSeconds(0.5f);
+        NewSpawn_WithRecord(0, 0, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        yield return new WaitForSeconds(0.5f);
+    }
+    IEnumerator SpawnGroup_R() // R
     {
         NewSpawn_WithRecord(0, 0, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.5f);
@@ -657,7 +734,7 @@ public class WaveManager : MonoBehaviour
         NewSpawn_WithRecord(0, 0, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.5f);
     }
-    IEnumerator SpawnGroup1_2() // L
+    IEnumerator SpawnGroup_L() // L
     {
         NewSpawn_WithRecord(0, 1, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.5f);
@@ -668,7 +745,7 @@ public class WaveManager : MonoBehaviour
         NewSpawn_WithRecord(0, 1, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.5f);
     }
-    IEnumerator SpawnGroup1_3() // blackbullet
+    IEnumerator SpawnGroup_BlackBullet() // blackbullet
     {
         NewSpawn_WithRecord(0, 2, 1, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.5f);
@@ -679,14 +756,14 @@ public class WaveManager : MonoBehaviour
         NewSpawn_WithRecord(0, 2, 1, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.5f);
     }
-    IEnumerator SpawnGroup1_4() // M_to_LB red
+    IEnumerator SpawnGroup_M_to_LB() // M_to_LB red
     {
         NewSpawn_WithRecord(0, 3, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         NewSpawn_WithRecord(0, 4, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         NewSpawn_WithRecord(0, 5, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.5f);
     }
-    IEnumerator SpawnGroup1_5() // CT_to_RB red
+    IEnumerator SpawnGroup_CT_to_RB_red() // CT_to_RB_red
     {
         NewSpawn_WithRecord(0, 6, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         NewSpawn_WithRecord(0, 7, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
@@ -694,7 +771,7 @@ public class WaveManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
     }
-    IEnumerator SpawnGroup1_6() // LB_to_RT red
+    IEnumerator SpawnGroup_LB_to_RT() // LB_to_RT red
     {
         NewSpawn_WithRecord(0, 9, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.5f);
@@ -702,7 +779,7 @@ public class WaveManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         NewSpawn_WithRecord(0, 9, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
     }
-    IEnumerator SpawnGroup1_7() // LC_to_R
+    IEnumerator SpawnGroup_LC_to_R() // LC_to_R
     {
         NewSpawn_WithRecord(0, 10, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.5f);
@@ -711,7 +788,7 @@ public class WaveManager : MonoBehaviour
         NewSpawn_WithRecord(0, 10, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
 
     }
-    IEnumerator SpawnGroup1_8() //LT_RB
+    IEnumerator SpawnGroup_LT_RB() //LT_RB
     {
         NewSpawn_WithRecord(0, 11, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.5f);
@@ -721,7 +798,7 @@ public class WaveManager : MonoBehaviour
 
 
     }
-    IEnumerator SpawnGroup1_9() //RB_LT
+    IEnumerator SpawnGroup_RB_LT() //RB_LT
     {
         NewSpawn_WithRecord(0, 12, 3, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.5f);
@@ -731,7 +808,7 @@ public class WaveManager : MonoBehaviour
 
 
     }
-    IEnumerator SpawnGroup1_10() //RC_to_LC
+    IEnumerator SpawnGroup_RC_to_LC() //RC_to_LC
     {
         NewSpawn(enemyDatas[0], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.1f);
@@ -762,126 +839,18 @@ public class WaveManager : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
 
     }
-    IEnumerator WaveSpawn()
-    {
-        //wave1
-        Debug.Log("Start wave 1");
-        StartCoroutine(PlayRecordedWave(recordedWaves[0]));
 
-        yield return new WaitForSeconds(2f);
-        StartCoroutine(PlayRecordedWave(recordedWaves[1]));
+    //public IEnumerator WaitForContinueInput()
+    //{
+    //    bool pressed = false;
 
-        yield return new WaitForSeconds(3f);
-        StartCoroutine(PlayRecordedWave(recordedWaves[2]));
+    //    void OnPressed(InputAction.CallbackContext ctx) => pressed = true;
 
-        yield return new WaitForSeconds(1f);
-        StartCoroutine(SpawnGroup1_1());
-
-        yield return new WaitForSeconds(3f);
-        StartCoroutine(SpawnGroup1_2());
-
-        yield return new WaitForSeconds(5f);
-        StartCoroutine(SpawnGroup1_1());
-
-        yield return new WaitForSeconds(3f);
-        StartCoroutine(SpawnGroup1_2());
-        //wave2
-        yield return new WaitForSeconds(5f);
-        StartCoroutine(SpawnGroup1_3());
-
-         
-
-        //GameFinish();
-        //yield return new WaitForSeconds(4f);
-        //StartCoroutine(SpawnGroup1_1());
-
-        //yield return new WaitForSeconds(5f);
-        //StartCoroutine(SpawnGroup1_2());
-
-        //yield return new WaitForSeconds(5f);
-        //StartCoroutine(SpawnGroup1_3());
-
-        //yield return new WaitForSeconds(6f);
-        //StartCoroutine(SpawnGroup1_4());
-        //StartCoroutine(SpawnGroup1_1());
-        //yield return new WaitForSeconds(4f);
-        //StartCoroutine(SpawnGroup1_5());
-        //StartCoroutine(SpawnGroup1_2());
-        //yield return new WaitForSeconds(4f);
-        //StartCoroutine(SpawnGroup1_3());
-        //yield return new WaitForSeconds(6f);
-        //StartCoroutine(SpawnGroup1_6());
-        //yield return new WaitForSeconds(3f);
-        //StartCoroutine(SpawnGroup1_1());
-        //yield return new WaitForSeconds(4f);
-        //StartCoroutine (SpawnGroup1_2());
-        //StartCoroutine (SpawnGroup1_4());
-        //yield return new WaitForSeconds(4f);
-        //StartCoroutine(SpawnGroup1_7());
-        //yield return new WaitForSeconds(3f);
-        //StartCoroutine(SpawnGroup1_8());
-        //StartCoroutine(SpawnGroup1_2());
-        //yield return new WaitForSeconds(5f);
-        //StartCoroutine(SpawnGroup1_9());
-        //yield return new WaitForSeconds(3f);
-        //StartCoroutine(SpawnGroup1_10());
-        //yield return new WaitForSeconds(5f);
-        //StartCoroutine(SpawnGroup1_11());
-        //yield return new WaitForSeconds(5f);
-        //StartCoroutine(SpawnGroup1_4());
-        //StartCoroutine(SpawnGroup1_1());
-        //yield return new WaitForSeconds(4f);
-        //StartCoroutine(SpawnGroup1_12());
-        //StartCoroutine(SpawnGroup1_5());
-        //yield return new WaitForSeconds(6f);
-        //StartCoroutine(SpawnGroup1_13());
-        //StartCoroutine(SpawnGroup1_7());
-        //yield return new WaitForSeconds(13f);
-        ////wave 2
-        //yield return new WaitForSeconds(4f);
-        //StartCoroutine(SpawnGroup1_1());
-        //yield return new WaitForSeconds(5f);
-        //StartCoroutine(SpawnGroup1_2());
-        //yield return new WaitForSeconds(5f);
-        //StartCoroutine(SpawnGroup1_3());
-        //yield return new WaitForSeconds(6f);
-        //StartCoroutine(SpawnGroup1_4());
-        //StartCoroutine(SpawnGroup1_1());
-        //yield return new WaitForSeconds(4f);
-        //StartCoroutine(SpawnGroup1_5());
-        //StartCoroutine(SpawnGroup1_2());
-        //yield return new WaitForSeconds(4f);
-        //StartCoroutine(SpawnGroup1_3());
-        //yield return new WaitForSeconds(6f);
-        //StartCoroutine(SpawnGroup1_6());
-        //yield return new WaitForSeconds(3f);
-        //StartCoroutine(SpawnGroup1_1());
-        //yield return new WaitForSeconds(4f);
-        //StartCoroutine(SpawnGroup1_2());
-        //StartCoroutine(SpawnGroup1_4());
-        //yield return new WaitForSeconds(4f);
-        //StartCoroutine(SpawnGroup1_7());
-        //yield return new WaitForSeconds(3f);
-        //StartCoroutine(SpawnGroup1_8());
-        //StartCoroutine(SpawnGroup1_2());
-        //yield return new WaitForSeconds(5f);
-        //StartCoroutine(SpawnGroup1_9());
-        //yield return new WaitForSeconds(3f);
-        //StartCoroutine(SpawnGroup1_10());
-        //yield return new WaitForSeconds(5f);
-        //StartCoroutine(SpawnGroup1_11());
-        //yield return new WaitForSeconds(5f);
-        //StartCoroutine(SpawnGroup1_4());
-        //StartCoroutine(SpawnGroup1_1());
-        //yield return new WaitForSeconds(4f);
-        //StartCoroutine(SpawnGroup1_12());
-        //StartCoroutine(SpawnGroup1_5());
-        //yield return new WaitForSeconds(6f);
-        //StartCoroutine(SpawnGroup1_13());
-        //StartCoroutine(SpawnGroup1_7());
-        //yield return new WaitForSeconds(11f);
-        //GameFinish();
-    }
+    //    continueAction.performed += OnPressed;
+    //    yield return new WaitUntil(() => pressed);
+    //    yield return new WaitForSeconds(0.1f);
+    //    continueAction.performed -= OnPressed;
+    //}
     public void GameFinish()
     {
         gameoverPanel.SetActive(true);
@@ -889,6 +858,15 @@ public class WaveManager : MonoBehaviour
         GameClearText.SetActive(true);
         Time.timeScale = 0.0f;
     }
+    public int EnemyCount()
+    {
+        return GameObject.FindGameObjectsWithTag("Enemy").Length;
+    }
+    public void SetTutorialImage(Sprite show)
+    {
+        tutorialImage.sprite = show;
+    }
+
     public void CreateNewRecordingAsset(string fileName)
     {
 #if UNITY_EDITOR
