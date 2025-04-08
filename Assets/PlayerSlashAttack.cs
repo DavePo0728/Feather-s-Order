@@ -90,8 +90,12 @@ public class PlayerSlashAttack : MonoBehaviour
                 {
                     if (enemyHp.haveshield == true)
                     {
-                        DashToShieldEnemy();
-                        return;
+						playerAnimator.SetTrigger("dash");
+						sword.SetActive(true);
+						DashToShieldEnemy();
+						playerAim.aimmingImage.SetActive(false);
+						playerAim.FarLockImage.SetActive(false);
+						return;
                     }
                     if (enemyHp.corrupted&&enemyHp.corruption_P == false)
                     {
