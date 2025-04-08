@@ -102,6 +102,9 @@ public class PlayerSlashAttack : MonoBehaviour
                     }
                     if (enemyHp.corrupted&&enemyHp.corruption_P == false)
                     {
+                        //Asuisui
+                        playerAnimator.SetTrigger("dash");
+                        //--
                         DashToEnemy();
                         playerAim.aimmingImage.SetActive(false);
                         playerAim.FarLockImage.SetActive(false);
