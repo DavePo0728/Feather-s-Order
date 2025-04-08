@@ -50,11 +50,21 @@ public class PlayerMove : MonoBehaviour
     Vector3 movement;
     [SerializeField]
     PlayerSlashAttack playerSlashAttack;
+	/*
+     * Asuisui
+        動畫控制
+    */
+	public float ChangeTimer = 0;
+	//飛行待機動作時長
+	float ChangeCD = 3f;
+	//揮動翅膀揮動所需時間
+	float FlapStayCD = 2.0f;
+	//揮動翅膀狀態
+	bool OnFlap = false;
 
 
 
-
-    private void Awake()
+	private void Awake()
     {
         playerRigidbody = GetComponent<Rigidbody>();
         zSpeed = oriZSpeed;
@@ -105,24 +115,41 @@ public class PlayerMove : MonoBehaviour
     //    }
     //}
 
-    
-    //public void GetLean(InputAction.CallbackContext context)
-    //{
-    //    if (context.performed)
-    //    {
-    //        leanInput = context.ReadValue<float>();
-    //        Debug.Log(leanInput);
-    //        manualLean = true;
-    //    }
-    //    if (context.canceled)
-    //    {
-    //        manualLean = false;
-    //        leanInput = 0;
-    //    }
-    //}
 
-    // Update is called once per frame
-    void FixedUpdate()
+	//public void GetLean(InputAction.CallbackContext context)
+	//{
+	//    if (context.performed)
+	//    {
+	//        leanInput = context.ReadValue<float>();
+	//        Debug.Log(leanInput);
+	//        manualLean = true;
+	//    }
+	//    if (context.canceled)
+	//    {
+	//        manualLean = false;
+	//        leanInput = 0;
+	//    }
+	//}
+	private void Update()
+	{
+
+		ChangeTimer += Time.deltaTime;
+		if (OnFlap == false && ChangeTimer >= ChangeCD)
+		{
+			ChangeTimer = 0;
+			OnFlap = true;
+			playerAnimator.SetTrigger("flap");
+			//TriggerFlap();
+		}
+		if (OnFlap == true && ChangeTimer >= FlapStayCD)
+		{
+			ChangeTimer = 0;
+			OnFlap = false;
+		}
+
+	}
+	// Update is called once per frame
+	void FixedUpdate()
     {
         
         //transform.Translate(Vector3.forward* zSpeed * Time.deltaTime);
