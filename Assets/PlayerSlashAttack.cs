@@ -24,6 +24,7 @@ public class PlayerSlashAttack : MonoBehaviour
     Vector3 PlayerOriginalPos;
     SlashDetect slashDetect;
     GameObject shieldEffect;
+    [SerializeField]
     GameObject slashEffectYellowObject, slashEffectRedObject;
     ParticleSystem slashEffectYellow, slashEffectRed;
     AudioSource slashAudio;
@@ -64,14 +65,12 @@ public class PlayerSlashAttack : MonoBehaviour
         playerAim = GetComponent<PlayerAim>();
         isSlashDashing = false;
         isAttacking = false;
-        slashDetect = transform.GetChild(4).GetComponent<SlashDetect>();
+        slashDetect = GameObject.Find("SlashCollider").GetComponent<SlashDetect>();
         playerRigidbody = GetComponent<Rigidbody>();
-        shieldEffect = transform.GetChild(2).gameObject;
-        slashEffectYellowObject = transform.GetChild(6).gameObject;
-        slashEffectRedObject = transform.GetChild(7).gameObject;
+        shieldEffect = GameObject.Find("MagicShieldYellow");
         slashEffectYellow = slashEffectYellowObject.GetComponent<ParticleSystem>();
         slashEffectRed = slashEffectRedObject.GetComponent<ParticleSystem>();
-        slashAudio = transform.GetChild(6).GetComponent<AudioSource>();
+        slashAudio = slashEffectYellowObject.GetComponent<AudioSource>();
         slashClip = Resources.Load<AudioClip>("Sound/Slash01");
         hitCounter = 0;
     }
@@ -81,12 +80,6 @@ public class PlayerSlashAttack : MonoBehaviour
         {
             if (isSlashDashing == false&&arrived==false&&isFallBack==false)
             {
-                //if (!playerAim._lockedEnemy.CompareTag("Enemy"))
-                //{
-                //    Debug.Log("1");
-                //    ReturnAnimation();
-                //    return;
-                //}
                 if (playerAim.CheckLockedEnemy())
                 {
                     target = playerAim._lockedEnemy;
@@ -216,30 +209,10 @@ public class PlayerSlashAttack : MonoBehaviour
         Invoke("TimeScaleNormal", 0.01f);
         Invoke("DelayDetect",0.05f);
     }
-    void InactiveFlashImageLeft(string name)
+    void InactiveFlashImage()
     {
         flashImage.SetActive(false);
-        switch (name)
-        {
-            case "left":
-                break;
-                flashImage.transform.localScale = new Vector3(2.72f, -2.72f, 2.72f);
-            case "right":
-                flashImage.transform.localScale = new Vector3(2.72f, 2.72f, 2.72f);
-                break;
-
-            default:
-                break;
-        }
-
-
     }
-
-	void InactiveFlashImageRight(string name)
-    {
-
-    }
-
 	void DelayDetect()
     {
         if (!playerAim._lockedEnemy.CompareTag("Enemy"))
