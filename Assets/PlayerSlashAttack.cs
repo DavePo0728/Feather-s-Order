@@ -49,6 +49,14 @@ public class PlayerSlashAttack : MonoBehaviour
     Tweener tweener, tweenCam;
     GameObject target;
     EnemyHp enemyHp;
+    /*
+     * Asuisui
+        動畫控制
+    */
+    [SerializeField]
+    Animator playerAnimator;
+
+    public GameObject sword;
     private void Awake()
     {
         playerMove = GetComponent<PlayerMove>();
@@ -83,8 +91,11 @@ public class PlayerSlashAttack : MonoBehaviour
                 //PlayerOriginalPos.z = 13f;
                 enemyHp = playerAim._lockedEnemy.GetComponent<EnemyHp>();
                 if (enemyHp.corruption_P ==false)
-                {
-                    DashToEnemy();
+				{
+                    //Asuisui
+					playerAnimator.SetTrigger("dash");
+					//--
+					DashToEnemy();
                     playerAim.aimmingImage.SetActive(false);
                     playerAim.FarLockImage.SetActive(false);
                 }
@@ -102,39 +113,68 @@ public class PlayerSlashAttack : MonoBehaviour
     {
         if (context.performed)
         {
-            if (isAttacking&&SlashTimer>=slashCD)
+            if (isAttacking && SlashTimer >= slashCD)
             {
                 if (hitCounter < 3)
                 {
                     slashCD = 0.2f;
-                    TriggerSlash();
+
+                    Invoke("TriggerSlash", 0.4f);
+
                     hitCounter++;
                     SlashTimer = 0;
                     attackTimer = 0;
+
+
+                    //Asuisui
+                    switch (hitCounter)
+                    {
+                        case 1:
+                            playerAnimator.SetTrigger("S1");
+                            break;
+                        case 2:
+                            playerAnimator.SetTrigger("S2");
+                            break;
+                        case 3:
+                            playerAnimator.SetTrigger("S3");
+                            break;
+                        default:
+                            break;
+                    }
+                    //--
+
+
                 }
                 else if (hitCounter >= 3)
                 {
-                    Vibrate(0.5f, 0.5f, 0.05f);
-                    slashAudio.Play();
-                    slashCollider.enabled = true;
-                    Invoke("InactiveCollider", 0.1f);
-                    flashImage.SetActive(true);
-                    Invoke("InactiveFlashImage", 0.01f);
-                    slashEffectRedObject.SetActive(true);
-                    slashEffectRed.Play();
-                    hitCounter = 0;
-                    Shake(1.0f);
-                    Time.timeScale = 0.1f;
-                    Invoke("TimeScaleNormal", 0.02f);
-                    SlashTimer = 0;
-                    attackTimer = 0;
-                    Invoke("DelayDetect", 0.05f);
-                    slashCD = 0.3f;
-                }
-            } 
+                    playerAnimator.SetTrigger("S4");
+					Invoke("TriggerSlash4", 0.6f);
+					slashCD = 0.3f;
+					SlashTimer = 0;
+					attackTimer = 0;
+				}
+            }
         }
     }
-    public void TriggerSlash() 
+	public void TriggerSlash4()
+    {
+		Vibrate(0.5f, 0.5f, 0.05f);
+		slashAudio.Play();
+		slashCollider.enabled = true;
+		Invoke("InactiveCollider", 0.1f);
+		flashImage.SetActive(true);
+		Invoke("InactiveFlashImage", 0.01f);
+		slashEffectRedObject.SetActive(true);
+		slashEffectRed.Play();
+		hitCounter = 0;
+		Shake(1.0f);
+		Time.timeScale = 0.1f;
+		Invoke("TimeScaleNormal", 0.02f);
+
+		Invoke("DelayDetect", 0.05f);
+	}
+
+	public void TriggerSlash() 
     {
         Vibrate(0.1f, 0.1f, 0.05f);
         slashAudio.Play();
@@ -142,6 +182,21 @@ public class PlayerSlashAttack : MonoBehaviour
         Invoke("InactiveCollider", 0.1f);
         flashImage.SetActive(true);
         Invoke("InactiveFlashImage", 0.02f);
+        switch (hitCounter)
+        {
+			case 0:
+				break;
+				slashEffectYellowObject.transform.localScale = new Vector3(2.72f, -2.72f, 2.72f);
+			case 1:
+				break;
+				slashEffectYellowObject.transform.localScale = new Vector3(2.72f, 2.72f, 2.72f);
+			case 2:
+				slashEffectYellowObject.transform.localScale = new Vector3(2.72f, -2.72f, 2.72f);
+				break;
+			case 3:
+				slashEffectYellowObject.transform.localScale = new Vector3(2.72f, 2.72f, 2.72f);
+				break;
+		}
         slashEffectYellowObject.SetActive(true);
         slashEffectYellow.Play();
         Shake(0.5f);
@@ -149,11 +204,31 @@ public class PlayerSlashAttack : MonoBehaviour
         Invoke("TimeScaleNormal", 0.01f);
         Invoke("DelayDetect",0.05f);
     }
-    void InactiveFlashImage()
+    void InactiveFlashImageLeft(string name)
     {
         flashImage.SetActive(false);
+        switch (name)
+        {
+            case "left":
+                break;
+                flashImage.transform.localScale = new Vector3(2.72f, -2.72f, 2.72f);
+            case "right":
+                flashImage.transform.localScale = new Vector3(2.72f, 2.72f, 2.72f);
+                break;
+
+            default:
+                break;
+        }
+
+
     }
-    void DelayDetect()
+
+	void InactiveFlashImageRight(string name)
+    {
+
+    }
+
+	void DelayDetect()
     {
         if (!playerAim._lockedEnemy.CompareTag("Enemy"))
         {
@@ -164,7 +239,8 @@ public class PlayerSlashAttack : MonoBehaviour
     }
     void DashToEnemy()
     {
-        playerRigidbody.velocity = Vector3.zero;
+		sword.SetActive(true);
+		playerRigidbody.velocity = Vector3.zero;
         target = playerAim._lockedEnemy;
         enemyHp = target.GetComponent<EnemyHp>();
         slashTarget = target.transform.GetChild(7).transform.position;
@@ -184,7 +260,8 @@ public class PlayerSlashAttack : MonoBehaviour
             }
         }).OnComplete(() =>
         {
-            tweenPlaying = false;
+			
+			tweenPlaying = false;
             arrived = true;
             playerRigidbody.velocity = Vector3.zero;
 
@@ -255,6 +332,11 @@ public class PlayerSlashAttack : MonoBehaviour
     }
     void ReturnAnimation()
     {
+        //Asuisui
+        playerAnimator.SetTrigger("ReFly");
+		sword.SetActive(false);
+		print("ReFly");
+        //--
         ResetTimer();
         isSlashDashing = false;
         isAttacking = false;

@@ -11857,6 +11857,11 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 1
+--- !u!1 &708146978 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 451962974766153550, guid: ef9a44eca7e62fa41bc5be78d6bced8f, type: 3}
+  m_PrefabInstance: {fileID: 6441088582509285089}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &713335102
 GameObject:
   m_ObjectHideFlags: 0
@@ -13442,6 +13447,16 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 828849641}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &829232069 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1004149772541149629, guid: ef9a44eca7e62fa41bc5be78d6bced8f, type: 3}
+  m_PrefabInstance: {fileID: 6441088582509285089}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &829232070 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5042852094250802666, guid: ef9a44eca7e62fa41bc5be78d6bced8f, type: 3}
+  m_PrefabInstance: {fileID: 6441088582509285089}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &829478192
 GameObject:
   m_ObjectHideFlags: 0
@@ -37358,6 +37373,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4034747397827854403}
+  - {fileID: 829232069}
   - {fileID: 4498427290296265386}
   - {fileID: 8581294351248422294}
   - {fileID: 2605669753124908804}
@@ -82114,7 +82130,7 @@ Terrain:
   m_TreeBillboardDistance: 50
   m_TreeCrossFadeLength: 5
   m_TreeMaximumFullLODCount: 50
-  m_DetailObjectDistance: 80
+  m_DetailObjectDistance: 600
   m_DetailObjectDensity: 1
   m_HeightmapPixelError: 5
   m_SplatMapDistance: 1000
@@ -94264,7 +94280,7 @@ Terrain:
   m_TreeBillboardDistance: 50
   m_TreeCrossFadeLength: 5
   m_TreeMaximumFullLODCount: 50
-  m_DetailObjectDistance: 80
+  m_DetailObjectDistance: 600
   m_DetailObjectDensity: 1
   m_HeightmapPixelError: 5
   m_SplatMapDistance: 1000
@@ -112871,7 +112887,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.29542434, y: -0.5765455, z: 0.6996615, w: -0.30131993}
   m_LocalPosition: {x: 0, y: 1.7900025, z: 1.3099998}
-  m_LocalScale: {x: 2.7200003, y: 2.7199998, z: 2.7199996}
+  m_LocalScale: {x: 2.7200003, y: 2.72, z: 2.7199996}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1061373954540092820}
@@ -112996,7 +113012,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!82 &1058828081220872845
 AudioSource:
   m_ObjectHideFlags: 0
@@ -191691,7 +191707,7 @@ Terrain:
   m_TreeBillboardDistance: 50
   m_TreeCrossFadeLength: 5
   m_TreeMaximumFullLODCount: 50
-  m_DetailObjectDistance: 80
+  m_DetailObjectDistance: 600
   m_DetailObjectDensity: 1
   m_HeightmapPixelError: 5
   m_SplatMapDistance: 1000
@@ -284275,7 +284291,7 @@ Terrain:
   m_TreeBillboardDistance: 50
   m_TreeCrossFadeLength: 5
   m_TreeMaximumFullLODCount: 50
-  m_DetailObjectDistance: 80
+  m_DetailObjectDistance: 600
   m_DetailObjectDensity: 1
   m_HeightmapPixelError: 5
   m_SplatMapDistance: 1000
@@ -337409,7 +337425,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &4375291225748828861
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -452716,7 +452732,7 @@ Terrain:
   m_TreeBillboardDistance: 50
   m_TreeCrossFadeLength: 5
   m_TreeMaximumFullLODCount: 50
-  m_DetailObjectDistance: 80
+  m_DetailObjectDistance: 600
   m_DetailObjectDensity: 1
   m_HeightmapPixelError: 5
   m_SplatMapDistance: 1000
@@ -493401,6 +493417,63 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1001 &6441088582509285089
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1808100024}
+    m_Modifications:
+    - target: {fileID: 478688095041657607, guid: ef9a44eca7e62fa41bc5be78d6bced8f, type: 3}
+      propertyPath: m_Name
+      value: lilmu
+      objectReference: {fileID: 0}
+    - target: {fileID: 1004149772541149629, guid: ef9a44eca7e62fa41bc5be78d6bced8f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1004149772541149629, guid: ef9a44eca7e62fa41bc5be78d6bced8f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1004149772541149629, guid: ef9a44eca7e62fa41bc5be78d6bced8f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1004149772541149629, guid: ef9a44eca7e62fa41bc5be78d6bced8f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1004149772541149629, guid: ef9a44eca7e62fa41bc5be78d6bced8f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1004149772541149629, guid: ef9a44eca7e62fa41bc5be78d6bced8f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1004149772541149629, guid: ef9a44eca7e62fa41bc5be78d6bced8f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1004149772541149629, guid: ef9a44eca7e62fa41bc5be78d6bced8f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1004149772541149629, guid: ef9a44eca7e62fa41bc5be78d6bced8f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1004149772541149629, guid: ef9a44eca7e62fa41bc5be78d6bced8f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ef9a44eca7e62fa41bc5be78d6bced8f, type: 3}
 --- !u!4 &6442648713474607250
 Transform:
   m_ObjectHideFlags: 0
@@ -645244,7 +645317,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerVCam: {fileID: 1316770668}
   SceneVCam: {fileID: 1774168704}
-  playerAnimator: {fileID: 4933964361173788034}
+  playerAnimator: {fileID: 829232070}
   DashAudioSource: {fileID: 5755339883959453810}
   dashForce: 3
   moveHspeed: 60
@@ -645268,6 +645341,7 @@ MonoBehaviour:
   BounceExpolsion: {fileID: 1765137710588814, guid: 6bea1543e5b3fca40a6c415bb1ecabe3, type: 3}
   speedLine: {fileID: 0}
   goldspeedMulti: -55
+  ChangeTimer: 0
 --- !u!65 &8492663840767782814
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -645363,6 +645437,8 @@ MonoBehaviour:
   impulseSource: {fileID: 8492663840767782815}
   followZoom: {fileID: 1316770669}
   flashImage: {fileID: 7612753}
+  playerAnimator: {fileID: 829232070}
+  sword: {fileID: 708146978}
 --- !u!4 &8492971904712850931
 Transform:
   m_ObjectHideFlags: 0
@@ -652909,7 +652985,7 @@ Terrain:
   m_TreeBillboardDistance: 50
   m_TreeCrossFadeLength: 5
   m_TreeMaximumFullLODCount: 50
-  m_DetailObjectDistance: 80
+  m_DetailObjectDistance: 600
   m_DetailObjectDensity: 1
   m_HeightmapPixelError: 5
   m_SplatMapDistance: 1000
