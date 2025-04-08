@@ -354,7 +354,7 @@ public class EnemyHp : MonoBehaviour
             StartCoroutine(enemyMove.Paralyze());
             yield return new WaitForSeconds(enemyMove.paralyzeTime);
             corruption = true;
-            playerSlashAttack.ForceFallBack();
+            //playerSlashAttack.ForceFallBack();
             corruptionCleanseObject.SetActive(false);
             chainEffectObject.SetActive(false);
             corruptEffect.SetActive(true);
