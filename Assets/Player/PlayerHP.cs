@@ -53,7 +53,7 @@ public class PlayerHP : MonoBehaviour
     {
         if (debug)
         {
-            maxHp = 9999;
+            maxHp = 100;
             playerHp = maxHp;
         }
         else
@@ -103,14 +103,14 @@ public class PlayerHP : MonoBehaviour
         if (other.tag == "EnemyBullet")
         {
             if(!isMuteki)
-            getHit(5);
+            getHit(10);
             //Debug.Log("hit");
             //other.gameObject.SetActive(false);
         }
         if (other.tag == "Block")
         {
             if (!isMuteki)
-                getHit(10);
+                getHit(5);
         }
         //if(other.tag == "Enemy")
         //{
