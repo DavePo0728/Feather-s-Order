@@ -51,14 +51,15 @@ public class PlayerSlashAttack : MonoBehaviour
     [SerializeField]
     GameObject target;
     EnemyHp enemyHp;
-    /*
+    
+	/*
      * Asuisui
         動畫控制
     */
-    [SerializeField]
+	[SerializeField]
     Animator playerAnimator;
-
-    public GameObject sword;
+	public DynamicBone clothDB;
+	public GameObject sword;
     private void Awake()
     {
         playerMove = GetComponent<PlayerMove>();
@@ -172,6 +173,7 @@ public class PlayerSlashAttack : MonoBehaviour
     }
 	public void TriggerSlash4()
     {
+		clothDB.enabled = false;
 		Vibrate(0.5f, 0.5f, 0.05f);
 		slashAudio.Play();
 		slashCollider.enabled = true;
@@ -341,7 +343,8 @@ public class PlayerSlashAttack : MonoBehaviour
             attackTimer += Time.deltaTime;
             if (attackTimer >= 1f)
             {
-				playerAnimator.SetBool("OnAttack", false);
+                playerAnimator.SetBool("OnAttack", false);
+				clothDB.enabled = true;
 			}
             //Debug.Log(attackTimer);
             if (attackTimer > maxTime)
@@ -393,9 +396,12 @@ public class PlayerSlashAttack : MonoBehaviour
     {
         //Asuisui
         hitCounter = 0;
+		clothDB.enabled = true;
 		playerAnimator.SetBool("OnAttack", false);
 		playerAnimator.SetTrigger("ReFly");
-		sword.SetActive(false);
+        sword.SetActive(false);
+       
+
 		print("ReFly");
         //--
         ResetTimer();
