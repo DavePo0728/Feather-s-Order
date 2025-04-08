@@ -38,8 +38,6 @@ public class PlayerMove : MonoBehaviour
     bool isRotating = false;
     AudioSource dashSound;
     [SerializeField]
-    List<Material> playerMat;
-    [SerializeField]
     GameObject body;
     float rotationDuration = 0.5f; // Duration of the rotation in seconds
     float rotateStartTime; // Time when the rotation starts
@@ -287,15 +285,9 @@ public class PlayerMove : MonoBehaviour
     {
         //isMuteki = true;
         Physics.IgnoreLayerCollision(8, 6, true);
-        playerMat[0].color = Color.green;
-        playerMat[1].color = Color.green;
-        playerMat[2].color = Color.green;
         yield return new WaitForSeconds(mutekiTime);
         //isMuteki = false;
         Physics.IgnoreLayerCollision(8, 6, false);
-        playerMat[0].color = Color.white;
-        playerMat[1].color = Color.white;
-        playerMat[2].color = Color.white;
     }
     //private void OnTriggerEnter(Collider other)
     //{

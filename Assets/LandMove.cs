@@ -25,10 +25,14 @@ public class LandMove : MonoBehaviour
             initial = false;
             TerrainLoopManager.terrainInstance.usingListNum = 1;
         }
-        endPoinLeft = TerrainLoopManager.terrainInstance._outSideLeftList[0].transform.position;
-        endPoinLeft.z -= 500f;
-        endPointRight = TerrainLoopManager.terrainInstance._outSideRightList[0].transform.position;
-        endPointRight.z -= 500f;
+        if (TerrainLoopManager.terrainInstance._outSideLeftList.Count>0)
+        {
+            endPoinLeft = TerrainLoopManager.terrainInstance._outSideLeftList[0].transform.position;
+            endPoinLeft.z -= 500f;
+            endPointRight = TerrainLoopManager.terrainInstance._outSideRightList[0].transform.position;
+            endPointRight.z -= 500f;
+        }
+
     }
     // Start is called before the first frame update
     void Start()

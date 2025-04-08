@@ -34,7 +34,7 @@ public class TerrainLoopManager : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        float temp = terrainList[0].transform.position.z - terrainList[1].transform.position.z;
+        //float temp = terrainList[0].transform.position.z - terrainList[1].transform.position.z;
         //Debug.Log(terrainList[5].name +" "+ terrainList[5].transform.position.z + "-" + terrainList[6].name +" " + terrainList[6].transform.position.z + ": " + temp);
         //.Log(terrainList[5].name + terrainList[6].name + ": " + temp);
     }
@@ -53,7 +53,7 @@ public class TerrainLoopManager : MonoBehaviour
     public void ChangeMap(int listNum)
     {
         if (usingListNum == listNum) return;
-        
+        Debug.Log("ChangeMap");
         switch (usingListNum)
         {
             case 1:
