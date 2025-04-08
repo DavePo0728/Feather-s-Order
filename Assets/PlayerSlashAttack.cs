@@ -97,8 +97,9 @@ public class PlayerSlashAttack : MonoBehaviour
                     {
                         //Asuisui
                         playerAnimator.SetTrigger("dash");
-                        //--
-                        DashToEnemy();
+						sword.SetActive(true);
+						//--
+						DashToEnemy();
                         playerAim.aimmingImage.SetActive(false);
                         playerAim.FarLockImage.SetActive(false);
                     }
@@ -124,7 +125,7 @@ public class PlayerSlashAttack : MonoBehaviour
                 {
                     slashCD = 0.2f;
 
-                    Invoke("TriggerSlash", 0.4f);
+                    Invoke("TriggerSlash", 0.1f);
 
                     hitCounter++;
                     SlashTimer = 0;
@@ -136,13 +137,16 @@ public class PlayerSlashAttack : MonoBehaviour
                     {
                         case 1:
                             playerAnimator.SetTrigger("S1");
+                            playerAnimator.SetBool("OnAttack", true);
                             break;
                         case 2:
                             playerAnimator.SetTrigger("S2");
-                            break;
+							playerAnimator.SetBool("OnAttack", true);
+							break;
                         case 3:
                             playerAnimator.SetTrigger("S3");
-                            break;
+							playerAnimator.SetBool("OnAttack", true);
+							break;
                         default:
                             break;
                     }
@@ -153,8 +157,9 @@ public class PlayerSlashAttack : MonoBehaviour
                 else if (hitCounter >= 3)
                 {
                     playerAnimator.SetTrigger("S4");
-					Invoke("TriggerSlash4", 0.6f);
-					slashCD = 0.3f;
+                    Invoke("TriggerSlash4", 0.3f);
+					playerAnimator.SetBool("OnAttack", false);
+					slashCD = 0.5f;
 					SlashTimer = 0;
 					attackTimer = 0;
 				}
@@ -256,7 +261,9 @@ public class PlayerSlashAttack : MonoBehaviour
             isCounting = true;
             followZoom.m_Width = 0;
             TriggerSlash();
-            Invoke("SetAttack", 0.2f);
+            playerAnimator.SetBool("OnAttack", true);
+			attackTimer = 0;
+			Invoke("SetAttack", 0.2f);
         });
         //tweenCam = playerVCam.transform.DOLocalRotateQuaternion(Quaternion.Euler(5, -15, 0), 0.3f).OnStart(() => camTweenPlaying = true).OnComplete(() => camTweenPlaying = false);
         if (isSlashDashing ==false&&arrived==false)
@@ -328,6 +335,10 @@ public class PlayerSlashAttack : MonoBehaviour
         {
             SlashTimer += Time.deltaTime;
             attackTimer += Time.deltaTime;
+            if (attackTimer >= 1f)
+            {
+				playerAnimator.SetBool("OnAttack", false);
+			}
             //Debug.Log(attackTimer);
             if (attackTimer > maxTime)
             {
@@ -377,6 +388,7 @@ public class PlayerSlashAttack : MonoBehaviour
     void ReturnAnimation()
     {
         //Asuisui
+        hitCounter = 0;
         playerAnimator.SetTrigger("ReFly");
 		sword.SetActive(false);
 		print("ReFly");
