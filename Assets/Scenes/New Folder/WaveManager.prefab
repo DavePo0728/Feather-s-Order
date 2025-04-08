@@ -1,0 +1,144 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8726802778358214991
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5437345049022131158}
+  - component: {fileID: 3398540962171314908}
+  m_Layer: 0
+  m_Name: WaveManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5437345049022131158
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8726802778358214991}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2000, y: 0, z: -50}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3398540962171314908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8726802778358214991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6d7a6eee8b092749ae7347c36645222, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyList:
+  - {fileID: 5113663619280529763, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
+  - {fileID: 7469029502725969291, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
+  pathList:
+  - {fileID: 0}
+  - {fileID: 0}
+  customPathDataList:
+  - {fileID: 11400000, guid: 322cdde3ab75c844fa0328e8035981cd, type: 2}
+  gameoverPanel: {fileID: 0}
+  gameOverText: {fileID: 0}
+  GameClearText: {fileID: 0}
+  debug: 1
+  enemyDataList: {fileID: 11400000, guid: ea9fd51ecabf28f488513454d6693a43, type: 2}
+  spawnDataList: {fileID: 11400000, guid: 02c786a34ce55624c9369eefdc51c91c, type: 2}
+  gunDataList: {fileID: 11400000, guid: 903753f85a2c6334196fe5e0bed4bf1e, type: 2}
+  isRecording: 1
+  currentRecording: {fileID: 11400000, guid: 8c9dc73155b23224fb13a97d6fe4a66b, type: 2}
+  recordStartTime: 0
+  savePath: Assets/WaveRecordings/
+  recordedWaveDataList:
+  - {fileID: 11400000, guid: 8c9dc73155b23224fb13a97d6fe4a66b, type: 2}
+  - {fileID: 11400000, guid: 95d4bcd011822854d9d340c4c7db27f0, type: 2}
+  - {fileID: 11400000, guid: 4c3fa0d638bddb24fb253d28a4f7b4b4, type: 2}
+  showDebugUI: 1
+  debugUIPosition: {x: 10, y: 10}
+  debugUISize: {x: 300, y: 200}
+  debugTextStyle:
+    m_Name: 
+    m_Normal:
+      m_Background: {fileID: 0}
+      m_ScaledBackgrounds: []
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_Hover:
+      m_Background: {fileID: 0}
+      m_ScaledBackgrounds: []
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_Active:
+      m_Background: {fileID: 0}
+      m_ScaledBackgrounds: []
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_Focused:
+      m_Background: {fileID: 0}
+      m_ScaledBackgrounds: []
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_OnNormal:
+      m_Background: {fileID: 0}
+      m_ScaledBackgrounds: []
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_OnHover:
+      m_Background: {fileID: 0}
+      m_ScaledBackgrounds: []
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_OnActive:
+      m_Background: {fileID: 0}
+      m_ScaledBackgrounds: []
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_OnFocused:
+      m_Background: {fileID: 0}
+      m_ScaledBackgrounds: []
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_Border:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    m_Margin:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    m_Padding:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    m_Overflow:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    m_Font: {fileID: 0}
+    m_FontSize: 0
+    m_FontStyle: 0
+    m_Alignment: 0
+    m_WordWrap: 0
+    m_RichText: 1
+    m_TextClipping: 0
+    m_ImagePosition: 0
+    m_ContentOffset: {x: 0, y: 0}
+    m_FixedWidth: 0
+    m_FixedHeight: 0
+    m_StretchWidth: 1
+    m_StretchHeight: 0
+  autoStartRecording: 0
+  recordedWaves:
+  - {fileID: 11400000, guid: 8c9dc73155b23224fb13a97d6fe4a66b, type: 2}
+  - {fileID: 11400000, guid: 95d4bcd011822854d9d340c4c7db27f0, type: 2}
+  - {fileID: 11400000, guid: 4c3fa0d638bddb24fb253d28a4f7b4b4, type: 2}
