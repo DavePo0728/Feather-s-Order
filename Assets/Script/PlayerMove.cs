@@ -229,28 +229,28 @@ public class PlayerMove : MonoBehaviour
                     }
                 }
             }
-            if (isRotating)
-            {
-                //Debug.Log(leanInput);
-                //initialRotation = transform.rotation.EulerAngles();
-                transform.rotation = Quaternion.Euler(0, 0, 0);
-                float elapsedTime = Time.time - rotateStartTime;
-                float angle = Mathf.Lerp(transform.rotation.z, 360f, Mathf.SmoothStep(0f, 1f, elapsedTime / rotationDuration));
-                if (playerRigidbody.velocity.x >= 0)
-                {
+            //if (isRotating)
+            //{
+            //    //Debug.Log(leanInput);
+            //    //initialRotation = transform.rotation.EulerAngles();
+            //    transform.rotation = Quaternion.Euler(0, 0, 0);
+            //    float elapsedTime = Time.time - rotateStartTime;
+            //    float angle = Mathf.Lerp(transform.rotation.z, 360f, Mathf.SmoothStep(0f, 1f, elapsedTime / rotationDuration));
+            //    if (playerRigidbody.velocity.x >= 0)
+            //    {
 
-                    body.transform.eulerAngles = initialRotation + new Vector3(0f, 0f, angle);
-                    //playerAnimator.SetTrigger("RightRoll");
-                }
-                else
-                {
+            //        body.transform.eulerAngles = initialRotation + new Vector3(0f, 0f, angle);
+            //        //playerAnimator.SetTrigger("RightRoll");
+            //    }
+            //    else
+            //    {
 
-                    //playerAnimator.SetTrigger("LeftRoll");
-                    body.transform.eulerAngles = initialRotation - new Vector3(0f, 0f, angle);
-                }
-                isRotating = false;
+            //        //playerAnimator.SetTrigger("LeftRoll");
+            //        body.transform.eulerAngles = initialRotation - new Vector3(0f, 0f, angle);
+            //    }
+            //    isRotating = false;
 
-            }
+            //}
 
         }
     }
