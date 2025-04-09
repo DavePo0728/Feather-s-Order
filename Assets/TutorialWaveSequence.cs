@@ -19,7 +19,7 @@ public class TutorialWaveSequence : WaveSpawnController
         {
             Debug.Log($"Tutorial Step: {step.waveGroupName}");
             manager.SetTutorialImage(step.tutorialImage);
-            yield return manager.StartCoroutine(manager.GetSpawnGroup(step.waveGroupName));
+            yield return manager.StartCoroutine(manager.GetWave(step.waveGroupName));
             yield return new WaitUntil(() => manager.EnemyCount() == 0);
         }
         manager.GameFinish();

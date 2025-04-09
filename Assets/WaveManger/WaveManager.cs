@@ -57,9 +57,48 @@ public class WaveManager : MonoBehaviour
     [SerializeField] List<RecordedWaveData> recordedWaves;
     private int currentRecordingIndex = 0;
     private Dictionary<string, System.Func<IEnumerator>> spawnGroupMap;
+    private Dictionary<string, RecordedWaveData> recordedWaveMap;
     [SerializeField]
     private WaveSpawnController currentWaveController;
 
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     IEnumerator PlayRecordedWave(RecordedWaveData data, float delay = 0f)
     {
         yield return new WaitForSeconds(delay);
@@ -287,17 +326,23 @@ public class WaveManager : MonoBehaviour
         Purple,
         BlackRed,
     }
-    public IEnumerator GetSpawnGroup(string index)
+    public IEnumerator GetWave(string key)
     {
-        if (spawnGroupMap.TryGetValue(index, out var routine))
+        // 若在 spawnGroupMap 裡，執行對應 Coroutine
+        if (spawnGroupMap.TryGetValue(key, out var routine))
         {
             yield return routine();
-        }
-        else
-        {
-            Debug.LogWarning($"❌ 沒有編號 {index} 的波次！");
             yield break;
         }
+
+        // 若在 recordedWaveMap 裡，撥放錄製波次
+        if (recordedWaveMap.TryGetValue(key, out var data))
+        {
+            yield return PlayRecordedWave(data);
+            yield break;
+        }
+
+        Debug.LogWarning($"❌ 沒有找到名稱為 '{key}' 的波次資料！");
     }
     private void Awake()
     {
@@ -323,6 +368,12 @@ public class WaveManager : MonoBehaviour
         {"t4",TutorialWave4 },
         {"t5",TutorialWave5 },
     };
+        recordedWaveMap = new Dictionary<string, RecordedWaveData>()
+        {
+            { "RecordWave0", recordedWaves[0] },
+            { "RecordWave1", recordedWaves[1] },
+            { "RecordWave2", recordedWaves[2] },
+        };
         //customPathDataList = new List<CustomPathData>();
         //customPathDataList.Add(Resources.Load<CustomPathData>("PathData/PathData1"));
         if (debugTextStyle == null)

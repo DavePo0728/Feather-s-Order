@@ -22,7 +22,7 @@ public class AdvancedStringWaveSequence : WaveSpawnController
             for (int i = 0; i < entry.repeatCount; i++)
             {
                 Debug.Log($"Wave Group: {entry.groupName}");
-                yield return manager.StartCoroutine(manager.GetSpawnGroup(entry.groupName));
+                yield return manager.StartCoroutine(manager.GetWave(entry.groupName));
             }
             yield return new WaitForSeconds(entry.delayAfterGroup);
         }
