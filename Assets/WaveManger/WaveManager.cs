@@ -592,7 +592,7 @@ public class WaveManager : MonoBehaviour
         enemyHp.maxHp = enemyData.data.hp;
         enemyMove.lifeTime = enemyData.data.lifeTime;
         enemyMove.entryTime = enemyData.data.entryTime;
-        enemyMove.moveTime = enemyData.data.moveTime;
+        enemyMove.moveTime = enemyData.data.singleMoveTime;
         enemyMove.leaveTime = enemyData.data.leaveTime;
         enemyMove.pointWaitTime = spawnData.data.pointWaitTime;
         enemyMove.paralyzeTime = enemyData.data.paralyzeTime;
@@ -627,7 +627,7 @@ public class WaveManager : MonoBehaviour
         enemyHp.maxHp = enemyData.data.hp;
         enemyMove.lifeTime = enemyData.data.lifeTime;
         enemyMove.entryTime = enemyData.data.entryTime;
-        enemyMove.moveTime = enemyData.data.moveTime;
+        enemyMove.moveTime = enemyData.data.singleMoveTime;
         enemyMove.leaveTime = enemyData.data.leaveTime;
         enemyMove.paralyzeTime = enemyData.data.paralyzeTime;
         enemyHp.corrupted = enemyData.data.corrupted;
@@ -662,7 +662,7 @@ public class WaveManager : MonoBehaviour
         enemyHp.maxHp = enemyData.data.hp;
         enemyMove.lifeTime = enemyData.data.lifeTime;
         enemyMove.entryTime = enemyData.data.entryTime;
-        enemyMove.moveTime = enemyData.data.moveTime;
+        enemyMove.moveTime = enemyData.data.singleMoveTime;
         enemyMove.leaveTime = enemyData.data.leaveTime;
         enemyMove.paralyzeTime = enemyData.data.paralyzeTime;
         enemyHp.corrupted = enemyData.data.corrupted;
@@ -799,13 +799,13 @@ public class WaveManager : MonoBehaviour
     }
     IEnumerator SpawnGroup_R() // R    1
     {
-        NewSpawn_WithRecord(0, 0, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(1, 0, 0, new EntryTypeA(), new MoveTypeA(), new LeaveTypeA());
         yield return new WaitForSeconds(0.5f);
 
-        NewSpawn_WithRecord(0, 0, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(2, 0, 0, new EntryTypeA(), new MoveTypeA(), new LeaveTypeA());
         yield return new WaitForSeconds(0.5f);
 
-        NewSpawn_WithRecord(0, 0, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(3, 0, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.5f);
     }
     IEnumerator SpawnGroup_L() // L    2
