@@ -358,7 +358,7 @@ public class WaveManager : MonoBehaviour
         { "RB_LT", SpawnGroup_RB_LT },
         { "RC_to_LC", SpawnGroup_RC_to_LC },
         { "R_A3", SpawnGroup_R_A3 },
-        { "12", SpawnGroup1_12 },
+        { "L_RB_B", SpawnGroup_L_RB_B },
         { "13", SpawnGroup1_13 },
         { "14", SpawnGroup1_14 },
         {"t1",TutorialWave1 },
@@ -454,7 +454,7 @@ public class WaveManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Keypad1))
         {
-            StartCoroutine(SpawnGroup1_12());
+            StartCoroutine(SpawnGroup_L_RB_B());
         }
         if (Input.GetKeyDown(KeyCode.Keypad2))
         {
@@ -799,13 +799,13 @@ public class WaveManager : MonoBehaviour
     }
     IEnumerator SpawnGroup_R() // R    1
     {
-        NewSpawn_WithRecord(1, 0, 0, new EntryTypeA(), new MoveTypeA(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 0, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.5f);
 
-        NewSpawn_WithRecord(2, 0, 0, new EntryTypeA(), new MoveTypeA(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 0, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.5f);
 
-        NewSpawn_WithRecord(3, 0, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 0, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.5f);
     }
     IEnumerator SpawnGroup_L() // L    2
@@ -830,6 +830,10 @@ public class WaveManager : MonoBehaviour
 
         NewSpawn_WithRecord(0, 2, 1, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.5f);
+        NewSpawn_WithRecord(0, 2, 1, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        yield return new WaitForSeconds(2f);
+        NewSpawn_WithRecord(0, 2, 1, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        yield return new WaitForSeconds(2f);
     }
     IEnumerator SpawnGroup_M_to_LB() // M_to_LB red   4
     {
@@ -908,21 +912,23 @@ public class WaveManager : MonoBehaviour
 
 
     }
-    IEnumerator SpawnGroup1_12()
+    IEnumerator SpawnGroup_L_RB_B() // L_RB_B
     {
-        NewSpawn_WithRecord(0, 12, 3, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 11, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.5f);
-        NewSpawn_WithRecord(1, 12, 2, new EntryTypeA(), new MoveTypeA(), new LeaveTypeA());
+        NewSpawn_WithRecord(3, 2, 2, new EntryTypeA(), new MoveTypeA(), new LeaveTypeA());
         yield return new WaitForSeconds(0.5f);
-        NewSpawn_WithRecord(0, 12, 3, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
-
-
+        NewSpawn_WithRecord(0, 11, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
 
     }
     IEnumerator SpawnGroup1_13()
     {
-        NewSpawn(enemyDatas[0], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
-        yield return new WaitForSeconds(0.1f);
+        NewSpawn_WithRecord(0, 13, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        
+        NewSpawn_WithRecord(3, 2, 2, new EntryTypeA(), new MoveTypeA(), new LeaveTypeA());
+
+        NewSpawn_WithRecord(0, 10, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        yield return new WaitForSeconds(0.5f);
 
     }
     

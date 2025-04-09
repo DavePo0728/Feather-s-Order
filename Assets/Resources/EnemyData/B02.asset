@@ -15,8 +15,8 @@ MonoBehaviour:
   data:
     enemy: {fileID: 7469029502725969291, guid: 031df4c0941ea6d4b95060f514b43f94, type: 3}
     entryTime: 1
-    moveTime: 6.5
-    leaveTime: 0
+    singleMoveTime: 1
+    leaveTime: 1
     hp: 5
     lifeTime: 10
     haveShield: 0
