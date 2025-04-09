@@ -450,7 +450,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9080959874977877469, guid: 55f46cf8ae878634b827725c337b027a, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -116112,7 +116112,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 100
+      scalar: 120
       minScalar: 30
       maxCurve:
         serializedVersion: 2
@@ -225297,7 +225297,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8c9dc73155b23224fb13a97d6fe4a66b, type: 2}
   - {fileID: 11400000, guid: 95d4bcd011822854d9d340c4c7db27f0, type: 2}
   - {fileID: 11400000, guid: 4c3fa0d638bddb24fb253d28a4f7b4b4, type: 2}
-  currentWaveController: {fileID: 11400000, guid: ed869e6ef062ba449a2af2829dfe0455, type: 2}
+  currentWaveController: {fileID: 11400000, guid: 5ae7ab090d1a3854c94a56a13575ad60, type: 2}
 --- !u!1 &8814028961380179915
 GameObject:
   m_ObjectHideFlags: 0
