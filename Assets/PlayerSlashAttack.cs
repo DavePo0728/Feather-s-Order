@@ -295,6 +295,7 @@ public class PlayerSlashAttack : MonoBehaviour
         playerRigidbody.velocity = Vector3.zero;
         //target = playerAim._lockedEnemy;
         slashTarget = target.transform.GetChild(7).transform.position;
+        Debug.Log("slashTarget: " + slashTarget);
         Vector3 lastTargetPos = slashTarget;
         tweener = playerRigidbody.DOMove(slashTarget, 0.5f).OnStart(() => { tweenPlaying = true;}).OnUpdate(() =>
         {
@@ -371,13 +372,15 @@ public class PlayerSlashAttack : MonoBehaviour
             //Debug.Log("Target: " + target.name + "Corruption: " + enemyHp.corruption_P);
             if (enemyHp.corruption_P)
             {
-
-                if (tweener.IsPlaying()||isSlashDashing)
+                if (tweener != null)
                 {
-                    Debug.Log("6");
-                    tweener.Kill();
-                    ReturnAnimation();
-                    return;
+                    if (tweener.IsPlaying() || isSlashDashing)
+                    {
+                        Debug.Log("6");
+                        tweener.Kill();
+                        ReturnAnimation();
+                        return;
+                    }
                 }
                 if (arrived)
                 {
@@ -385,6 +388,7 @@ public class PlayerSlashAttack : MonoBehaviour
                     ReturnAnimation();
                     return;
                 }
+            }
                 //if (isCounting)
                 //{
                 //    Debug.Log("7");
@@ -392,8 +396,7 @@ public class PlayerSlashAttack : MonoBehaviour
                 //    isCounting = false;
                 //    attackTimer = 0f;
                 //    return;
-                //}
-            }
+                //}  
         }
     }
     void ReturnAnimation()

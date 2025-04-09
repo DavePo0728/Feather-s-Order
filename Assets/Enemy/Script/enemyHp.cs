@@ -180,17 +180,20 @@ public class EnemyHp : MonoBehaviour
 
     public void ShieldHurt(float damage) //只有近攻會觸發這個
     {
-        if (currentShieldHp > 0)
+        if (haveshield)
         {
-            PlayShieldHitSound();
-            currentShieldHp -= damage;
-            UpdateUI();
-            if (shieldEffect != null && currentShieldHp <= 0)
+            if (currentShieldHp > 0)
             {
-                shieldEffect.SetActive(false);
-                shieldExplosionEffect.SetActive(true);
-                PlayShieldBreakSound();
-                haveshield = false;
+                PlayShieldHitSound();
+                currentShieldHp -= damage;
+                UpdateUI();
+                if (shieldEffect != null && currentShieldHp <= 0)
+                {
+                    shieldEffect.SetActive(false);
+                    shieldExplosionEffect.SetActive(true);
+                    PlayShieldBreakSound();
+                    haveshield = false;
+                }
             }
         }
         else

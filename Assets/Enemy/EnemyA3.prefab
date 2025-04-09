@@ -109,9 +109,9 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 389729789006238967}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 0, y: 0, z: -1.16}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7346230722376052512}
   m_Father: {fileID: 4119238301646231805}
@@ -5850,7 +5850,6 @@ GameObject:
   - component: {fileID: 7739853108449217975}
   - component: {fileID: 4025923615230756686}
   - component: {fileID: 197439498564140024}
-  - component: {fileID: 5239078069565622800}
   m_Layer: 7
   m_Name: CorruptionEffect
   m_TagString: Untagged
@@ -5868,7 +5867,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.0000121593475, y: 0.30000305, z: 0}
-  m_LocalScale: {x: 4.28, y: 4.280001, z: 4.280001}
+  m_LocalScale: {x: 16.61, y: 16.61, z: 16.61}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 4119238301646231805}
@@ -5923,27 +5922,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &5239078069565622800
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2414500701064933766}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2519324739600438182
 GameObject:
   m_ObjectHideFlags: 0
@@ -11161,8 +11139,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 4, y: 4, z: 4}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8420807118875454270}
   m_Father: {fileID: 4119238301646231805}
@@ -16610,7 +16588,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3, y: 0, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 4}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2893723784589359614}
@@ -16670,8 +16648,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3.1270661, y: 2.2706642, z: 0.869874}
-  m_Center: {x: -0.0060796738, y: 0.24417639, z: 0.08327627}
+  m_Size: {x: 11.171082, y: 10.80369, z: 3.500595}
+  m_Center: {x: -0.031402588, y: 0.76696587, z: -0.11907196}
 --- !u!114 &5953248887307944697
 MonoBehaviour:
   m_ObjectHideFlags: 0
