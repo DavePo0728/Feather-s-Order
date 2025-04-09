@@ -61,7 +61,7 @@ public class ScenesManager : MonoBehaviour
     }
     public void GameClear()
     {
-        gameoverPanel.SetActive(true);
+        gameoverPanel.SetActive(false);
         gameClearImageObject.SetActive(true);
         backImageObject.SetActive(true);
         StartCoroutine(Fade(gameClearImage, 0f, 1f));

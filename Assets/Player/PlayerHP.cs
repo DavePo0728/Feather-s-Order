@@ -23,8 +23,6 @@ public class PlayerHP : MonoBehaviour
     [SerializeField]
     GameObject gameOverUI;
     [SerializeField]
-    Image gameOverImage;
-    [SerializeField]
     GameObject hpDamageImage;
     [SerializeField]
     CinemachineImpulseSource impulseSource;
@@ -50,7 +48,6 @@ public class PlayerHP : MonoBehaviour
         hurtClip1 = Resources.Load<AudioClip>("Sound/PlayerGetHit01");
         hurtClip2 = Resources.Load<AudioClip>("Sound/PlayerGetHit02");
         scenesManager = GameObject.Find("SceneManager").GetComponent<ScenesManager>();
-        gameOverImage = gameOverUI.GetComponent<Image>();
     }
 
     // Start is called before the first frame update
@@ -151,12 +148,11 @@ public class PlayerHP : MonoBehaviour
     {
         scenesManager.isGameOver = true;
         gameOverUI.SetActive(true);
-        Fade(gameOverImage, 0f, 1f,1f);
-        //Invoke("Pause", 2f);
+        Time.timeScale = 0;
     }
     void Pause()
     {
-        Time.timeScale = 0;
+        
     }
     IEnumerator MuTeKiTime(float mutekiTime)
     {
@@ -184,23 +180,5 @@ public class PlayerHP : MonoBehaviour
     void Shake(float intensity)
     {
         impulseSource.GenerateImpulseWithForce(intensity);
-    }
-    private IEnumerator Fade(Image image, float fromAlpha, float toAlpha,float fadeDuration)
-    {
-        image.gameObject.SetActive(true);
-        Color color = image.color;
-        float elapsed = 0f;
-
-        while (elapsed < fadeDuration)
-        {
-            float t = elapsed / fadeDuration;
-            color.a = Mathf.Lerp(fromAlpha, toAlpha, t);
-            image.color = color;
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
-
-        color.a = toAlpha;
-        image.color = color;
     }
 }
