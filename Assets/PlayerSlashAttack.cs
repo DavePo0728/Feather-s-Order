@@ -158,8 +158,6 @@ public class PlayerSlashAttack : MonoBehaviour
                             break;
                     }
                     //--
-
-
                 }
                 else if (hitCounter >= 3)
                 {
@@ -232,14 +230,14 @@ public class PlayerSlashAttack : MonoBehaviour
         {
             Debug.Log("3");
             ReturnAnimation();
-            IsReturnAnimation = true;
+            
             return;
         }
     }
 
     void DashToEnemy()
-    {
-        shieldEffect.SetActive(false);
+	{
+		shieldEffect.SetActive(false);
         playerRigidbody.velocity = Vector3.zero;
         if (target != null) 
         slashTarget = target.transform.GetChild(7).transform.position;
@@ -270,7 +268,8 @@ public class PlayerSlashAttack : MonoBehaviour
             isCounting = true;
             followZoom.m_Width = 0;
             TriggerSlash();
-            playerAnimator.SetBool("OnAttack", true);
+            IsReturnAnimation = false;
+			playerAnimator.SetBool("OnAttack", true);
 			attackTimer = 0;
 			Invoke("SetAttack", 0.2f);
         });
@@ -317,8 +316,9 @@ public class PlayerSlashAttack : MonoBehaviour
 
             playerVCam.m_Lens.FieldOfView = 15;
             followZoom.m_Width = 0;
-            //Debug.Log("arrived: "+arrived);
-            shieldEffect.SetActive(false);
+			//Debug.Log("arrived: "+arrived);
+			IsReturnAnimation = false;
+			shieldEffect.SetActive(false);
             TriggerSlash();
             Invoke("ReturnAnimation", 0.5f);
         });
@@ -384,7 +384,8 @@ public class PlayerSlashAttack : MonoBehaviour
                 if (arrived)
                 {
                     Debug.Log("8");
-                    ReturnAnimation();
+					
+					ReturnAnimation();
                     return;
                 }
             }
@@ -403,20 +404,21 @@ public class PlayerSlashAttack : MonoBehaviour
         //Asuisui
         hitCounter = 0;
 		clothDB.enabled = true;
-        playerAnimator.SetBool("OnAttack", false);
-        if (IsReturnAnimation)
-        {
-            IsReturnAnimation = false;
-		}
-		else
+		playerAnimator.SetBool("OnAttack", false);
+		if (!IsReturnAnimation)
         {
 			playerAnimator.SetTrigger("ReFly");
-			//print("ReFly");
+			IsReturnAnimation = true;
+			print("ReFly");
 		}
         sword.SetActive(false);
-       
-
 		
+
+        if (target != null)
+        {
+
+        }
+
         //--
         ResetTimer();
         isSlashDashing = false;
