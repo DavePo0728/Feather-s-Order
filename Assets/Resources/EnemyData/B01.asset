@@ -17,10 +17,10 @@ MonoBehaviour:
     entryTime: 1
     moveTime: 8
     leaveTime: 1
-    hp: 5
+    hp: 200
     lifeTime: 10
-    haveShield: 0
-    shieldHp: 0
+    haveShield: 1
+    shieldHp: 10
     corrupted: 0
     corruptionStack: 0
-    paralyzeTime: 0
+    paralyzeTime: 5

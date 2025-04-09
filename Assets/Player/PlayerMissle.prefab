@@ -70,8 +70,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13b1858800b2b1f4ca60e6f8f80e6a89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxSpeed: 10
-  speed: 2
+  MaxSpeed: 150
+  speed: 100
   lifeTime: 6
   spreadDuration: 0.05
   maxRotationSpeed: 360
