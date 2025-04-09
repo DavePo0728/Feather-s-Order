@@ -17764,6 +17764,10 @@ PrefabInstance:
       propertyPath: audioSource
       value: 
       objectReference: {fileID: 1173075271}
+    - target: {fileID: 6883368652689248168, guid: 6e0e012b20ecf334d89ebc79d1fece7e, type: 3}
+      propertyPath: fadeDuration
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
