@@ -39,6 +39,7 @@ public class PlayerMissileMove : MonoBehaviour
             {
                 speed += 0.1f;
             }
+            //Debug.Log("Missile Speed: " + speed);
             Vector3 targetDirection = (lockedEnemy.transform.position - transform.position).normalized;
             Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, maxRotationSpeed * Time.deltaTime);

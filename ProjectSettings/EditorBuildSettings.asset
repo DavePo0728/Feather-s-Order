@@ -9,8 +9,17 @@ EditorBuildSettings:
     path: Assets/Scenes/StartScene.unity
     guid: 7fd522575e001144eb8697f6ac568d16
   - enabled: 1
+    path: Assets/Scenes/Teaching.unity
+    guid: b6078bf6f83b9ea41aa39ba7926f7466
+  - enabled: 1
     path: Assets/Scenes/Game.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/Parkour.unity
+    guid: 759c1b0ed4e43944f9fe835f38d724fa
+  - enabled: 1
+    path: Assets/Scenes/Cloud.unity
+    guid: 2b686b41f91983245be6526949cdbd38
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 060e6fdeed27beb45bc5f0fc36090fcc, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 6315d56ce0b2b034b859a84c624f7c72, type: 3}

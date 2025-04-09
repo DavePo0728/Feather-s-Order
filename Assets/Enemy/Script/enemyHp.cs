@@ -134,7 +134,7 @@ public class EnemyHp : MonoBehaviour
         if (haveshield)     //打到盾無效
         {
             PlayShieldHitSound();
-            Debug.Log("Source :"+gameObject.name+" "+"ShieldBlock");
+            //Debug.Log("Source :"+gameObject.name+" "+"ShieldBlock");
             //播抵消特效
             return;
         }
@@ -211,20 +211,6 @@ public class EnemyHp : MonoBehaviour
                         playerHP.Heal(10);
                     }
 
-                }
-                else
-                {
-                    PlayhitimpactAudio();
-                    currentHp -= damage * corruptionDamageModifier;
-                    UpdateUI();
-                    //Debug.Log("Source :" + gameObject.name + " " + "CorruptionNotClean"+ damage * corruptionDamageModifier);
-                    if (currentHp <= 0)
-                    {
-                        DeathEffect();
-                        scoreManager.AddScore();
-                        PlayerHP playerHP = GameObject.FindGameObjectWithTag("HPCollider").GetComponent<PlayerHP>();
-                        playerHP.Heal(10);
-                    }
                 }
             }
             else

@@ -1,5 +1,6 @@
 ﻿using Cinemachine;
 using DG.Tweening;
+using FUnit.GameObjectExtensions;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -87,13 +88,13 @@ public class PlayerSlashAttack : MonoBehaviour
                 {
                     target = playerAim._lockedEnemy;
                     enemyHp = target.GetComponent<EnemyHp>();
-                    Debug.Log("SlashInputTrigger");
+                    //Debug.Log("SlashInputTrigger");
                 }
                 if (enemyHp != null)
                 {
                     if (enemyHp.haveshield == true)
                     {
-						playerAnimator.SetTrigger("dash");
+                        playerAnimator.SetTrigger("dash");
 						sword.SetActive(true);
 						DashToShieldEnemy();
 						playerAim.aimmingImage.SetActive(false);
@@ -365,9 +366,9 @@ public class PlayerSlashAttack : MonoBehaviour
         
         if (target != null)
         {
-            Debug.Log("Target: " + target.name);
+           // Debug.Log("Target: " + target.name);
             enemyHp = target.GetComponent<EnemyHp>();
-            Debug.Log("Target: " + target.name + "Corruption: " + enemyHp.corruption_P);
+            //Debug.Log("Target: " + target.name + "Corruption: " + enemyHp.corruption_P);
             if (enemyHp.corruption_P)
             {
 
@@ -384,14 +385,14 @@ public class PlayerSlashAttack : MonoBehaviour
                     ReturnAnimation();
                     return;
                 }
-                if (isCounting)
-                {
-                    Debug.Log("7");
-                    ReturnAnimation();
-                    isCounting = false;
-                    attackTimer = 0f;
-                    return;
-                }
+                //if (isCounting)
+                //{
+                //    Debug.Log("7");
+                //    ReturnAnimation();
+                //    isCounting = false;
+                //    attackTimer = 0f;
+                //    return;
+                //}
             }
         }
     }
@@ -408,7 +409,7 @@ public class PlayerSlashAttack : MonoBehaviour
 		else
         {
 			playerAnimator.SetTrigger("ReFly");
-			print("ReFly");
+			//print("ReFly");
 		}
         sword.SetActive(false);
        

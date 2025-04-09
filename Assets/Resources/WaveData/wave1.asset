@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: wave1
   m_EditorClassIdentifier: 
   waveSequence:
-  - groupName: t1
+  - groupName: RecordWave0
     repeatCount: 1
     delayAfterGroup: 5
-  - groupName: t2
-    repeatCount: 2
+  - groupName: RecordWave1
+    repeatCount: 1
     delayAfterGroup: 5
-  - groupName: t3
-    repeatCount: 3
+  - groupName: RecordWave2
+    repeatCount: 1
     delayAfterGroup: 5
   - groupName: t4
     repeatCount: 4

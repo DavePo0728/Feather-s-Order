@@ -30,34 +30,43 @@ public class PlayerShooting : MonoBehaviour
     {
         if (context.performed)
         {
-            if(playerSlashAttack!= null)
-            {
-                if (playerSlashAttack.isSlashDashing)
-                {
-                    return;
-                }
-            }
-            shooting = true;
-            gunPoint1Img.enabled = true;
-            gunPoint2Img.enabled = true;
-            gunSound.Play();
-            timeSinceLastShooting = 0f;
+            StartShooting();
         }
         if (context.canceled)
         {
-            shooting = false;
-            gunPoint1Img.enabled = false;
-            gunPoint2Img.enabled = false;
-            gunSound.Stop();
+            StopShooting();
         }
     }
-
+    public void StartShooting()
+    {
+        shooting = true;
+        gunPoint1Img.enabled = true;
+        gunPoint2Img.enabled = true;
+        
+    }
+    public void StopShooting()
+    {
+        shooting = false;
+        gunPoint1Img.enabled = false;
+        gunPoint2Img.enabled = false;
+        gunSound.Stop();
+    }
     void FixedUpdate()
     {
         timeSinceLastShot += Time.deltaTime;
-
+        Debug.Log("Shooting: "+shooting);
         if (shooting && timeSinceLastShot >= timeBetweenShots)
         {
+            if (playerSlashAttack != null)
+            {
+                if (playerSlashAttack.isSlashDashing || playerSlashAttack.arrived)
+                {
+                    Debug.Log("StopShooting");
+                    StopShooting();
+                    return;
+                }
+            }
+            gunSound.Play();
             gunPoint1.Shoot();
             gunPoint2.Shoot();
             timeSinceLastShot = 0.0f;
