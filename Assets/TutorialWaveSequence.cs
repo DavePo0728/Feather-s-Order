@@ -23,6 +23,7 @@ public class TutorialWaveSequence : WaveSpawnController
             yield return new WaitUntil(() => manager.EnemyCount() == 0);
         }
 
+        yield return new WaitForSeconds(2.5f);
         manager.GameFinish();
     }
 }

@@ -57,7 +57,19 @@ MonoBehaviour:
     repeatCount: 2
     delayAfterGroup: 1
     killAllEnemies: 0
+  - groupName: CT_to_RB_red
+    repeatCount: 1
+    delayAfterGroup: 1
+    killAllEnemies: 0
+  - groupName: M_to_LB
+    repeatCount: 1
+    delayAfterGroup: 5
+    killAllEnemies: 0
   - groupName: BlackBullet
+    repeatCount: 1
+    delayAfterGroup: 5
+    killAllEnemies: 0
+  - groupName: RecordWave03
     repeatCount: 1
     delayAfterGroup: 5
     killAllEnemies: 1
