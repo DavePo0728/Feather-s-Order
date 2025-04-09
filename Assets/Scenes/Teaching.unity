@@ -280,7 +280,7 @@ GameObject:
   - component: {fileID: 797469823}
   - component: {fileID: 797469822}
   m_Layer: 5
-  m_Name: HIntsImage
+  m_Name: tutorialImageUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -382,6 +382,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 386225240777007328, guid: 6e0e012b20ecf334d89ebc79d1fece7e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5416785251069935638, guid: 6e0e012b20ecf334d89ebc79d1fece7e, type: 3}
       propertyPath: m_Name
       value: SoundManager
@@ -424,6 +428,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5961565309324492973, guid: 6e0e012b20ecf334d89ebc79d1fece7e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6513871438238337752, guid: 6e0e012b20ecf334d89ebc79d1fece7e, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -82598,6 +82606,7 @@ MonoBehaviour:
   flashImage: {fileID: 608729231062540201}
   target: {fileID: 0}
   playerAnimator: {fileID: 5448284701979158467}
+  clothDB: {fileID: 0}
   sword: {fileID: 586115277731546471}
 --- !u!199 &2988581615176712851
 ParticleSystemRenderer:
@@ -103324,7 +103333,7 @@ MonoBehaviour:
   chargeEffect: {fileID: 2738708355206479219}
   maxChargeTime: 0.5
   bulletGraze: {fileID: 2500473687662486802}
-  shootCost: 50
+  shootCost: 30
 --- !u!23 &3625783766331649415
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -225025,7 +225034,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8c9dc73155b23224fb13a97d6fe4a66b, type: 2}
   - {fileID: 11400000, guid: 95d4bcd011822854d9d340c4c7db27f0, type: 2}
   - {fileID: 11400000, guid: 4c3fa0d638bddb24fb253d28a4f7b4b4, type: 2}
-  showDebugUI: 1
+  showDebugUI: 0
   debugUIPosition: {x: 10, y: 10}
   debugUISize: {x: 300, y: 200}
   debugTextStyle:
