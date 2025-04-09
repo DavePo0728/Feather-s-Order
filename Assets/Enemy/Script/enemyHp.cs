@@ -301,11 +301,11 @@ public class EnemyHp : MonoBehaviour
                 if (corrupted)
                 {
                     StartCoroutine(CleanseCorruption());
-                    ShootHurt(1);
+                    ShootHurt(20);
                 }
                 else
                 {
-                    ShootHurt(1);
+                    ShootHurt(20);
                 }
             }
 
