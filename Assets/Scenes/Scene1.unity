@@ -10594,6 +10594,7 @@ Transform:
   - {fileID: 1705981056}
   - {fileID: 2086881280}
   - {fileID: 81056466}
+  - {fileID: 4266604123797706286}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &749114458
@@ -324639,6 +324640,21 @@ Transform:
   - {fileID: 8354729976337097069}
   m_Father: {fileID: 9077554258676161391}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4266604123797706286
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5707761615333769218}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 7, y: 7, z: 7}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 749114457}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4266621616149604650
 Transform:
   m_ObjectHideFlags: 0
@@ -440395,6 +440411,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &5707761615333769218
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4266604123797706286}
+  - component: {fileID: 7815525414567588256}
+  m_Layer: 0
+  m_Name: GameObject_1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!114 &5707763032606465288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -559982,6 +560015,27 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 6817564981530831838, guid: c16bc23b1d7141040a4833cce3cd2e30, type: 3}
+--- !u!65 &7815525414567588256
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5707761615333769218}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 20.741106, y: 9.591301, z: 12.828801}
+  m_Center: {x: 0.6435373, y: -1.1468048, z: -5.9144006}
 --- !u!4 &7819023665601222507
 Transform:
   m_ObjectHideFlags: 0
@@ -572292,7 +572346,7 @@ MonoBehaviour:
   gameOverUI: {fileID: 3681689095024641091}
   hpDamageImage: {fileID: 3627155057578004330}
   impulseSource: {fileID: 4569409165055609027}
-  debug: 1
+  debug: 0
 --- !u!1 &7970330387366442236
 GameObject:
   m_ObjectHideFlags: 0
