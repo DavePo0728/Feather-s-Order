@@ -12,4 +12,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b62b93983fba14469f6d3bc14b4873c, type: 3}
   m_Name: wave3
   m_EditorClassIdentifier: 
-  waveSequence: []
+  waveSequence:
+  - groupName: RecordWave0
+    repeatCount: 1
+    delayAfterGroup: 4
+    killAllEnemies: 0
+  - groupName: RecordWave1
+    repeatCount: 2
+    delayAfterGroup: 4
+    killAllEnemies: 0
+  - groupName: RecordWave02
+    repeatCount: 3
+    delayAfterGroup: 4
+    killAllEnemies: 0
+  - groupName: R
+    repeatCount: 2
+    delayAfterGroup: 3
+    killAllEnemies: 0
+  - groupName: L
+    repeatCount: 2
+    delayAfterGroup: 3
+    killAllEnemies: 0
+  - groupName: BlackBullet
+    repeatCount: 1
+    delayAfterGroup: 2
+    killAllEnemies: 1
+  - groupName: M_to_LB
+    repeatCount: 1
+    delayAfterGroup: 1
+    killAllEnemies: 0
+  - groupName: CT_to_RB_red
+    repeatCount: 1
+    delayAfterGroup: 1
+    killAllEnemies: 0
+  - groupName: RecordWave0
+    repeatCount: 2
+    delayAfterGroup: 1
+    killAllEnemies: 0
+  - groupName: R_A3
+    repeatCount: 1
+    delayAfterGroup: 1
+    killAllEnemies: 0
+  - groupName: RecordWave1
+    repeatCount: 2
+    delayAfterGroup: 1
+    killAllEnemies: 0
+  - groupName: BlackBullet
+    repeatCount: 1
+    delayAfterGroup: 4
+    killAllEnemies: 1
