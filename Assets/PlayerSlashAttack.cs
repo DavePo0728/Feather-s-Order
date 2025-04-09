@@ -358,9 +358,11 @@ public class PlayerSlashAttack : MonoBehaviour
                 ResetTimer();
             }
         }
-        if (isSlashDashing == false && arrived == false && isFallBack == false && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Stand__Idle"))
+        //Debug.Log(playerAnimator.GetCurrentAnimatorClipInfo(0));
+        if (isSlashDashing == false && arrived == false && isFallBack == false && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Stand__Idle"))
         {
             playerAnimator.SetTrigger("ReFly");
+            playerAnimator.Play("reFly");
         }
     }
     public void ForceFallBack()
