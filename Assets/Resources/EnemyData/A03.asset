@@ -15,11 +15,11 @@ MonoBehaviour:
   data:
     enemy: {fileID: 5113663619280529763, guid: d29194059cb63e84e8b97f5dfdbdc6a4, type: 3}
     entryTime: 1
-    moveTime: 10
+    singleMoveTime: 1
     leaveTime: 1
     hp: 200
     lifeTime: 999
-    haveShield: 1
+    haveShield: 0
     shieldHp: 10
     corrupted: 1
     corruptionStack: 1

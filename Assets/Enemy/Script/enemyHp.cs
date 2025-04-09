@@ -302,7 +302,7 @@ public class EnemyHp : MonoBehaviour
         }
         if(other.tag == "SlashCollider"&&slashDetectBool==false)
         {
-            SlashHurt(20);
+            SlashHurt(40);
         }
     }
     void SlashHurt(float damage)
