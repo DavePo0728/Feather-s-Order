@@ -59,7 +59,9 @@ public class PlayerShooting : MonoBehaviour
         {
             if (playerSlashAttack != null)
             {
-                if (playerSlashAttack.isSlashDashing || playerSlashAttack.arrived)
+                if (playerSlashAttack.slashState == PlayerSlashAttack.SlashState.Dashing 
+                    || playerSlashAttack.slashState == PlayerSlashAttack.SlashState.Arrived 
+                    || playerSlashAttack.slashState == PlayerSlashAttack.SlashState.Attacking)
                 {
                     Debug.Log("StopShooting");
                     StopShooting();

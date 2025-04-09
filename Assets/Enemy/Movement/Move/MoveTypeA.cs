@@ -42,8 +42,14 @@ public class MoveTypeA : IMoveBehaviour
     }
     public void StopMove()
     {
-        if(onMoveA != null&&onMoveA.IsPlaying())
-            onMoveA.Kill();
+        if(onMoveA != null )
+        {
+            if (onMoveA.IsPlaying())
+            {
+                onMoveA.Kill();
+            }
+        }
+            
     }
     public void ParalyzePause()
     {

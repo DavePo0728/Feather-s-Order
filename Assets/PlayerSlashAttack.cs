@@ -9,65 +9,45 @@ using UnityEngine.UI;
 
 public class PlayerSlashAttack : MonoBehaviour
 {
+    public enum SlashState { Idle, Dashing, Arrived, Attacking, FallingBack }
+    public SlashState slashState = SlashState.Idle;
+
     PlayerMove playerMove;
-    [SerializeField]
-    CinemachineVirtualCamera playerVCam;
+    [SerializeField] CinemachineVirtualCamera playerVCam;
     Rigidbody playerRigidbody;
-    public bool isSlashDashing;
-    public bool arrived = false;
-    bool isAttacking;
-    public bool isFallBack;
-    [SerializeField]
-    Collider slashCollider;
-    [SerializeField]
-    Vector3 slashTarget;
+    [SerializeField] Collider slashCollider;
+    [SerializeField] Vector3 slashTarget;
     PlayerAim playerAim;
     Vector3 PlayerOriginalPos;
     SlashDetect slashDetect;
     GameObject shieldEffect;
-    [SerializeField]
-    GameObject slashEffectYellowObject, slashEffectRedObject;
+    [SerializeField] GameObject slashEffectYellowObject, slashEffectRedObject;
     ParticleSystem slashEffectYellow, slashEffectRed;
     AudioSource slashAudio;
     AudioClip slashClip;
-    [SerializeField]
-    CinemachineImpulseSource impulseSource;
-    [SerializeField]
-    CinemachineFollowZoom followZoom;
-    [SerializeField]
-    GameObject flashImage;
+    [SerializeField] CinemachineImpulseSource impulseSource;
+    [SerializeField] CinemachineFollowZoom followZoom;
+    [SerializeField] GameObject flashImage;
+
     int hitCounter;
     float SlashTimer;
     float slashCD = 0.2f;
-    float maxTime = 3.0f; // 限制的時間 (1 秒)
-    float attackTimer = 0f; // 計時器
-    bool isCounting = false; // 是否計時中
-    bool attackTriggered = false;
-    bool tweenPlaying = false;
-    bool tween1Playing = false;
-    bool camTweenPlaying = false;
-    bool camtween1Playing = false;
-    bool isTracking = false;
-    Tweener tweener, tweenCam;
+    float maxTime = 3.0f;
+    float attackTimer = 0f;
+    bool isCounting = false;
+    Tweener tweener;
     GameObject target;
     EnemyHp enemyHp;
-    
-	/*
-     * Asuisui
-        動畫控制
-    */
-	[SerializeField]
-    Animator playerAnimator;
-	public DynamicBone clothDB;
+
+    [SerializeField] Animator playerAnimator;
+    public DynamicBone clothDB;
     public GameObject sword;
     bool IsReturnAnimation = false;
 
-	private void Awake()
+    private void Awake()
     {
         playerMove = GetComponent<PlayerMove>();
         playerAim = GetComponent<PlayerAim>();
-        isSlashDashing = false;
-        isAttacking = false;
         slashDetect = GameObject.Find("SlashCollider").GetComponent<SlashDetect>();
         playerRigidbody = GetComponent<Rigidbody>();
         shieldEffect = GameObject.Find("MagicShieldYellow");
@@ -77,120 +57,103 @@ public class PlayerSlashAttack : MonoBehaviour
         slashClip = Resources.Load<AudioClip>("Sound/Slash01");
         hitCounter = 0;
     }
+
     public void GetSlashInput(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && slashState == SlashState.Idle)
         {
-            if (isSlashDashing == false&&arrived==false&&isFallBack==false)
+            if (playerAim.CheckLockedEnemy())
             {
-                if (playerAim.CheckLockedEnemy())
-                {
-                    target = playerAim._lockedEnemy;
-                    enemyHp = target.GetComponent<EnemyHp>();
-                    //Debug.Log("SlashInputTrigger");
-                }
-                if (enemyHp != null)
-                {
-                    if (enemyHp.haveshield == true)
-                    {
-                        playerAnimator.SetTrigger("Dash");
-						sword.SetActive(true);
-						DashToShieldEnemy();
-						playerAim.aimmingImage.SetActive(false);
-						playerAim.FarLockImage.SetActive(false);
-						return;
-                    }
-                    if (enemyHp.corrupted&&enemyHp.corruption_P == false)
-                    {
-                        //Asuisui
-                        playerAnimator.SetTrigger("Dash");
-						sword.SetActive(true);
-						//--
-						DashToEnemy();
-                        playerAim.aimmingImage.SetActive(false);
-                        playerAim.FarLockImage.SetActive(false);
-                    }
-                }
-
+                target = playerAim._lockedEnemy;
+                enemyHp = target.GetComponent<EnemyHp>();
             }
-            else if(isSlashDashing && arrived)
+
+            if (enemyHp != null)
             {
-                    Debug.Log("2");
-                    ReturnAnimation();
+                if (enemyHp.haveshield)
+                {
+                    playerAnimator.SetTrigger("Dash");
+                    sword.SetActive(true);
+                    DashToShieldEnemy();
+                    playerAim.aimmingImage.SetActive(false);
+                    playerAim.FarLockImage.SetActive(false);
                     return;
-                //DashToEnemy();
+                }
+                if (enemyHp.corrupted && !enemyHp.corruption_P)
+                {
+                    playerAnimator.SetTrigger("Dash");
+                    sword.SetActive(true);
+                    DashToEnemy();
+                    playerAim.aimmingImage.SetActive(false);
+                    playerAim.FarLockImage.SetActive(false);
+                }
             }
         }
+        else if (slashState == SlashState.Arrived||slashState == SlashState.Attacking)
+        {
+            ReturnAnimation();
+        }
     }
+
     public void GetSlashAttackInput(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && slashState == SlashState.Attacking && SlashTimer >= slashCD)
         {
-            if (isAttacking && SlashTimer >= slashCD)
+            if (hitCounter < 3)
             {
-                if (hitCounter < 3)
+                slashCD = 0.2f;
+                Invoke("TriggerSlash", 0.1f);
+                hitCounter++;
+                SlashTimer = 0;
+                attackTimer = 0;
+
+                switch (hitCounter)
                 {
-                    slashCD = 0.2f;
-
-                    Invoke("TriggerSlash", 0.1f);
-
-                    hitCounter++;
-                    SlashTimer = 0;
-                    attackTimer = 0;
-
-
-                    //Asuisui
-                    switch (hitCounter)
-                    {
-                        case 1:
-                            playerAnimator.Play("S1");
-                            playerAnimator.SetBool("OnAttack", true);
-                            break;
-                        case 2:
-                            playerAnimator.Play("S2");
-							playerAnimator.SetBool("OnAttack", true);
-							break;
-                        case 3:
-                            playerAnimator.Play("S3");
-							playerAnimator.SetBool("OnAttack", true);
-							break;
-                        default:
-                            break;
-                    }
-                    //--
+                    case 1:
+                        playerAnimator.Play("S1");
+                        playerAnimator.SetBool("OnAttack", true);
+                        break;
+                    case 2:
+                        playerAnimator.Play("S2");
+                        playerAnimator.SetBool("OnAttack", true);
+                        break;
+                    case 3:
+                        playerAnimator.Play("S3");
+                        playerAnimator.SetBool("OnAttack", true);
+                        break;
                 }
-                else if (hitCounter >= 3)
-                {
-                    playerAnimator.Play("S4");
-                    Invoke("TriggerSlash4", 0.3f);
-					playerAnimator.SetBool("OnAttack", false);
-					slashCD = 0.5f;
-					SlashTimer = 0;
-					attackTimer = 0;
-				}
+            }
+            else
+            {
+                playerAnimator.Play("S4");
+                Invoke("TriggerSlash4", 0.3f);
+                playerAnimator.SetBool("OnAttack", false);
+                slashCD = 0.5f;
+                SlashTimer = 0;
+                attackTimer = 0;
             }
         }
     }
-	public void TriggerSlash4()
+
+    public void TriggerSlash4()
     {
-		clothDB.enabled = false;
-		Vibrate(0.5f, 0.5f, 0.05f);
-		slashAudio.Play();
-		slashCollider.enabled = true;
-		Invoke("InactiveCollider", 0.1f);
-		flashImage.SetActive(true);
-		Invoke("InactiveFlashImage", 0.01f);
-		slashEffectRedObject.SetActive(true);
-		slashEffectRed.Play();
-		hitCounter = 0;
-		Shake(1.0f);
-		Time.timeScale = 0.1f;
-		Invoke("TimeScaleNormal", 0.02f);
+        clothDB.enabled = false;
+        Vibrate(0.5f, 0.5f, 0.05f);
+        slashAudio.Play();
+        slashCollider.enabled = true;
+        Invoke("InactiveCollider", 0.1f);
+        flashImage.SetActive(true);
+        Invoke("InactiveFlashImage", 0.01f);
+        slashEffectRedObject.SetActive(true);
+        slashEffectRed.Play();
+        hitCounter = 0;
+        Shake(1.0f);
+        Time.timeScale = 0.1f;
+        Invoke("TimeScaleNormal", 0.02f);
+        Invoke("DelayDetect", 0.05f);
+    }
 
-		Invoke("DelayDetect", 0.05f);
-	}
-
-	public void TriggerSlash() 
+    public void TriggerSlash()
     {
         Vibrate(0.1f, 0.1f, 0.05f);
         slashAudio.Play();
@@ -198,147 +161,81 @@ public class PlayerSlashAttack : MonoBehaviour
         Invoke("InactiveCollider", 0.1f);
         flashImage.SetActive(true);
         Invoke("InactiveFlashImage", 0.02f);
-        switch (hitCounter)
-        {
-			case 0:
-				break;
-				slashEffectYellowObject.transform.localScale = new Vector3(2.72f, -2.72f, 2.72f);
-			case 1:
-				break;
-				slashEffectYellowObject.transform.localScale = new Vector3(2.72f, 2.72f, 2.72f);
-			case 2:
-				slashEffectYellowObject.transform.localScale = new Vector3(2.72f, -2.72f, 2.72f);
-				break;
-			case 3:
-				slashEffectYellowObject.transform.localScale = new Vector3(2.72f, 2.72f, 2.72f);
-				break;
-		}
         slashEffectYellowObject.SetActive(true);
         slashEffectYellow.Play();
         Shake(0.5f);
         Time.timeScale = 0.1f;
         Invoke("TimeScaleNormal", 0.01f);
-        Invoke("DelayDetect",0.05f);
-    }
-    void InactiveFlashImage()
-    {
-        flashImage.SetActive(false);
-    }
-	void DelayDetect()
-    {
-        if (!playerAim._lockedEnemy.CompareTag("Enemy"))
-        {
-            Debug.Log("3");
-            ReturnAnimation();
-            
-            return;
-        }
+        Invoke("DelayDetect", 0.05f);
+        SetAttack();
     }
 
     void DashToEnemy()
-	{
-		shieldEffect.SetActive(false);
+    {
+        slashState = SlashState.Dashing;
+        shieldEffect.SetActive(false);
         playerRigidbody.velocity = Vector3.zero;
-        if (target != null) 
-        slashTarget = target.transform.GetChild(7).transform.position;
+        slashTarget = target.transform.Find("DashPoint").position;
         Vector3 lastTargetPos = slashTarget;
-        tweener = playerRigidbody.DOMove(slashTarget, 0.5f).OnStart(() => { tweenPlaying = true;}).OnUpdate(() =>
+        tweener = playerRigidbody.DOMove(slashTarget, 0.5f).OnUpdate(() =>
         {
-            // 持續更新目標位置
-            if ((slashTarget - lastTargetPos).sqrMagnitude > 0.01f) // 有改變才更新
+            if ((slashTarget - lastTargetPos).sqrMagnitude > 0.01f)
             {
                 lastTargetPos = slashTarget;
                 tweener.ChangeEndValue(slashTarget, true);
             }
-            // 計算當前位置與目標位置的距離
             if (Vector3.Distance(transform.position, slashTarget) <= 0.1f)
             {
-                tweener.Complete();// 直接完成動畫
+                tweener.Complete();
             }
         }).OnComplete(() =>
         {
-			
-			tweenPlaying = false;
-            arrived = true;
+            slashState = SlashState.Arrived;
             playerRigidbody.velocity = Vector3.zero;
-
-            //playerVCam.m_Lens.FieldOfView = 15;
-            //Debug.Log("arrived: "+arrived);
-            
             isCounting = true;
             followZoom.m_Width = 0;
             TriggerSlash();
             IsReturnAnimation = false;
-			playerAnimator.SetBool("OnAttack", true);
-			attackTimer = 0;
-			Invoke("SetAttack", 0.2f);
+            playerAnimator.SetBool("OnAttack", true);
+            attackTimer = 0;
+            
         });
-        //tweenCam = playerVCam.transform.DOLocalRotateQuaternion(Quaternion.Euler(5, -15, 0), 0.3f).OnStart(() => camTweenPlaying = true).OnComplete(() => camTweenPlaying = false);
-        if (isSlashDashing ==false&&arrived==false)
-        {
-            isSlashDashing = true;
-            //if (!camTweenPlaying)
-            //{
-            //    tweenCam.Play();
-            //}
-            if (!tweenPlaying)
-            {
-                tweener.Play();
-            }
-            //transform.position = new Vector3(transform.position.x, transform.position.y, slashtarget.position.z);
-        }
+        tweener.Play();
     }
+
     void DashToShieldEnemy()
     {
+        slashState = SlashState.Dashing;
         playerRigidbody.velocity = Vector3.zero;
-        //target = playerAim._lockedEnemy;
-        slashTarget = target.transform.GetChild(7).transform.position;
-        Debug.Log("slashTarget: " + slashTarget);
+        slashTarget = target.transform.Find("DashPoint").position;
         Vector3 lastTargetPos = slashTarget;
-        tweener = playerRigidbody.DOMove(slashTarget, 0.5f).OnStart(() => { tweenPlaying = true;}).OnUpdate(() =>
+        tweener = playerRigidbody.DOMove(slashTarget, 0.5f).OnUpdate(() =>
         {
-            // 持續更新目標位置
-            if ((slashTarget - lastTargetPos).sqrMagnitude > 0.01f) // 有改變才更新
+            if ((slashTarget - lastTargetPos).sqrMagnitude > 0.01f)
             {
                 lastTargetPos = slashTarget;
                 tweener.ChangeEndValue(slashTarget, true);
             }
-            // 計算當前位置與目標位置的距離
             if (Vector3.Distance(transform.position, slashTarget) <= 0.1f)
             {
-                tweener.Complete();// 直接完成動畫
+                tweener.Complete();
             }
         }).OnComplete(() =>
         {
-            tweenPlaying = false;
-            arrived = true;
+            slashState = SlashState.Arrived;
             playerRigidbody.velocity = Vector3.zero;
-
             playerVCam.m_Lens.FieldOfView = 15;
             followZoom.m_Width = 0;
-			//Debug.Log("arrived: "+arrived);
-			IsReturnAnimation = false;
-			shieldEffect.SetActive(false);
+            IsReturnAnimation = false;
+            shieldEffect.SetActive(false);
             TriggerSlash();
             Invoke("ReturnAnimation", 0.5f);
         });
-            isSlashDashing = true;
-            if (!tweenPlaying)
-            {
-                tweener.Play();
-            }
-    }
-    void SetAttack() 
-    {
-        isAttacking = true;
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+        tweener.Play();
     }
 
-    // Update is called once per frame
+    void SetAttack() => slashState = SlashState.Attacking;
+
     void FixedUpdate()
     {
         if (isCounting)
@@ -348,123 +245,95 @@ public class PlayerSlashAttack : MonoBehaviour
             if (attackTimer >= 1f)
             {
                 playerAnimator.SetBool("OnAttack", false);
-				clothDB.enabled = true;
-			}
-            //Debug.Log(attackTimer);
+                clothDB.enabled = true;
+            }
             if (attackTimer > maxTime)
             {
-                Debug.Log("5");
-                ReturnAnimation(); // 超時執行返回動畫
+                ReturnAnimation();
                 ResetTimer();
             }
         }
-        //Debug.Log(playerAnimator.GetCurrentAnimatorClipInfo(0));
-        if (isSlashDashing == false && arrived == false && isFallBack == false && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Stand__Idle"))
+        Debug.Log("SlashState: " + slashState);
+        if (slashState == SlashState.Idle && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Stand__Idle"))
         {
             playerAnimator.SetTrigger("ReFly");
             playerAnimator.Play("reFly");
         }
     }
-    public void ForceFallBack()
-    {
-        
-        if (target != null)
-        {
-           // Debug.Log("Target: " + target.name);
-            enemyHp = target.GetComponent<EnemyHp>();
-            //Debug.Log("Target: " + target.name + "Corruption: " + enemyHp.corruption_P);
-            if (enemyHp.corruption_P)
-            {
-                if (tweener != null)
-                {
-                    if (tweener.IsPlaying() || isSlashDashing)
-                    {
-                        Debug.Log("6");
-                        tweener.Kill();
-                        ReturnAnimation();
-                        return;
-                    }
-                }
-                if (arrived)
-                {
-                    Debug.Log("8");
-					
-					ReturnAnimation();
-                    return;
-                }
-            }
-                //if (isCounting)
-                //{
-                //    Debug.Log("7");
-                //    ReturnAnimation();
-                //    isCounting = false;
-                //    attackTimer = 0f;
-                //    return;
-                //}  
-        }
-    }
+
     void ReturnAnimation()
     {
-        //Asuisui
+        slashState = SlashState.FallingBack;
         hitCounter = 0;
-		clothDB.enabled = true;
-		playerAnimator.SetBool("OnAttack", false);
-		if (!IsReturnAnimation)
+        clothDB.enabled = true;
+        playerAnimator.SetBool("OnAttack", false);
+        if (!IsReturnAnimation)
         {
             playerAnimator.Play("ReFly");
-			IsReturnAnimation = true;
-			print("ReFly");
-		}
+            IsReturnAnimation = true;
+        }
         sword.SetActive(false);
-
-        //--
         ResetTimer();
-        isSlashDashing = false;
-        isAttacking = false;
         playerMove.CalculateFallbackSpeed();
-        isFallBack = true;
         followZoom.m_Width = 50;
     }
+
     public void FallBackFinish()
     {
-        isFallBack = false;
-        arrived = false;
-        isSlashDashing = false;
+        slashState = SlashState.Idle;
         playerAim.aimmingImage.SetActive(true);
         shieldEffect.SetActive(true);
         target = null;
     }
-    void Vibrate(float lowFrequency, float highFrequency, float duration)
+
+    public void ForceFallBack()
     {
-        if (Gamepad.current != null) // 確保手把已連接
+        if (target != null)
         {
-            Gamepad.current.SetMotorSpeeds(lowFrequency, highFrequency);
-            Invoke(nameof(StopVibration), duration); // 設定定時停止震動
+            enemyHp = target.GetComponent<EnemyHp>();
+            if (enemyHp.corruption_P)
+            {
+                if (tweener != null && (tweener.IsPlaying() || slashState == SlashState.Dashing))
+                {
+                    tweener.Kill();
+                    ReturnAnimation();
+                    return;
+                }
+                if (slashState == SlashState.Arrived)
+                {
+                    ReturnAnimation();
+                    return;
+                }
+            }
+        }
+    }
+
+    void DelayDetect()
+    {
+        if (!playerAim._lockedEnemy.CompareTag("Enemy"))
+        {
+            ReturnAnimation();
+        }
+    }
+
+    void InactiveFlashImage() => flashImage.SetActive(false);
+    void TimeScaleNormal() => Time.timeScale = 1;
+    void InactiveCollider() => slashCollider.enabled = false;
+    void Shake(float intensity) => impulseSource.GenerateImpulseWithForce(intensity);
+    void ResetTimer() { isCounting = false; attackTimer = 0f; }
+    void Vibrate(float low, float high, float duration)
+    {
+        if (Gamepad.current != null)
+        {
+            Gamepad.current.SetMotorSpeeds(low, high);
+            Invoke(nameof(StopVibration), duration);
         }
     }
     void StopVibration()
     {
         if (Gamepad.current != null)
         {
-            Gamepad.current.SetMotorSpeeds(0f, 0f); // 停止震動
+            Gamepad.current.SetMotorSpeeds(0f, 0f);
         }
-    }
-
-    void TimeScaleNormal()
-    {
-        Time.timeScale = 1;
-    }
-    void InactiveCollider()
-    {
-        slashCollider.enabled = false;
-    }
-    void Shake(float intensity)
-    {
-        impulseSource.GenerateImpulseWithForce(intensity);
-    }
-    void ResetTimer()
-    {
-        isCounting = false;
-        attackTimer = 0f;
     }
 }

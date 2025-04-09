@@ -86,7 +86,7 @@ public class PlayerMove : MonoBehaviour
     }
     public void GetDash(InputAction.CallbackContext context)
     {
-        if (context.performed && playerSlashAttack.isFallBack == false)
+        if (context.performed && playerSlashAttack.slashState == PlayerSlashAttack.SlashState.FallingBack)
         {
             if (canDash/*&&currentEnergy>=20&&!isOutBurst*/)
             {
@@ -169,9 +169,7 @@ public class PlayerMove : MonoBehaviour
             {
                 movement = Vector3.zero;
             }
-            if(!playerSlashAttack.isSlashDashing)
-            {
-                if (playerSlashAttack.isFallBack)
+                if (playerSlashAttack.slashState == PlayerSlashAttack.SlashState.FallingBack)
                 {
                     if(transform.position.z > 13)
                     {
@@ -227,7 +225,6 @@ public class PlayerMove : MonoBehaviour
                         SceneVCam.m_Lens.Dutch = Mathf.Lerp(playerVCam.m_Lens.Dutch, 0, 0.2f * Time.deltaTime * 8);
                     }
                 }
-            }
             //if (isRotating)
             //{
             //    //Debug.Log(leanInput);

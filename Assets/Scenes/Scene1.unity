@@ -229843,9 +229843,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerVCam: {fileID: 7793895027920043354}
-  isSlashDashing: 0
-  arrived: 0
-  isFallBack: 0
   slashCollider: {fileID: 2844979935835046540}
   slashTarget: {x: 0, y: 0, z: 0}
   slashEffectYellowObject: {fileID: 5777749593955955201}
@@ -229853,6 +229850,7 @@ MonoBehaviour:
   impulseSource: {fileID: 4569409165055609027}
   followZoom: {fileID: 5173197115759677358}
   flashImage: {fileID: 1033508791827913940}
+  slashState: 0
   playerAnimator: {fileID: 177602254}
   clothDB: {fileID: 1628283138}
   sword: {fileID: 2015237280}
