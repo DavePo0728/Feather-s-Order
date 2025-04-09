@@ -49,7 +49,6 @@ public class PlayerSlashAttack : MonoBehaviour
     bool camtween1Playing = false;
     bool isTracking = false;
     Tweener tweener, tweenCam;
-    [SerializeField]
     GameObject target;
     EnemyHp enemyHp;
     

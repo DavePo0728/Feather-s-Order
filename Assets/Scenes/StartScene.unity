@@ -219,6 +219,7 @@ RectTransform:
   m_Children:
   - {fileID: 1225106914}
   - {fileID: 811943832}
+  - {fileID: 9140915571171184140}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -404,6 +405,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c60f09f985fbadf48a0fb17287360b50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LoadingPanel: {fileID: 9054585779874143798}
+  fadeDuration: 1
 --- !u!4 &734063278
 Transform:
   m_ObjectHideFlags: 0
@@ -446,10 +449,6 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 0fcc0d72-1854-43ae-9d3b-8ee36ec1e4ce
-    m_ActionName: GameScene1/Move[/DualSenseGamepadHID/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
-  - m_PersistentCalls:
-      m_Calls: []
     m_ActionId: 31b9aa55-c798-4d44-aa2b-65c393f9dd8a
     m_ActionName: GameScene1/Dash[/Mouse/rightButton,/DualSenseGamepadHID/buttonSouth]
   - m_PersistentCalls:
@@ -470,16 +469,8 @@ MonoBehaviour:
     m_ActionName: GameScene1/ChargeShoot[/DualSenseGamepadHID/leftTrigger,/Keyboard/f]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 65e8ac71-4954-4791-adf8-42f81b79b88b
-    m_ActionName: GameScene1/Lean[/DualSenseGamepadHID/rightShoulder,/DualSenseGamepadHID/leftShoulder]
-  - m_PersistentCalls:
-      m_Calls: []
     m_ActionId: f9885de0-8cae-49fa-978d-59ebe2f66b9c
     m_ActionName: GameScene1/PauseMenu[/DualSenseGamepadHID/start]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 9ee09ffe-6151-48a2-b685-cf1344b9c646
-    m_ActionName: GameScene1/SpawnEnemy[/Keyboard/backquote]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 1a2b3291-5a44-4e4e-ae69-ba8f42208683
@@ -512,6 +503,54 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: b56891c4-0ec8-4ea5-9389-45a58115138d
     m_ActionName: GameScene2/StartGame
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 02b2d08c-75b5-45e3-bd66-a744bdc172d0
+    m_ActionName: GameScene/Move[/DualSenseGamepadHID/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d1a0a3fe-5e57-4ace-bf5d-02975c906ca5
+    m_ActionName: GameScene/BackTotitle[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ad0ca4af-7b3c-4c19-820c-1902f3331aa1
+    m_ActionName: GameScene/MeleeDash[/DualSenseGamepadHID/buttonWest]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d523748f-a0e2-4f27-8aab-da816a6ba468
+    m_ActionName: GameScene/Slash[/DualSenseGamepadHID/rightTrigger]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: cea048ce-84b8-45da-8f4f-e5681fe13d11
+    m_ActionName: GameScene/Skip[/DualSenseGamepadHID/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 94ceffd7-89b1-490f-8eff-adb455caba66
+    m_ActionName: Parkour/Move[/DualSenseGamepadHID/leftStick,/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4e9130cb-5b4a-43c2-9889-a245c99376f0
+    m_ActionName: Parkour/Dash[/Mouse/rightButton,/DualSenseGamepadHID/rightShoulder]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f621498f-7bc0-4c51-9968-af17a2d5683c
+    m_ActionName: Parkour/Attack[/DualSenseGamepadHID/buttonWest]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c4fc23f7-e71e-46cc-8d39-84e8ad0fe05e
+    m_ActionName: Parkour/MissileAttack[/DualSenseGamepadHID/leftTrigger]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 575e445f-8e98-43e2-935e-6307200ecf2e
+    m_ActionName: Parkour/CleanseShoot[/DualSenseGamepadHID/buttonNorth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 29ff0f0e-7bd9-4580-927d-aff7ed91ecec
+    m_ActionName: Parkour/ReloadScene[/Keyboard/r]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9fb223bb-781c-4dee-8f52-1d8cc88b2223
+    m_ActionName: Parkour/BackTotitle[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: StartScene
@@ -1112,6 +1151,81 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!114 &3817547513883169104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9054585779874143798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &4822674525541851385
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9054585779874143798}
+  m_CullTransparentMesh: 1
+--- !u!1 &9054585779874143798
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9140915571171184140}
+  - component: {fileID: 4822674525541851385}
+  - component: {fileID: 3817547513883169104}
+  m_Layer: 5
+  m_Name: LoadingPanel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &9140915571171184140
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9054585779874143798}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 84116189}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

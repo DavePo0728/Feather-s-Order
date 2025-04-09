@@ -22,10 +22,6 @@ public class WaveManager : MonoBehaviour
     List<CustomPathData> customPathDataList;
 
     [Header("UI")]
-    [SerializeField]
-    GameObject gameoverPanel;
-    [SerializeField]
-    GameObject gameOverText, GameClearText;
     [Header("Tutorial Settings")]
     [SerializeField] 
     private Image tutorialImage;
@@ -60,8 +56,8 @@ public class WaveManager : MonoBehaviour
     private Dictionary<string, RecordedWaveData> recordedWaveMap;
     [SerializeField]
     private WaveSpawnController currentWaveController;
+    ScenesManager scenesManager;
 
-    
 
     public IEnumerator FadeAndSetTutorialImage(Sprite newSprite)
     {
@@ -373,6 +369,7 @@ public class WaveManager : MonoBehaviour
             { "RecordWave1", recordedWaves[1] },
             { "RecordWave2", recordedWaves[2] },
         };
+        scenesManager = GameObject.Find("SceneManager").GetComponent<ScenesManager>();
         //customPathDataList = new List<CustomPathData>();
         //customPathDataList.Add(Resources.Load<CustomPathData>("PathData/PathData1"));
         if (debugTextStyle == null)
@@ -932,24 +929,9 @@ public class WaveManager : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
 
     }
-
-    //public IEnumerator WaitForContinueInput()
-    //{
-    //    bool pressed = false;
-
-    //    void OnPressed(InputAction.CallbackContext ctx) => pressed = true;
-
-    //    continueAction.performed += OnPressed;
-    //    yield return new WaitUntil(() => pressed);
-    //    yield return new WaitForSeconds(0.1f);
-    //    continueAction.performed -= OnPressed;
-    //}
     public void GameFinish()
     {
-        gameoverPanel.SetActive(true);
-        gameOverText.SetActive(false);
-        GameClearText.SetActive(true);
-        Time.timeScale = 0.0f;
+        scenesManager.LoadNextScene();
     }
     public int EnemyCount()
     {

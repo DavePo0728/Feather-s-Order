@@ -3,40 +3,119 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
-using System.Diagnostics.Contracts;
+using UnityEngine.UI;
 
 public class ScenesManager : MonoBehaviour
 {
+    [SerializeField]
+    public GameObject LoadingPanel;
+    public float fadeDuration;
+    Image LoadImage;
+    [SerializeField]
+    GameObject gameoverPanel;
+    [SerializeField]
+    GameObject gameClearImageObject, backImageObject;
+    Image gameClearImage, backImage;
+    public bool isGameClear = false;
+    public bool isGameOver = false;
     private void Awake()
     {
-
+        LoadImage = LoadingPanel.GetComponent<Image>();
+        if (gameClearImageObject != null)
+            gameClearImage = gameClearImageObject.GetComponent<Image>();
+        if (gameClearImageObject != null)
+            backImage = backImageObject.GetComponent<Image>();
     }
-    private void Update()
+    private void Start()
+    {
+        FadeOut();
+        Invoke("DisablePanel", fadeDuration);
+    }
+    void DisablePanel()
+    {
+        LoadingPanel.SetActive(false);
+    }
+    public void LoadNextScene()
     {
         
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        switch (currentSceneIndex)
+        {
+            case 1:
+                FadeIn();
+                Invoke("LoadLevel1", fadeDuration);
+                break;
+            case 2:
+                FadeIn();
+                Invoke("LoadGame2", fadeDuration);
+                break;
+            case 3:
+                FadeIn();
+                Invoke("LoadGame3", fadeDuration);
+                break;
+            case 4:
+                GameClear();
+                break;
+
+        }
     }
-    public void StartGame()
+    public void GameClear()
+    {
+        gameoverPanel.SetActive(true);
+        gameClearImageObject.SetActive(true);
+        backImageObject.SetActive(true);
+        StartCoroutine(Fade(gameClearImage, 0f, 1f));
+        StartCoroutine(Fade(backImage, 0f, 1f));
+        isGameClear = true;
+    }
+    public void StartTeaching()
+    {
+        FadeIn();
+        Invoke("LoadTeaching", fadeDuration);
+    }
+    public void LoadTeaching()
     {
         SceneManager.LoadScene(1);
+    }
+    public void LoadLevel1()
+    {
+        SceneManager.LoadScene(2);
+    }
+    public void LoadGame2()
+    {
+        SceneManager.LoadScene(3);
+    }
+    public void LoadGame3()
+    {
+        SceneManager.LoadScene(4);
+    }
+    public void GetGameClearInput(InputAction.CallbackContext context)
+    {
+        if (context.performed&&isGameClear ==true)
+        {
+            FadeIn();
+            SceneManager.LoadScene(0);
+        }
     }
     public void GetSkipInput(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
             StopAllCoroutines();
-            StartGame();
+            FadeIn();
+            Invoke("StartLevel1", fadeDuration);
         }
     }
     public void GetStartInput(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
-            StartGame();
+            StartTeaching();
         }
     }
     public void GetReloadInput(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed&&isGameOver ==true)
         {
             ReloadScene();
         }
@@ -45,11 +124,60 @@ public class ScenesManager : MonoBehaviour
     {
         if (context.performed)
         {
+            StopAllCoroutines();
+            FadeIn();
             SceneManager.LoadScene(0);
         }
     }
     public void ReloadScene()
     {
-        SceneManager.LoadScene(1);
+        Scene currentScene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(currentScene.name);
+    }
+    public void FadeIn()
+    {
+        StartCoroutine(Fade(0f, 1f));
+    }
+
+    public void FadeOut()
+    {
+        StartCoroutine(Fade(1f, 0f));
+    }
+
+    private IEnumerator Fade(float fromAlpha, float toAlpha)
+    {
+        LoadingPanel.SetActive(true);
+        Color color = LoadImage.color;
+        float elapsed = 0f;
+
+        while (elapsed < fadeDuration)
+        {
+            float t = elapsed / fadeDuration;
+            color.a = Mathf.Lerp(fromAlpha, toAlpha, t);
+            LoadImage.color = color;
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        color.a = toAlpha;
+        LoadImage.color = color;
+    }
+    private IEnumerator Fade(Image image,float fromAlpha, float toAlpha)
+    {
+        image.gameObject.SetActive(true);
+        Color color = image.color;
+        float elapsed = 0f;
+
+        while (elapsed < fadeDuration)
+        {
+            float t = elapsed / fadeDuration;
+            color.a = Mathf.Lerp(fromAlpha, toAlpha, t);
+            image.color = color;
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        color.a = toAlpha;
+        image.color = color;
     }
 }
