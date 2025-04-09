@@ -17,19 +17,30 @@ public class LeaveTypeA : ILeaveBehaviour
     }
     public bool CheckLeaveStatus()
     {
-        if (leaveTweener!= null&&leaveTweener.IsPlaying())
-        {
-            return true;
-        }
-        else
+        if (leaveTweener == null)
         {
             return false;
         }
+        else
+        {
+            if (leaveTweener.IsPlaying())
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
     }
     public void StopLeave()
     {
-        if (leaveTweener != null&&leaveTweener.IsPlaying())
-            leaveTweener.Kill();
+        if (leaveTweener != null )
+        {
+            if(leaveTweener.IsPlaying())
+                leaveTweener.Kill();
+        }
     }
     public void ParalyzePause()
     {

@@ -17,20 +17,28 @@ public class EntryTypeA : IEntryBehaviour
     }
     public void StopEnter()
     {
-        if (enterTweener !=null&&enterTweener.IsPlaying())
+        if (enterTweener !=null)
         {
+            if(enterTweener.IsPlaying())
             enterTweener.Kill();
         }
     }
     public bool CheckEntryStatus()
     {
-        if (enterTweener.IsPlaying())
+        if (enterTweener == null)
         {
-            return true;
+            return false;
         }
         else
         {
-            return false;
+            if (enterTweener.IsPlaying())
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
     public void ParalyzePause()

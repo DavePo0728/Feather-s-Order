@@ -93,7 +93,7 @@ public class PlayerSlashAttack : MonoBehaviour
                 {
                     if (enemyHp.haveshield == true)
                     {
-                        playerAnimator.SetTrigger("dash");
+                        playerAnimator.SetTrigger("Dash");
 						sword.SetActive(true);
 						DashToShieldEnemy();
 						playerAim.aimmingImage.SetActive(false);
@@ -103,7 +103,7 @@ public class PlayerSlashAttack : MonoBehaviour
                     if (enemyHp.corrupted&&enemyHp.corruption_P == false)
                     {
                         //Asuisui
-                        playerAnimator.SetTrigger("dash");
+                        playerAnimator.SetTrigger("Dash");
 						sword.SetActive(true);
 						//--
 						DashToEnemy();
@@ -143,15 +143,15 @@ public class PlayerSlashAttack : MonoBehaviour
                     switch (hitCounter)
                     {
                         case 1:
-                            playerAnimator.SetTrigger("S1");
+                            playerAnimator.Play("S1");
                             playerAnimator.SetBool("OnAttack", true);
                             break;
                         case 2:
-                            playerAnimator.SetTrigger("S2");
+                            playerAnimator.Play("S2");
 							playerAnimator.SetBool("OnAttack", true);
 							break;
                         case 3:
-                            playerAnimator.SetTrigger("S3");
+                            playerAnimator.Play("S3");
 							playerAnimator.SetBool("OnAttack", true);
 							break;
                         default:
@@ -161,7 +161,7 @@ public class PlayerSlashAttack : MonoBehaviour
                 }
                 else if (hitCounter >= 3)
                 {
-                    playerAnimator.SetTrigger("S4");
+                    playerAnimator.Play("S4");
                     Invoke("TriggerSlash4", 0.3f);
 					playerAnimator.SetBool("OnAttack", false);
 					slashCD = 0.5f;
@@ -407,17 +407,11 @@ public class PlayerSlashAttack : MonoBehaviour
 		playerAnimator.SetBool("OnAttack", false);
 		if (!IsReturnAnimation)
         {
-			playerAnimator.SetTrigger("ReFly");
+            playerAnimator.Play("ReFly");
 			IsReturnAnimation = true;
 			print("ReFly");
 		}
         sword.SetActive(false);
-		
-
-        if (target != null)
-        {
-
-        }
 
         //--
         ResetTimer();
@@ -426,13 +420,6 @@ public class PlayerSlashAttack : MonoBehaviour
         playerMove.CalculateFallbackSpeed();
         isFallBack = true;
         followZoom.m_Width = 50;
-        //Tween /*tweener1,*/ tweenCam;
-        //tweener1 = playerRigidbody.DOMove(PlayerOriginalPos, 0.5f).OnStart(() => { tween1Playing = true;  });
-        //tweenCam = playerVCam.transform.DOLocalRotateQuaternion(Quaternion.Euler(1.8f, 0, 0), 1f).OnStart(() => camTweenPlaying = true).OnComplete(() => camTweenPlaying = false); 
-        //if (!camTweenPlaying)
-        //{
-        //    tweenCam.Play();
-        //}
     }
     public void FallBackFinish()
     {

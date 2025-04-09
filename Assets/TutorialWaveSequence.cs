@@ -22,6 +22,7 @@ public class TutorialWaveSequence : WaveSpawnController
             yield return manager.StartCoroutine(manager.GetWave(step.waveGroupName));
             yield return new WaitUntil(() => manager.EnemyCount() == 0);
         }
+
         manager.GameFinish();
     }
 }

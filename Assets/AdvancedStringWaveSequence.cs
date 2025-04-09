@@ -35,6 +35,7 @@ public class AdvancedStringWaveSequence : WaveSpawnController
                 yield return new WaitForSeconds(entry.delayAfterGroup);
             }
         }
+
         manager.GameFinish();
     }
 }
