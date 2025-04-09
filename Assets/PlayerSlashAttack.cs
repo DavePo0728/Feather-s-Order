@@ -358,8 +358,10 @@ public class PlayerSlashAttack : MonoBehaviour
                 ResetTimer();
             }
         }
-
-
+        if (isSlashDashing == false && arrived == false && isFallBack == false && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Stand__Idle"))
+        {
+            playerAnimator.SetTrigger("ReFly");
+        }
     }
     public void ForceFallBack()
     {
@@ -428,10 +430,6 @@ public class PlayerSlashAttack : MonoBehaviour
         isSlashDashing = false;
         playerAim.aimmingImage.SetActive(true);
         shieldEffect.SetActive(true);
-        if(playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Stand__Idle"))
-        {
-            playerAnimator.Play("fly");
-        }
         target = null;
     }
     void Vibrate(float lowFrequency, float highFrequency, float duration)

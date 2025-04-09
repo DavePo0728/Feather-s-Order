@@ -17703,6 +17703,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1070390556817072823, guid: 6e0e012b20ecf334d89ebc79d1fece7e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5416785251069935638, guid: 6e0e012b20ecf334d89ebc79d1fece7e, type: 3}
       propertyPath: m_Name
       value: SoundManager
@@ -17751,11 +17755,24 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6883368652689248168, guid: 6e0e012b20ecf334d89ebc79d1fece7e, type: 3}
+      propertyPath: sceneBGM
+      value: 
+      objectReference: {fileID: 8300000, guid: 09c8e70a637d30a44971195e651706b6, type: 3}
+    - target: {fileID: 6883368652689248168, guid: 6e0e012b20ecf334d89ebc79d1fece7e, type: 3}
+      propertyPath: audioSource
+      value: 
+      objectReference: {fileID: 1173075271}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e0e012b20ecf334d89ebc79d1fece7e, type: 3}
+--- !u!82 &1173075271 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 1192399221142998149, guid: 6e0e012b20ecf334d89ebc79d1fece7e, type: 3}
+  m_PrefabInstance: {fileID: 1173075270}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1180110116
 GameObject:
   m_ObjectHideFlags: 0
@@ -646172,6 +646189,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8c9dc73155b23224fb13a97d6fe4a66b, type: 2}
   - {fileID: 11400000, guid: 95d4bcd011822854d9d340c4c7db27f0, type: 2}
   - {fileID: 11400000, guid: 4c3fa0d638bddb24fb253d28a4f7b4b4, type: 2}
+  - {fileID: 11400000, guid: 868e573f992a9c240a366ad0a0edf2f1, type: 2}
   currentWaveController: {fileID: 11400000, guid: ed869e6ef062ba449a2af2829dfe0455, type: 2}
 --- !u!1 &9077204248245268207
 GameObject:

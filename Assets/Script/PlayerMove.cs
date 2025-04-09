@@ -86,7 +86,7 @@ public class PlayerMove : MonoBehaviour
     }
     public void GetDash(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && playerSlashAttack.isFallBack ==false)
         {
             if (canDash/*&&currentEnergy>=20&&!isOutBurst*/)
             {
@@ -181,7 +181,6 @@ public class PlayerMove : MonoBehaviour
                     }
                     else
                     {
-                        //Debug.Log("FallBackFinish");
                         playerSlashAttack.FallBackFinish();
                     }
                 }

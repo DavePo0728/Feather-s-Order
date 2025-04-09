@@ -57,6 +57,7 @@ public class WaveManager : MonoBehaviour
     [SerializeField]
     private WaveSpawnController currentWaveController;
     ScenesManager scenesManager;
+    SoundManager soundManager;
 
 
     public IEnumerator FadeAndSetTutorialImage(Sprite newSprite)
@@ -373,6 +374,7 @@ public class WaveManager : MonoBehaviour
             { "RecordWave3", recordedWaves[3] },
         };
         scenesManager = GameObject.Find("SceneManager").GetComponent<ScenesManager>();
+        soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         //customPathDataList = new List<CustomPathData>();
         //customPathDataList.Add(Resources.Load<CustomPathData>("PathData/PathData1"));
         if (debugTextStyle == null)
@@ -507,6 +509,10 @@ public class WaveManager : MonoBehaviour
                 Debug.Log($"播放錄製資料：{currentRecording.name}");
             }
         }
+    }
+    public void BGMFadeOut()
+    {
+        soundManager.BGMFadeOut();
     }
     //spawn A
     void SpawnEnemy(GameObject enemy, float hp,float lifeTime,bool corrupted, float corruptionStack,float paralyzeTime, bool haveShield,float shieldHp,

@@ -19,7 +19,7 @@ public class SoundManager : MonoBehaviour
     {
         
     }
-    private void FadeOutMusic()
+    public void BGMFadeOut()
     {
         // ²H¥X
         if (audioSource.isPlaying)
