@@ -1,0 +1,477 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25527223c91290245aa44c3d6e9b3fbd, type: 3}
+  m_Name: WaveRe_03
+  m_EditorClassIdentifier: 
+  spawnRecords:
+  - timestamp: 1.2750692
+    enemyIndex: 3
+    spawnDataIndex: 15
+    gunDataIndex: 2
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeA
+    leaveTypeName: LeaveTypeA
+  - timestamp: 1.2750692
+    enemyIndex: 1
+    spawnDataIndex: 16
+    gunDataIndex: 3
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeA
+    leaveTypeName: LeaveTypeA
+  - timestamp: 1.2750692
+    enemyIndex: 3
+    spawnDataIndex: 17
+    gunDataIndex: 2
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeA
+    leaveTypeName: LeaveTypeA
+  - timestamp: 3.6675167
+    enemyIndex: 0
+    spawnDataIndex: 6
+    gunDataIndex: 0
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 3.6675167
+    enemyIndex: 0
+    spawnDataIndex: 7
+    gunDataIndex: 0
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 3.6675167
+    enemyIndex: 0
+    spawnDataIndex: 8
+    gunDataIndex: 2
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 4.7358236
+    enemyIndex: 0
+    spawnDataIndex: 1
+    gunDataIndex: 0
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 5.237485
+    enemyIndex: 0
+    spawnDataIndex: 1
+    gunDataIndex: 2
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 5.756113
+    enemyIndex: 0
+    spawnDataIndex: 1
+    gunDataIndex: 0
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 5.7824793
+    enemyIndex: 0
+    spawnDataIndex: 0
+    gunDataIndex: 0
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 6.2963505
+    enemyIndex: 0
+    spawnDataIndex: 0
+    gunDataIndex: 2
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 6.8009157
+    enemyIndex: 0
+    spawnDataIndex: 0
+    gunDataIndex: 0
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 14.7726555
+    enemyIndex: 0
+    spawnDataIndex: 1
+    gunDataIndex: 0
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 15.30139
+    enemyIndex: 0
+    spawnDataIndex: 1
+    gunDataIndex: 2
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 15.802456
+    enemyIndex: 0
+    spawnDataIndex: 1
+    gunDataIndex: 0
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 16.325544
+    enemyIndex: 0
+    spawnDataIndex: 0
+    gunDataIndex: 0
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 16.845253
+    enemyIndex: 0
+    spawnDataIndex: 0
+    gunDataIndex: 2
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 17.368267
+    enemyIndex: 0
+    spawnDataIndex: 0
+    gunDataIndex: 0
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 18.256401
+    enemyIndex: 0
+    spawnDataIndex: 6
+    gunDataIndex: 0
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 18.256401
+    enemyIndex: 0
+    spawnDataIndex: 7
+    gunDataIndex: 0
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 18.256401
+    enemyIndex: 0
+    spawnDataIndex: 8
+    gunDataIndex: 2
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 23.411175
+    enemyIndex: 0
+    spawnDataIndex: 0
+    gunDataIndex: 0
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 23.934576
+    enemyIndex: 0
+    spawnDataIndex: 0
+    gunDataIndex: 0
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 24.439627
+    enemyIndex: 0
+    spawnDataIndex: 0
+    gunDataIndex: 0
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 32.277725
+    enemyIndex: 0
+    spawnDataIndex: 1
+    gunDataIndex: 0
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 32.794403
+    enemyIndex: 0
+    spawnDataIndex: 1
+    gunDataIndex: 0
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 33.306755
+    enemyIndex: 0
+    spawnDataIndex: 1
+    gunDataIndex: 0
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 34.6476
+    enemyIndex: 0
+    spawnDataIndex: 1
+    gunDataIndex: 0
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 35.152878
+    enemyIndex: 0
+    spawnDataIndex: 1
+    gunDataIndex: 0
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 35.66462
+    enemyIndex: 0
+    spawnDataIndex: 1
+    gunDataIndex: 0
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 36.591263
+    enemyIndex: 0
+    spawnDataIndex: 1
+    gunDataIndex: 0
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 37.091423
+    enemyIndex: 0
+    spawnDataIndex: 1
+    gunDataIndex: 0
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 37.59926
+    enemyIndex: 0
+    spawnDataIndex: 1
+    gunDataIndex: 0
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 39.20813
+    enemyIndex: 0
+    spawnDataIndex: 0
+    gunDataIndex: 0
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 39.725136
+    enemyIndex: 0
+    spawnDataIndex: 0
+    gunDataIndex: 0
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 40.246857
+    enemyIndex: 0
+    spawnDataIndex: 0
+    gunDataIndex: 0
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 41.51026
+    enemyIndex: 0
+    spawnDataIndex: 0
+    gunDataIndex: 0
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 42.020355
+    enemyIndex: 0
+    spawnDataIndex: 0
+    gunDataIndex: 0
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 42.525833
+    enemyIndex: 0
+    spawnDataIndex: 0
+    gunDataIndex: 0
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 43.467575
+    enemyIndex: 0
+    spawnDataIndex: 0
+    gunDataIndex: 0
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 43.9926
+    enemyIndex: 0
+    spawnDataIndex: 0
+    gunDataIndex: 0
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 44.512573
+    enemyIndex: 0
+    spawnDataIndex: 0
+    gunDataIndex: 0
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 46.384468
+    enemyIndex: 0
+    spawnDataIndex: 6
+    gunDataIndex: 0
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 46.384468
+    enemyIndex: 0
+    spawnDataIndex: 7
+    gunDataIndex: 0
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 46.384468
+    enemyIndex: 0
+    spawnDataIndex: 8
+    gunDataIndex: 2
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 48.94216
+    enemyIndex: 0
+    spawnDataIndex: 6
+    gunDataIndex: 0
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 48.94216
+    enemyIndex: 0
+    spawnDataIndex: 7
+    gunDataIndex: 0
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 48.94216
+    enemyIndex: 0
+    spawnDataIndex: 8
+    gunDataIndex: 2
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 51.698807
+    enemyIndex: 0
+    spawnDataIndex: 0
+    gunDataIndex: 0
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 52.217743
+    enemyIndex: 0
+    spawnDataIndex: 0
+    gunDataIndex: 2
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 52.74299
+    enemyIndex: 0
+    spawnDataIndex: 0
+    gunDataIndex: 0
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 53.543083
+    enemyIndex: 0
+    spawnDataIndex: 1
+    gunDataIndex: 0
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 54.054893
+    enemyIndex: 0
+    spawnDataIndex: 1
+    gunDataIndex: 2
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 54.57247
+    enemyIndex: 0
+    spawnDataIndex: 1
+    gunDataIndex: 0
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 59.33448
+    enemyIndex: 0
+    spawnDataIndex: 6
+    gunDataIndex: 0
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 59.33448
+    enemyIndex: 0
+    spawnDataIndex: 7
+    gunDataIndex: 0
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 59.33448
+    enemyIndex: 0
+    spawnDataIndex: 8
+    gunDataIndex: 2
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 63.998756
+    enemyIndex: 0
+    spawnDataIndex: 6
+    gunDataIndex: 0
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 63.998756
+    enemyIndex: 0
+    spawnDataIndex: 7
+    gunDataIndex: 0
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 63.998756
+    enemyIndex: 0
+    spawnDataIndex: 8
+    gunDataIndex: 2
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 71.156044
+    enemyIndex: 0
+    spawnDataIndex: 1
+    gunDataIndex: 0
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 71.66946
+    enemyIndex: 0
+    spawnDataIndex: 1
+    gunDataIndex: 2
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 72.046104
+    enemyIndex: 0
+    spawnDataIndex: 0
+    gunDataIndex: 0
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 72.18092
+    enemyIndex: 0
+    spawnDataIndex: 1
+    gunDataIndex: 0
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 72.55293
+    enemyIndex: 0
+    spawnDataIndex: 0
+    gunDataIndex: 0
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA
+  - timestamp: 73.066795
+    enemyIndex: 0
+    spawnDataIndex: 0
+    gunDataIndex: 0
+    entryTypeName: EntryTypeA
+    moveTypeName: MoveTypeD
+    leaveTypeName: LeaveTypeA

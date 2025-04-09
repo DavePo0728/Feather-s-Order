@@ -355,8 +355,10 @@ public class WaveManager : MonoBehaviour
         { "RC_to_LC", SpawnGroup_RC_to_LC },
         { "R_A3", SpawnGroup_R_A3 },
         { "L_RB_B", SpawnGroup_L_RB_B },
-        { "13", SpawnGroup1_13 },
-        { "14", SpawnGroup1_14 },
+        { "L_M_R_B2", SpawnGroup_L_M_R_B2 },
+        { "CT_A", SpawnGroup_CT_A },
+        { "LT_RB_A", SpawnGroup_LT_RB_A },
+        { "RB_LT_A", SpawnGroup_RB_LT_A },
         {"t1",TutorialWave1 },
         {"t2",TutorialWave2 },
         {"t3",TutorialWave3 },
@@ -368,6 +370,7 @@ public class WaveManager : MonoBehaviour
             { "RecordWave0", recordedWaves[0] },
             { "RecordWave1", recordedWaves[1] },
             { "RecordWave2", recordedWaves[2] },
+            { "RecordWave3", recordedWaves[3] },
         };
         scenesManager = GameObject.Find("SceneManager").GetComponent<ScenesManager>();
         //customPathDataList = new List<CustomPathData>();
@@ -455,12 +458,20 @@ public class WaveManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Keypad2))
         {
-            StartCoroutine(SpawnGroup1_13());
+            StartCoroutine(SpawnGroup_L_M_R_B2());
         }
         //特殊陣行
         if (Input.GetKeyDown(KeyCode.Keypad3))
         {
-            StartCoroutine(SpawnGroup1_14());
+            StartCoroutine(SpawnGroup_CT_A());
+        }
+        if (Input.GetKeyDown(KeyCode.Keypad4))
+        {
+            StartCoroutine(SpawnGroup_LT_RB_A());
+        }
+        if (Input.GetKeyDown(KeyCode.Keypad5))
+        {
+            StartCoroutine(SpawnGroup_RB_LT_A());
         }
         // === 錄製控制 ===
         if (Input.GetKeyDown(KeyCode.F1))
@@ -918,23 +929,52 @@ public class WaveManager : MonoBehaviour
         NewSpawn_WithRecord(0, 11, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
 
     }
-    IEnumerator SpawnGroup1_13()
+    IEnumerator SpawnGroup_L_M_R_B2() //L_M_R_B2
     {
-        NewSpawn_WithRecord(0, 13, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(3, 15, 2, new EntryTypeA(), new MoveTypeA(), new LeaveTypeA());
         
-        NewSpawn_WithRecord(3, 2, 2, new EntryTypeA(), new MoveTypeA(), new LeaveTypeA());
+        NewSpawn_WithRecord(1, 16, 3, new EntryTypeA(), new MoveTypeA(), new LeaveTypeA());
 
-        NewSpawn_WithRecord(0, 10, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(3, 17, 2, new EntryTypeA(), new MoveTypeA(), new LeaveTypeA());
         yield return new WaitForSeconds(0.5f);
 
     }
     
-    IEnumerator SpawnGroup1_14() 
+    IEnumerator SpawnGroup_CT_A() // 3
     {
-        NewSpawn(enemyDatas[0], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
-        yield return new WaitForSeconds(0.1f);
+        NewSpawn_WithRecord(0, 6, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 7, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 8, 2, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        yield return new WaitForSeconds(0.5f);
 
     }
+    
+    IEnumerator SpawnGroup_LT_RB_A() // 4
+    {
+        NewSpawn_WithRecord(0, 1, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        yield return new WaitForSeconds(0.5f);
+
+        NewSpawn_WithRecord(0, 1, 2, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        yield return new WaitForSeconds(0.5f);
+
+        NewSpawn_WithRecord(0, 1, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        yield return new WaitForSeconds(0.5f);
+
+    }
+
+    IEnumerator SpawnGroup_RB_LT_A() // 5
+    {
+        NewSpawn_WithRecord(0, 0, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        yield return new WaitForSeconds(0.5f);
+
+        NewSpawn_WithRecord(0, 0, 2, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        yield return new WaitForSeconds(0.5f);
+
+        NewSpawn_WithRecord(0, 0, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        yield return new WaitForSeconds(0.5f);
+
+    }
+
     public void GameFinish()
     {
         scenesManager.LoadNextScene();
