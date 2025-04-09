@@ -64181,6 +64181,7 @@ MonoBehaviour:
   gameClearImageObject: {fileID: 1535745457}
   backImageObject: {fileID: 1455788553}
   isGameClear: 0
+  isGameOver: 0
 --- !u!4 &2773199059866485515
 Transform:
   m_ObjectHideFlags: 0
@@ -225160,8 +225161,7 @@ MonoBehaviour:
   hpBarImage: {fileID: 1289531414427902687}
   hpText: {fileID: 8323379267296777164}
   gameOverUI: {fileID: 3833296099584231230}
-  gameOverText: {fileID: 0}
-  gameClearText: {fileID: 0}
+  gameOverImage: {fileID: 0}
   hpDamageImage: {fileID: 3779461858347879447}
   impulseSource: {fileID: 5369782154996467860}
   debug: 1
@@ -225459,9 +225459,6 @@ MonoBehaviour:
   - {fileID: 0}
   customPathDataList:
   - {fileID: 11400000, guid: 322cdde3ab75c844fa0328e8035981cd, type: 2}
-  gameoverPanel: {fileID: 3833296099584231230}
-  gameOverText: {fileID: 6608624312749683857}
-  GameClearImage: {fileID: 0}
   tutorialImage: {fileID: 0}
   debug: 0
   enemyDataList: {fileID: 11400000, guid: ea9fd51ecabf28f488513454d6693a43, type: 2}
@@ -225550,7 +225547,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8c9dc73155b23224fb13a97d6fe4a66b, type: 2}
   - {fileID: 11400000, guid: 95d4bcd011822854d9d340c4c7db27f0, type: 2}
   - {fileID: 11400000, guid: 4c3fa0d638bddb24fb253d28a4f7b4b4, type: 2}
-  currentWaveController: {fileID: 11400000, guid: ed869e6ef062ba449a2af2829dfe0455, type: 2}
+  currentWaveController: {fileID: 11400000, guid: 5ae7ab090d1a3854c94a56a13575ad60, type: 2}
 --- !u!1 &8814028961380179915
 GameObject:
   m_ObjectHideFlags: 0
