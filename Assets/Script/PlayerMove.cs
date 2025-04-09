@@ -86,7 +86,7 @@ public class PlayerMove : MonoBehaviour
     }
     public void GetDash(InputAction.CallbackContext context)
     {
-        if (context.performed && playerSlashAttack.slashState == PlayerSlashAttack.SlashState.FallingBack)
+        if (context.performed && playerSlashAttack.slashState == PlayerSlashAttack.SlashState.Idle)
         {
             if (canDash/*&&currentEnergy>=20&&!isOutBurst*/)
             {
