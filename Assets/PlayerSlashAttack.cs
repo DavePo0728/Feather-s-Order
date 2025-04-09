@@ -384,14 +384,14 @@ public class PlayerSlashAttack : MonoBehaviour
                     ReturnAnimation();
                     return;
                 }
-                if (isCounting)
-                {
-                    Debug.Log("7");
-                    ReturnAnimation();
-                    isCounting = false;
-                    attackTimer = 0f;
-                    return;
-                }
+                //if (isCounting)
+                //{
+                //    Debug.Log("7");
+                //    ReturnAnimation();
+                //    isCounting = false;
+                //    attackTimer = 0f;
+                //    return;
+                //}
             }
         }
     }

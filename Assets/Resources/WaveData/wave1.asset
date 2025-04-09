@@ -13,18 +13,36 @@ MonoBehaviour:
   m_Name: wave1
   m_EditorClassIdentifier: 
   waveSequence:
-  - groupName: t1
+  - groupName: RecordWave0
     repeatCount: 1
-    delayAfterGroup: 5
-  - groupName: t2
+    delayAfterGroup: 4
+  - groupName: RecordWave1
     repeatCount: 2
-    delayAfterGroup: 5
-  - groupName: t3
+    delayAfterGroup: 4
+  - groupName: RecordWave02
     repeatCount: 3
-    delayAfterGroup: 5
-  - groupName: t4
-    repeatCount: 4
-    delayAfterGroup: 5
-  - groupName: t5
-    repeatCount: 5
-    delayAfterGroup: 5
+    delayAfterGroup: 4
+  - groupName: R
+    repeatCount: 2
+    delayAfterGroup: 3
+  - groupName: L
+    repeatCount: 2
+    delayAfterGroup: 3
+  - groupName: BlackBullet
+    repeatCount: 2
+    delayAfterGroup: 2
+  - groupName: M_to_LB
+    repeatCount: 1
+    delayAfterGroup: 1
+  - groupName: CT_to_RB_red
+    repeatCount: 1
+    delayAfterGroup: 1
+  - groupName: RecordWave0
+    repeatCount: 2
+    delayAfterGroup: 1
+  - groupName: R_A3
+    repeatCount: 1
+    delayAfterGroup: 1
+  - groupName: RecordWave1
+    repeatCount: 2
+    delayAfterGroup: 1
