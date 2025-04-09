@@ -23,7 +23,7 @@ public class AdvancedStringWaveSequence : WaveSpawnController
         {
             for (int i = 0; i < entry.repeatCount; i++)
             {
-                //Debug.Log($"Wave Group: {entry.groupName}");
+                Debug.Log($"Wave Group: {entry.groupName}");
                 yield return manager.StartCoroutine(manager.GetWave(entry.groupName));
             }
             if(entry.killAllEnemies)

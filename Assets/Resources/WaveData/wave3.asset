@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: wave3
   m_EditorClassIdentifier: 
   waveSequence:
-  - groupName: RecordWave02
+  - groupName: RecordWave2
     repeatCount: 3
     delayAfterGroup: 4
     killAllEnemies: 0
@@ -69,7 +69,7 @@ MonoBehaviour:
     repeatCount: 1
     delayAfterGroup: 5
     killAllEnemies: 0
-  - groupName: RecordWave03
+  - groupName: RecordWave3
     repeatCount: 1
     delayAfterGroup: 5
     killAllEnemies: 1
