@@ -16,33 +16,44 @@ MonoBehaviour:
   - groupName: RecordWave0
     repeatCount: 1
     delayAfterGroup: 4
+    killAllEnemies: 0
   - groupName: RecordWave1
     repeatCount: 2
     delayAfterGroup: 4
+    killAllEnemies: 0
   - groupName: RecordWave02
     repeatCount: 3
     delayAfterGroup: 4
+    killAllEnemies: 0
   - groupName: R
     repeatCount: 2
     delayAfterGroup: 3
+    killAllEnemies: 0
   - groupName: L
     repeatCount: 2
     delayAfterGroup: 3
+    killAllEnemies: 0
   - groupName: BlackBullet
     repeatCount: 1
     delayAfterGroup: 2
+    killAllEnemies: 1
   - groupName: M_to_LB
     repeatCount: 1
     delayAfterGroup: 1
+    killAllEnemies: 0
   - groupName: CT_to_RB_red
     repeatCount: 1
     delayAfterGroup: 1
+    killAllEnemies: 0
   - groupName: RecordWave0
     repeatCount: 2
     delayAfterGroup: 1
+    killAllEnemies: 0
   - groupName: R_A3
     repeatCount: 1
     delayAfterGroup: 1
+    killAllEnemies: 0
   - groupName: RecordWave1
     repeatCount: 2
     delayAfterGroup: 1
+    killAllEnemies: 0

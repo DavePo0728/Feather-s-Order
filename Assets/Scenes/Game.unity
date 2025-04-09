@@ -26870,7 +26870,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1793696488
 Transform:
   m_ObjectHideFlags: 0
@@ -646367,7 +646367,7 @@ MonoBehaviour:
   gameOverText: {fileID: 7708153498021976824}
   GameClearText: {fileID: 7548045234313591178}
   tutorialImage: {fileID: 0}
-  debug: 1
+  debug: 0
   enemyDataList: {fileID: 11400000, guid: ea9fd51ecabf28f488513454d6693a43, type: 2}
   spawnDataList: {fileID: 11400000, guid: 02c786a34ce55624c9369eefdc51c91c, type: 2}
   gunDataList: {fileID: 11400000, guid: 903753f85a2c6334196fe5e0bed4bf1e, type: 2}
