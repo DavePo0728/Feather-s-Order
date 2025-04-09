@@ -17763,6 +17763,10 @@ PrefabInstance:
       propertyPath: audioSource
       value: 
       objectReference: {fileID: 1173075271}
+    - target: {fileID: 6883368652689248168, guid: 6e0e012b20ecf334d89ebc79d1fece7e, type: 3}
+      propertyPath: fadeDuration
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -572292,7 +572296,7 @@ MonoBehaviour:
   gameOverUI: {fileID: 3681689095024641091}
   hpDamageImage: {fileID: 3627155057578004330}
   impulseSource: {fileID: 4569409165055609027}
-  debug: 1
+  debug: 0
 --- !u!1 &7970330387366442236
 GameObject:
   m_ObjectHideFlags: 0
