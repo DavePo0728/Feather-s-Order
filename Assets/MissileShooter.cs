@@ -31,6 +31,7 @@ public class MissileShooter : MonoBehaviour
     bool startScaleX, startScaleY;
     [SerializeField]
     List<GameObject> lockedEnemies = new List<GameObject>();
+    int maxLockEnemy =10;
     [SerializeField]
     List<GameObject> lockEnemyImageList = new List<GameObject>();
     [SerializeField] AudioClip farLockSFX;
@@ -136,18 +137,20 @@ public class MissileShooter : MonoBehaviour
         {
             if (!lockedEnemies.Contains(other.gameObject))
             {
-                Vector3 lockPos = playerVcam.WorldToScreenPoint(other.gameObject.transform.position);
-                lockedEnemies.Add(other.gameObject);
-                GameObject temp = Instantiate(lockImage, lockPos, Quaternion.identity, canvas.transform);
-                LockImageUpdate lockImageUpdate = temp.GetComponent<LockImageUpdate>();
-                lockImageUpdate.SetTarget(other.gameObject);
-                lockEnemyImageList.Add(temp);
-
-                //  播放遠距離瞄準音效（只播放一次）
-                if (!alreadyPlayedLockSFX.Contains(other.gameObject))
+                if (lockedEnemies.Count < maxLockEnemy)
                 {
-                    audioSource.PlayOneShot(farLockSFX);
-                    alreadyPlayedLockSFX.Add(other.gameObject);
+                    Vector3 lockPos = playerVcam.WorldToScreenPoint(other.gameObject.transform.position);
+                    lockedEnemies.Add(other.gameObject);
+                    GameObject temp = Instantiate(lockImage, lockPos, Quaternion.identity, canvas.transform);
+                    LockImageUpdate lockImageUpdate = temp.GetComponent<LockImageUpdate>();
+                    lockImageUpdate.SetTarget(other.gameObject);
+                    lockEnemyImageList.Add(temp);
+                    //  播放遠距離瞄準音效（只播放一次）
+                    if (!alreadyPlayedLockSFX.Contains(other.gameObject))
+                    {
+                        audioSource.PlayOneShot(farLockSFX);
+                        alreadyPlayedLockSFX.Add(other.gameObject);
+                    }
                 }
             }
         }
