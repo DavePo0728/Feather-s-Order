@@ -202,7 +202,7 @@ public class EnemyHp : MonoBehaviour
                     PlayhitimpactAudio();
                     currentHp -= damage;
                     UpdateUI();
-                    //Debug.Log("Source :" + gameObject.name + " " + "CorruptionClean");
+                    Debug.Log("Source :" + gameObject.name + " " + "CorruptionClean");
                     if (currentHp <= 0)
                     {
                         DeathEffect();

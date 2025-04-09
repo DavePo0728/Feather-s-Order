@@ -54,7 +54,7 @@ public class PlayerShooting : MonoBehaviour
     void FixedUpdate()
     {
         timeSinceLastShot += Time.deltaTime;
-        Debug.Log("Shooting: "+shooting);
+        //Debug.Log("Shooting: "+shooting);
         if (shooting && timeSinceLastShot >= timeBetweenShots)
         {
             if (playerSlashAttack != null)
