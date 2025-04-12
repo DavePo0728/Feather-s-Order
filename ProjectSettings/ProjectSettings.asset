@@ -104,7 +104,7 @@ PlayerSettings:
   xboxEnableFitness: 0
   visibleInBackground: 1
   allowFullscreenSwitch: 0
-  fullscreenMode: 3
+  fullscreenMode: 0
   xboxSpeechDB: 0
   xboxEnableHeadOrientation: 0
   xboxEnableGuest: 0
@@ -140,7 +140,7 @@ PlayerSettings:
   loadStoreDebugModeEnabled: 0
   visionOSBundleVersion: 1.0
   tvOSBundleVersion: 1.0
-  bundleVersion: 0.4.5
+  bundleVersion: 0.4.9
   preloadedAssets:
   - {fileID: 11400000, guid: 060e6fdeed27beb45bc5f0fc36090fcc, type: 2}
   - {fileID: -944628639613478452, guid: 6315d56ce0b2b034b859a84c624f7c72, type: 3}
@@ -164,7 +164,7 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Standalone: com.7th.Feather-s-Bible
+    Standalone: com.7th.Feather-Bible
   buildNumber:
     Standalone: 0
     VisionOS: 0
@@ -286,7 +286,14 @@ PlayerSettings:
   AndroidMinifyDebug: 0
   AndroidValidateAppBundleSize: 1
   AndroidAppBundleSizeToValidate: 150
-  m_BuildTargetIcons: []
+  m_BuildTargetIcons:
+  - m_BuildTarget: 
+    m_Icons:
+    - serializedVersion: 2
+      m_Icon: {fileID: 2800000, guid: 135784609174db444abc7031f54a997e, type: 3}
+      m_Width: 128
+      m_Height: 128
+      m_Kind: 0
   m_BuildTargetPlatformIcons:
   - m_BuildTarget: Android
     m_Icons:

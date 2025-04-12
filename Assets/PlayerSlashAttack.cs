@@ -183,7 +183,7 @@ public class PlayerSlashAttack : MonoBehaviour
         slashState = SlashState.Dashing;
         shieldEffect.SetActive(false);
         playerRigidbody.velocity = Vector3.zero;
-        if(target != playerAim.emptyAimObject)
+        if(target.CompareTag("Enemy"))
         {
             slashTarget = target.transform.Find("DashPoint").position;
             Vector3 lastTargetPos = slashTarget;
@@ -223,7 +223,7 @@ public class PlayerSlashAttack : MonoBehaviour
     {
         slashState = SlashState.Dashing;
         playerRigidbody.velocity = Vector3.zero;
-        if (target != playerAim.emptyAimObject)
+        if (target.CompareTag("Enemy"))
         {
             slashTarget = target.transform.Find("DashPoint").position;
             Vector3 lastTargetPos = slashTarget;
