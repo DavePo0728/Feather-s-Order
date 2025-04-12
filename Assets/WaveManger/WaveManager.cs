@@ -58,6 +58,7 @@ public class WaveManager : MonoBehaviour
     private WaveSpawnController currentWaveController;
     ScenesManager scenesManager;
     SoundManager soundManager;
+    public bool tutorialMode = false;
     [SerializeField] private InputActionAsset inputActions;
     private InputAction continueAction;
     public IEnumerator WaitForContinueInput()
@@ -391,8 +392,11 @@ public class WaveManager : MonoBehaviour
         };
         scenesManager = GameObject.Find("SceneManager").GetComponent<ScenesManager>();
         soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
-        continueAction = inputActions.FindActionMap("GameScene").FindAction("Continue");
-        continueAction.Enable();
+        if (tutorialMode)
+        {
+            continueAction = inputActions.FindActionMap("GameScene").FindAction("Continue");
+            continueAction.Enable();
+        }
         //customPathDataList = new List<CustomPathData>();
         //customPathDataList.Add(Resources.Load<CustomPathData>("PathData/PathData1"));
         if (debugTextStyle == null)

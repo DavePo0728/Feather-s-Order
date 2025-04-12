@@ -229842,6 +229842,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdd3be632553d004f894914bf1d45df6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slashState: 0
   playerVCam: {fileID: 7793895027920043354}
   slashCollider: {fileID: 2844979935835046540}
   slashTarget: {x: 0, y: 0, z: 0}
@@ -229850,7 +229851,6 @@ MonoBehaviour:
   impulseSource: {fileID: 4569409165055609027}
   followZoom: {fileID: 5173197115759677358}
   flashImage: {fileID: 1033508791827913940}
-  slashState: 0
   playerAnimator: {fileID: 177602254}
   clothDB: {fileID: 1628283138}
   sword: {fileID: 2015237280}
@@ -481160,6 +481160,26 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: f04e7982-6c80-4d00-aaf7-efcdf71d909e
     m_ActionName: GameScene/GameClear[/DualSenseGamepadHID/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1950844339}
+        m_TargetAssemblyTypeName: ScenesManager, Assembly-CSharp
+        m_MethodName: GetPauseInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 2eb79dc2-7b58-4cc9-9a68-e1c60f2f86c4
+    m_ActionName: GameScene/Pause[/DualSenseGamepadHID/start]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 58ee3688-00bb-481b-a3f1-602128f046d3
+    m_ActionName: GameScene/Continue[/DualSenseGamepadHID/buttonSouth]
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: 
   m_DefaultActionMap: GameScene
@@ -646248,6 +646268,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4c3fa0d638bddb24fb253d28a4f7b4b4, type: 2}
   - {fileID: 11400000, guid: 868e573f992a9c240a366ad0a0edf2f1, type: 2}
   currentWaveController: {fileID: 11400000, guid: ed869e6ef062ba449a2af2829dfe0455, type: 2}
+  tutorialMode: 0
+  inputActions: {fileID: 0}
 --- !u!1 &9077204248245268207
 GameObject:
   m_ObjectHideFlags: 0
