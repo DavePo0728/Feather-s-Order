@@ -58,7 +58,23 @@ public class WaveManager : MonoBehaviour
     private WaveSpawnController currentWaveController;
     ScenesManager scenesManager;
     SoundManager soundManager;
+    [SerializeField] private InputActionAsset inputActions;
+    private InputAction continueAction;
+    public IEnumerator WaitForContinueInput()
+    {
+        bool pressed = false;
 
+        void OnPressed(InputAction.CallbackContext ctx) => pressed = true;
+
+        continueAction.performed += OnPressed;
+
+        yield return new WaitUntil(() => pressed);
+
+        // 防止太快觸發下一段
+        yield return new WaitForSeconds(0.1f);
+
+        continueAction.performed -= OnPressed;
+    }
 
     public IEnumerator FadeAndSetTutorialImage(Sprite newSprite)
     {
@@ -375,6 +391,8 @@ public class WaveManager : MonoBehaviour
         };
         scenesManager = GameObject.Find("SceneManager").GetComponent<ScenesManager>();
         soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
+        continueAction = inputActions.FindActionMap("GameScene").FindAction("Continue");
+        continueAction.Enable();
         //customPathDataList = new List<CustomPathData>();
         //customPathDataList.Add(Resources.Load<CustomPathData>("PathData/PathData1"));
         if (debugTextStyle == null)
@@ -515,86 +533,6 @@ public class WaveManager : MonoBehaviour
         soundManager.BGMFadeOut();
     }
     //spawn A
-    void SpawnEnemy(GameObject enemy, float hp,float lifeTime,bool corrupted, float corruptionStack,float paralyzeTime, bool haveShield,float shieldHp,
-        Vector3 spawnPoint, Vector3 endPoint, Vector3 leavePoint, 
-        IEntryBehaviour entryBehaviour,IMoveBehaviour moveABehaviour , ILeaveBehaviour leaveBehaviour,float curveHeight,
-        int gunIndex,float rpm,float shootingCoolDown, float bulletAmount, float spinSpeed,BulletType bulletType,float MaxShootWave)
-    {
-        GameObject temp = Instantiate(enemy, spawnPoint, Quaternion.identity);
-        EnemyMove enemyMove = temp.GetComponent<EnemyMove>();
-        EnemyHp enemyHp = temp.GetComponent<EnemyHp>();
-        enemyHp.maxHp = hp;
-        enemyHp.corrupted = corrupted;
-        enemyHp.haveshield = haveShield;
-        enemyHp.maxShieldHp = shieldHp;
-        enemyHp.MaxcorruptionStack = corruptionStack;
-        enemyMove.lifeTime = lifeTime;
-        enemyMove.paralyzeTime = paralyzeTime;
-        enemyMove.endPoint = endPoint;
-        enemyMove.leavePoint = leavePoint;
-        enemyMove.curveHeight = curveHeight;
-        //Debug.Log(gunIndex);
-        IEntryBehaviour entry = entryBehaviour;
-        IMoveBehaviour move = moveABehaviour;
-        ILeaveBehaviour leave = leaveBehaviour;
-        enemyMove.SetBehaviours(entry,move,leave);
-        enemyMove.ActiveGun(gunIndex, rpm, bulletAmount, spinSpeed, shootingCoolDown, (EnemyMove.BulletType)bulletType,MaxShootWave);
-    }
-    //spawn B
-    void SpawnEnemy(GameObject enemy, float hp, float lifeTime, bool corrupted, float corruptionStack, float paralyzeTime, bool haveShield, float shieldHp,
-        Vector3 spawnPoint, Vector3 endPoint, Vector3 leavePoint, 
-        IEntryBehaviour entryBehaviour, IMoveBehaviour moveBBehaviour, ILeaveBehaviour leaveBehaviour, float curveHeight, PathCreator CurvePath,
-        int gunIndex, float rpm, float shootingCoolDown, float bulletAmount, float spinSpeed, BulletType bulletType, float MaxShootWave)
-    {
-        GameObject temp = Instantiate(enemy, spawnPoint, Quaternion.identity);
-        EnemyMove enemyMove = temp.GetComponent<EnemyMove>();
-        EnemyHp enemyHp = temp.GetComponent<EnemyHp>();
-        enemyHp.maxHp = hp;
-        enemyHp.corrupted = corrupted;
-        enemyHp.haveshield = haveShield;
-        enemyHp.maxShieldHp = shieldHp;
-        enemyHp.MaxcorruptionStack = corruptionStack;
-        enemyMove.lifeTime = lifeTime;
-        enemyMove.paralyzeTime = paralyzeTime;
-        enemyMove.endPoint = endPoint;
-        enemyMove.leavePoint = leavePoint;
-        enemyMove.curveHeight = curveHeight;
-        enemyMove.moveB_PathList = CurvePathGenerator.pathInstance.GetCurvePath(CurvePath);
-        enemyMove.ActiveGun(gunIndex, rpm, bulletAmount, spinSpeed,shootingCoolDown,(EnemyMove.BulletType)bulletType, MaxShootWave);
-        IEntryBehaviour entry = entryBehaviour;
-        IMoveBehaviour move = moveBBehaviour;
-        ILeaveBehaviour leave = leaveBehaviour;
-        enemyMove.SetBehaviours(entry, move, leave);
-    }
-    //spawn C
-    void SpawnEnemy(GameObject enemy,float hp,float lifeTime, bool corrupted,float corruptionStack,float paralyzeTime, bool haveShield, float shieldHp,
-        Vector3 spawnPoint, Vector3 endPoint, Vector3 leavePoint, 
-        IEntryBehaviour entryBehaviour, IMoveBehaviour moveCBehaviour, ILeaveBehaviour leaveBehaviour, 
-        float curveHeight,int pathListLength,float pointWaitTime,int pathListIndex,
-        int gunIndex, float rpm, float shootingCoolDown, float bulletAmount,float spinSpeed, BulletType bulletType, float MaxShootWave)
-    {
-        GameObject temp = Instantiate(enemy, spawnPoint, Quaternion.identity);
-        EnemyMove enemyMove = temp.GetComponent<EnemyMove>();
-        EnemyHp enemyHp = temp.GetComponent<EnemyHp>();
-        enemyHp.maxHp = hp;
-        enemyHp.corrupted = corrupted;
-        enemyHp.haveshield = haveShield;
-        enemyHp.maxShieldHp = shieldHp;
-        enemyHp.MaxcorruptionStack = corruptionStack;
-        enemyMove.lifeTime = lifeTime;
-        enemyMove.paralyzeTime = paralyzeTime;
-        enemyMove.endPoint = endPoint;
-        enemyMove.leavePoint = leavePoint;
-        enemyMove.curveHeight = curveHeight;
-        enemyMove.moveC_PathList = Vector3PointGenerator.instance.GetMoveCPathList(4, customPathDataList[pathListIndex]);
-        //enemyMove.stayTime = (float)pathListLength;
-        enemyMove.pointWaitTime = pointWaitTime;
-        enemyMove.ActiveGun(gunIndex, rpm, bulletAmount, spinSpeed,shootingCoolDown, (EnemyMove.BulletType)bulletType, MaxShootWave);
-        IEntryBehaviour entry = entryBehaviour;
-        IMoveBehaviour move = moveCBehaviour;
-        ILeaveBehaviour leave = leaveBehaviour;
-        enemyMove.SetBehaviours(entry, move, leave);
-    }
     void NewSpawn(EnemyData enemyData,SpawnData spawnData,GunData gunData,IEntryBehaviour entryBehaviour, IMoveBehaviour moveABehaviour, ILeaveBehaviour leaveBehaviour)
     {
         Vector3 spawnPoint = Vector3PointGenerator.instance.GetPoint((int)spawnData.data.spawnPosition.x, (int)spawnData.data.spawnPosition.y, (int)spawnData.data.spawnPosition.z);

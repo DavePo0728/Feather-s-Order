@@ -148,6 +148,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "2eb79dc2-7b58-4cc9-9a68-e1c60f2f86c4",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Continue",
+                    "type": "Button",
+                    "id": "58ee3688-00bb-481b-a3f1-602128f046d3",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -434,6 +452,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "GameClear",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "322b4f5f-c9d1-420b-a70b-dae8248b4d7d",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2cac868b-87e8-40aa-8649-24a7e82431ee",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Continue",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

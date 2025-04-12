@@ -18,6 +18,23 @@ public class ScenesManager : MonoBehaviour
     Image gameClearImage, backImage;
     public bool isGameClear = false;
     public bool isGameOver = false;
+    bool isPause = false;
+    public void GetPauseInput(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            if (isPause == false)
+            {
+                Time.timeScale = 0;
+                isPause = true;
+            }
+            else
+            {
+                Time.timeScale = 1;
+                isPause = false;
+            }
+        }
+    }
     private void Awake()
     {
         LoadImage = LoadingPanel.GetComponent<Image>();
@@ -179,5 +196,21 @@ public class ScenesManager : MonoBehaviour
 
         color.a = toAlpha;
         image.color = color;
+    }
+    private void OnGUI()
+    {
+        if (isPause)
+        {
+            GUIStyle style = new GUIStyle(GUI.skin.label);
+            style.fontSize = 50;
+            style.alignment = TextAnchor.MiddleCenter;
+            style.normal.textColor = Color.white;
+            style.fontStyle = FontStyle.Bold;
+
+            // 計算畫面中心的區域
+            Rect rect = new Rect(0, 0, Screen.width, Screen.height);
+
+            GUI.Label(rect, "PAUSE", style);
+        }
     }
 }
