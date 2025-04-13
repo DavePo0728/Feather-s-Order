@@ -48,6 +48,29 @@ public class ScenesManager : MonoBehaviour
         FadeOut();
         Invoke("DisablePanel", fadeDuration);
     }
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.F9))
+        {
+            FadeIn();
+            Invoke("LoadTeaching", fadeDuration);
+        }
+        if(Input.GetKeyDown(KeyCode.F10))
+        {
+            FadeIn();
+            Invoke("LoadGame1", fadeDuration);
+        }
+        if(Input.GetKeyDown(KeyCode.F11))
+        {
+            FadeIn();
+            Invoke("LoadGame2", fadeDuration);
+        }
+        if(Input.GetKeyDown(KeyCode.F12))
+        {
+            FadeIn();
+            Invoke("LoadGame3", fadeDuration);
+        }
+    }
     void DisablePanel()
     {
         LoadingPanel.SetActive(false);
@@ -60,7 +83,7 @@ public class ScenesManager : MonoBehaviour
         {
             case 1:
                 FadeIn();
-                Invoke("LoadLevel1", fadeDuration);
+                Invoke("LoadGame1", fadeDuration);
                 break;
             case 2:
                 FadeIn();
@@ -94,7 +117,7 @@ public class ScenesManager : MonoBehaviour
     {
         SceneManager.LoadScene(1);
     }
-    public void LoadLevel1()
+    public void LoadGame1()
     {
         SceneManager.LoadScene(2);
     }
@@ -120,7 +143,7 @@ public class ScenesManager : MonoBehaviour
         {
             StopAllCoroutines();
             FadeIn();
-            Invoke("StartLevel1", fadeDuration);
+            Invoke("LoadGame1", fadeDuration);
         }
     }
     public void GetStartInput(InputAction.CallbackContext context)
