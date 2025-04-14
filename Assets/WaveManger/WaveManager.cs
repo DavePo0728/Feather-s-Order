@@ -725,7 +725,7 @@ public class WaveManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
     }
     IEnumerator TutorialWave2() {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(4f);
         NewSpawn_WithRecord(0, 15, 5, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.5f);
         NewSpawn_WithRecord(0, 16, 5, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
@@ -735,19 +735,19 @@ public class WaveManager : MonoBehaviour
         
     }
     IEnumerator TutorialWave3() {
-        NewSpawn_WithRecord(0, 0, 4, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 0, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.5f);
         NewSpawn_WithRecord(0, 0, 4, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.5f);
-        NewSpawn_WithRecord(0, 0, 4, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 0, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.5f);
         NewSpawn_WithRecord(0, 0, 4, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(3f);
-        NewSpawn_WithRecord(0, 0, 4, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 0, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.5f);
         NewSpawn_WithRecord(0, 0, 4, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.5f);
-        NewSpawn_WithRecord(0, 0, 4, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 0, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
         yield return new WaitForSeconds(0.5f);
         NewSpawn_WithRecord(0, 0, 4, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
     }
