@@ -104,8 +104,8 @@ public class ScenesManager : MonoBehaviour
         gameoverPanel.SetActive(false);
         gameClearImageObject.SetActive(true);
         backImageObject.SetActive(true);
-        StartCoroutine(Fade(gameClearImage, 0f, 1f));
-        StartCoroutine(Fade(backImage, 0f, 1f));
+        StartCoroutine(Fade(gameClearImage, 0f, 1f,fadeDuration));
+        StartCoroutine(Fade(backImage, 0f, 1f, fadeDuration));
         isGameClear = true;
     }
     public void StartTeaching()
@@ -202,7 +202,7 @@ public class ScenesManager : MonoBehaviour
         color.a = toAlpha;
         LoadImage.color = color;
     }
-    private IEnumerator Fade(Image image,float fromAlpha, float toAlpha)
+    public IEnumerator Fade(Image image,float fromAlpha, float toAlpha,float fadeDuration)
     {
         image.gameObject.SetActive(true);
         Color color = image.color;

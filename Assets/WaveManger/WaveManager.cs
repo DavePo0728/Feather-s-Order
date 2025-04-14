@@ -6,6 +6,8 @@ using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using System.Net;
 using TMPro;
+using FUnit.GameObjectExtensions;
+
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -60,7 +62,10 @@ public class WaveManager : MonoBehaviour
     SoundManager soundManager;
     public bool tutorialMode = false;
     [SerializeField] private InputActionAsset inputActions;
-    private InputAction continueAction;
+    private InputAction continueAction,pressBAction;
+    [SerializeField]
+    GameObject preTutorialObject;
+    Image preTutorialImage;
     public IEnumerator WaitForContinueInput()
     {
         bool pressed = false;
@@ -76,7 +81,31 @@ public class WaveManager : MonoBehaviour
 
         continueAction.performed -= OnPressed;
     }
+    public IEnumerator WaitForPressBInput()
+    {
+        bool pressed = false;
 
+        void OnPressed(InputAction.CallbackContext ctx) => pressed = true;
+
+        pressBAction.performed += OnPressed;
+
+        yield return new WaitUntil(() => pressed);
+
+        // 防止太快觸發下一段
+        yield return new WaitForSeconds(0.1f);
+
+        pressBAction.performed -= OnPressed;
+    }
+    public void PreteachImageFadeIn() 
+    { 
+        preTutorialObject.SetActive(true); // 確保物件在淡入前是啟用狀態
+        StartCoroutine(scenesManager.Fade(preTutorialImage, 0f, 1f,1f));
+    }
+    public void PreteachImageFadeOut()
+    {
+        StartCoroutine(scenesManager.Fade(preTutorialImage, 1f, 0f,1f));
+        preTutorialObject.SetActive(false); // 確保物件在淡出後是禁用狀態
+    }
     public IEnumerator FadeAndSetTutorialImage(Sprite newSprite)
     {
         float duration = 0.5f;
@@ -382,6 +411,8 @@ public class WaveManager : MonoBehaviour
         {"t3",TutorialWave3 },
         {"t4",TutorialWave4 },
         {"t5",TutorialWave5 },
+        {"EmptyWaveDelay",EmptyWaveDelay },
+        {"EmptyWave",EmptyWave },
     };
         recordedWaveMap = new Dictionary<string, RecordedWaveData>()
         {
@@ -394,8 +425,12 @@ public class WaveManager : MonoBehaviour
         soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         if (tutorialMode)
         {
+            preTutorialObject = GameObject.Find("PreTeach");
+            preTutorialImage = preTutorialObject.GetComponent<Image>();
             continueAction = inputActions.FindActionMap("GameScene").FindAction("Continue");
             continueAction.Enable();
+            pressBAction = inputActions.FindActionMap("GameScene").FindAction("PressB");
+            pressBAction.Enable();
         }
         //customPathDataList = new List<CustomPathData>();
         //customPathDataList.Add(Resources.Load<CustomPathData>("PathData/PathData1"));
@@ -698,6 +733,14 @@ public class WaveManager : MonoBehaviour
         NewSpawnB(enemyDatas[1], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeB(), new LeaveTypeA());   //MoveTypeB
         yield return new WaitForSeconds(0.1f);
         NewSpawnC(enemyDatas[2], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeC(), new LeaveTypeA());   //MoveTypeC
+    }
+    IEnumerator EmptyWaveDelay() // 空波次(延遲)
+    {
+        yield return new WaitForSeconds(10f);
+    }
+    IEnumerator EmptyWave() // 空波次
+    {
+        yield return null;
     }
     IEnumerator TutorialWave1() {
         yield return new WaitForSeconds(2f);

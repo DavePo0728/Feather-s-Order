@@ -10,16 +10,24 @@ public class TutorialWaveSequence : WaveSpawnController
     {
         public Sprite tutorialImage;
         public string waveGroupName; // 對應 Dictionary 的 key，例如 "Intro"
+        public bool specialTutorial;
     }
     [Tooltip("定義每個波次流程的名稱、重播次數與個別延遲")]
     public List<TutorialWaveEntry> tutorialSteps;
     public override IEnumerator GenerateWave(WaveManager manager)
     {
+        manager.PreteachImageFadeIn();
+        yield return manager.WaitForPressBInput();
+        manager.PreteachImageFadeOut();
         foreach (var step in tutorialSteps)
         {
             Debug.Log($"Tutorial Step: {step.waveGroupName}");
             manager.StartCoroutine(manager.FadeAndSetTutorialImage(step.tutorialImage));
-            yield return manager.WaitForContinueInput();
+            if (step.specialTutorial)
+            {
+                yield return manager.WaitForContinueInput();
+
+            }
             yield return manager.StartCoroutine(manager.GetWave(step.waveGroupName));
             yield return new WaitUntil(() => manager.EnemyCount() == 0);
         }
