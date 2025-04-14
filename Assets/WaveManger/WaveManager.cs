@@ -25,8 +25,7 @@ public class WaveManager : MonoBehaviour
 
     [Header("UI")]
     [Header("Tutorial Settings")]
-    [SerializeField] 
-    private Image tutorialImage;
+    public Image tutorialImage;
 
     [SerializeField]
     bool debug = false;
@@ -58,7 +57,7 @@ public class WaveManager : MonoBehaviour
     private Dictionary<string, RecordedWaveData> recordedWaveMap;
     [SerializeField]
     private WaveSpawnController currentWaveController;
-    ScenesManager scenesManager;
+    public ScenesManager scenesManager;
     SoundManager soundManager;
     public bool tutorialMode = false;
     [SerializeField] private InputActionAsset inputActions;

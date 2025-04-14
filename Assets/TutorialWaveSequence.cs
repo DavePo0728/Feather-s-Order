@@ -26,7 +26,7 @@ public class TutorialWaveSequence : WaveSpawnController
             if (step.specialTutorial)
             {
                 yield return manager.WaitForContinueInput();
-
+                manager.scenesManager.Fade(manager.tutorialImage, 1f, 0f,1f);
             }
             yield return manager.StartCoroutine(manager.GetWave(step.waveGroupName));
             yield return new WaitUntil(() => manager.EnemyCount() == 0);
