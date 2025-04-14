@@ -36,7 +36,7 @@ public class AdvancedStringWaveSequence : WaveSpawnController
             }
         }
         manager.BGMFadeOut();
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(2f);
         manager.GameFinish();
     }
 }
