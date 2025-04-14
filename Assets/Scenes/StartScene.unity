@@ -219,6 +219,7 @@ RectTransform:
   m_Children:
   - {fileID: 1225106914}
   - {fileID: 811943832}
+  - {fileID: 524722116}
   - {fileID: 9140915571171184140}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -243,6 +244,81 @@ MonoBehaviour:
   minAlpha: 0.5
   maxAlpha: 1
   speed: 1
+--- !u!1 &524722115
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 524722116}
+  - component: {fileID: 524722118}
+  - component: {fileID: 524722117}
+  m_Layer: 5
+  m_Name: PauseImage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &524722116
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 524722115}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 84116189}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 2000, y: 1126}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &524722117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 524722115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 231491b8b0d02b645a017247ef1d2c51, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &524722118
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 524722115}
+  m_CullTransparentMesh: 1
 --- !u!1 &564515870
 GameObject:
   m_ObjectHideFlags: 0
@@ -407,6 +483,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LoadingPanel: {fileID: 9054585779874143798}
   fadeDuration: 1
+  gameoverPanel: {fileID: 0}
+  gameClearImageObject: {fileID: 0}
+  backImageObject: {fileID: 0}
+  isGameClear: 0
+  isGameOver: 0
+  pauseImageObject: {fileID: 0}
 --- !u!4 &734063278
 Transform:
   m_ObjectHideFlags: 0
@@ -551,6 +633,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 9fb223bb-781c-4dee-8f52-1d8cc88b2223
     m_ActionName: Parkour/BackTotitle[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f04e7982-6c80-4d00-aaf7-efcdf71d909e
+    m_ActionName: GameScene/GameClear[/DualSenseGamepadHID/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2eb79dc2-7b58-4cc9-9a68-e1c60f2f86c4
+    m_ActionName: GameScene/Pause[/DualSenseGamepadHID/start]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 58ee3688-00bb-481b-a3f1-602128f046d3
+    m_ActionName: GameScene/Continue[/DualSenseGamepadHID/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9659d786-b6c7-49b2-b111-aea1d4eee842
+    m_ActionName: GameScene/PressB[/DualSenseGamepadHID/buttonEast]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: StartScene
