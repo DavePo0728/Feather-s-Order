@@ -105,40 +105,11 @@ public class WaveManager : MonoBehaviour
         StartCoroutine(scenesManager.Fade(preTutorialImage, 1f, 0f,1f));
         preTutorialObject.SetActive(false); // 確保物件在淡出後是禁用狀態
     }
-    public IEnumerator FadeAndSetTutorialImage(Sprite newSprite)
+    public void FadeAndSetTutorialImage(Sprite newSprite)
     {
-        float duration = 0.5f;
-        float time = 0f;
-
-        // 淡出
-        while (time < duration)
-        {
-            float alpha = Mathf.Lerp(1f, 0f, time / duration);
-            Color c = tutorialImage.color; // ← 這裡改用 tutorialImage
-            c.a = alpha;
-            tutorialImage.color = c;
-            time += Time.deltaTime;
-            yield return null;
-        }
-
         // 替換圖片
         tutorialImage.sprite = newSprite;
 
-        // 淡入
-        time = 0f;
-        while (time < duration)
-        {
-            float alpha = Mathf.Lerp(0f, 1f, time / duration);
-            Color c = tutorialImage.color;
-            c.a = alpha;
-            tutorialImage.color = c;
-            time += Time.deltaTime;
-            yield return null;
-        }
-
-        Color finalColor = tutorialImage.color;
-        finalColor.a = 1f;
-        tutorialImage.color = finalColor;
     }
     IEnumerator PlayRecordedWave(RecordedWaveData data, float delay = 0f)
     {

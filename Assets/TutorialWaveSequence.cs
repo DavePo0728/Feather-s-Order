@@ -22,11 +22,16 @@ public class TutorialWaveSequence : WaveSpawnController
         foreach (var step in tutorialSteps)
         {
             Debug.Log($"Tutorial Step: {step.waveGroupName}");
-            manager.StartCoroutine(manager.FadeAndSetTutorialImage(step.tutorialImage));
+            manager.FadeAndSetTutorialImage(step.tutorialImage);
+            manager.StartCoroutine(manager.scenesManager.Fade(manager.tutorialImage, 0f, 1f, 1f));
             if (step.specialTutorial)
             {
                 yield return manager.WaitForContinueInput();
-                manager.scenesManager.Fade(manager.tutorialImage, 1f, 0f,1f);
+                manager.StartCoroutine(manager.scenesManager.Fade(manager.tutorialImage, 1f, 0f,1f));
+            }
+            else
+            {
+                manager.StartCoroutine(manager.scenesManager.Fade(manager.tutorialImage, 1f, 0f, 1f));
             }
             yield return manager.StartCoroutine(manager.GetWave(step.waveGroupName));
             yield return new WaitUntil(() => manager.EnemyCount() == 0);
