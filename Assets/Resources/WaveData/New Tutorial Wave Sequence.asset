@@ -13,18 +13,33 @@ MonoBehaviour:
   m_Name: New Tutorial Wave Sequence
   m_EditorClassIdentifier: 
   tutorialSteps:
-  - tutorialImage: {fileID: 21300000, guid: 3476ec7508a6d75499d3ae4b53acae63, type: 3}
+  - tutorialImage: {fileID: 21300000, guid: 62d5a5c289bc19245ad54c51171ade15, type: 3}
     waveGroupName: t1
-  - tutorialImage: {fileID: 21300000, guid: d07e8dbec1cdc6746b5ecb66f9fd3846, type: 3}
+    specialTutorial: 0
+  - tutorialImage: {fileID: 21300000, guid: 0253383ec93a3b9498387b9bc979b90f, type: 3}
     waveGroupName: t2
-  - tutorialImage: {fileID: 21300000, guid: 33a2f8a77d803bc49a809cc2091c76c8, type: 3}
+    specialTutorial: 0
+  - tutorialImage: {fileID: 21300000, guid: dac76c48355e4d744bd5c87db716d9a1, type: 3}
+    waveGroupName: EmptyWave
+    specialTutorial: 1
+  - tutorialImage: {fileID: 21300000, guid: 72d34f000139c7941974fccb29a3305f, type: 3}
     waveGroupName: t3
-  - tutorialImage: {fileID: 21300000, guid: ce8f52b8d321ad14783807a9e57c6b23, type: 3}
+    specialTutorial: 1
+  - tutorialImage: {fileID: 21300000, guid: 06743f2d5b02f104f980d3a63ba38868, type: 3}
+    waveGroupName: EmptyWave
+    specialTutorial: 1
+  - tutorialImage: {fileID: 21300000, guid: 64d245ba63afbcc45b99cb9bb5ce7c0e, type: 3}
     waveGroupName: t4
+    specialTutorial: 1
   - tutorialImage: {fileID: 21300000, guid: f16545850fe266244b10e81d8806e6b1, type: 3}
     waveGroupName: t5
-  preTutorialImage: {fileID: -3575639108721964853, guid: a47a7342ac17d7e4c979e9a289ed40a8, type: 3}
-  confirmHintImage: {fileID: -3873364453908816561, guid: dadf8a324fc3dd14eb16d34d34215f5b, type: 3}
-  fadeDuration: 1
-  delayBeforeHint: 2
-  holdDuration: 2
+    specialTutorial: 0
+  - tutorialImage: {fileID: 21300000, guid: f16545850fe266244b10e81d8806e6b1, type: 3}
+    waveGroupName: t5
+    specialTutorial: 0
+  - tutorialImage: {fileID: 21300000, guid: f16545850fe266244b10e81d8806e6b1, type: 3}
+    waveGroupName: t5
+    specialTutorial: 0
+  - tutorialImage: {fileID: 21300000, guid: f16545850fe266244b10e81d8806e6b1, type: 3}
+    waveGroupName: t5
+    specialTutorial: 0
