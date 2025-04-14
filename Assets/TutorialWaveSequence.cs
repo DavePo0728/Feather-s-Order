@@ -29,12 +29,10 @@ public class TutorialWaveSequence : WaveSpawnController
                 yield return manager.WaitForContinueInput();
                 manager.StartCoroutine(manager.scenesManager.Fade(manager.tutorialImage, 1f, 0f,1f));
             }
-            else
-            {
-                manager.StartCoroutine(manager.scenesManager.Fade(manager.tutorialImage, 1f, 0f, 1f));
-            }
+            
             yield return manager.StartCoroutine(manager.GetWave(step.waveGroupName));
             yield return new WaitUntil(() => manager.EnemyCount() == 0);
+            manager.StartCoroutine(manager.scenesManager.Fade(manager.tutorialImage, 1f, 0f, 1f));
         }
         manager.BGMFadeOut();
         yield return new WaitForSeconds(2.5f);
