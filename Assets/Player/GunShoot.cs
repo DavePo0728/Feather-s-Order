@@ -20,7 +20,15 @@ public class GunShoot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //transform.LookAt(EmptyAimObject.transform);
+        if (playerAim.aimInput.x != 0)
+        {
+            transform.LookAt(EmptyAimObject.transform);
+        }
+        else
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+
     }
     public void Shoot()
     {

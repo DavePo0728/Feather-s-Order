@@ -32,6 +32,8 @@ public class EnemyMove : MonoBehaviour
     [SerializeField]
     bool isDebug;
     [SerializeField]
+    float DebugMoveTime;
+    [SerializeField]
     bool isDebugHaveGun;
     public bool isMove =false;
 
@@ -97,7 +99,7 @@ public class EnemyMove : MonoBehaviour
         }
         else
         {
-            moveTime = 1f;
+            moveTime = DebugMoveTime;
             if (activeGun != null)
                 activeGun.SetActive(true);
             originPos = transform.position;

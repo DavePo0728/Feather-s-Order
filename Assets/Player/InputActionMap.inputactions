@@ -191,6 +191,17 @@
                 },
                 {
                     "name": "",
+                    "id": "a0600d5c-1850-4e84-9818-52dc289bc334",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Aim",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "45c8084e-50d7-4950-a599-2a6b0101d9bf",
                     "path": "<Mouse>/press",
                     "interactions": "",
@@ -307,17 +318,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "PauseMenu",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "cbab2945-657d-4429-9988-c4d33c2b47cb",
-                    "path": "<Gamepad>/rightStick",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Aim",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

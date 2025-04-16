@@ -63,7 +63,7 @@ public class PlayerShooting : MonoBehaviour
                     || playerSlashAttack.slashState == PlayerSlashAttack.SlashState.Arrived 
                     || playerSlashAttack.slashState == PlayerSlashAttack.SlashState.Attacking)
                 {
-                    Debug.Log("StopShooting");
+                    //Debug.Log("StopShooting");
                     StopShooting();
                     return;
                 }

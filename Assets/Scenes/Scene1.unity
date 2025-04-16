@@ -123581,6 +123581,7 @@ MonoBehaviour:
   moveB_PathList: []
   moveC_PathList: []
   isDebug: 1
+  DebugMoveTime: 0
   isDebugHaveGun: 1
   isMove: 1
   gunList: []
@@ -422820,6 +422821,7 @@ MonoBehaviour:
   moveB_PathList: []
   moveC_PathList: []
   isDebug: 1
+  DebugMoveTime: 0
   isDebugHaveGun: 1
   isMove: 1
   gunList: []
@@ -481257,6 +481259,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 58ee3688-00bb-481b-a3f1-602128f046d3
     m_ActionName: GameScene/Continue[/DualSenseGamepadHID/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9659d786-b6c7-49b2-b111-aea1d4eee842
+    m_ActionName: GameScene/PressB[/XInputControllerWindows/buttonEast]
   m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: 
   m_DefaultActionMap: GameScene
@@ -489335,6 +489341,7 @@ MonoBehaviour:
   moveB_PathList: []
   moveC_PathList: []
   isDebug: 1
+  DebugMoveTime: 0
   isDebugHaveGun: 1
   isMove: 1
   gunList: []
@@ -489368,6 +489375,7 @@ MonoBehaviour:
   moveB_PathList: []
   moveC_PathList: []
   isDebug: 1
+  DebugMoveTime: 0
   isDebugHaveGun: 1
   isMove: 1
   gunList: []
@@ -653027,6 +653035,8 @@ MonoBehaviour:
   farLockSFX: {fileID: 8300000, guid: d96c01fac5d4db44dbdbe9793ab56625, type: 3}
   nearLockSFX: {fileID: 8300000, guid: a7d54c6a34cfad048a19bc97b77bdfec, type: 3}
   audioSource: {fileID: 4584443460928411353}
+  aimInput: {x: 0, y: 0}
+  aimOffset: 30
 --- !u!4 &9156664114468427296
 Transform:
   m_ObjectHideFlags: 0
@@ -658327,6 +658337,7 @@ MonoBehaviour:
   moveB_PathList: []
   moveC_PathList: []
   isDebug: 1
+  DebugMoveTime: 0
   isDebugHaveGun: 1
   isMove: 1
   gunList: []

@@ -35,14 +35,9 @@ public class PlayerMove : MonoBehaviour
     float dashingTime = 0.2f;
     [SerializeField]
     float dashCooldown;
-    bool isRotating = false;
     AudioSource dashSound;
     [SerializeField]
     GameObject body;
-    float rotationDuration = 0.5f; // Duration of the rotation in seconds
-    float rotateStartTime; // Time when the rotation starts
-    //float leanStartTime;
-    Vector3 initialRotation; // Initial rotation of the object
     Vector2 movementInput;
     float leanInput;
     //bool manualLean = true;
@@ -82,7 +77,7 @@ public class PlayerMove : MonoBehaviour
     }
     public void GetMove(InputAction.CallbackContext context)
     {
-        movementInput = context.ReadValue<Vector2>(); 
+        movementInput = context.ReadValue<Vector2>();
     }
     public void GetDash(InputAction.CallbackContext context)
     {
@@ -90,7 +85,6 @@ public class PlayerMove : MonoBehaviour
         {
             if (canDash/*&&currentEnergy>=20&&!isOutBurst*/)
             {
-                rotateStartTime = Time.time;
                 StartCoroutine(OnDash());
                 DashAudioSource.Play();
                 //currentEnergy -= 20;
@@ -182,7 +176,7 @@ public class PlayerMove : MonoBehaviour
                         playerSlashAttack.FallBackFinish();
                     }
                 }
-                else
+                else if(playerSlashAttack.slashState == PlayerSlashAttack.SlashState.Idle)
                 {
                     playerRigidbody.velocity = new Vector3(movement.x * moveHspeed, movement.y * moveVspeed, 0);
                     playerRigidbody.velocity = Vector3.ClampMagnitude(playerRigidbody.velocity, maxVelocity);
@@ -264,7 +258,6 @@ public class PlayerMove : MonoBehaviour
     {
         canDash = false;
         isDashing = true;
-        isRotating = true;
         playerVCamFramingTransposer.m_SoftZoneWidth = 0.8f;
         playerVCamFramingTransposer.m_XDamping = 1.2f;
         leanAngle = 75f;

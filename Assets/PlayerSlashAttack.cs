@@ -32,7 +32,7 @@ public class PlayerSlashAttack : MonoBehaviour
     int hitCounter;
     float SlashTimer;
     float slashCD = 0.2f;
-    float maxTime = 3.0f;
+    float maxTime = 1.0f;
     float attackTimer = 0f;
     bool isCounting = false;
     Tweener tweener;
@@ -60,13 +60,14 @@ public class PlayerSlashAttack : MonoBehaviour
 
     public void GetSlashInput(InputAction.CallbackContext context)
     {
-        if (context.performed && slashState == SlashState.Idle)
+        if (context.performed && slashState == SlashState.Idle&&playerAim.isLocked)
         {
             if (playerAim.CheckLockedEnemy())
             {
-                target = playerAim._lockedEnemy;
-                if(target.CompareTag("Enemy"))
+                
+                if(playerAim._lockedEnemy.CompareTag("Enemy"))
                 {
+                    target = playerAim._lockedEnemy;
                     enemyHp = target.GetComponent<EnemyHp>();
                 }
                 else
@@ -183,38 +184,30 @@ public class PlayerSlashAttack : MonoBehaviour
         slashState = SlashState.Dashing;
         shieldEffect.SetActive(false);
         playerRigidbody.velocity = Vector3.zero;
-        if(target.CompareTag("Enemy"))
+        if (target != null)
         {
-            slashTarget = target.transform.Find("DashPoint").position;
-            Vector3 lastTargetPos = slashTarget;
-            tweener = playerRigidbody.DOMove(slashTarget, 0.5f).OnUpdate(() =>
+            if (target.CompareTag("Enemy"))
             {
-                if ((slashTarget - lastTargetPos).sqrMagnitude > 0.01f)
+                slashTarget = target.transform.Find("DashPoint").position;
+                Vector3 lastTargetPos = slashTarget;
+                tweener = playerRigidbody.DOMove(slashTarget, 0.5f).OnComplete(() =>
                 {
-                    lastTargetPos = slashTarget;
-                    tweener.ChangeEndValue(slashTarget, true);
-                }
-                if (Vector3.Distance(transform.position, slashTarget) <= 0.1f)
+                    slashState = SlashState.Arrived;
+                    playerRigidbody.velocity = Vector3.zero;
+                    isCounting = true;
+                    followZoom.m_Width = 0;
+                    TriggerSlash();
+                    IsReturnAnimation = false;
+                    playerAnimator.SetBool("OnAttack", true);
+                    attackTimer = 0;
+                });
+            }
+            if (tweener != null)
+            {
+                if (!tweener.IsPlaying())
                 {
-                    tweener.Complete();
+                    tweener.Play();
                 }
-            }).OnComplete(() =>
-            {
-                slashState = SlashState.Arrived;
-                playerRigidbody.velocity = Vector3.zero;
-                isCounting = true;
-                followZoom.m_Width = 0;
-                TriggerSlash();
-                IsReturnAnimation = false;
-                playerAnimator.SetBool("OnAttack", true);
-                attackTimer = 0;
-            });
-        }
-        if (tweener != null)
-        {
-            if (!tweener.IsPlaying())
-            {
-                tweener.Play();
             }
         }
     }
@@ -223,41 +216,43 @@ public class PlayerSlashAttack : MonoBehaviour
     {
         slashState = SlashState.Dashing;
         playerRigidbody.velocity = Vector3.zero;
-        if (target.CompareTag("Enemy"))
+        if (target != null)
         {
-            slashTarget = target.transform.Find("DashPoint").position;
-            Vector3 lastTargetPos = slashTarget;
-            tweener = playerRigidbody.DOMove(slashTarget, 0.5f).OnUpdate(() =>
+            if (target.CompareTag("Enemy"))
             {
-                if ((slashTarget - lastTargetPos).sqrMagnitude > 0.01f)
+                slashTarget = target.transform.Find("DashPoint").position;
+                Vector3 lastTargetPos = slashTarget;
+                tweener = playerRigidbody.DOMove(slashTarget, 0.5f).OnUpdate(() =>
                 {
-                    lastTargetPos = slashTarget;
-                    tweener.ChangeEndValue(slashTarget, true);
-                }
-                if (Vector3.Distance(transform.position, slashTarget) <= 0.1f)
+                    if ((slashTarget - lastTargetPos).sqrMagnitude > 0.01f)
+                    {
+                        lastTargetPos = slashTarget;
+                        tweener.ChangeEndValue(slashTarget, true);
+                    }
+                    if (Vector3.Distance(transform.position, slashTarget) <= 0.1f)
+                    {
+                        tweener.Complete();
+                    }
+                }).OnComplete(() =>
                 {
-                    tweener.Complete();
+                    slashState = SlashState.Arrived;
+                    playerRigidbody.velocity = Vector3.zero;
+                    playerVCam.m_Lens.FieldOfView = 15;
+                    followZoom.m_Width = 0;
+                    IsReturnAnimation = false;
+                    shieldEffect.SetActive(false);
+                    TriggerSlash();
+                    Invoke("ReturnAnimation", 0.5f);
+                });
+            }
+            if (tweener != null)
+            {
+                if (!tweener.IsPlaying())
+                {
+                    tweener.Play();
                 }
-            }).OnComplete(() =>
-            {
-                slashState = SlashState.Arrived;
-                playerRigidbody.velocity = Vector3.zero;
-                playerVCam.m_Lens.FieldOfView = 15;
-                followZoom.m_Width = 0;
-                IsReturnAnimation = false;
-                shieldEffect.SetActive(false);
-                TriggerSlash();
-                Invoke("ReturnAnimation", 0.5f);
-            });
-        }
-        if(tweener != null)
-        {
-            if (!tweener.IsPlaying())
-            {
-                tweener.Play();
             }
         }
-        
     }
 
     void SetAttack() => slashState = SlashState.Attacking;
@@ -289,6 +284,7 @@ public class PlayerSlashAttack : MonoBehaviour
 
     void ReturnAnimation()
     {
+        
         slashState = SlashState.FallingBack;
         hitCounter = 0;
         clothDB.enabled = true;
@@ -306,31 +302,24 @@ public class PlayerSlashAttack : MonoBehaviour
 
     public void FallBackFinish()
     {
-        slashState = SlashState.Idle;
+        target = playerAim.emptyAimObject;
         playerAim.aimmingImage.SetActive(true);
         shieldEffect.SetActive(true);
-        target = null;
+        slashState = SlashState.Idle;
     }
 
     public void ForceFallBack()
     {
-        if (target != null)
+        if (tweener != null && (tweener.IsPlaying() || slashState == SlashState.Dashing))
         {
-            enemyHp = target.GetComponent<EnemyHp>();
-            if (enemyHp.corruption_P)
-            {
-                if (tweener != null && (tweener.IsPlaying() || slashState == SlashState.Dashing))
-                {
-                    tweener.Kill();
-                    ReturnAnimation();
-                    return;
-                }
-                if (slashState == SlashState.Arrived)
-                {
-                    ReturnAnimation();
-                    return;
-                }
-            }
+            tweener.Kill();
+            ReturnAnimation();
+            return;
+        }
+        if (slashState == SlashState.Arrived|| slashState == SlashState.Attacking)
+        {
+            ReturnAnimation();
+            return;
         }
     }
 

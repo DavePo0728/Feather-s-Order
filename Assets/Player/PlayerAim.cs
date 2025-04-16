@@ -33,6 +33,11 @@ public class PlayerAim : MonoBehaviour
     [SerializeField] AudioClip nearLockSFX;
     [SerializeField] AudioSource audioSource;
     private GameObject lastLockedEnemy = null;
+    [HideInInspector]
+    public Vector2 aimInput;
+    [SerializeField]
+    float aimOffset;
+
     private void Awake()
     {
         nearLockAnim = NearLockImage.GetComponent<NearLockTweenAnim>();
@@ -51,9 +56,14 @@ public class PlayerAim : MonoBehaviour
         //CalculateMaxXLeft();
         //CalculateMaxXRight();
     }
+    public void GetAimInput(InputAction.CallbackContext context)
+    {
+        aimInput = context.ReadValue<Vector2>();
+    }
     void FixedUpdate()
     {
-        emptyAimObject.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + zOffset);
+        //emptyAimObject.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + zOffset);
+        emptyAimObject.transform.position = new Vector3(transform.position.x+aimOffset*aimInput.x, transform.position.y, transform.position.z + zOffset);
         aimmingImage.transform.position = playerCamera.WorldToScreenPoint(emptyAimObject.transform.position);
 
         if (isLocked)
