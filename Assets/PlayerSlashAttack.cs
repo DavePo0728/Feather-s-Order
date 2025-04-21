@@ -29,10 +29,12 @@ public class PlayerSlashAttack : MonoBehaviour
     [SerializeField] CinemachineFollowZoom followZoom;
     [SerializeField] GameObject flashImage;
 
+    bool dashCounting=false;
     int hitCounter;
     float SlashTimer;
     float slashCD = 0.2f;
     float maxTime = 1.0f;
+    [SerializeField]
     float attackTimer = 0f;
     bool isCounting = false;
     Tweener tweener;
@@ -79,6 +81,7 @@ public class PlayerSlashAttack : MonoBehaviour
 
             if (enemyHp != null)
             {
+                
                 if (enemyHp.haveshield)
                 {
                     playerAnimator.SetTrigger("Dash");
@@ -90,6 +93,7 @@ public class PlayerSlashAttack : MonoBehaviour
                 }
                 if (enemyHp.corrupted && !enemyHp.corruption_P)
                 {
+                    dashCounting = true;
                     playerAnimator.SetTrigger("Dash");
                     sword.SetActive(true);
                     DashToEnemy();
@@ -98,7 +102,7 @@ public class PlayerSlashAttack : MonoBehaviour
                 }
             }
         }
-        else if (slashState == SlashState.Arrived||slashState == SlashState.Attacking)
+        else if (slashState == SlashState.Attacking&&dashCounting==false)
         {
             ReturnAnimation();
         }
@@ -197,6 +201,7 @@ public class PlayerSlashAttack : MonoBehaviour
                     isCounting = true;
                     followZoom.m_Width = 0;
                     TriggerSlash();
+                    
                     IsReturnAnimation = false;
                     playerAnimator.SetBool("OnAttack", true);
                     attackTimer = 0;
@@ -207,6 +212,7 @@ public class PlayerSlashAttack : MonoBehaviour
                 if (!tweener.IsPlaying())
                 {
                     tweener.Play();
+                    Invoke("DashGap", 0.9f);
                 }
             }
         }
@@ -255,7 +261,14 @@ public class PlayerSlashAttack : MonoBehaviour
         }
     }
 
-    void SetAttack() => slashState = SlashState.Attacking;
+    void SetAttack() { 
+        slashState = SlashState.Attacking;
+        
+    }
+    void DashGap()
+    {
+        dashCounting = false;
+    }
 
     void FixedUpdate()
     {
@@ -263,7 +276,7 @@ public class PlayerSlashAttack : MonoBehaviour
         {
             SlashTimer += Time.deltaTime;
             attackTimer += Time.deltaTime;
-            if (attackTimer >= 1f)
+            if (attackTimer >= 0.5f)
             {
                 playerAnimator.SetBool("OnAttack", false);
                 clothDB.enabled = true;

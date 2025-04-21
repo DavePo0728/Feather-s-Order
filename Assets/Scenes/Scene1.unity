@@ -2435,11 +2435,6 @@ Transform:
   - {fileID: 896977107}
   m_Father: {fileID: 352883357}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &177602253 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 478688095041657607, guid: ef9a44eca7e62fa41bc5be78d6bced8f, type: 3}
-  m_PrefabInstance: {fileID: 585214339}
-  m_PrefabAsset: {fileID: 0}
 --- !u!95 &177602254 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5042852094250802666, guid: ef9a44eca7e62fa41bc5be78d6bced8f, type: 3}
@@ -8499,6 +8494,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef9a44eca7e62fa41bc5be78d6bced8f, type: 3}
+--- !u!1 &585214340 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 478688095041657607, guid: ef9a44eca7e62fa41bc5be78d6bced8f, type: 3}
+  m_PrefabInstance: {fileID: 585214339}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &586034283
 GameObject:
   m_ObjectHideFlags: 0
@@ -229929,6 +229929,7 @@ MonoBehaviour:
   impulseSource: {fileID: 4569409165055609027}
   followZoom: {fileID: 5173197115759677358}
   flashImage: {fileID: 1033508791827913940}
+  attackTimer: 0
   playerAnimator: {fileID: 177602254}
   clothDB: {fileID: 1628283138}
   sword: {fileID: 2015237280}
@@ -571488,14 +571489,15 @@ MonoBehaviour:
   moveVspeedMultiplier: 0
   zSpeed: 0
   oriZSpeed: 0
-  leanAngle: 30
-  lerpTime: 1
-  lerpMultiplier: 8
   dutchMultiplier: 0
   fallBackTime: 0.5
   dashCooldown: 0
-  body: {fileID: 177602253}
+  body: {fileID: 585214340}
   playerSlashAttack: {fileID: 0}
+  maxLookAngle: 0
+  rotateSpeed: 3
+  maxRollAngle: 20
+  maxPitchAngle: 15
   ChangeTimer: 0
 --- !u!33 &7911636927658643099
 MeshFilter:
@@ -653036,7 +653038,9 @@ MonoBehaviour:
   nearLockSFX: {fileID: 8300000, guid: a7d54c6a34cfad048a19bc97b77bdfec, type: 3}
   audioSource: {fileID: 4584443460928411353}
   aimInput: {x: 0, y: 0}
-  aimOffset: 30
+  aimOffsetX: 80
+  aimOffsetY: 30
+  dampingTime: 0.25
 --- !u!4 &9156664114468427296
 Transform:
   m_ObjectHideFlags: 0

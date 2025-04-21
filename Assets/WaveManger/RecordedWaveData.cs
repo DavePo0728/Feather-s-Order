@@ -27,6 +27,8 @@ public class RecordedWaveData : ScriptableObject
 
         [Tooltip("敵人離場的行為腳本類型名稱")]
         public string leaveTypeName;
+
+        public WaveManager.SpawnType spawnType;
     }
 
     [Header("錄製時產生的敵人生成紀錄")]

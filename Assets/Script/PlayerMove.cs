@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Cinemachine;
 using DG.Tweening;
+using UnityEngine.Windows;
 public class PlayerMove : MonoBehaviour
 {
     [SerializeField]
@@ -22,8 +23,8 @@ public class PlayerMove : MonoBehaviour
     float moveHspeed,moveVspeed, maxVelocity, moveHspeedMultiplier, moveVspeedMultiplier;
     [SerializeField]
     float zSpeed,oriZSpeed;
-    [SerializeField]
-    float leanAngle, lerpTime, lerpMultiplier;
+    //[SerializeField]
+    //float leanAngle, lerpTime, lerpMultiplier;
     [SerializeField]
     float dutchMultiplier;
     [SerializeField]
@@ -45,10 +46,18 @@ public class PlayerMove : MonoBehaviour
     Vector3 movement;
     [SerializeField]
     PlayerSlashAttack playerSlashAttack;
-	/*
+    PlayerAim playerAim;
+    [SerializeField]
+    private float maxLookAngle, rotateSpeed, maxRollAngle, maxPitchAngle;
+    float currentLookAngle;
+    private float currentLookYaw = 0f;
+    private float currentLookRoll = 0f;
+    private float currentPitch = 0f;
+    /*
      * Asuisui
         動畫控制
     */
+    [HideInInspector]
 	public float ChangeTimer = 0;
 	//飛行待機動作時長
 	float ChangeCD = 3f;
@@ -65,6 +74,7 @@ public class PlayerMove : MonoBehaviour
         zSpeed = oriZSpeed;
         playerSlashAttack = GetComponent<PlayerSlashAttack>();
         playerVCamFramingTransposer = playerVCam.GetCinemachineComponent<CinemachineFramingTransposer>();
+        playerAim = GetComponent<PlayerAim>();
         //manualLean = false;
     }
     // Start is called before the first frame update
@@ -154,7 +164,7 @@ public class PlayerMove : MonoBehaviour
         // Normal Movement
         if (!isDashing)
         {
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, 90 * leanInput), lerpTime * Time.deltaTime * lerpMultiplier);
+            //transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, 90 * leanInput), lerpTime * Time.deltaTime * lerpMultiplier);
             if (movementInput.x>0.2f||movementInput.y>0.2f|| movementInput.x < -0.2f || movementInput.y < -0.2f)
             {
                 movement = new Vector3(movementInput.x, movementInput.y, 0);
@@ -163,85 +173,74 @@ public class PlayerMove : MonoBehaviour
             {
                 movement = Vector3.zero;
             }
-                if (playerSlashAttack.slashState == PlayerSlashAttack.SlashState.FallingBack)
+            if (playerSlashAttack.slashState == PlayerSlashAttack.SlashState.FallingBack)
+            {
+                if (transform.position.z > 13)
                 {
-                    if(transform.position.z > 13)
-                    {
-                        playerRigidbody.velocity = new Vector3(movement.x * moveHspeed, movement.y * moveVspeed, -fallbackspeed);
-                        Vector2 clampedXY = Vector2.ClampMagnitude(new Vector2(playerRigidbody.velocity.x, playerRigidbody.velocity.y), maxVelocity);
-                        playerRigidbody.velocity = new Vector3(clampedXY.x, clampedXY.y, playerRigidbody.velocity.z);
-                    }
-                    else
-                    {
-                        playerSlashAttack.FallBackFinish();
-                    }
+                    playerRigidbody.velocity = new Vector3(movement.x * moveHspeed, movement.y * moveVspeed, -fallbackspeed);
+                    Vector2 clampedXY = Vector2.ClampMagnitude(new Vector2(playerRigidbody.velocity.x, playerRigidbody.velocity.y), maxVelocity);
+                    playerRigidbody.velocity = new Vector3(clampedXY.x, clampedXY.y, playerRigidbody.velocity.z);
                 }
-                else if(playerSlashAttack.slashState == PlayerSlashAttack.SlashState.Idle)
+                else
                 {
-                    playerRigidbody.velocity = new Vector3(movement.x * moveHspeed, movement.y * moveVspeed, 0);
-                    playerRigidbody.velocity = Vector3.ClampMagnitude(playerRigidbody.velocity, maxVelocity);
+                    playerSlashAttack.FallBackFinish();
                 }
-                //Debug.Log(playerRigidbody.velocity);
-                // flying lean
-                if (playerRigidbody.velocity.x < -0.2f)
-                {
-                    //leanStartTime = Time.time;
-                    transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, leanAngle), lerpTime * Time.deltaTime * lerpMultiplier);
-                    //float t = (Time.time - rotateStartTime) / 2.0f;
-                    //vCam.m_Lens.Dutch = Mathf.SmoothStep(vCam.m_Lens.Dutch, -10, t);
-                    playerVCam.m_Lens.Dutch = Mathf.Lerp(playerVCam.m_Lens.Dutch, -10, 0.2f * Time.deltaTime * 8);
-                    if(SceneVCam != null)
-                    {
-                        SceneVCam.m_Lens.Dutch = Mathf.Lerp(playerVCam.m_Lens.Dutch, -10, 0.2f * Time.deltaTime * 8);
-                    }
-                }
-                else if (playerRigidbody.velocity.x > 0.2f)
-                {
-                    //leanStartTime = Time.time;
-                    transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, -leanAngle), lerpTime * Time.deltaTime * lerpMultiplier);
-                    //float t = (Time.time - rotateStartTime) / 2.0f;
-                    //vCam.m_Lens.Dutch = Mathf.SmoothStep(vCam.m_Lens.Dutch, 10, t);
-                    playerVCam.m_Lens.Dutch = Mathf.Lerp(playerVCam.m_Lens.Dutch, 10, 0.2f * Time.deltaTime * 8);
-                    if (SceneVCam != null)
-                    {
-                        SceneVCam.m_Lens.Dutch = Mathf.Lerp(playerVCam.m_Lens.Dutch, 10, 0.2f * Time.deltaTime * 8);
-                    }
-                }
-                else if (playerRigidbody.velocity.x == 0 && !isDashing)
-                {
-                    //leanStartTime = Time.time;
-                    //transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, 0), lerpTime * Time.deltaTime * lerpMultiplier);
-                    //float t = (Time.time - rotateStartTime) / 2.0f;
-                    //vCam.m_Lens.Dutch = Mathf.SmoothStep(vCam.m_Lens.Dutch, 0, t);
-                    playerVCam.m_Lens.Dutch = Mathf.Lerp(playerVCam.m_Lens.Dutch, 0, 0.2f * Time.deltaTime * 8);
-                    if (SceneVCam != null)
-                    {
-                        SceneVCam.m_Lens.Dutch = Mathf.Lerp(playerVCam.m_Lens.Dutch, 0, 0.2f * Time.deltaTime * 8);
-                    }
-                }
-            //if (isRotating)
-            //{
-            //    //Debug.Log(leanInput);
-            //    //initialRotation = transform.rotation.EulerAngles();
-            //    transform.rotation = Quaternion.Euler(0, 0, 0);
-            //    float elapsedTime = Time.time - rotateStartTime;
-            //    float angle = Mathf.Lerp(transform.rotation.z, 360f, Mathf.SmoothStep(0f, 1f, elapsedTime / rotationDuration));
-            //    if (playerRigidbody.velocity.x >= 0)
-            //    {
+            }
+            else if (playerSlashAttack.slashState == PlayerSlashAttack.SlashState.Idle)
+            {
+                playerRigidbody.velocity = new Vector3(movement.x * moveHspeed, movement.y * moveVspeed, 0);
+                playerRigidbody.velocity = Vector3.ClampMagnitude(playerRigidbody.velocity, maxVelocity);
+            }
+            float targetYaw = movementInput.x * maxLookAngle;   // 左右轉頭 (Y 軸)
+            float targetRoll = -movementInput.x * maxRollAngle; // 左右傾斜 (Z 軸)，左傾為正 or 負視需求
+            float targetPitch = -movementInput.y * maxPitchAngle;
 
-            //        body.transform.eulerAngles = initialRotation + new Vector3(0f, 0f, angle);
-            //        //playerAnimator.SetTrigger("RightRoll");
-            //    }
-            //    else
-            //    {
+            // 2. 平滑插值
+            currentLookYaw = Mathf.Lerp(currentLookYaw, targetYaw, Time.deltaTime * rotateSpeed);
+            currentLookRoll = Mathf.Lerp(currentLookRoll, targetRoll, Time.deltaTime * rotateSpeed);
+            currentPitch = Mathf.Lerp(currentPitch, targetPitch, Time.deltaTime * rotateSpeed);
 
-            //        //playerAnimator.SetTrigger("LeftRoll");
-            //        body.transform.eulerAngles = initialRotation - new Vector3(0f, 0f, angle);
-            //    }
-            //    isRotating = false;
+            // 3. 套用旋轉（Y 為左右看，Z 為左右傾斜）
+            body.transform.localRotation = Quaternion.Euler(currentPitch, currentLookYaw, currentLookRoll);
 
-            //}
 
+            //Debug.Log(playerRigidbody.velocity);
+            // flying lean
+            if (playerRigidbody.velocity.x < -0.2f)
+            {
+                //leanStartTime = Time.time;
+                //body.transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, leanAngle), lerpTime * Time.deltaTime * lerpMultiplier);
+                //body.transform.LookAt(playerAim.emptyAimObject.transform);
+                //float t = (Time.time - rotateStartTime) / 2.0f;
+                //vCam.m_Lens.Dutch = Mathf.SmoothStep(vCam.m_Lens.Dutch, -10, t);
+                playerVCam.m_Lens.Dutch = Mathf.Lerp(playerVCam.m_Lens.Dutch, -10, 0.2f * Time.deltaTime * 8);
+                if (SceneVCam != null)
+                {
+                    SceneVCam.m_Lens.Dutch = Mathf.Lerp(playerVCam.m_Lens.Dutch, -10, 0.2f * Time.deltaTime * 8);
+                }
+            }
+            else if (playerRigidbody.velocity.x > 0.2f)
+            {
+              //float t = (Time.time - rotateStartTime) / 2.0f;
+                //vCam.m_Lens.Dutch = Mathf.SmoothStep(vCam.m_Lens.Dutch, 10, t);
+                playerVCam.m_Lens.Dutch = Mathf.Lerp(playerVCam.m_Lens.Dutch, 10, 0.2f * Time.deltaTime * 8);
+                if (SceneVCam != null)
+                {
+                    SceneVCam.m_Lens.Dutch = Mathf.Lerp(playerVCam.m_Lens.Dutch, 10, 0.2f * Time.deltaTime * 8);
+                }
+            }
+            else if (playerRigidbody.velocity.x == 0 && !isDashing)
+            {
+                //leanStartTime = Time.time;
+                //transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, 0), lerpTime * Time.deltaTime * lerpMultiplier);
+                //float t = (Time.time - rotateStartTime) / 2.0f;
+                //vCam.m_Lens.Dutch = Mathf.SmoothStep(vCam.m_Lens.Dutch, 0, t);
+                playerVCam.m_Lens.Dutch = Mathf.Lerp(playerVCam.m_Lens.Dutch, 0, 0.2f * Time.deltaTime * 8);
+                if (SceneVCam != null)
+                {
+                    SceneVCam.m_Lens.Dutch = Mathf.Lerp(playerVCam.m_Lens.Dutch, 0, 0.2f * Time.deltaTime * 8);
+                }
+            }
         }
     }
     public void CalculateFallbackSpeed()
@@ -260,7 +259,7 @@ public class PlayerMove : MonoBehaviour
         isDashing = true;
         playerVCamFramingTransposer.m_SoftZoneWidth = 0.8f;
         playerVCamFramingTransposer.m_XDamping = 1.2f;
-        leanAngle = 75f;
+        //leanAngle = 75f;
         //if (playerRigidbody.velocity.x < -0.2f)
         //{
         //    transform.DORotate(new Vector3(0, 0, 40f), 0.05f);
@@ -277,7 +276,7 @@ public class PlayerMove : MonoBehaviour
         
         yield return new WaitForSeconds(dashingTime);
         isDashing = false;
-        DOTween.To(() => leanAngle, x => leanAngle = x, 30f, 1.5f).Play();
+        //DOTween.To(() => leanAngle, x => leanAngle = x, 30f, 1.5f).Play();
         DOTween.To(() => playerVCamFramingTransposer.m_XDamping, x => playerVCamFramingTransposer.m_XDamping = x, 0.4f, 0.4f).Play();
         DOTween.To(() => playerVCamFramingTransposer.m_SoftZoneWidth, x => playerVCamFramingTransposer.m_SoftZoneWidth = x, 0.4f, 0.4f).Play();
         StartCoroutine(StartCountdown());

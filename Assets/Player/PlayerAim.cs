@@ -36,7 +36,10 @@ public class PlayerAim : MonoBehaviour
     [HideInInspector]
     public Vector2 aimInput;
     [SerializeField]
-    float aimOffset;
+    float aimOffsetX,aimOffsetY;
+    public float dampingTime;
+
+    private Vector3 currentVelocity;
 
     private void Awake()
     {
@@ -63,8 +66,22 @@ public class PlayerAim : MonoBehaviour
     void FixedUpdate()
     {
         //emptyAimObject.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z + zOffset);
-        emptyAimObject.transform.position = new Vector3(transform.position.x+aimOffset*aimInput.x, transform.position.y, transform.position.z + zOffset);
-        aimmingImage.transform.position = playerCamera.WorldToScreenPoint(emptyAimObject.transform.position);
+        Vector3 targetOffset = new Vector3(
+                aimOffsetX * aimInput.x,
+                aimOffsetY * aimInput.y,
+                zOffset
+            );
+
+        // 計算目標位置
+        Vector3 targetPosition = transform.position + targetOffset;
+
+        // 使用 SmoothDamp 來讓 emptyAimObject 回彈時有 Damping
+        emptyAimObject.transform.position = Vector3.SmoothDamp(
+            emptyAimObject.transform.position,
+            targetPosition,
+            ref currentVelocity,
+            dampingTime
+        ); aimmingImage.transform.position = playerCamera.WorldToScreenPoint(emptyAimObject.transform.position);
 
         if (isLocked)
         {

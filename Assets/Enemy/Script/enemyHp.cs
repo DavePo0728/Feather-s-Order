@@ -341,13 +341,14 @@ public class EnemyHp : MonoBehaviour
             corruptionCleanseParticle.Play();
             corruptEffect.SetActive(false);
             StartCoroutine(enemyMove.Paralyze());
+            Debug.Log(enemyMove.paralyzeTime);
             yield return new WaitForSeconds(enemyMove.paralyzeTime);
             corruption = true;
             playerSlashAttack.ForceFallBack();
             corruptionCleanseObject.SetActive(false);
             chainEffectObject.SetActive(false);
             corruptEffect.SetActive(true);
-            
+            currentCorruptionStack = 0;
         }
     }
     void UpdateUI()

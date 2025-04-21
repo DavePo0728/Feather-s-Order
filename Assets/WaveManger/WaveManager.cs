@@ -7,6 +7,8 @@ using UnityEngine.InputSystem;
 using System.Net;
 using TMPro;
 using FUnit.GameObjectExtensions;
+using UnityEditorInternal.Profiling.Memory.Experimental.FileFormat;
+
 
 
 #if UNITY_EDITOR
@@ -26,32 +28,37 @@ public class WaveManager : MonoBehaviour
     [Header("UI")]
     [Header("Tutorial Settings")]
     public Image tutorialImage;
-
     [SerializeField]
     bool debug = false;
-    [SerializeField]
-    EnemyDataList enemyDataList;
-    EnemyData[] enemyDatas => enemyDataList.enemyDatas;
-    [SerializeField]
-    SpawnDataList spawnDataList;
-    SpawnData[] spawnDatas => spawnDataList.spawnDatas;
-    [SerializeField]
-    GunDataList gunDataList;
-    GunData[] gunDatas =>gunDataList.gunDatas;
-
+    public EnemyDataList enemyDataList;
+    public EnemyData[] enemyDatas => enemyDataList.enemyDatas;
+    public SpawnDataList spawnDataList;
+    public SpawnData[] spawnDatas => spawnDataList.spawnDatas;
+    public GunDataList gunDataList;
+    public GunData[] gunDatas => gunDataList.gunDatas;
     [Header("Recording")]
-    [SerializeField] private bool isRecording = false;
-    [SerializeField] private RecordedWaveData currentRecording;
-    [SerializeField] private float recordStartTime;
-    [SerializeField] private string savePath = "Assets/WaveRecordings/";
-    [SerializeField] private List<RecordedWaveData> recordedWaveDataList;
+    [SerializeField] 
+    private bool isRecording = false;
+    [SerializeField]
+    private RecordedWaveData currentRecording;
+    [SerializeField] 
+    private float recordStartTime;
+    [SerializeField] 
+    private string savePath = "Assets/WaveRecordings/";
+    [SerializeField] 
+    private List<RecordedWaveData> recordedWaveDataList;
     [Header("Debug UI")]
-    [SerializeField] private bool showDebugUI = true;
-    [SerializeField] private Vector2 debugUIPosition = new Vector2(10, 10);
-    [SerializeField] private Vector2 debugUISize = new Vector2(300, 200);
-    [SerializeField] private GUIStyle debugTextStyle;
-    [SerializeField] private bool autoStartRecording = false;
-    [SerializeField] List<RecordedWaveData> recordedWaves;
+    [SerializeField] 
+    private bool showDebugUI = true;
+    [SerializeField] 
+    private Vector2 debugUIPosition = new Vector2(10, 10);
+    [SerializeField] 
+    private Vector2 debugUISize = new Vector2(300, 200);
+    [SerializeField] 
+    private GUIStyle debugTextStyle;
+    [SerializeField] 
+    private bool autoStartRecording = false;
+    public List<RecordedWaveData> recordedWaves;
     private int currentRecordingIndex = 0;
     private Dictionary<string, System.Func<IEnumerator>> spawnGroupMap;
     private Dictionary<string, RecordedWaveData> recordedWaveMap;
@@ -126,6 +133,7 @@ public class WaveManager : MonoBehaviour
             IEntryBehaviour entry = System.Activator.CreateInstance(System.Type.GetType(record.entryTypeName)) as IEntryBehaviour;
             IMoveBehaviour move = System.Activator.CreateInstance(System.Type.GetType(record.moveTypeName)) as IMoveBehaviour;
             ILeaveBehaviour leave = System.Activator.CreateInstance(System.Type.GetType(record.leaveTypeName)) as ILeaveBehaviour;
+            SpawnType spawnType = record.spawnType;
 
             if (entry == null || move == null || leave == null)
             {
@@ -133,7 +141,7 @@ public class WaveManager : MonoBehaviour
                 continue;
             }
 
-            NewSpawn(enemyDatas[record.enemyIndex], spawnDatas[record.spawnDataIndex], gunDatas[record.gunDataIndex], entry, move, leave);
+            NewSpawn(enemyDatas[record.enemyIndex], spawnDatas[record.spawnDataIndex], gunDatas[record.gunDataIndex], entry, move, leave, spawnType);
         }
     }
     private void OnGUI()
@@ -200,7 +208,7 @@ public class WaveManager : MonoBehaviour
             Debug.Log("Recording saved.");
         }
 
-        public static void Record(RecordedWaveData data, int enemyIndex, int spawnIndex, int gunIndex, IEntryBehaviour entry, IMoveBehaviour move, ILeaveBehaviour leave)
+        public static void Record(RecordedWaveData data, int enemyIndex, int spawnIndex, int gunIndex, IEntryBehaviour entry, IMoveBehaviour move, ILeaveBehaviour leave,SpawnType spawnType)
         {
             if (!isRecording || data == null) return;
 
@@ -212,12 +220,13 @@ public class WaveManager : MonoBehaviour
                 gunDataIndex = gunIndex,
                 entryTypeName = entry.GetType().Name,
                 moveTypeName = move.GetType().Name,
-                leaveTypeName = leave.GetType().Name
+                leaveTypeName = leave.GetType().Name,
+                spawnType = spawnType
             };
             data.spawnRecords.Add(record);
         }
 
-        public static IEnumerator Replay(RecordedWaveData data, System.Action<int, int, int, IEntryBehaviour, IMoveBehaviour, ILeaveBehaviour> spawnAction)
+        public static IEnumerator Replay(RecordedWaveData data, System.Action<int, int, int, IEntryBehaviour, IMoveBehaviour, ILeaveBehaviour,SpawnType> spawnAction)
         {
             if (data == null || data.spawnRecords == null || data.spawnRecords.Count == 0)
             {
@@ -236,6 +245,7 @@ public class WaveManager : MonoBehaviour
                 IEntryBehaviour entry = System.Activator.CreateInstance(System.Type.GetType(record.entryTypeName)) as IEntryBehaviour;
                 IMoveBehaviour move = System.Activator.CreateInstance(System.Type.GetType(record.moveTypeName)) as IMoveBehaviour;
                 ILeaveBehaviour leave = System.Activator.CreateInstance(System.Type.GetType(record.leaveTypeName)) as ILeaveBehaviour;
+                SpawnType spawnType = record.spawnType;
 
                 if (entry == null || move == null || leave == null)
                 {
@@ -243,7 +253,7 @@ public class WaveManager : MonoBehaviour
                     continue;
                 }
 
-                spawnAction(record.enemyIndex, record.spawnDataIndex, record.gunDataIndex, entry, move, leave);
+                spawnAction(record.enemyIndex, record.spawnDataIndex, record.gunDataIndex, entry, move, leave,spawnType);
             }
         }
     }
@@ -276,9 +286,10 @@ public class WaveManager : MonoBehaviour
     }
 
     public void NewSpawn_WithRecord(int enemyIndex, int spawnIndex, int gunIndex,
-    IEntryBehaviour entry, IMoveBehaviour move, ILeaveBehaviour leave)
+    IEntryBehaviour entry, IMoveBehaviour move, ILeaveBehaviour leave,SpawnType spawnType)
     {
-        NewSpawn(enemyDatas[enemyIndex], spawnDatas[spawnIndex], gunDatas[gunIndex], entry, move, leave);
+
+        NewSpawn(enemyDatas[enemyIndex], spawnDatas[spawnIndex], gunDatas[gunIndex], entry, move, leave,spawnType);
 
         if (!isRecording || currentRecording == null) return;
 
@@ -290,7 +301,8 @@ public class WaveManager : MonoBehaviour
             gunDataIndex = gunIndex,
             entryTypeName = entry.GetType().Name,
             moveTypeName = move.GetType().Name,
-            leaveTypeName = leave.GetType().Name
+            leaveTypeName = leave.GetType().Name,
+            spawnType = spawnType
         };
 
         currentRecording.spawnRecords.Add(record);
@@ -314,6 +326,7 @@ public class WaveManager : MonoBehaviour
             IEntryBehaviour entry = System.Activator.CreateInstance(System.Type.GetType(record.entryTypeName)) as IEntryBehaviour;
             IMoveBehaviour move = System.Activator.CreateInstance(System.Type.GetType(record.moveTypeName)) as IMoveBehaviour;
             ILeaveBehaviour leave = System.Activator.CreateInstance(System.Type.GetType(record.leaveTypeName)) as ILeaveBehaviour;
+            SpawnType spawnType = record.spawnType;
 
             if (entry == null || move == null || leave == null)
             {
@@ -323,12 +336,7 @@ public class WaveManager : MonoBehaviour
 
             Debug.Log($"[Replay] Spawn enemy at {record.timestamp:F2}s (waited {waitTime:F2}s)");
 
-            NewSpawn(
-                enemyDatas[record.enemyIndex],
-                spawnDatas[record.spawnDataIndex],
-                gunDatas[record.gunDataIndex],
-                entry, move, leave
-            );
+            NewSpawn(enemyDatas[record.enemyIndex],spawnDatas[record.spawnDataIndex],gunDatas[record.gunDataIndex],entry, move, leave,spawnType);
         }
     }
     public enum BulletType
@@ -541,8 +549,14 @@ public class WaveManager : MonoBehaviour
     {
         soundManager.BGMFadeOut();
     }
+    public enum SpawnType
+    {
+        TypeA, // 普通路線
+        TypeB, // PathCreator
+        TypeC  // Custom Node Path
+    }
     //spawn A
-    void NewSpawn(EnemyData enemyData,SpawnData spawnData,GunData gunData,IEntryBehaviour entryBehaviour, IMoveBehaviour moveABehaviour, ILeaveBehaviour leaveBehaviour)
+    public void NewSpawn(EnemyData enemyData,SpawnData spawnData,GunData gunData,IEntryBehaviour entryBehaviour, IMoveBehaviour moveABehaviour, ILeaveBehaviour leaveBehaviour,SpawnType spawnType)
     {
         Vector3 spawnPoint = Vector3PointGenerator.instance.GetPoint((int)spawnData.data.spawnPosition.x, (int)spawnData.data.spawnPosition.y, (int)spawnData.data.spawnPosition.z);
         Vector3 endPoint = Vector3PointGenerator.instance.GetPoint((int)spawnData.data.endPosition.x, (int)spawnData.data.endPosition.y, (int)spawnData.data.endPosition.z);
@@ -571,13 +585,56 @@ public class WaveManager : MonoBehaviour
         {
             enemyMove.curveHeight = spawnData.data.curveHeight;
         }
+        switch (spawnType)
+        {
+            case SpawnType.TypeA:
+                break;
+            case SpawnType.TypeB:
+                enemyMove.moveB_PathList = CurvePathGenerator.pathInstance.GetCurvePath(pathList[spawnData.data.pathNum]);
+                break;
+            case SpawnType.TypeC:
+                var path = customPathDataList[spawnData.data.customPathNum];
+                enemyMove.moveC_PathList = Vector3PointGenerator.instance.GetMoveCPathList(path.pathX.Count, path);
+                break;
+        }
         IEntryBehaviour entry = entryBehaviour;
         IMoveBehaviour move = moveABehaviour;
         ILeaveBehaviour leave = leaveBehaviour;
         enemyMove.SetBehaviours(entry, move, leave);
         enemyMove.ActiveGun(gunData.data.gunIndex, gunData.data.rpm, gunData.data.bulletAmount, gunData.data.spinSpeed, gunData.data.shootingCoolDown, (EnemyMove.BulletType)gunData.data.bulletType, gunData.data.MaxShootWave);
     }
-    void NewSpawnB(EnemyData enemyData, SpawnData spawnData, GunData gunData, IEntryBehaviour entryBehaviour, IMoveBehaviour moveABehaviour, ILeaveBehaviour leaveBehaviour)
+    public IEntryBehaviour CreateEntryBehaviour(EntryType type)
+    {
+        return type switch
+        {
+            EntryType.EntryTypeA => new EntryTypeA(),
+            _ => null
+        };
+    }
+
+    public IMoveBehaviour CreateMoveBehaviour(MoveType type)
+    {
+        return type switch
+        {
+            MoveType.MoveTypeA => new MoveTypeA(),
+            MoveType.MoveTypeB => new MoveTypeB(),
+            MoveType.MoveTypeC => new MoveTypeC(),
+            MoveType.MoveTypeD => new MoveTypeD(),
+            MoveType.MoveTypeE => new MoveTypeE(),
+            _ => null
+        };
+    }
+
+    public ILeaveBehaviour CreateLeaveBehaviour(LeaveType type)
+    {
+        return type switch
+        {
+            LeaveType.LeaveTypeA => new LeaveTypeA(),
+            _ => null
+        };
+    }
+
+    void NewSpawnB(EnemyData enemyData, SpawnData spawnData, GunData gunData, IEntryBehaviour entryBehaviour, IMoveBehaviour moveBBehaviour, ILeaveBehaviour leaveBehaviour)
     {
         Vector3 spawnPoint = Vector3PointGenerator.instance.GetPoint((int)spawnData.data.spawnPosition.x, (int)spawnData.data.spawnPosition.y, (int)spawnData.data.spawnPosition.z);
         Vector3 endPoint = Vector3PointGenerator.instance.GetPoint((int)spawnData.data.endPosition.x, (int)spawnData.data.endPosition.y, (int)spawnData.data.endPosition.z);
@@ -607,12 +664,12 @@ public class WaveManager : MonoBehaviour
         }
         enemyMove.moveB_PathList = CurvePathGenerator.pathInstance.GetCurvePath(pathList[spawnData.data.pathNum]);
         IEntryBehaviour entry = entryBehaviour;
-        IMoveBehaviour move = moveABehaviour;
+        IMoveBehaviour move = moveBBehaviour;
         ILeaveBehaviour leave = leaveBehaviour;
         enemyMove.SetBehaviours(entry, move, leave);
         enemyMove.ActiveGun(gunData.data.gunIndex, gunData.data.rpm, gunData.data.bulletAmount, gunData.data.spinSpeed, gunData.data.shootingCoolDown, (EnemyMove.BulletType)gunData.data.bulletType, gunData.data.MaxShootWave);
     }
-    void NewSpawnC(EnemyData enemyData, SpawnData spawnData, GunData gunData, IEntryBehaviour entryBehaviour, IMoveBehaviour moveABehaviour, ILeaveBehaviour leaveBehaviour)
+    void NewSpawnC(EnemyData enemyData, SpawnData spawnData, GunData gunData, IEntryBehaviour entryBehaviour, IMoveBehaviour moveCBehaviour, ILeaveBehaviour leaveBehaviour)
     {
         Vector3 spawnPoint = Vector3PointGenerator.instance.GetPoint((int)spawnData.data.spawnPosition.x, (int)spawnData.data.spawnPosition.y, (int)spawnData.data.spawnPosition.z);
         Vector3 endPoint = Vector3PointGenerator.instance.GetPoint((int)spawnData.data.endPosition.x, (int)spawnData.data.endPosition.y, (int)spawnData.data.endPosition.z);
@@ -644,66 +701,16 @@ public class WaveManager : MonoBehaviour
         enemyMove.moveC_PathList = Vector3PointGenerator.instance.GetMoveCPathList(path.pathX.Count, path);
         enemyMove.pointWaitTime = spawnData.data.pointWaitTime;
         IEntryBehaviour entry = entryBehaviour;
-        IMoveBehaviour move = moveABehaviour;
+        IMoveBehaviour move = moveCBehaviour;
         ILeaveBehaviour leave = leaveBehaviour;
         enemyMove.SetBehaviours(entry, move, leave);
         enemyMove.ActiveGun(gunData.data.gunIndex, gunData.data.rpm, gunData.data.bulletAmount, gunData.data.spinSpeed, gunData.data.shootingCoolDown, (EnemyMove.BulletType)gunData.data.bulletType, gunData.data.MaxShootWave);
     }
-    /*A_01: done
-    SpawnEnemy(enemyList[0],5,false,0, Vector3PointGenerator.instance.GetPoint(17, 3, 0), Vector3PointGenerator.instance.GetPoint(17, 3, 0), Vector3PointGenerator.instance.GetPoint(17, 3, 0),
-    new EntryTypeA(), new MoveTypeA(), new LeaveTypeA(), Random.Range(-100f, 100f),1,300,1.5f,3,0,BulletType.Red);
-    */
-    /*A_01S: done
-     SpawnEnemy(enemyList[0],5,true,5, Vector3PointGenerator.instance.GetPoint(17, 3, 0), Vector3PointGenerator.instance.GetPoint(17, 3, 0), Vector3PointGenerator.instance.GetPoint(17, 3, 0),
-     new EntryTypeA(), new MoveTypeB(), new LeaveTypeA(), Random.Range(-100f, 100f),3,300,1f,6,0,BulletType.Black);
-     */
-    /*A_02: done
-     SpawnEnemy(enemyList[0],5,false,0, Vector3PointGenerator.instance.GetPoint(17, 3, 0), Vector3PointGenerator.instance.GetPoint(17, 3, 0), Vector3PointGenerator.instance.GetPoint(17, 3, 0),
-     new EntryTypeA(), new MoveTypeB(), new LeaveTypeA(), Random.Range(-100f, 100f),pathList[0],4,300,2.5f,4,0,BulletType.purple);
-     */
-    /*A_02S: done
-     SpawnEnemy(enemyList[0],5,true,5, Vector3PointGenerator.instance.GetPoint(17, 3, 0), Vector3PointGenerator.instance.GetPoint(17, 3, 0), Vector3PointGenerator.instance.GetPoint(17, 3, 0),
-     new EntryTypeA(), new MoveTypeC(), new LeaveTypeA(), Random.Range(-100f, 100f),pathList[0],4,300,2.5f,4,0,BulletType.purple);
-     */
-    /*A_03: done
-     SpawnEnemy(enemyList[0],5,false,0, Vector3PointGenerator.instance.GetPoint(17, 3, 0), Vector3PointGenerator.instance.GetPoint(17, 3, 0), Vector3PointGenerator.instance.GetPoint(17, 3, 0),
-     new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), Random.Range(-100f, 100f),1,300,1.5f,3,0,BulletType.Red);
-     */
-    /*A_04: done
-      SpawnEnemy(enemyList[0],5,false,0, Vector3PointGenerator.instance.GetPoint(17, 3, 0), Vector3PointGenerator.instance.GetPoint(17, 3, 0), Vector3PointGenerator.instance.GetPoint(17, 3, 0),
-     new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), Random.Range(-100f, 100f),1,300,1.5f,3,0,BulletType.Red);
-     */
-    /*A_05:
-     SpawnEnemy(enemyList[0],5,false,0, Vector3PointGenerator.instance.GetPoint(17, 3, 0), Vector3PointGenerator.instance.GetPoint(17, 3, 0), Vector3PointGenerator.instance.GetPoint(17, 3, 0),
-     new EntryTypeA(), new MoveTypeA(), new LeaveTypeA(), Random.Range(-100f, 100f),1,300,1.5f,3,0,BulletType.Red);
-    */
-    /*B_01:
-    SpawnEnemy(enemyList[1],20,false,0, Vector3PointGenerator.instance.GetPoint(17, 3, 0), Vector3PointGenerator.instance.GetPoint(17, 3, 0), Vector3PointGenerator.instance.GetPoint(17, 3, 0),
-    new EntryTypeA(), new MoveTypeC(), new LeaveTypeA(), Random.Range(-100f, 100f),pathList[0],5,300,2.5f,4,2,BulletType.red);
-    */
-
-    /*SpawnEnemy(GameObject enemy, float hp, bool haveShield,float shieldHp,
-    Vector3 spawnPoint, Vector3 endPoint, Vector3 leavePoint,
-    IEntryBehaviour entryBehaviour,IMoveBehaviour moveBehaviour, ILeaveBehaviour leaveBehaviour,float curveHeight,
-    int gunIndex,float rpm,float shootingCoolDown, float bulletAmount, float spinSpeed, BulletType bulletType)
-        */
     // MoveTypeA :小範圍隨機移動
     // MoveTypeB :固定軌道移動
     // MoveTypeC :大範圍節點移動​
     // MoveTypeD :直進直出
     // MoveTypeE :自訂進停退時間
-    IEnumerator TestSpawn()
-    {
-        NewSpawn(enemyDatas[0], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeA(), new LeaveTypeA());   ///MoveTypeA  Or   MovetypeD
-
-        NewSpawn(enemyDatas[3], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());   ///MoveTypeA  Or   MovetypeD
-        NewSpawn(enemyDatas[4], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeE(), new LeaveTypeA());   ///MoveTypeA  Or   MovetypeD
-
-        yield return new WaitForSeconds(0.1f);
-        NewSpawnB(enemyDatas[1], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeB(), new LeaveTypeA());   //MoveTypeB
-        yield return new WaitForSeconds(0.1f);
-        NewSpawnC(enemyDatas[2], spawnDatas[0], gunDatas[0], new EntryTypeA(), new MoveTypeC(), new LeaveTypeA());   //MoveTypeC
-    }
     IEnumerator EmptyWaveDelay() // 空波次(延遲)
     {
         yield return new WaitForSeconds(10f);
@@ -714,229 +721,229 @@ public class WaveManager : MonoBehaviour
     }
     IEnumerator TutorialWave1() {
         yield return new WaitForSeconds(5f);
-        NewSpawn_WithRecord(0, 15, 4, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 15, 4, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(),SpawnType.TypeA);
         yield return new WaitForSeconds(0.5f);
-        NewSpawn_WithRecord(0, 16, 4, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 16, 4, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(0.5f);
         yield return new WaitForSeconds(3f);
-        NewSpawn_WithRecord(0, 15, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 15, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(0.5f);
-        NewSpawn_WithRecord(0, 16, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 16, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(0.5f);
     }
     IEnumerator TutorialWave2() {
         yield return new WaitForSeconds(4f);
-        NewSpawn_WithRecord(0, 15, 5, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 15, 5, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(0.5f);
-        NewSpawn_WithRecord(0, 16, 5, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 16, 5, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(2f);
-        NewSpawn_WithRecord(0, 17, 5, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 17, 5, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(0.5f);
         
     }
     IEnumerator TutorialWave3() {
-        NewSpawn_WithRecord(0, 0, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 0, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(0.5f);
-        NewSpawn_WithRecord(0, 0, 5, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 0, 5, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(0.5f);
-        NewSpawn_WithRecord(0, 0, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 0, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(0.5f);
-        NewSpawn_WithRecord(0, 0, 5, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 0, 5, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(3f);
-        NewSpawn_WithRecord(0, 0, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 0, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(0.5f);
-        NewSpawn_WithRecord(0, 0, 5, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 0, 5, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(0.5f);
-        NewSpawn_WithRecord(0, 0, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 0, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(0.5f);
-        NewSpawn_WithRecord(0, 0, 5, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 0, 5, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
     }
     IEnumerator TutorialWave4() {
-        NewSpawn_WithRecord(0, 0, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 0, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(0.5f);
-        NewSpawn_WithRecord(2, 0, 0, new EntryTypeA(), new MoveTypeA(), new LeaveTypeA());
+        NewSpawn_WithRecord(2, 0, 0, new EntryTypeA(), new MoveTypeA(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(0.5f);
-        NewSpawn_WithRecord(0, 0, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 0, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(0.5f);
     }
     IEnumerator TutorialWave5() {
-        NewSpawn_WithRecord(0, 0, 1, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 0, 1, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(0.5f);
-        NewSpawn_WithRecord(0, 0, 1, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 0, 1, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(0.5f);
-        NewSpawn_WithRecord(0, 0, 1, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 0, 1, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(0.5f);
-        NewSpawn_WithRecord(0, 0, 1, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 0, 1, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(0.5f);
-        NewSpawn_WithRecord(2, 0, 0, new EntryTypeA(), new MoveTypeA(), new LeaveTypeA());
+        NewSpawn_WithRecord(2, 0, 0, new EntryTypeA(), new MoveTypeA(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(0.5f);
     }
     IEnumerator SpawnGroup_R() // R    1
     {
-        NewSpawn_WithRecord(0, 0, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 0, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(0.5f);
 
-        NewSpawn_WithRecord(0, 0, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 0, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(0.5f);
 
-        NewSpawn_WithRecord(0, 0, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 0, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(0.5f);
     }
     IEnumerator SpawnGroup_L() // L    2
     {
-        NewSpawn_WithRecord(0, 1, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 1, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(0.5f);
 
-        NewSpawn_WithRecord(0, 1, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 1, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(0.5f);
 
-        NewSpawn_WithRecord(0, 1, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 1, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(0.5f);
     }
     IEnumerator SpawnGroup_BlackBullet() // blackbullet   3
     {
-        NewSpawn_WithRecord(0, 2, 1, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 2, 1, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(0.5f);
 
-        NewSpawn_WithRecord(2, 2, 1, new EntryTypeA(), new MoveTypeA(), new LeaveTypeA());
-        NewSpawn_WithRecord(2, 5, 1, new EntryTypeA(), new MoveTypeA(), new LeaveTypeA());
+        NewSpawn_WithRecord(2, 2, 1, new EntryTypeA(), new MoveTypeA(), new LeaveTypeA(), SpawnType.TypeA);
+        NewSpawn_WithRecord(2, 5, 1, new EntryTypeA(), new MoveTypeA(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(0.5f);
 
-        NewSpawn_WithRecord(0, 2, 1, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 2, 1, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(0.5f);
-        NewSpawn_WithRecord(0, 2, 1, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 2, 1, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(2f);
-        NewSpawn_WithRecord(0, 2, 1, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 2, 1, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(2f);
     }
     IEnumerator SpawnGroup_M_to_LB() // M_to_LB red   4
     {
-        NewSpawn_WithRecord(0, 3, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
-        NewSpawn_WithRecord(2, 9, 0, new EntryTypeA(), new MoveTypeA(), new LeaveTypeA());
-        NewSpawn_WithRecord(0, 5, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 3, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
+        NewSpawn_WithRecord(2, 9, 0, new EntryTypeA(), new MoveTypeA(), new LeaveTypeA(), SpawnType.TypeA);
+        NewSpawn_WithRecord(0, 5, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(0.5f);
     }
     IEnumerator SpawnGroup_CT_to_RB_red() // CT_to_RB_red   5
     {
-        NewSpawn_WithRecord(0, 6, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
-        NewSpawn_WithRecord(0, 7, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
-        NewSpawn_WithRecord(0, 8, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 6, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
+        NewSpawn_WithRecord(0, 7, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
+        NewSpawn_WithRecord(0, 8, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(0.5f);
 
     }
     IEnumerator SpawnGroup_LB_to_RT() // LB_to_RT red    6
     {
-        NewSpawn_WithRecord(0, 9, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 9, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(0.5f);
-        NewSpawn_WithRecord(0, 9, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 9, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(0.5f);
-        NewSpawn_WithRecord(0, 9, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 9, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
     }
     IEnumerator SpawnGroup_LC_to_R() // LC_to_R     7
     {
-        NewSpawn_WithRecord(0, 10, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 10, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(0.5f);
-        NewSpawn_WithRecord(1, 10, 1, new EntryTypeA(), new MoveTypeA(), new LeaveTypeA());
+        NewSpawn_WithRecord(1, 10, 1, new EntryTypeA(), new MoveTypeA(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(0.5f);
-        NewSpawn_WithRecord(0, 10, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 10, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
 
     }
     IEnumerator SpawnGroup_LT_RB() //LT_RB    8
     {
-        NewSpawn_WithRecord(0, 11, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 11, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(0.5f);
-        NewSpawn_WithRecord(1, 11, 2, new EntryTypeA(), new MoveTypeA(), new LeaveTypeA());
+        NewSpawn_WithRecord(1, 11, 2, new EntryTypeA(), new MoveTypeA(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(0.5f);
-        NewSpawn_WithRecord(0, 11, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 11, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
 
 
     }
     IEnumerator SpawnGroup_RB_LT() //RB_LT     9
     {
-        NewSpawn_WithRecord(0, 12, 3, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 12, 3, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(0.5f);
-        NewSpawn_WithRecord(1, 12, 2, new EntryTypeA(), new MoveTypeA(), new LeaveTypeA());
+        NewSpawn_WithRecord(1, 12, 2, new EntryTypeA(), new MoveTypeA(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(0.5f);
-        NewSpawn_WithRecord(0, 12, 3, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 12, 3, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
 
 
     }
     IEnumerator SpawnGroup_RC_to_LC() //RC_to_LC    10
     {
-        NewSpawn_WithRecord(0, 13, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 13, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(0.5f);
-        NewSpawn_WithRecord(0, 13, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 13, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(0.5f);
-        NewSpawn_WithRecord(0, 13, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 13, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(0.5f);
 
     }
     //特殊陣行
     IEnumerator SpawnGroup_R_A3() //R_A3*2    1
     {
-        NewSpawn_WithRecord(0, 1, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 1, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(0.5f);
 
-        NewSpawn_WithRecord(2, 1, 3, new EntryTypeA(), new MoveTypeA(), new LeaveTypeA());
-        NewSpawn_WithRecord(2, 2, 3, new EntryTypeA(), new MoveTypeA(), new LeaveTypeA());
+        NewSpawn_WithRecord(2, 1, 3, new EntryTypeA(), new MoveTypeA(), new LeaveTypeA(), SpawnType.TypeA);
+        NewSpawn_WithRecord(2, 2, 3, new EntryTypeA(), new MoveTypeA(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(0.5f);
 
-        NewSpawn_WithRecord(0, 1, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 1, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(0.5f);
 
 
     }
     IEnumerator SpawnGroup_L_RB_B() // L_RB_B
     {
-        NewSpawn_WithRecord(0, 11, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 11, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(0.5f);
-        NewSpawn_WithRecord(3, 2, 2, new EntryTypeA(), new MoveTypeA(), new LeaveTypeA());
+        NewSpawn_WithRecord(3, 2, 2, new EntryTypeA(), new MoveTypeA(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(0.5f);
-        NewSpawn_WithRecord(0, 11, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 11, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
 
     }
     IEnumerator SpawnGroup_L_M_R_B2() //L_M_R_B2
     {
-        NewSpawn_WithRecord(3, 15, 2, new EntryTypeA(), new MoveTypeA(), new LeaveTypeA());
+        NewSpawn_WithRecord(3, 15, 2, new EntryTypeA(), new MoveTypeA(), new LeaveTypeA(), SpawnType.TypeA);
         
-        NewSpawn_WithRecord(1, 16, 3, new EntryTypeA(), new MoveTypeA(), new LeaveTypeA());
+        NewSpawn_WithRecord(1, 16, 3, new EntryTypeA(), new MoveTypeA(), new LeaveTypeA(), SpawnType.TypeA);
 
-        NewSpawn_WithRecord(3, 17, 2, new EntryTypeA(), new MoveTypeA(), new LeaveTypeA());
+        NewSpawn_WithRecord(3, 17, 2, new EntryTypeA(), new MoveTypeA(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(0.5f);
 
     }
     
     IEnumerator SpawnGroup_CT_A() // 3
     {
-        NewSpawn_WithRecord(0, 6, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
-        NewSpawn_WithRecord(0, 7, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
-        NewSpawn_WithRecord(0, 8, 2, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 6, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
+        NewSpawn_WithRecord(0, 7, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
+        NewSpawn_WithRecord(0, 8, 2, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(0.5f);
 
     }
     
     IEnumerator SpawnGroup_LT_RB_A() // 4
     {
-        NewSpawn_WithRecord(0, 1, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 1, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(0.5f);
 
-        NewSpawn_WithRecord(0, 1, 2, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 1, 2, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(0.5f);
 
-        NewSpawn_WithRecord(0, 1, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 1, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(0.5f);
 
     }
 
     IEnumerator SpawnGroup_RB_LT_A() // 5
     {
-        NewSpawn_WithRecord(0, 0, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 0, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(0.5f);
 
-        NewSpawn_WithRecord(0, 0, 2, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 0, 2, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(0.5f);
 
-        NewSpawn_WithRecord(0, 0, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA());
+        NewSpawn_WithRecord(0, 0, 0, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
         yield return new WaitForSeconds(0.5f);
 
     }
