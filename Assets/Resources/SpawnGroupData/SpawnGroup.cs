@@ -7,12 +7,13 @@ public class SpawnGroup : SpawnGroupController
     public List<SpawnGroupData> spawnGroupDataList;
     public override IEnumerator GenerateGroup(WaveManager manager)
     {
+        Debug.Log("SpawnGroup Start");
         foreach (var group in spawnGroupDataList)
         {
             var entry = manager.CreateEntryBehaviour(group.entryType);
             var move = manager.CreateMoveBehaviour(group.moveType);
             var leave = manager.CreateLeaveBehaviour(group.leaveType);
-            manager.NewSpawn(manager.enemyDatas[group.enemyData], manager.spawnDatas[group.spawnData], manager.gunDatas[group.gunData], entry, move, leave,group.spawnType);
+            manager.NewSpawn_WithRecord(group.enemyData,group.spawnData,group.gunData, entry, move, leave,group.spawnType);
             yield return new WaitForSeconds(group.delayTime);
         }
     }

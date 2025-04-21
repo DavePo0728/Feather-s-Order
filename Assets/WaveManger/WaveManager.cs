@@ -36,6 +36,7 @@ public class WaveManager : MonoBehaviour
     public SpawnData[] spawnDatas => spawnDataList.spawnDatas;
     public GunDataList gunDataList;
     public GunData[] gunDatas => gunDataList.gunDatas;
+    public SpawnGroupList spawnGroupList;
     [Header("Recording")]
     [SerializeField] 
     private bool isRecording = false;
@@ -62,6 +63,7 @@ public class WaveManager : MonoBehaviour
     private int currentRecordingIndex = 0;
     private Dictionary<string, System.Func<IEnumerator>> spawnGroupMap;
     private Dictionary<string, RecordedWaveData> recordedWaveMap;
+    private Dictionary<string, SpawnGroup> spawnGroupDictionary;
     [SerializeField]
     private WaveSpawnController currentWaveController;
     public ScenesManager scenesManager;
@@ -348,12 +350,17 @@ public class WaveManager : MonoBehaviour
     }
     public IEnumerator GetWave(string key)
     {
-        // 若在 spawnGroupMap 裡，執行對應 Coroutine
-        if (spawnGroupMap.TryGetValue(key, out var routine))
+        if (spawnGroupDictionary.TryGetValue(key, out var group))
         {
-            yield return routine();
+            yield return group.GenerateGroup(this);
             yield break;
         }
+        //// 若在 spawnGroupMap 裡，執行對應 Coroutine
+        //if (spawnGroupMap.TryGetValue(key, out var routine))
+        //{
+        //    yield return routine();
+        //    yield break;
+        //}
 
         // 若在 recordedWaveMap 裡，撥放錄製波次
         if (recordedWaveMap.TryGetValue(key, out var data))
@@ -398,6 +405,13 @@ public class WaveManager : MonoBehaviour
             { "RecordWave1", recordedWaves[1] },
             { "RecordWave2", recordedWaves[2] },
             { "RecordWave3", recordedWaves[3] },
+        };
+        spawnGroupDictionary = new Dictionary<string, SpawnGroup>()
+        {
+            { "SpawnT1", spawnGroupList.spawnGroupDatas[0] },
+            { "SpawnT2", spawnGroupList.spawnGroupDatas[1] },
+            { "SpawnT3", spawnGroupList.spawnGroupDatas[2] },
+            { "SpawnT4", spawnGroupList.spawnGroupDatas[3] },
         };
         scenesManager = GameObject.Find("SceneManager").GetComponent<ScenesManager>();
         soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
@@ -446,7 +460,7 @@ public class WaveManager : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.Alpha1))
         {
-            StartCoroutine(SpawnGroup_R());
+            StartCoroutine(spawnGroupList.spawnGroupDatas[0].GenerateGroup(this));
             //StartCoroutine(TestSpawn());
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
@@ -552,8 +566,8 @@ public class WaveManager : MonoBehaviour
     public enum SpawnType
     {
         TypeA, // 普通路線
-        TypeB, // PathCreator
-        TypeC  // Custom Node Path
+        TypeB, // PathCreator  固定路線
+        TypeC  // Custom Node Path 順序節點路線
     }
     //spawn A
     public void NewSpawn(EnemyData enemyData,SpawnData spawnData,GunData gunData,IEntryBehaviour entryBehaviour, IMoveBehaviour moveABehaviour, ILeaveBehaviour leaveBehaviour,SpawnType spawnType)

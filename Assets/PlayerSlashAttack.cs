@@ -157,6 +157,21 @@ public class PlayerSlashAttack : MonoBehaviour
         Invoke("InactiveCollider", 0.1f);
         flashImage.SetActive(true);
         Invoke("InactiveFlashImage", 0.01f);
+        switch (hitCounter)
+        {
+            case 0:
+                slashEffectYellowObject.transform.localScale = new Vector3(2.72f, -2.72f, 2.72f);
+                break;
+            case 1:
+                slashEffectYellowObject.transform.localScale = new Vector3(2.72f, 2.72f, 2.72f);
+                break;
+            case 2:
+                slashEffectYellowObject.transform.localScale = new Vector3(2.72f, -2.72f, 2.72f);
+                break;
+            case 3:
+                slashEffectYellowObject.transform.localScale = new Vector3(2.72f, 2.72f, 2.72f);
+                break;
+        }
         slashEffectRedObject.SetActive(true);
         slashEffectRed.Play();
         hitCounter = 0;
@@ -290,7 +305,7 @@ public class PlayerSlashAttack : MonoBehaviour
         Debug.Log("SlashState: " + slashState);
         if (slashState == SlashState.FallingBack|| slashState == SlashState.Idle && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Stand__Idle"))
         {
-            playerAnimator.SetTrigger("ReFly");
+            //playerAnimator.SetTrigger("ReFly");
             playerAnimator.Play("reFly");
         }
     }
