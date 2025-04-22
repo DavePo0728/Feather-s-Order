@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -13,7 +14,7 @@ namespace AfterimageFX
         public GameObject afterimagePrefab;
 
         [Tooltip("SkinnedMeshRenderer used to bake the mesh snapshot.")]
-        public SkinnedMeshRenderer skinnedMeshRenderer;
+        public SkinnedMeshRenderer[] skinnedMeshRenderer;
 
         [Tooltip("Interval (in seconds) between afterimages during dash.")]
         public float afterimageInterval = 0.05f;
@@ -27,7 +28,8 @@ namespace AfterimageFX
         private bool isDashing = false;
         private float dashTimer = 0f;
         private float afterimageTimer = 0f;
-
+        public Vector3 offSet;
+        
         private void Update()
         {
             // Trigger dash and afterimage sequence with key R
@@ -36,16 +38,22 @@ namespace AfterimageFX
                 StartDash();
             }
 
-            if (isDashing)
-            {
-                DashUpdate();
-            }
+            //if (isDashing)
+            //{
+            //    DashUpdate();
+            //}
         }
-
-        /// <summary>
-        /// Initializes the dash effect and resets timers.
-        /// </summary>
-        void StartDash()
+		private void LateUpdate()
+		{
+			if (isDashing)
+			{
+				DashUpdate();
+			}
+		}
+		/// <summary>
+		/// Initializes the dash effect and resets timers.
+		/// </summary>
+		public void StartDash()
         {
             isDashing = true;
             dashTimer = dashDuration;
@@ -88,42 +96,47 @@ namespace AfterimageFX
                 Debug.LogError("❌ Afterimage prefab is not assigned!");
                 return;
             }
+            foreach (var item in skinnedMeshRenderer)
+            {
+				Mesh snapshotMesh = new Mesh();
 
+				item.BakeMesh(snapshotMesh);
+
+				// Try to get effect script from prefab
+				IAfterimageEffect effectScript = afterimagePrefab.GetComponent<IAfterimageEffect>();
+
+				if (effectScript != null)
+				{
+					if (effectScript is VFXEffect)
+					{
+						// Special case: VFXEffect should be applied on the main object, not a clone
+						effectScript.InitializeAfterimage(snapshotMesh, afterImageLifetime);
+					}
+					else
+					{
+                        // Instantiate a new clone and apply effect on it
+                        
+						GameObject afterimage = Instantiate(afterimagePrefab, transform.position + offSet, transform.GetChild(0).transform.GetChild(0).transform.GetChild(0).transform.rotation);
+						afterimage.transform.localScale = transform.localScale*2.5f;
+
+						IAfterimageEffect newEffectScript = afterimage.GetComponent<IAfterimageEffect>();
+						if (newEffectScript != null)
+						{
+							newEffectScript.InitializeAfterimage(snapshotMesh, afterImageLifetime);
+						}
+						else
+						{
+							Debug.LogError("❌ No valid IAfterimageEffect script found on the instantiated afterimage object!");
+						}
+					}
+				}
+				else
+				{
+					Debug.LogError("❌ No IAfterimageEffect script found on afterimagePrefab!");
+				}
+			}
             // Bake current animated mesh into a static mesh snapshot
-            Mesh snapshotMesh = new Mesh();
-            skinnedMeshRenderer.BakeMesh(snapshotMesh);
-
-            // Try to get effect script from prefab
-            IAfterimageEffect effectScript = afterimagePrefab.GetComponent<IAfterimageEffect>();
-
-            if (effectScript != null)
-            {
-                if (effectScript is VFXEffect)
-                {
-                    // Special case: VFXEffect should be applied on the main object, not a clone
-                    effectScript.InitializeAfterimage(snapshotMesh, afterImageLifetime);
-                }
-                else
-                {
-                    // Instantiate a new clone and apply effect on it
-                    GameObject afterimage = Instantiate(afterimagePrefab, transform.position, transform.rotation);
-                    afterimage.transform.localScale = transform.localScale;
-
-                    IAfterimageEffect newEffectScript = afterimage.GetComponent<IAfterimageEffect>();
-                    if (newEffectScript != null)
-                    {
-                        newEffectScript.InitializeAfterimage(snapshotMesh, afterImageLifetime);
-                    }
-                    else
-                    {
-                        Debug.LogError("❌ No valid IAfterimageEffect script found on the instantiated afterimage object!");
-                    }
-                }
-            }
-            else
-            {
-                Debug.LogError("❌ No IAfterimageEffect script found on afterimagePrefab!");
-            }
+            
         }
     }
 }

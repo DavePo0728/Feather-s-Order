@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 using Cinemachine;
 using DG.Tweening;
 using UnityEngine.Windows;
+using AfterimageFX;
 public class PlayerMove : MonoBehaviour
 {
     [SerializeField]
@@ -66,7 +67,7 @@ public class PlayerMove : MonoBehaviour
 	//揮動翅膀狀態
 	bool OnFlap = false;
 
-
+	public List<GameObject> outline = new List<GameObject>();
 
 	private void Awake()
     {
@@ -97,11 +98,12 @@ public class PlayerMove : MonoBehaviour
             {
                 StartCoroutine(OnDash());
                 DashAudioSource.Play();
-                //currentEnergy -= 20;
-                //UpdateUI();
-               // timeSinceLastEnergyUse = 0f;   // 重置時間計數器
-                //isRegening = false;
-            }
+                
+				//currentEnergy -= 20;
+				//UpdateUI();
+				// timeSinceLastEnergyUse = 0f;   // 重置時間計數器
+				//isRegening = false;
+			}
         }
     }
     //public void GetBounce(InputAction.CallbackContext context)
@@ -272,15 +274,27 @@ public class PlayerMove : MonoBehaviour
         if (playerRigidbody.velocity.x != 0)
         {
             playerRigidbody.AddForce(playerRigidbody.velocity * dashForce, ForceMode.Impulse);
+            GetComponent<AfterimageController>().StartDash();
+			foreach (var item in outline)
+            {
+				item.SetActive(true);
+
+			}
+	
         }
-        
+
         yield return new WaitForSeconds(dashingTime);
         isDashing = false;
         //DOTween.To(() => leanAngle, x => leanAngle = x, 30f, 1.5f).Play();
         DOTween.To(() => playerVCamFramingTransposer.m_XDamping, x => playerVCamFramingTransposer.m_XDamping = x, 0.4f, 0.4f).Play();
         DOTween.To(() => playerVCamFramingTransposer.m_SoftZoneWidth, x => playerVCamFramingTransposer.m_SoftZoneWidth = x, 0.4f, 0.4f).Play();
         StartCoroutine(StartCountdown());
-        yield return new WaitForSeconds(dashCooldown);
+		foreach (var item in outline)
+		{
+			item.SetActive(false);
+
+		}
+		yield return new WaitForSeconds(dashCooldown);
         canDash = true;
     }
     IEnumerator StartCountdown()

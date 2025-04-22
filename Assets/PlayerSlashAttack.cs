@@ -306,7 +306,7 @@ public class PlayerSlashAttack : MonoBehaviour
         if (slashState == SlashState.FallingBack|| slashState == SlashState.Idle && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Stand__Idle"))
         {
             //playerAnimator.SetTrigger("ReFly");
-            playerAnimator.Play("reFly");
+            playerAnimator.Play("ReFly");
         }
     }
 
