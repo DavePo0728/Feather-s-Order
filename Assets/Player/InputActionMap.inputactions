@@ -180,23 +180,23 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "48dbbbf9-9824-4570-b083-eff90124cdf4",
-                    "path": "<Gamepad>/buttonWest",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Shoot",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "a0600d5c-1850-4e84-9818-52dc289bc334",
                     "path": "<Gamepad>/leftStick",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Aim",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "48dbbbf9-9824-4570-b083-eff90124cdf4",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shoot",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -230,6 +230,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "839f27fc-2713-46d2-b379-31429ce92889",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Slash",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -351,17 +362,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "MeleeDash",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "839f27fc-2713-46d2-b379-31429ce92889",
-                    "path": "<Gamepad>/rightTrigger",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Slash",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

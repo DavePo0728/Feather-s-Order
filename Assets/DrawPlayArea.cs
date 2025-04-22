@@ -20,7 +20,7 @@ public class DrawPlayArea : MonoBehaviour
             Gizmos.color = Color.cyan;
             if (parkour)
             {
-                Gizmos.DrawWireCube(new Vector3(transform.position.x + 5f, transform.position.y + 13.5f, transform.position.z + 500), new Vector3(34, 26, 1000));
+                Gizmos.DrawWireCube(new Vector3(transform.position.x + 5f, transform.position.y + 10f, transform.position.z + 500), new Vector3(34, 26, 1000));
             }
             else
             {

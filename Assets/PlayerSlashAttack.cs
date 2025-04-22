@@ -102,9 +102,12 @@ public class PlayerSlashAttack : MonoBehaviour
                 }
             }
         }
-        else if (slashState == SlashState.Attacking&&dashCounting==false)
+        if(context.canceled)
         {
-            ReturnAnimation();
+            if (slashState == SlashState.Attacking && dashCounting == false)
+            {
+                ReturnAnimation();
+            }
         }
     }
 
