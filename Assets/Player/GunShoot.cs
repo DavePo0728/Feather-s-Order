@@ -37,7 +37,7 @@ public class GunShoot : MonoBehaviour
         {
             bullet.transform.position = transform.position;
             bullet.transform.rotation = transform.rotation;
-            if (playerAim._lockedEnemy != null&& playerAim._lockedEnemy!=EmptyAimObject)
+            if (playerAim._lockedEnemy != null&& !playerAim._lockedEnemy.CompareTag("AimPoint"))
             {
                 bulletMove = bullet.GetComponent<PlayerBulletMove>();
                 bulletMove.SetLockedEnemy(playerAim._lockedEnemy);

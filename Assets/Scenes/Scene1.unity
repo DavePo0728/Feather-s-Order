@@ -8645,6 +8645,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1824674229}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &603457836
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 603457837}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: AimPoint
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &603457837
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 603457836}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.089854, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 876164355}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &607782455
 GameObject:
   m_ObjectHideFlags: 0
@@ -10632,6 +10663,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerCamera: {fileID: 5111893677742036862}
   Cam2: {fileID: 906293035384122499}
+  parkour: 0
 --- !u!1 &753640240
 GameObject:
   m_ObjectHideFlags: 0
@@ -12326,7 +12358,7 @@ GameObject:
   - component: {fileID: 876164355}
   m_Layer: 0
   m_Name: AimingObject
-  m_TagString: Untagged
+  m_TagString: AimPoint
   m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12343,7 +12375,9 @@ Transform:
   m_LocalPosition: {x: 2000, y: 340, z: 330}
   m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 603457837}
+  - {fileID: 1470263356}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &881768638
@@ -22696,6 +22730,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1947963245}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1470263355
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1470263356}
+  m_Layer: 0
+  m_Name: GameObject_1
+  m_TagString: AimPoint
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1470263356
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1470263355}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.07, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 876164355}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1474605897
 GameObject:
@@ -323705,7 +323770,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerAim: {fileID: 9155974850077419661}
-  EmptyAimObject: {fileID: 876164354}
+  EmptyAimObject: {fileID: 1470263355}
 --- !u!1 &4228812506931932360
 GameObject:
   m_ObjectHideFlags: 0
@@ -417613,7 +417678,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerAim: {fileID: 9155974850077419661}
-  EmptyAimObject: {fileID: 876164354}
+  EmptyAimObject: {fileID: 603457836}
 --- !u!33 &5519613500400760457
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -653039,7 +653104,7 @@ MonoBehaviour:
   nearLockSFX: {fileID: 8300000, guid: a7d54c6a34cfad048a19bc97b77bdfec, type: 3}
   audioSource: {fileID: 4584443460928411353}
   aimInput: {x: 0, y: 0}
-  aimOffsetX: 80
+  aimOffsetX: 40
   aimOffsetY: 30
   dampingTime: 0.25
 --- !u!4 &9156664114468427296
