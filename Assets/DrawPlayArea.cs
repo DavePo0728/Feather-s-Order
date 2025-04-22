@@ -6,15 +6,27 @@ public class DrawPlayArea : MonoBehaviour
 {
     [SerializeField]
     Camera playerCamera,Cam2;
+    [SerializeField]
+    bool parkour;
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireCube(new Vector3(transform.position.x,transform.position.y-5f,transform.position.z+500), new Vector3(360,60,1000));
-        if(Cam2 != null)
+        if(playerCamera != null)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireCube(new Vector3(transform.position.x, transform.position.y - 6.5f, transform.position.z + 500), new Vector3(90, 23, 1000));
+        }
+        if (Cam2 != null)
         {
             Gizmos.color = Color.cyan;
-            Gizmos.DrawWireCube(new Vector3(Cam2.transform.position.x, Cam2.transform.position.y - 5f, Cam2.transform.position.z + 500), new Vector3(360, 60, 1000));
+            if (parkour)
+            {
+                Gizmos.DrawWireCube(new Vector3(transform.position.x + 5f, transform.position.y + 13.5f, transform.position.z + 500), new Vector3(34, 26, 1000));
+            }
+            else
+            {
+                Gizmos.DrawWireCube(new Vector3(Cam2.transform.position.x + 5f, Cam2.transform.position.y + 13.5f, Cam2.transform.position.z + 500), new Vector3(34, 26, 1000));
 
+            }
         }
     }
 }

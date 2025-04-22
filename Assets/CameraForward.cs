@@ -25,7 +25,7 @@ public class CameraForward : MonoBehaviour
         cam1ToCam2Pos.x = PlayerCam.transform.position.x - 2000;
         cam1ToCam2Pos.x *= (cam2Box.bounds.size.x / cam1Box.bounds.size.x);
         cam1ToCam2Pos.y = PlayerCam.transform.position.y;
-        //cam1ToCam2Pos.y *= (cam2Box.bounds.size.y / cam1Box.bounds.size.y);
+        cam1ToCam2Pos.y *= (cam2Box.bounds.size.y / cam1Box.bounds.size.y);
         cam1ToCam2Pos.z = transform.position.z;
 
         //Debug.Log(cam1ToCam2Pos);

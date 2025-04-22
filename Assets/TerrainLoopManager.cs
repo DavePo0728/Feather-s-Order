@@ -12,7 +12,7 @@ public class TerrainLoopManager : MonoBehaviour
     List<GameObject> terrainList,outsideLeftList,outSideRightList,blockList,specialList;
     [SerializeField]
     List<GameObject> terrainList2,terrainList3;
-    [HideInInspector]
+    //[HideInInspector]
     public Vector3 InitialPos;
     [SerializeField]
     float loopRoundNum;
