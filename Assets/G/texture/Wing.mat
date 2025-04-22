@@ -8,16 +8,18 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Wing
-  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+  m_Shader: {fileID: 4800000, guid: 55a54603fab88d940a3374f8ae9f78e8, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
-  - _EMISSION
-  m_InvalidKeywords: []
+  - _SPECULAR_LIGHTING_ON
+  - _STYLE_STYLIZEPBR
+  m_InvalidKeywords:
+  - _RECEIVESHADOWS
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 2000
   stringTagMap:
     RenderType: Opaque
   disabledShaderPasses: []
@@ -204,7 +206,7 @@ Material:
     - _RimLightOn: 0
     - _RimLightOverShadow: 1
     - _RimLightSmoothness: 0.2
-    - _RimLightStrength: 0.35
+    - _RimLightStrength: 0.392
     - _ScaleAsScreenSpaceOutline: 0
     - _ShadowColorMode: 0
     - _Smoothness: 0
