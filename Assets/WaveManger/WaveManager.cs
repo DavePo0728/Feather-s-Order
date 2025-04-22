@@ -355,14 +355,14 @@ public class WaveManager : MonoBehaviour
             yield return group.GenerateGroup(this);
             yield break;
         }
-        //// 若在 spawnGroupMap 裡，執行對應 Coroutine
-        //if (spawnGroupMap.TryGetValue(key, out var routine))
-        //{
-        //    yield return routine();
-        //    yield break;
-        //}
+        // 若在 spawnGroupMap 裡，執行對應 Coroutine
+        if (spawnGroupMap.TryGetValue(key, out var routine))
+        {
+            yield return routine();
+            yield break;
+        }
 
-        // 若在 recordedWaveMap 裡，撥放錄製波次
+        //若在 recordedWaveMap 裡，撥放錄製波次
         if (recordedWaveMap.TryGetValue(key, out var data))
         {
             yield return PlayRecordedWave(data);
