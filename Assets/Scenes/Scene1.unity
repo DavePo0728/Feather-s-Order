@@ -3679,7 +3679,7 @@ GameObject:
   m_Component:
   - component: {fileID: 262271909}
   m_Layer: 7
-  m_Name: HPG
+  m_Name: HPBG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3697,8 +3697,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1434213121}
   - {fileID: 2746055365906673021}
+  - {fileID: 1434213121}
   m_Father: {fileID: 7383376656258806639}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -32277,7 +32277,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1793696488
 Transform:
   m_ObjectHideFlags: 0
@@ -79805,7 +79805,7 @@ GameObject:
   - component: {fileID: 2209840058401215106}
   - component: {fileID: 6720901443446568647}
   m_Layer: 7
-  m_Name: Canvas
+  m_Name: HPCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -94321,7 +94321,7 @@ MonoBehaviour:
   corruptionExplosionEffect: {fileID: 0}
   corrupted: 0
   corruption: 0
-  MaxcorruptionStack: 0
+  maxCorruptionValue: 0
   corruptionCleanseObject: {fileID: 0}
   chainEffectObject: {fileID: 0}
   shieldEffect: {fileID: 0}
@@ -101376,7 +101376,7 @@ GameObject:
   - component: {fileID: 7302080017419624053}
   - component: {fileID: 1077466410065980028}
   m_Layer: 7
-  m_Name: Image
+  m_Name: HPBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -128966,7 +128966,11 @@ MonoBehaviour:
   moveTime: 5
   leaveTime: 0
   lifeTime: 10
-  paralyzeTime: 3
+  initialParalyzeTime: 0
+  MaxParalyzeTime: 0
+  paralyzeCountMax: 0
+  addParalyzeTime: 0
+  paralyzeTimeStackMultiplier: 0
   startPoint: {x: 0, y: 0, z: 0}
   endPoint: {x: 0, y: 0, z: 0}
   leavePoint: {x: 0, y: 0, z: 0}
@@ -202096,7 +202100,7 @@ GameObject:
   - component: {fileID: 1789712024949075055}
   - component: {fileID: 7166980893696353650}
   m_Layer: 7
-  m_Name: Image
+  m_Name: HPBG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -428231,7 +428235,11 @@ MonoBehaviour:
   moveTime: 0
   leaveTime: 0
   lifeTime: 10
-  paralyzeTime: 3
+  initialParalyzeTime: 0
+  MaxParalyzeTime: 0
+  paralyzeCountMax: 0
+  addParalyzeTime: 0
+  paralyzeTimeStackMultiplier: 0
   startPoint: {x: 0, y: 0, z: 0}
   endPoint: {x: 0, y: 0, z: 0}
   leavePoint: {x: 0, y: 0, z: 0}
@@ -459732,7 +459740,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1444934772280989297}
   m_Layer: 7
-  m_Name: DashPoint_1
+  m_Name: DashPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -459748,7 +459756,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1444934773469762314}
   m_Layer: 7
-  m_Name: DashPoint_1
+  m_Name: DashPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -461138,7 +461146,7 @@ MonoBehaviour:
   corruptionExplosionEffect: {fileID: 0}
   corrupted: 0
   corruption: 0
-  MaxcorruptionStack: 0
+  maxCorruptionValue: 0
   corruptionCleanseObject: {fileID: 0}
   chainEffectObject: {fileID: 0}
   shieldEffect: {fileID: 0}
@@ -468563,7 +468571,7 @@ GameObject:
   - component: {fileID: 4351879796926863912}
   - component: {fileID: 6323376538589195809}
   m_Layer: 7
-  m_Name: Image
+  m_Name: HPBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -472546,7 +472554,7 @@ MonoBehaviour:
   corruptionExplosionEffect: {fileID: 0}
   corrupted: 1
   corruption: 0
-  MaxcorruptionStack: 0
+  maxCorruptionValue: 0
   corruptionCleanseObject: {fileID: 0}
   chainEffectObject: {fileID: 0}
   shieldEffect: {fileID: 0}
@@ -474773,7 +474781,7 @@ GameObject:
   - component: {fileID: 4925755854151098798}
   - component: {fileID: 5035057289815542788}
   m_Layer: 7
-  m_Name: Image
+  m_Name: HPBG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -484394,7 +484402,7 @@ GameObject:
   - component: {fileID: 5077230467371457542}
   - component: {fileID: 8618131482124691550}
   m_Layer: 7
-  m_Name: Image
+  m_Name: HPBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -486895,7 +486903,7 @@ GameObject:
   - component: {fileID: 5158914447631111903}
   - component: {fileID: 321929073113363098}
   m_Layer: 7
-  m_Name: Canvas
+  m_Name: HPCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -494752,7 +494760,11 @@ MonoBehaviour:
   moveTime: 0
   leaveTime: 0
   lifeTime: 10
-  paralyzeTime: 3
+  initialParalyzeTime: 0
+  MaxParalyzeTime: 0
+  paralyzeCountMax: 0
+  addParalyzeTime: 0
+  paralyzeTimeStackMultiplier: 0
   startPoint: {x: 0, y: 0, z: 0}
   endPoint: {x: 0, y: 0, z: 0}
   leavePoint: {x: 0, y: 0, z: 0}
@@ -494786,7 +494798,11 @@ MonoBehaviour:
   moveTime: 0
   leaveTime: 0
   lifeTime: 10
-  paralyzeTime: 3
+  initialParalyzeTime: 0
+  MaxParalyzeTime: 0
+  paralyzeCountMax: 0
+  addParalyzeTime: 0
+  paralyzeTimeStackMultiplier: 0
   startPoint: {x: 0, y: 0, z: 0}
   endPoint: {x: 0, y: 0, z: 0}
   leavePoint: {x: 0, y: 0, z: 0}
@@ -495241,7 +495257,7 @@ GameObject:
   - component: {fileID: 6602337677044241387}
   - component: {fileID: 1251636615659197014}
   m_Layer: 7
-  m_Name: Canvas
+  m_Name: HPCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -495261,7 +495277,7 @@ GameObject:
   - component: {fileID: 1251636614465083181}
   - component: {fileID: 7383376656258806640}
   m_Layer: 7
-  m_Name: Canvas
+  m_Name: HPCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -610412,7 +610428,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3827511448915650875}
   m_Layer: 7
-  m_Name: DashPoint_1
+  m_Name: DashPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -631929,7 +631945,7 @@ MonoBehaviour:
   corruptionExplosionEffect: {fileID: 0}
   corrupted: 0
   corruption: 0
-  MaxcorruptionStack: 0
+  maxCorruptionValue: 0
   corruptionCleanseObject: {fileID: 0}
   chainEffectObject: {fileID: 0}
   shieldEffect: {fileID: 0}
@@ -631962,7 +631978,7 @@ MonoBehaviour:
   corruptionExplosionEffect: {fileID: 0}
   corrupted: 1
   corruption: 0
-  MaxcorruptionStack: 0
+  maxCorruptionValue: 0
   corruptionCleanseObject: {fileID: 0}
   chainEffectObject: {fileID: 0}
   shieldEffect: {fileID: 0}
@@ -634164,7 +634180,7 @@ GameObject:
   - component: {fileID: 7298278073431481247}
   - component: {fileID: 7274263423380076085}
   m_Layer: 7
-  m_Name: Image
+  m_Name: HPBG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -634182,7 +634198,7 @@ GameObject:
   - component: {fileID: 7298278072506818276}
   - component: {fileID: 7274263422152405838}
   m_Layer: 7
-  m_Name: Image
+  m_Name: HPBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -635565,7 +635581,7 @@ GameObject:
   - component: {fileID: 7450800769200727607}
   - component: {fileID: 6236004490965340783}
   m_Layer: 7
-  m_Name: Image
+  m_Name: HPBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -636553,7 +636569,7 @@ GameObject:
   - component: {fileID: 4748092611944097842}
   - component: {fileID: 4198748684588441903}
   m_Layer: 7
-  m_Name: Image
+  m_Name: HPBG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -651732,16 +651748,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6d7a6eee8b092749ae7347c36645222, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyList:
-  - {fileID: 5113663619280529763, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
-  - {fileID: 7469029502725969291, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
   pathList:
   - {fileID: 810383459565591645}
   - {fileID: 1511495987}
   customPathDataList:
   - {fileID: 11400000, guid: 322cdde3ab75c844fa0328e8035981cd, type: 2}
   tutorialImage: {fileID: 0}
-  debug: 1
+  debug: 0
   enemyDataList: {fileID: 11400000, guid: ea9fd51ecabf28f488513454d6693a43, type: 2}
   spawnDataList: {fileID: 11400000, guid: 02c786a34ce55624c9369eefdc51c91c, type: 2}
   gunDataList: {fileID: 11400000, guid: 903753f85a2c6334196fe5e0bed4bf1e, type: 2}
@@ -663830,7 +663843,11 @@ MonoBehaviour:
   moveTime: 0
   leaveTime: 0
   lifeTime: 10
-  paralyzeTime: 3
+  initialParalyzeTime: 0
+  MaxParalyzeTime: 0
+  paralyzeCountMax: 0
+  addParalyzeTime: 0
+  paralyzeTimeStackMultiplier: 0
   startPoint: {x: 0, y: 0, z: 0}
   endPoint: {x: 0, y: 0, z: 0}
   leavePoint: {x: 0, y: 0, z: 0}
@@ -664477,7 +664494,7 @@ GameObject:
   - component: {fileID: 8841492705868229082}
   - component: {fileID: 3480659336867407975}
   m_Layer: 7
-  m_Name: Canvas
+  m_Name: HPCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
