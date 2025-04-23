@@ -23,6 +23,8 @@ public class PlayerSlashAttack : MonoBehaviour
     GameObject shieldEffect;
     [SerializeField] GameObject slashEffectYellowObject, slashEffectRedObject;
     ParticleSystem slashEffectYellow, slashEffectRed;
+    ParticleSystemRenderer slashEffectYellowR, slashEffectRedR;
+
     AudioSource slashAudio;
     AudioClip slashClip;
     [SerializeField] CinemachineImpulseSource impulseSource;
@@ -54,6 +56,7 @@ public class PlayerSlashAttack : MonoBehaviour
         playerRigidbody = GetComponent<Rigidbody>();
         shieldEffect = GameObject.Find("MagicShieldYellow");
         slashEffectYellow = slashEffectYellowObject.GetComponent<ParticleSystem>();
+        slashEffectYellowR = slashEffectYellowObject.GetComponent<ParticleSystemRenderer>();
         slashEffectRed = slashEffectRedObject.GetComponent<ParticleSystem>();
         slashAudio = slashEffectYellowObject.GetComponent<AudioSource>();
         slashClip = Resources.Load<AudioClip>("Sound/Slash01");
@@ -114,37 +117,56 @@ public class PlayerSlashAttack : MonoBehaviour
         {
             if (hitCounter < 3)
             {
-                slashCD = 0.2f;
+                print(hitCounter);
+				
+				slashCD = 0.2f;
                 Invoke("TriggerSlash", 0.1f);
-                hitCounter++;
+				switch (hitCounter)
+				{
+					case 0:
+						print("S1");
+						playerAnimator.Play("S1");
+                        slashEffectYellowR.flip = new Vector3(0, 0, 0);
+						slashEffectYellowR.transform.localRotation = Quaternion.Euler(79f, 315f, 207f);
+
+						playerAnimator.SetBool("OnAttack", true);
+						break;
+					case 1:
+						print("S2");
+						playerAnimator.Play("S2");
+						slashEffectYellowR.flip = new Vector3(0, 1, 0);
+						slashEffectYellowR.transform.localRotation = Quaternion.Euler(61f, 141f, 305f); 
+
+
+						playerAnimator.SetBool("OnAttack", true);
+						break;
+					case 2:
+						print("S3");
+						playerAnimator.Play("S3");
+						slashEffectYellowR.flip = new Vector3(0, 0, 0);
+						slashEffectYellowR.transform.localRotation = Quaternion.Euler(79f, 315f, 207f);
+
+						playerAnimator.SetBool("OnAttack", true);
+						break;
+				}
+				hitCounter++;
                 SlashTimer = 0;
                 attackTimer = 0;
-
-                switch (hitCounter)
-                {
-                    case 1:
-                        playerAnimator.Play("S1");
-                        playerAnimator.SetBool("OnAttack", true);
-                        break;
-                    case 2:
-                        playerAnimator.Play("S2");
-                        playerAnimator.SetBool("OnAttack", true);
-                        break;
-                    case 3:
-                        playerAnimator.Play("S3");
-                        playerAnimator.SetBool("OnAttack", true);
-                        break;
-                }
+				
+				//print(hitCounter);
+				
             }
             else
             {
-                playerAnimator.Play("S4");
+				print("S4");
+				playerAnimator.Play("S4");
                 Invoke("TriggerSlash4", 0.3f);
                 playerAnimator.SetBool("OnAttack", false);
                 slashCD = 0.5f;
                 SlashTimer = 0;
                 attackTimer = 0;
-            }
+				hitCounter = 0;
+			}
         }
     }
 
@@ -157,24 +179,28 @@ public class PlayerSlashAttack : MonoBehaviour
         Invoke("InactiveCollider", 0.1f);
         flashImage.SetActive(true);
         Invoke("InactiveFlashImage", 0.01f);
-        switch (hitCounter)
-        {
-            case 0:
-                slashEffectYellowObject.transform.localScale = new Vector3(2.72f, -2.72f, 2.72f);
-                break;
-            case 1:
-                slashEffectYellowObject.transform.localScale = new Vector3(2.72f, 2.72f, 2.72f);
-                break;
-            case 2:
-                slashEffectYellowObject.transform.localScale = new Vector3(2.72f, -2.72f, 2.72f);
-                break;
-            case 3:
-                slashEffectYellowObject.transform.localScale = new Vector3(2.72f, 2.72f, 2.72f);
-                break;
-        }
+    //    switch (hitCounter)
+    //    {
+    //        case 0:
+    //            slashEffectYellowObject.transform.localScale = new Vector3(2.72f, -2.72f, 2.72f);
+    //            print(hitCounter);
+    //            break;
+    //        case 1:
+    //            slashEffectYellowObject.transform.localScale = new Vector3(2.72f, -2.72f, 2.72f);
+				//print(hitCounter);
+				//break;
+    //        case 2:
+    //            slashEffectYellowObject.transform.localScale = new Vector3(2.72f, 2.72f, 2.72f);
+				//print(hitCounter);
+				//break;
+    //        case 3:
+    //            slashEffectYellowObject.transform.localScale = new Vector3(2.72f, -2.72f, 2.72f);
+				//print(hitCounter);
+				//break;
+    //    }
         slashEffectRedObject.SetActive(true);
         slashEffectRed.Play();
-        hitCounter = 0;
+        
         Shake(1.0f);
         Time.timeScale = 0.1f;
         Invoke("TimeScaleNormal", 0.02f);
@@ -196,7 +222,8 @@ public class PlayerSlashAttack : MonoBehaviour
         Invoke("TimeScaleNormal", 0.01f);
         Invoke("DelayDetect", 0.05f);
         SetAttack();
-    }
+		
+	}
 
     void DashToEnemy()
     {
@@ -216,8 +243,9 @@ public class PlayerSlashAttack : MonoBehaviour
                     isCounting = true;
                     followZoom.m_Width = 0;
                     TriggerSlash();
-                    
-                    IsReturnAnimation = false;
+					slashEffectYellowR.flip = new Vector3(0, 0, 0);
+                    slashEffectYellowR.transform.localRotation = Quaternion.Euler(280f, 180f, 191f);
+					IsReturnAnimation = false;
                     playerAnimator.SetBool("OnAttack", true);
                     attackTimer = 0;
                 });
@@ -302,7 +330,7 @@ public class PlayerSlashAttack : MonoBehaviour
                 ResetTimer();
             }
         }
-        Debug.Log("SlashState: " + slashState);
+        ////Debug.Log("SlashState: " + slashState);
         if (slashState == SlashState.FallingBack|| slashState == SlashState.Idle && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Stand__Idle"))
         {
             //playerAnimator.SetTrigger("ReFly");
