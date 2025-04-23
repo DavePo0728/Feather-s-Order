@@ -1,4 +1,5 @@
-﻿using Cinemachine;
+﻿using AfterimageFX;
+using Cinemachine;
 using DG.Tweening;
 using FUnit.GameObjectExtensions;
 using System.Collections;
@@ -212,6 +213,7 @@ public class PlayerSlashAttack : MonoBehaviour
             {
                 slashTarget = target.transform.Find("DashPoint").position;
                 Vector3 lastTargetPos = slashTarget;
+                GetComponent<AfterimageController>().StartDash();
                 tweener = playerRigidbody.DOMove(slashTarget, 0.5f).OnComplete(() =>
                 {
                     slashState = SlashState.Arrived;
@@ -246,6 +248,7 @@ public class PlayerSlashAttack : MonoBehaviour
             {
                 slashTarget = target.transform.Find("DashPoint").position;
                 Vector3 lastTargetPos = slashTarget;
+                GetComponent<AfterimageController>().StartDash();
                 tweener = playerRigidbody.DOMove(slashTarget, 0.5f).OnUpdate(() =>
                 {
                     if ((slashTarget - lastTargetPos).sqrMagnitude > 0.01f)
@@ -315,7 +318,7 @@ public class PlayerSlashAttack : MonoBehaviour
 
     void ReturnAnimation()
     {
-        
+        ResetTimer();
         slashState = SlashState.FallingBack;
         hitCounter = 0;
         clothDB.enabled = true;
@@ -326,7 +329,7 @@ public class PlayerSlashAttack : MonoBehaviour
             IsReturnAnimation = true;
         }
         sword.SetActive(false);
-        ResetTimer();
+        GetComponent<AfterimageController>().StartDash();
         playerMove.CalculateFallbackSpeed();
         followZoom.m_Width = 50;
     }
