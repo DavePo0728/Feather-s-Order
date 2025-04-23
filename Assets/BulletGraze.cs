@@ -1,4 +1,4 @@
-using System.Collections;
+Ôªøusing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -14,16 +14,27 @@ public class BulletGraze : MonoBehaviour
     public float currentGrazeEnergy;
     public float grazeEnergyGain;
     float grazeGapTimer;
-    [SerializeField]
-    float maxGrazeGapTime;
-    public Image grazeEnergyBar;
-    [SerializeField]
-    TMP_Text grazeEnergyText;
+    [SerializeField] float maxGrazeGapTime;
+
+    [Header("UI ÂÖÉ‰ª∂")]
+    public Image realFill;       // ÁúüÂØ¶ MP Ê¢ùÔºàÂç≥ÊôÇËÆäÂåñÔºâ
+    public Image fakeFill;       // ËôõË°Ä MP Ê¢ùÔºàÂª∂ÈÅ≤Ë∑ü‰∏äÔºâ
+    [SerializeField] TMP_Text grazeEnergyText;
+    [SerializeField] UIShaker mpUIShaker;
+
+    [Header("ËôõË°ÄÂãïÁï´Ë®≠ÂÆö")]
+    public float fakeDelay = 0.3f;
+    public float fakeSpeed = 0.5f;
+
     AudioSource grazeSound;
     AudioClip grazeClip;
     GameObject grazeEffect;
     ParticleSystem grazeEffectParticle;
     PlayerHP playerHP;
+    Coroutine fakeCoroutine;
+
+    AlphaBreathingWithYOffset shieldFlashEffect;
+
     private void Awake()
     {
         grazeSound = GetComponent<AudioSource>();
@@ -31,95 +42,42 @@ public class BulletGraze : MonoBehaviour
         grazeEffect = transform.GetChild(0).gameObject;
         grazeEffectParticle = grazeEffect.GetComponent<ParticleSystem>();
         playerHP = GameObject.Find("HPCollider").GetComponent<PlayerHP>();
+        shieldFlashEffect = GetComponentInChildren<AlphaBreathingWithYOffset>();
     }
-    // Start is called before the first frame update
+
     void Start()
     {
         canGraze = true;
         currentGrazeEnergy = 0;
+        UpdateGrazeUI(); // ÂàùÂßãÂåñÈ°ØÁ§∫
     }
 
-    // Update is called once per frame
     void Update()
     {
         grazeGapTimer += Time.deltaTime;
-        if( grazeGapTimer > maxGrazeGapTime)
+        if (grazeGapTimer > maxGrazeGapTime)
         {
             grazeEffect.SetActive(false);
             grazeGapTimer = 0;
-            
         }
+
         if (Input.GetKeyDown(KeyCode.P))
         {
             currentGrazeEnergy += maxGrazeEnergy;
             UpdateGrazeUI();
         }
-        //if(Input.GetKeyDown(KeyCode.Keypad1))
-        //{
-        //    Vibrate(0.1f, 0.1f, 0.1f);
-        //}
-        //if (Input.GetKeyDown(KeyCode.Keypad2))
-        //{
-        //    Vibrate(0.2f, 0.2f, 0.1f);
-        //}
-        //if (Input.GetKeyDown(KeyCode.Keypad3))
-        //{
-        //    Vibrate(0.3f, 0.3f, 0.1f);
-        //}
-        //if (Input.GetKeyDown(KeyCode.Keypad4))
-        //{
-        //    Vibrate(0.4f, 0.4f, 0.1f);
-        //}
-        //if (Input.GetKeyDown(KeyCode.Keypad5))
-        //{
-        //    Vibrate(0.5f, 0.5f, 0.1f);
-        //}
-        //if (Input.GetKeyDown(KeyCode.Keypad6))
-        //{
-        //    Vibrate(0.6f, 0.6f, 0.1f);
-        //}
-        //if (Input.GetKeyDown(KeyCode.Keypad7))
-        //{
-        //    Vibrate(0.7f, 0.7f, 0.1f);
-        //}        
-        //if (Input.GetKeyDown(KeyCode.Keypad8))
-        //{
-        //    Vibrate(0.8f, 0.9f, 0.1f);
-        //}        
-        //if (Input.GetKeyDown(KeyCode.Keypad9))
-        //{
-        //    Vibrate(0.9f, 0.9f, 0.1f);
-        //}
-        //if (Input.GetKeyDown(KeyCode.Keypad0))
-        //{
-        //    Vibrate(1.0f, 1.0f, 0.1f);
-        //}
-        //if (Input.GetKeyDown(KeyCode.KeypadPeriod))
-        //{
-        //    float lowFrequency = Random.Range(0.0f, 1.0f);
-        //    float highFrequency = Random.Range(0.0f, 1.0f);
-        //    float duration = Random.Range(0.1f, 0.5f);
-        //    Vibrate(lowFrequency, highFrequency, duration);
-        //    Debug.Log(lowFrequency + " , " + highFrequency);
-        //}
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "BulletGrazeCollider")
         {
-            //  µLΩ◊ cooldown°A≥£©I•s§lºu™∫¿øºu§œ¿≥
             RedBulletMove bullet = other.GetComponentInParent<RedBulletMove>();
-            if (bullet != null)
-            {
-                bullet.PlayGrazeEffect(other.transform);
-            }
-            BlackBulletMove blackBullet = other.GetComponentInParent<BlackBulletMove>();
-            if (blackBullet != null)
-            {
-                blackBullet.PlayGrazeEffect(other.transform);
-            }
+            if (bullet != null) bullet.PlayGrazeEffect(other.transform);
 
-            //  ™±Æa¿øºuÆƒ™G°]•u¶≥ cooldown Æ…§~ƒ≤µo°^
+            BlackBulletMove blackBullet = other.GetComponentInParent<BlackBulletMove>();
+            if (blackBullet != null) blackBullet.PlayGrazeEffect(other.transform);
+
             if (canGraze)
             {
                 grazeGapTimer = 0;
@@ -129,69 +87,84 @@ public class BulletGraze : MonoBehaviour
 
                 Vibrate(0.1f, 0.1f, 0.05f);
                 grazeSound.PlayOneShot(grazeClip);
+
+                if (shieldFlashEffect != null)
+                    shieldFlashEffect.FlashLifetime();
+
+                if (mpUIShaker != null)
+                    mpUIShaker.Trigger();
+
                 StartCoroutine(GrazeCD());
 
                 currentGrazeEnergy += grazeEnergyGain;
                 playerHP.Heal(1);
                 if (currentGrazeEnergy > maxGrazeEnergy)
-                {
                     currentGrazeEnergy = maxGrazeEnergy;
-                }
-                UpdateGrazeUI();
+
+                UpdateGrazeUI(); // ÁúüÂØ¶ÂÄºÁõ¥Êé•Êõ¥Êñ∞Ôºå‰∏çËß∏ÁôºËôõË°ÄÂãïÁï´
             }
         }
     }
-    void InactiveGrazeEffect()
-    {
-        grazeEffect.SetActive(false);
-    }
+
     void Vibrate(float lowFrequency, float highFrequency, float duration)
-    {
-        if (Gamepad.current != null) // ΩT´O§‚ß‚§w≥s±µ
-        {
-            Gamepad.current.SetMotorSpeeds(lowFrequency, highFrequency);
-            Invoke(nameof(StopVibration), duration); // ≥]©w©wÆ…∞±§Óæ_∞ 
-        }
-    }
-    void StopVibration()
     {
         if (Gamepad.current != null)
         {
-            Gamepad.current.SetMotorSpeeds(0f, 0f); // ∞±§Óæ_∞ 
+            Gamepad.current.SetMotorSpeeds(lowFrequency, highFrequency);
+            Invoke(nameof(StopVibration), duration);
         }
     }
+
+    void StopVibration()
+    {
+        if (Gamepad.current != null)
+            Gamepad.current.SetMotorSpeeds(0f, 0f);
+    }
+
     public void UpdateGrazeEnergyOutside(float grazeEnergy)
     {
         currentGrazeEnergy -= grazeEnergy;
-        if (currentGrazeEnergy < 0)
-        {
-            currentGrazeEnergy = 0;
-        }
+        if (currentGrazeEnergy < 0) currentGrazeEnergy = 0;
         UpdateGrazeUI();
+        TriggerFakeMP(); // ËôõË°ÄÊ¢ùÂª∂ÈÅ≤ÂãïÁï´
     }
+
     public bool CheckGrazeEnergy(float costEnergy)
     {
-        if (currentGrazeEnergy >= costEnergy)
-        {
-            return true;
-        }
-        else
-        {
-            Debug.Log("Graze Energy Not Enough");
-            return false;
-        }
+        if (currentGrazeEnergy >= costEnergy) return true;
+        Debug.Log("Graze Energy Not Enough");
+        return false;
     }
-    public void UpdateGrazeUI()
+
+    void UpdateGrazeUI()
     {
-        grazeEnergyBar.fillAmount = currentGrazeEnergy / maxGrazeEnergy;
+        float ratio = currentGrazeEnergy / maxGrazeEnergy;
+        realFill.fillAmount = ratio;
+        fakeFill.fillAmount = Mathf.Max(fakeFill.fillAmount, ratio); // ËôõË°Ä‰∏çÊáâË∂ÖÈÅéÂØ¶ÈöõÂÄº
         grazeEnergyText.text = currentGrazeEnergy.ToString("0");
     }
+
+    void TriggerFakeMP()
+    {
+        float target = currentGrazeEnergy / maxGrazeEnergy;
+        if (fakeCoroutine != null) StopCoroutine(fakeCoroutine);
+        fakeCoroutine = StartCoroutine(FakeMPRoutine(target));
+    }
+
+    IEnumerator FakeMPRoutine(float target)
+    {
+        yield return new WaitForSeconds(fakeDelay);
+        while (fakeFill.fillAmount > target)
+        {
+            fakeFill.fillAmount = Mathf.MoveTowards(fakeFill.fillAmount, target, Time.deltaTime * fakeSpeed);
+            yield return null;
+        }
+    }
+
     IEnumerator GrazeCD()
     {
         canGraze = false;
         yield return new WaitForSeconds(grazeCD);
         canGraze = true;
     }
-    
 }
-

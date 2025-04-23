@@ -22,6 +22,7 @@ public class PlayerSlashAttack : MonoBehaviour
     Vector3 PlayerOriginalPos;
     SlashDetect slashDetect;
     GameObject shieldEffect;
+    GameObject shieldEffectBIG;
     [SerializeField] GameObject slashEffectYellowObject, slashEffectRedObject;
     ParticleSystem slashEffectYellow, slashEffectRed;
     AudioSource slashAudio;
@@ -54,6 +55,7 @@ public class PlayerSlashAttack : MonoBehaviour
         slashDetect = GameObject.Find("SlashCollider").GetComponent<SlashDetect>();
         playerRigidbody = GetComponent<Rigidbody>();
         shieldEffect = GameObject.Find("MagicShieldYellow");
+        shieldEffectBIG = GameObject.Find("MagicShieldYellow_1");
         slashEffectYellow = slashEffectYellowObject.GetComponent<ParticleSystem>();
         slashEffectRed = slashEffectRedObject.GetComponent<ParticleSystem>();
         slashAudio = slashEffectYellowObject.GetComponent<AudioSource>();
@@ -206,6 +208,7 @@ public class PlayerSlashAttack : MonoBehaviour
     {
         slashState = SlashState.Dashing;
         shieldEffect.SetActive(false);
+        shieldEffectBIG.SetActive(false);
         playerRigidbody.velocity = Vector3.zero;
         if (target != null)
         {
@@ -268,6 +271,8 @@ public class PlayerSlashAttack : MonoBehaviour
                     followZoom.m_Width = 0;
                     IsReturnAnimation = false;
                     shieldEffect.SetActive(false);
+                    shieldEffectBIG.SetActive(false);
+
                     TriggerSlash();
                     Invoke("ReturnAnimation", 0.5f);
                 });
@@ -338,6 +343,7 @@ public class PlayerSlashAttack : MonoBehaviour
         target = playerAim.emptyAimObject;
         playerAim.aimmingImage.SetActive(true);
         shieldEffect.SetActive(true);
+        shieldEffectBIG.SetActive(true);
         slashState = SlashState.Idle;
     }
 
