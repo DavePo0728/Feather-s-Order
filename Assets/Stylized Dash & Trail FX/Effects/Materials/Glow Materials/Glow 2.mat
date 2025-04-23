@@ -50,7 +50,7 @@ Material:
     - _Cull: 2
     - _DstBlend: 10
     - _Float: 0.44
-    - _Power: 0
+    - _Power: 1
     - _QueueControl: 0
     - _QueueOffset: 0
     - _SrcBlend: 5
@@ -61,8 +61,8 @@ Material:
     - _ZWriteControl: 0
     m_Colors:
     - _Color: {r: 0.2854801, g: 3.66, b: 0.3311068, a: 0}
-    - _Color_1: {r: 1.6834588, g: 0.16314504, b: 0.1535228, a: 0}
-    - _Color_2: {r: 0.8549928, g: 0.10946172, b: 0.10461649, a: 0}
+    - _Color_1: {r: 0.7283019, g: 0.19742018, b: 0.18001422, a: 0}
+    - _Color_2: {r: 1, g: 1, b: 1, a: 0}
     - _GlowColor: {r: 0.2854801, g: 3.66, b: 0.3311068, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &2271871176724215420
