@@ -23,13 +23,13 @@ public class MoveTypeC : IMoveBehaviour
     }
     public bool CheckMoveStatus()
     {
-        if (onMoveC.IsPlaying())
+        if (onMoveC == null)
         {
-            return true;
+            return false;
         }
         else
         {
-            return false;
+            return onMoveC.IsPlaying();
         }
     }
     public void StopMove()

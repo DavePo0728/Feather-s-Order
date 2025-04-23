@@ -22,8 +22,8 @@ public class EnemyHp : MonoBehaviour
     bool corruption;
     public bool corruption_P => corruption;
     float corruptionDamageModifier;
-    public float MaxcorruptionStack;
-    float currentCorruptionStack;
+    float currentCorruptionValue=0;
+    public float maxCorruptionValue;
     [SerializeField]
     GameObject corruptionCleanseObject,chainEffectObject;
     ParticleSystem corruptionCleanseParticle, chainEffectParticle;
@@ -66,27 +66,25 @@ public class EnemyHp : MonoBehaviour
     private void Awake()
     {
         enemyMove = gameObject.GetComponent<EnemyMove>();
-        canvas = transform.GetChild(7).GetComponent<Canvas>();
+        canvas = transform.Find("HPCanvas").GetComponent<Canvas>();
         audioSource = GetComponent<AudioSource>();
-        shieldEffect = transform.GetChild(1).gameObject;
-        shieldExplosionEffect = transform.GetChild(3).gameObject;
-        corruptEffect = transform.GetChild(2).gameObject;
-        slashHitEffectYellowObject = transform.GetChild(5).gameObject;
-        slashHitEffectRedObject = transform.GetChild(6).gameObject;
+        shieldEffect = transform.Find("MagicShieldBlue").gameObject;
+        shieldExplosionEffect = transform.Find("TargetHitExplosion").gameObject;
+        corruptEffect = transform.Find("CorruptionEffect").gameObject;
+        slashHitEffectYellowObject = transform.Find("SwordHitMagicYellow").gameObject;
+        slashHitEffectRedObject = transform.Find("SwordHitRedCritical").gameObject;
         slashHitEffectYellow = slashHitEffectYellowObject.GetComponent<ParticleSystem>();
         slashHitEffectRed = slashHitEffectRedObject.GetComponent<ParticleSystem>();
-        canvas = transform.GetChild(8).GetComponent<Canvas>();
         canvas.worldCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
-        hpImage = transform.GetChild(8).GetChild(0).GetChild(0).GetComponent<Image>();
+        hpImage = canvas.transform.GetChild(0).Find("HPBar").GetComponent<Image>();
         DeathExplosion = Resources.Load<GameObject>("ShadowExplosion2");
         scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
         shieldHitAudioClip = Resources.Load<AudioClip>("Sound/ShieldHitSound");
         shieldBreakAudioClip = Resources.Load<AudioClip>("Sound/ShieldBreakSound");
         hitimpactAudioClip = Resources.Load<AudioClip>("Sound/HitImpactSound");
-        currentCorruptionStack = 0;
-        corruptionCleanseObject = transform.GetChild(9).gameObject;
+        corruptionCleanseObject = transform.Find("CorruptionCleanse").gameObject;
         corruptionCleanseParticle =corruptionCleanseObject.GetComponent<ParticleSystem>();
-        chainEffectObject = transform.GetChild(10).gameObject;
+        chainEffectObject = transform.Find("ChainEffect").gameObject;
         chainEffectParticle = chainEffectObject.GetComponent<ParticleSystem>();
         playerSlashAttack = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSlashAttack>();
         deathAudioClip = Resources.Load<AudioClip>("Sound/EnemyDeathSound");
@@ -270,7 +268,7 @@ public class EnemyHp : MonoBehaviour
             {
                 if (corrupted)
                 {
-                    StartCoroutine(CleanseCorruption());
+                    CleanseCorruption(1);
                     ShootHurt(5);
                 }
                 else
@@ -289,7 +287,7 @@ public class EnemyHp : MonoBehaviour
             {
                 if (corrupted)
                 {
-                    StartCoroutine(CleanseCorruption());
+                    CleanseCorruption(1);
                     ShootHurt(20);
                 }
                 else
@@ -329,27 +327,34 @@ public class EnemyHp : MonoBehaviour
     {
         slashDetectBool = false;
     }
-    IEnumerator CleanseCorruption()
+    void CleanseCorruption(int corruptionDamage)
     {
-        currentCorruptionStack++;
-        if (currentCorruptionStack>=MaxcorruptionStack)
+        if (currentCorruptionValue < maxCorruptionValue)
         {
-            corruption = false;
+            currentCorruptionValue += corruptionDamage;
+        }
+        if (currentCorruptionValue >=maxCorruptionValue)
+        {
+            corruption = true;
             corruptionCleanseObject.SetActive(true);
             chainEffectObject.SetActive(true);
             chainEffectParticle.Play();
             corruptionCleanseParticle.Play();
             corruptEffect.SetActive(false);
-            StartCoroutine(enemyMove.Paralyze());
-            Debug.Log(enemyMove.paralyzeTime);
-            yield return new WaitForSeconds(enemyMove.paralyzeTime);
-            corruption = true;
-            playerSlashAttack.ForceFallBack();
-            corruptionCleanseObject.SetActive(false);
-            chainEffectObject.SetActive(false);
-            corruptEffect.SetActive(true);
-            currentCorruptionStack = 0;
+            enemyMove.Paralyze();
         }
+        if(corruption)
+        {
+            enemyMove.Paralyze();
+        }
+    }
+    public void CorruptionRecover()
+    {
+        corruption = false;
+        playerSlashAttack.ForceFallBack();
+        corruptionCleanseObject.SetActive(false);
+        chainEffectObject.SetActive(false);
+        corruptEffect.SetActive(true);
     }
     void UpdateUI()
     {

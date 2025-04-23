@@ -17,8 +17,6 @@ using UnityEditor;
 #endif
 public class WaveManager : MonoBehaviour
 {
-    [SerializeField]
-    List<GameObject> enemyList;
     [Space(10)]
     [SerializeField]
     List<PathCreator> pathList;
@@ -584,11 +582,11 @@ public class WaveManager : MonoBehaviour
         enemyMove.moveTime = enemyData.data.singleMoveTime;
         enemyMove.leaveTime = enemyData.data.leaveTime;
         enemyMove.pointWaitTime = spawnData.data.pointWaitTime;
-        enemyMove.paralyzeTime = enemyData.data.paralyzeTime;
+        enemyMove.initialParalyzeTime = enemyData.data.paralyzeTime;
         enemyHp.corrupted = enemyData.data.corrupted;
         enemyHp.haveshield = enemyData.data.haveShield;
         enemyHp.maxShieldHp = enemyData.data.shieldHp;
-        enemyHp.MaxcorruptionStack = enemyData.data.corruptionStack;
+        enemyHp.maxCorruptionValue = enemyData.data.corruptionStack;
         enemyMove.endPoint = endPoint;
         enemyMove.leavePoint = leavePoint;
         if(spawnData.data.curveHeight == 0)
@@ -661,11 +659,11 @@ public class WaveManager : MonoBehaviour
         enemyMove.entryTime = enemyData.data.entryTime;
         enemyMove.moveTime = enemyData.data.singleMoveTime;
         enemyMove.leaveTime = enemyData.data.leaveTime;
-        enemyMove.paralyzeTime = enemyData.data.paralyzeTime;
+        enemyMove.initialParalyzeTime = enemyData.data.paralyzeTime;
         enemyHp.corrupted = enemyData.data.corrupted;
         enemyHp.haveshield = enemyData.data.haveShield;
         enemyHp.maxShieldHp = enemyData.data.shieldHp;
-        enemyHp.MaxcorruptionStack = enemyData.data.corruptionStack;
+        enemyHp.maxCorruptionValue = enemyData.data.corruptionStack;
         enemyMove.endPoint = endPoint;
         enemyMove.leavePoint = leavePoint;
         if (spawnData.data.curveHeight == 0)
@@ -696,11 +694,11 @@ public class WaveManager : MonoBehaviour
         enemyMove.entryTime = enemyData.data.entryTime;
         enemyMove.moveTime = enemyData.data.singleMoveTime;
         enemyMove.leaveTime = enemyData.data.leaveTime;
-        enemyMove.paralyzeTime = enemyData.data.paralyzeTime;
+        enemyMove.initialParalyzeTime = enemyData.data.paralyzeTime;
         enemyHp.corrupted = enemyData.data.corrupted;
         enemyHp.haveshield = enemyData.data.haveShield;
         enemyHp.maxShieldHp = enemyData.data.shieldHp;
-        enemyHp.MaxcorruptionStack = enemyData.data.corruptionStack;
+        enemyHp.maxCorruptionValue = enemyData.data.corruptionStack;
         enemyMove.endPoint = endPoint;
         enemyMove.leavePoint = leavePoint;
         if (spawnData.data.curveHeight == 0)

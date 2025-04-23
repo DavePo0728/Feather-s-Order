@@ -14,7 +14,14 @@ public class EnemyMove : MonoBehaviour
     public float moveTime;
     public float leaveTime;
     public float lifeTime;
-    public float paralyzeTime;
+    bool paralyzing = false;   //是否癱瘓中
+    float currentParalyzeTime = 0;  //目前癱瘓時間
+    public float initialParalyzeTime;   //初始癱瘓時間
+    public float MaxParalyzeTime;   //最大癱瘓時間
+    public int paralyzeCountMax;    //最大癱瘓次數
+    int currentParalyzeCount = 0;   //目前癱瘓次數
+    public float addParalyzeTime;   //增加癱瘓時間
+    public float paralyzeTimeStackMultiplier;  //癱瘓時間堆疊倍率
     protected float angle;
     public Vector3 startPoint;
     public Vector3 endPoint;
@@ -110,14 +117,16 @@ public class EnemyMove : MonoBehaviour
     }
     void FixedUpdate()
     {
-        //if (!isDebug&&!isEnter)
-        //{
-        //    isEnter = true;
-        //    entryBehavior.Enter(this);
-        //}
-
-        //UpdateDebugLine();
-        //print(isLeave);
+        if (paralyzing)
+        {
+            currentParalyzeTime -= Time.deltaTime;
+            if (currentParalyzeTime < 0)
+            {
+                recoverParalyze();
+                paralyzing = false;
+                currentParalyzeTime = 0;
+            }
+        }
     }
     public void CallMove()
     {
@@ -190,35 +199,51 @@ public class EnemyMove : MonoBehaviour
         }
         activeGun = gunList[gunIndex];
     }
-    public IEnumerator Paralyze()
+    public void Paralyze()
     {
-        //Debug.Log("paralyze");
-        if(activeGun!=null&&activeGun.activeSelf == true)
-        activeGun.SetActive(false);
-        if (entryBehavior !=null&& entryBehavior.CheckEntryStatus())
+        if(paralyzing == false)
         {
-            entryBehavior.ParalyzePause();
+            if (activeGun != null && activeGun.activeSelf == true)
+                activeGun.SetActive(false);
+            if (entryBehavior != null && entryBehavior.CheckEntryStatus())
+            {
+                entryBehavior.ParalyzePause();
+            }
+            if (moveBehavior != null && moveBehavior.CheckMoveStatus())
+            {
+                moveBehavior.ParalyzePause();
+            }
+            if (leaveBehavior != null && leaveBehavior.CheckLeaveStatus())
+            {
+                leaveBehavior.ParalyzePause();
+            }
+            paralyzing = true;
         }
-        if (moveBehavior !=null&&moveBehavior.CheckMoveStatus())
+        else
         {
-            moveBehavior.ParalyzePause();
+            if (currentParalyzeTime < MaxParalyzeTime)
+            {
+                currentParalyzeTime += addParalyzeTime*paralyzeTimeStackMultiplier;
+                if (currentParalyzeTime > MaxParalyzeTime)
+                {
+                    currentParalyzeTime = MaxParalyzeTime;
+                }
+            }
         }
-        if (leaveBehavior !=null&&leaveBehavior.CheckLeaveStatus())
-        {
-            leaveBehavior.ParalyzePause();
-        }
-        yield return new WaitForSeconds(paralyzeTime);
+    }
+    void recoverParalyze()
+    {
         if (activeGun != null && activeGun.activeSelf == false)
             activeGun.SetActive(true);
-        if (entryBehavior != null&&entryBehavior.CheckEntryStatus()==false)
+        if (entryBehavior != null && entryBehavior.CheckEntryStatus() == false)
         {
             entryBehavior.ParalyzeRecover();
         }
-        if (moveBehavior!=null&&moveBehavior.CheckMoveStatus() == false)
+        if (moveBehavior != null && moveBehavior.CheckMoveStatus() == false)
         {
             moveBehavior.ParalyzeRecover();
         }
-        if (leaveBehavior!=null &&leaveBehavior.CheckLeaveStatus() == false)
+        if (leaveBehavior != null && leaveBehavior.CheckLeaveStatus() == false)
         {
             leaveBehavior.ParalyzeRecover();
         }

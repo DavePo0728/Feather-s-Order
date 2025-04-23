@@ -23,14 +23,7 @@ public class LeaveTypeA : ILeaveBehaviour
         }
         else
         {
-            if (leaveTweener.IsPlaying())
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return leaveTweener.IsPlaying();
         }
 
     }

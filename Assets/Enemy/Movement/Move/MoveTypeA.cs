@@ -31,20 +31,20 @@ public class MoveTypeA : IMoveBehaviour
     }
     public bool CheckMoveStatus()
     {
-        if (onMoveA.IsPlaying())
+        if (onMoveA == null)
         {
-            return true;
+            return false;
         }
         else
         {
-            return false;
+            return tweenPlaying;
         }
     }
     public void StopMove()
     {
         if(onMoveA != null )
         {
-            if (onMoveA.IsPlaying())
+            if (tweenPlaying)
             {
                 onMoveA.Kill();
             }

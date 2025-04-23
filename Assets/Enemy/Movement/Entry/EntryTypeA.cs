@@ -31,14 +31,7 @@ public class EntryTypeA : IEntryBehaviour
         }
         else
         {
-            if (enterTweener.IsPlaying())
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return enterTweener.IsPlaying();
         }
     }
     public void ParalyzePause()

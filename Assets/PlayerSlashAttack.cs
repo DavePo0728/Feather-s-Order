@@ -305,7 +305,6 @@ public class PlayerSlashAttack : MonoBehaviour
             if (attackTimer > maxTime)
             {
                 ReturnAnimation();
-                ResetTimer();
             }
         }
         Debug.Log("SlashState: " + slashState);
@@ -369,7 +368,11 @@ public class PlayerSlashAttack : MonoBehaviour
     void TimeScaleNormal() => Time.timeScale = 1;
     void InactiveCollider() => slashCollider.enabled = false;
     void Shake(float intensity) => impulseSource.GenerateImpulseWithForce(intensity);
-    void ResetTimer() { isCounting = false; attackTimer = 0f; }
+    void ResetTimer() {
+        isCounting = false; 
+        attackTimer = 0f;
+        SlashTimer = 0f;
+    }
     void Vibrate(float low, float high, float duration)
     {
         if (Gamepad.current != null)

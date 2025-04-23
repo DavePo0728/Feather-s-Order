@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 2209840058140088388}
   - component: {fileID: 6720901444263377921}
   m_Layer: 7
-  m_Name: Canvas
+  m_Name: HPCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16761,6 +16761,7 @@ MonoBehaviour:
   moveB_PathList: []
   moveC_PathList: []
   isDebug: 0
+  DebugMoveTime: 0
   isDebugHaveGun: 0
   isMove: 0
   gunList: []
@@ -16987,7 +16988,7 @@ GameObject:
   - component: {fileID: 4351879796133122286}
   - component: {fileID: 6323376539385029863}
   m_Layer: 7
-  m_Name: Image
+  m_Name: HPBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22317,7 +22318,7 @@ GameObject:
   - component: {fileID: 4748092611131417332}
   - component: {fileID: 4198748685405318121}
   m_Layer: 7
-  m_Name: Image
+  m_Name: HPBG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
