@@ -57,6 +57,7 @@ public class EnemyHp : MonoBehaviour
     AudioClip hitimpactAudioClip; // 擊中敵人聲
     AudioSource audioSource;
     [SerializeField] AudioClip deathAudioClip; // 敵人死亡音效
+    [SerializeField] AudioSource SlashHITClip; // 敵人近戰受擊音效
 
     [Header("UI")]
     [SerializeField]
@@ -327,6 +328,8 @@ public class EnemyHp : MonoBehaviour
             hitCounter++;
             ShieldHurt(damage);
             Invoke("SetSlashDetectBool", 0.2f);
+
+            PlaySlashHitAudio(); // <<<<< 新增！播放近戰打擊音效
         }
         else if (hitCounter >= 3)
         {
@@ -335,6 +338,8 @@ public class EnemyHp : MonoBehaviour
             hitCounter = 0;
             ShieldHurt(damage);
             Invoke("SetSlashDetectBool", 0.3f);
+
+            PlaySlashHitAudio(); // <<<<< 新增！播放近戰打擊音效
         }
     }
     void SetSlashDetectBool()
@@ -407,6 +412,14 @@ public class EnemyHp : MonoBehaviour
         if (audioSource != null && hitimpactAudioClip != null)
         {
             audioSource.PlayOneShot(hitimpactAudioClip);
+        }
+    }
+    private void PlaySlashHitAudio()
+    {
+        if (SlashHITClip != null)
+        {
+            SlashHITClip.pitch = Random.Range(0.95f, 1.05f); // 可選，加一點隨機音高讓音效更自然
+            SlashHITClip.Play();
         }
     }
 
