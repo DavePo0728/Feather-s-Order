@@ -15,6 +15,7 @@ public class PlayerMissileMove : MonoBehaviour
     private bool isTracking = false;
     [SerializeField]
     float maxRotationSpeed;
+    public int corruptionDamage;
 
     public void Initialize(Vector3 direction,GameObject enemy)
     {

@@ -16,7 +16,7 @@ public enum BulletType
     BlackRed,
 }
 [System.Serializable]
-    public class data
+public class data
 {
     [Header("Basic Data")]
     public GameObject enemy;
@@ -28,6 +28,16 @@ public enum BulletType
     public bool haveShield;
     public float shieldHp;
     public bool corrupted;
-    public float corruptionStack;
+    [Tooltip("污穢值")]
+    public float corruptionMaxValue;
+    [Tooltip("束縛初始時間")]
     public float paralyzeTime;
+    [Tooltip("束縛最大時間")]
+    public float paralyzeMaxTime;
+    [Tooltip("束縛時間增加量")]
+    public float paralyzeAddTime;
+    [Tooltip("束縛時間增加最大次數")]
+    public int paralyzeMaxCount;
+    [Tooltip("束縛時間增加係數")]
+    public float paralyzeTimeStackMultiplier;
 }

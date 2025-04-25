@@ -22,7 +22,7 @@ public class EnemyHp : MonoBehaviour
     bool corruption;
     public bool corruption_P => corruption;
     float corruptionDamageModifier;
-    float currentCorruptionValue=0;
+    float currentCorruptionValue;
     public float maxCorruptionValue;
     [SerializeField]
     GameObject corruptionCleanseObject,chainEffectObject;
@@ -61,7 +61,9 @@ public class EnemyHp : MonoBehaviour
     [Header("UI")]
     [SerializeField]
     Canvas canvas;
+    [SerializeField]
     Image hpImage;
+    Image corruptionImage;
 
     private void Awake()
     {
@@ -76,12 +78,13 @@ public class EnemyHp : MonoBehaviour
         slashHitEffectYellow = slashHitEffectYellowObject.GetComponent<ParticleSystem>();
         slashHitEffectRed = slashHitEffectRedObject.GetComponent<ParticleSystem>();
         canvas.worldCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
-        hpImage = canvas.transform.GetChild(0).Find("HPBar").GetComponent<Image>();
+        hpImage = canvas.transform.GetChild(0).GetChild(0).Find("HPBar").GetComponent<Image>();
         DeathExplosion = Resources.Load<GameObject>("ShadowExplosion2");
         scoreManager = GameObject.Find("ScoreManager").GetComponent<ScoreManager>();
         shieldHitAudioClip = Resources.Load<AudioClip>("Sound/ShieldHitSound");
         shieldBreakAudioClip = Resources.Load<AudioClip>("Sound/ShieldBreakSound");
         hitimpactAudioClip = Resources.Load<AudioClip>("Sound/HitImpactSound");
+        corruptionImage = canvas.transform.GetChild(0).GetChild(1).Find("CorruptionBar").GetComponent<Image>();
         corruptionCleanseObject = transform.Find("CorruptionCleanse").gameObject;
         corruptionCleanseParticle =corruptionCleanseObject.GetComponent<ParticleSystem>();
         chainEffectObject = transform.Find("ChainEffect").gameObject;
@@ -96,17 +99,18 @@ public class EnemyHp : MonoBehaviour
         {
             corruption = true;
             corruptEffect.SetActive(true);
+            currentCorruptionValue = 0;
         }
         else 
         {
             corruption = false;
             corruptEffect.SetActive(false);
+            currentCorruptionValue = 0;
         }
         corruptionDamageModifier = 0.5f;
-        //ShieldDamageModifier = 1.5f;
         currentHp = maxHp;
         UpdateUI();
-        //Debug.Log("haveShield" + haveshield);
+        UpdateCorruptionUI();
 
         if (haveshield)
         {
@@ -268,7 +272,8 @@ public class EnemyHp : MonoBehaviour
             {
                 if (corrupted)
                 {
-                    CleanseCorruption(1);
+                    PlayerMissileMove playerMissileMove = other.GetComponent<PlayerMissileMove>();
+                    CleanseCorruption(playerMissileMove.corruptionDamage);
                     ShootHurt(5);
                 }
                 else
@@ -287,7 +292,8 @@ public class EnemyHp : MonoBehaviour
             {
                 if (corrupted)
                 {
-                    CleanseCorruption(1);
+
+                    CleanseCorruption(10);
                     ShootHurt(20);
                 }
                 else
@@ -332,10 +338,11 @@ public class EnemyHp : MonoBehaviour
         if (currentCorruptionValue < maxCorruptionValue)
         {
             currentCorruptionValue += corruptionDamage;
+            UpdateCorruptionUI();
         }
         if (currentCorruptionValue >=maxCorruptionValue)
         {
-            corruption = true;
+            corruption = false;
             corruptionCleanseObject.SetActive(true);
             chainEffectObject.SetActive(true);
             chainEffectParticle.Play();
@@ -343,23 +350,29 @@ public class EnemyHp : MonoBehaviour
             corruptEffect.SetActive(false);
             enemyMove.Paralyze();
         }
-        if(corruption)
+        if(corruption==false)
         {
             enemyMove.Paralyze();
         }
     }
     public void CorruptionRecover()
     {
-        corruption = false;
+        corruption = true;
+        currentCorruptionValue = 0;
+        UpdateCorruptionUI();
         playerSlashAttack.ForceFallBack();
         corruptionCleanseObject.SetActive(false);
         chainEffectObject.SetActive(false);
         corruptEffect.SetActive(true);
     }
+    void UpdateCorruptionUI()
+    {
+        float CorruptionAmount = currentCorruptionValue / maxCorruptionValue;
+        corruptionImage.fillAmount = CorruptionAmount;
+    }
     void UpdateUI()
     {
-        float HpAmount = (float)currentHp / (float)maxHp;
-        //Debug.Log(HpAmount);
+        float HpAmount = currentHp / maxHp;
         hpImage.fillAmount = HpAmount;
     }
     private void PlayShieldHitSound()

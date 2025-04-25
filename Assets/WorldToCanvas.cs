@@ -7,6 +7,11 @@ public class WorldToCanvas : MonoBehaviour
     public RectTransform uiElement;    // 要移動的 UI 元素
     public Transform target;           // 世界空間中的目標
 
+    private void Awake()
+    {
+        mainCamera = Camera.main; // 獲取主相機
+        //canvas = GameObject.Find("Canvas").GetComponent<Canvas>(); // 獲取 Canvas
+    }
     void Update()
     {
         if (mainCamera == null || canvas == null || uiElement == null || target == null)

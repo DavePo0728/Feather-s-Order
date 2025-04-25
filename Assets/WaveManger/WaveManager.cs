@@ -4,16 +4,9 @@ using UnityEngine;
 using PathCreation;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
-using System.Net;
-using TMPro;
-using FUnit.GameObjectExtensions;
-using UnityEditorInternal.Profiling.Memory.Experimental.FileFormat;
-
-
 
 #if UNITY_EDITOR
 using UnityEditor;
-
 #endif
 public class WaveManager : MonoBehaviour
 {
@@ -586,7 +579,12 @@ public class WaveManager : MonoBehaviour
         enemyHp.corrupted = enemyData.data.corrupted;
         enemyHp.haveshield = enemyData.data.haveShield;
         enemyHp.maxShieldHp = enemyData.data.shieldHp;
-        enemyHp.maxCorruptionValue = enemyData.data.corruptionStack;
+        enemyHp.maxCorruptionValue = enemyData.data.corruptionMaxValue;
+        enemyMove.initialParalyzeTime = enemyData.data.paralyzeTime;
+        enemyMove.maxParalyzeTime = enemyData.data.paralyzeMaxTime;
+        enemyMove.paralyzeAddTime = enemyData.data.paralyzeAddTime;
+        enemyMove.paralyzeMaxCount = enemyData.data.paralyzeMaxCount;
+        enemyMove.paralyzeTimeStackMultiplier = enemyData.data.paralyzeTimeStackMultiplier;
         enemyMove.endPoint = endPoint;
         enemyMove.leavePoint = leavePoint;
         if(spawnData.data.curveHeight == 0)
@@ -644,79 +642,6 @@ public class WaveManager : MonoBehaviour
             LeaveType.LeaveTypeA => new LeaveTypeA(),
             _ => null
         };
-    }
-
-    void NewSpawnB(EnemyData enemyData, SpawnData spawnData, GunData gunData, IEntryBehaviour entryBehaviour, IMoveBehaviour moveBBehaviour, ILeaveBehaviour leaveBehaviour)
-    {
-        Vector3 spawnPoint = Vector3PointGenerator.instance.GetPoint((int)spawnData.data.spawnPosition.x, (int)spawnData.data.spawnPosition.y, (int)spawnData.data.spawnPosition.z);
-        Vector3 endPoint = Vector3PointGenerator.instance.GetPoint((int)spawnData.data.endPosition.x, (int)spawnData.data.endPosition.y, (int)spawnData.data.endPosition.z);
-        Vector3 leavePoint = Vector3PointGenerator.instance.GetPoint((int)spawnData.data.LeavePositon.x, (int)spawnData.data.LeavePositon.y, (int)spawnData.data.LeavePositon.z);
-        GameObject temp = Instantiate(enemyData.data.enemy, spawnPoint, Quaternion.identity);
-        EnemyMove enemyMove = temp.GetComponent<EnemyMove>();
-        EnemyHp enemyHp = temp.GetComponent<EnemyHp>();
-        enemyHp.maxHp = enemyData.data.hp;
-        enemyMove.lifeTime = enemyData.data.lifeTime;
-        enemyMove.entryTime = enemyData.data.entryTime;
-        enemyMove.moveTime = enemyData.data.singleMoveTime;
-        enemyMove.leaveTime = enemyData.data.leaveTime;
-        enemyMove.initialParalyzeTime = enemyData.data.paralyzeTime;
-        enemyHp.corrupted = enemyData.data.corrupted;
-        enemyHp.haveshield = enemyData.data.haveShield;
-        enemyHp.maxShieldHp = enemyData.data.shieldHp;
-        enemyHp.maxCorruptionValue = enemyData.data.corruptionStack;
-        enemyMove.endPoint = endPoint;
-        enemyMove.leavePoint = leavePoint;
-        if (spawnData.data.curveHeight == 0)
-        {
-            spawnData.data.curveHeight = Random.Range(-100f, 100f);
-        }
-        else
-        {
-            enemyMove.curveHeight = spawnData.data.curveHeight;
-        }
-        enemyMove.moveB_PathList = CurvePathGenerator.pathInstance.GetCurvePath(pathList[spawnData.data.pathNum]);
-        IEntryBehaviour entry = entryBehaviour;
-        IMoveBehaviour move = moveBBehaviour;
-        ILeaveBehaviour leave = leaveBehaviour;
-        enemyMove.SetBehaviours(entry, move, leave);
-        enemyMove.ActiveGun(gunData.data.gunIndex, gunData.data.rpm, gunData.data.bulletAmount, gunData.data.spinSpeed, gunData.data.shootingCoolDown, (EnemyMove.BulletType)gunData.data.bulletType, gunData.data.MaxShootWave);
-    }
-    void NewSpawnC(EnemyData enemyData, SpawnData spawnData, GunData gunData, IEntryBehaviour entryBehaviour, IMoveBehaviour moveCBehaviour, ILeaveBehaviour leaveBehaviour)
-    {
-        Vector3 spawnPoint = Vector3PointGenerator.instance.GetPoint((int)spawnData.data.spawnPosition.x, (int)spawnData.data.spawnPosition.y, (int)spawnData.data.spawnPosition.z);
-        Vector3 endPoint = Vector3PointGenerator.instance.GetPoint((int)spawnData.data.endPosition.x, (int)spawnData.data.endPosition.y, (int)spawnData.data.endPosition.z);
-        Vector3 leavePoint = Vector3PointGenerator.instance.GetPoint((int)spawnData.data.LeavePositon.x, (int)spawnData.data.LeavePositon.y, (int)spawnData.data.LeavePositon.z);
-        GameObject temp = Instantiate(enemyData.data.enemy, spawnPoint, Quaternion.identity);
-        EnemyMove enemyMove = temp.GetComponent<EnemyMove>();
-        EnemyHp enemyHp = temp.GetComponent<EnemyHp>();
-        enemyHp.maxHp = enemyData.data.hp;
-        enemyMove.lifeTime = enemyData.data.lifeTime;
-        enemyMove.entryTime = enemyData.data.entryTime;
-        enemyMove.moveTime = enemyData.data.singleMoveTime;
-        enemyMove.leaveTime = enemyData.data.leaveTime;
-        enemyMove.initialParalyzeTime = enemyData.data.paralyzeTime;
-        enemyHp.corrupted = enemyData.data.corrupted;
-        enemyHp.haveshield = enemyData.data.haveShield;
-        enemyHp.maxShieldHp = enemyData.data.shieldHp;
-        enemyHp.maxCorruptionValue = enemyData.data.corruptionStack;
-        enemyMove.endPoint = endPoint;
-        enemyMove.leavePoint = leavePoint;
-        if (spawnData.data.curveHeight == 0)
-        {
-            spawnData.data.curveHeight = Random.Range(-100f, 100f);
-        }
-        else
-        {
-            enemyMove.curveHeight = spawnData.data.curveHeight;
-        }
-        CustomPathData path = customPathDataList[spawnData.data.customPathNum];
-        enemyMove.moveC_PathList = Vector3PointGenerator.instance.GetMoveCPathList(path.pathX.Count, path);
-        enemyMove.pointWaitTime = spawnData.data.pointWaitTime;
-        IEntryBehaviour entry = entryBehaviour;
-        IMoveBehaviour move = moveCBehaviour;
-        ILeaveBehaviour leave = leaveBehaviour;
-        enemyMove.SetBehaviours(entry, move, leave);
-        enemyMove.ActiveGun(gunData.data.gunIndex, gunData.data.rpm, gunData.data.bulletAmount, gunData.data.spinSpeed, gunData.data.shootingCoolDown, (EnemyMove.BulletType)gunData.data.bulletType, gunData.data.MaxShootWave);
     }
     // MoveTypeA :小範圍隨機移動
     // MoveTypeB :固定軌道移動

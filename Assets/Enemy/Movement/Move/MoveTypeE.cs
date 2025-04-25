@@ -19,7 +19,6 @@ public class MoveTypeE : IMoveBehaviour
         if(onMoveE == null)
         {
             return false;
-
         }
         else
         {

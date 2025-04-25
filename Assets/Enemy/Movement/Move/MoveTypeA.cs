@@ -17,7 +17,7 @@ public class MoveTypeA : IMoveBehaviour
         {
             _nextPos = CurvePathGenerator.pathInstance.GetLandingPosZ(enemyMove.originPos, 10);
             //Debug.Log("EnemyName: "+enemyMove.name+" NextPos: " + _nextPos);
-            onMoveA = enemyMove.transform.DOMove(_nextPos, enemyMove.moveTime).SetEase(Ease.Linear).SetDelay(waitTime).OnStart(() => { tweenPlaying = true; /*Debug.Log("MoveATweenStart"); */});
+            onMoveA = enemyMove.transform.DOMove(_nextPos, enemyMove.moveTime).SetEase(Ease.Linear).SetDelay(waitTime).OnPause(() => { tweenPlaying = false; }).OnPlay(() => { tweenPlaying = true; });
             if(!tweenPlaying)
             onMoveA.Play();
             onMoveA.OnComplete(() => { tweenPlaying = false; Move(enemyMove); /*Debug.Log("TweenComplete");*/ });
@@ -37,6 +37,7 @@ public class MoveTypeA : IMoveBehaviour
         }
         else
         {
+            Debug.Log("MoveTypeA CheckMoveStatus: " + tweenPlaying);
             return tweenPlaying;
         }
     }

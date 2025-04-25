@@ -10,17 +10,20 @@ public class EnemyMove : MonoBehaviour
     IEntryBehaviour entryBehavior;
     IMoveBehaviour moveBehavior;
     ILeaveBehaviour leaveBehavior;
+    EnemyHp enemyHp;
     public float entryTime;
     public float moveTime;
     public float leaveTime;
     public float lifeTime;
     bool paralyzing = false;   //是否癱瘓中
+    [SerializeField]
     float currentParalyzeTime = 0;  //目前癱瘓時間
     public float initialParalyzeTime;   //初始癱瘓時間
-    public float MaxParalyzeTime;   //最大癱瘓時間
-    public int paralyzeCountMax;    //最大癱瘓次數
+    public float maxParalyzeTime;   //最大癱瘓時間
+    public int paralyzeMaxCount;    //最大癱瘓次數
+    [SerializeField]
     int currentParalyzeCount = 0;   //目前癱瘓次數
-    public float addParalyzeTime;   //增加癱瘓時間
+    public float paralyzeAddTime;   //增加癱瘓時間
     public float paralyzeTimeStackMultiplier;  //癱瘓時間堆疊倍率
     protected float angle;
     public Vector3 startPoint;
@@ -71,12 +74,14 @@ public class EnemyMove : MonoBehaviour
     }
     private void Awake()
     {
+        enemyHp = GetComponent<EnemyHp>();
         if (entryTime+moveTime+leaveTime>lifeTime)
         {
             Debug.LogError("you are idoit sandwich!!!!");
         }
         if (!isDebug)
         {
+            //testData = Resources.Load<EnemyData>("EnemyData/Test");
             gunList = new List<GameObject>();
             for (int i = 0; i < transform.GetChild(4).childCount; i++)
             {
@@ -85,7 +90,7 @@ public class EnemyMove : MonoBehaviour
         }
         else if (isDebugHaveGun)
         {
-            testData = Resources.Load<EnemyData>("EnemyData/Test");
+            //testData = Resources.Load<EnemyData>("EnemyData/Test");
             testGunData = Resources.Load<GunData>("GunData/Test");
             gunList = new List<GameObject>();
             for (int i = 0; i < transform.GetChild(4).childCount; i++)
@@ -125,6 +130,7 @@ public class EnemyMove : MonoBehaviour
                 recoverParalyze();
                 paralyzing = false;
                 currentParalyzeTime = 0;
+                currentParalyzeCount = 0;
             }
         }
     }
@@ -201,38 +207,45 @@ public class EnemyMove : MonoBehaviour
     }
     public void Paralyze()
     {
-        if(paralyzing == false)
+        if (currentParalyzeCount < paralyzeMaxCount)
         {
-            if (activeGun != null && activeGun.activeSelf == true)
-                activeGun.SetActive(false);
-            if (entryBehavior != null && entryBehavior.CheckEntryStatus())
+            currentParalyzeCount++;
+            if (paralyzing == false)
             {
-                entryBehavior.ParalyzePause();
-            }
-            if (moveBehavior != null && moveBehavior.CheckMoveStatus())
-            {
-                moveBehavior.ParalyzePause();
-            }
-            if (leaveBehavior != null && leaveBehavior.CheckLeaveStatus())
-            {
-                leaveBehavior.ParalyzePause();
-            }
-            paralyzing = true;
-        }
-        else
-        {
-            if (currentParalyzeTime < MaxParalyzeTime)
-            {
-                currentParalyzeTime += addParalyzeTime*paralyzeTimeStackMultiplier;
-                if (currentParalyzeTime > MaxParalyzeTime)
+                paralyzing = true;
+                currentParalyzeTime = initialParalyzeTime;
+                if (activeGun != null && activeGun.activeSelf == true)
+                    activeGun.SetActive(false);
+                if (entryBehavior != null && entryBehavior.CheckEntryStatus())
                 {
-                    currentParalyzeTime = MaxParalyzeTime;
+                    entryBehavior.ParalyzePause();
+                }
+                if (moveBehavior != null && moveBehavior.CheckMoveStatus())
+                {
+                    moveBehavior.ParalyzePause();
+                }
+                if (leaveBehavior != null && leaveBehavior.CheckLeaveStatus())
+                {
+                    leaveBehavior.ParalyzePause();
+                }
+            }
+            else
+            {
+                if (currentParalyzeTime < maxParalyzeTime)
+                {
+                    currentParalyzeTime += paralyzeAddTime*(paralyzeTimeStackMultiplier/currentParalyzeCount);
+                    Debug.Log("currentParalyzeTime: " + currentParalyzeTime);
+                    if (currentParalyzeTime > maxParalyzeTime)
+                    {
+                        currentParalyzeTime = maxParalyzeTime;
+                    }
                 }
             }
         }
     }
     void recoverParalyze()
     {
+        enemyHp.CorruptionRecover();
         if (activeGun != null && activeGun.activeSelf == false)
             activeGun.SetActive(true);
         if (entryBehavior != null && entryBehavior.CheckEntryStatus() == false)
@@ -241,6 +254,7 @@ public class EnemyMove : MonoBehaviour
         }
         if (moveBehavior != null && moveBehavior.CheckMoveStatus() == false)
         {
+            Debug.Log("MoveBehaviorRecover");
             moveBehavior.ParalyzeRecover();
         }
         if (leaveBehavior != null && leaveBehavior.CheckLeaveStatus() == false)
