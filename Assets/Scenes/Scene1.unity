@@ -3954,7 +3954,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6806084062278553910, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
       propertyPath: DebugMoveTime
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6806084062278553910, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
       propertyPath: maxParalyzeTime
@@ -3970,11 +3970,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6806084062278553910, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
       propertyPath: initialParalyzeTime
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6806084062278553910, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
       propertyPath: paralyzeTimeStackMultiplier
-      value: 0.8
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7469029502725969291, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
       propertyPath: m_Name
@@ -14614,7 +14614,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6806084062278553910, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
       propertyPath: DebugMoveTime
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6806084062278553910, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
       propertyPath: maxParalyzeTime
@@ -14630,11 +14630,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6806084062278553910, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
       propertyPath: initialParalyzeTime
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6806084062278553910, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
       propertyPath: paralyzeTimeStackMultiplier
-      value: 0.8
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7469029502725969291, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
       propertyPath: m_Name
@@ -15756,7 +15756,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6806084062278553910, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
       propertyPath: DebugMoveTime
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6806084062278553910, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
       propertyPath: maxParalyzeTime
@@ -15772,11 +15772,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6806084062278553910, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
       propertyPath: initialParalyzeTime
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6806084062278553910, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
       propertyPath: paralyzeTimeStackMultiplier
-      value: 0.8
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7469029502725969291, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
       propertyPath: m_Name
@@ -20651,7 +20651,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5531840777170294729, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
       propertyPath: DebugMoveTime
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5531840777170294729, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
       propertyPath: maxParalyzeTime
@@ -20667,11 +20667,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5531840777170294729, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
       propertyPath: initialParalyzeTime
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5531840777170294729, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
       propertyPath: paralyzeTimeStackMultiplier
-      value: 0.8
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5953248887307944697, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
       propertyPath: maxHp
@@ -25549,7 +25549,7 @@ ParticleSystem:
   emitterVelocityMode: 0
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -36842,7 +36842,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5531840777170294729, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
       propertyPath: DebugMoveTime
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5531840777170294729, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
       propertyPath: maxParalyzeTime
@@ -36858,11 +36858,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5531840777170294729, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
       propertyPath: initialParalyzeTime
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5531840777170294729, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
       propertyPath: paralyzeTimeStackMultiplier
-      value: 0.8
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5953248887307944697, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
       propertyPath: maxHp
@@ -113183,6 +113183,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerAim: {fileID: 9155974850077419661}
   AimObject: {fileID: 876164354}
+  enemiesInRange: []
 --- !u!4 &2301599534360696046
 Transform:
   m_ObjectHideFlags: 0
@@ -138507,6 +138508,7 @@ MonoBehaviour:
   impulseSource: {fileID: 4569409165055609027}
   followZoom: {fileID: 5173197115759677358}
   flashImage: {fileID: 1033508791827913940}
+  maxTime: 1
   attackTimer: 0
   playerAnimator: {fileID: 177602254}
   clothDB: {fileID: 1628283138}
@@ -292401,6 +292403,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9c96d6dbf5c317449a0d86b8e0b6357, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  showLockUI: 0
   playerCamera: {fileID: 5111893677742036862}
   aimmingImage: {fileID: 6535428610945530404}
   FarLockImage: {fileID: 5666414156714993321}

@@ -19,6 +19,8 @@ public class PlayerSlashAttack : MonoBehaviour
     [SerializeField] Collider slashCollider;
     [SerializeField] Vector3 slashTarget;
     PlayerAim playerAim;
+    Collider aimCollider;
+    AimDetect aimDetect;
     Vector3 PlayerOriginalPos;
     SlashDetect slashDetect;
     GameObject shieldEffect;
@@ -37,7 +39,8 @@ public class PlayerSlashAttack : MonoBehaviour
     int hitCounter;
     float SlashTimer;
     float slashCD = 0.2f;
-    float maxTime = 1.0f;
+    [SerializeField]
+    float maxTime;
     [SerializeField]
     float attackTimer = 0f;
     bool isCounting = false;
@@ -52,6 +55,8 @@ public class PlayerSlashAttack : MonoBehaviour
 
     private void Awake()
     {
+        aimDetect = GameObject.Find("AimDetectCollider").GetComponent<AimDetect>();
+        aimCollider = GameObject.Find("AimDetectCollider").GetComponent<Collider>();
         playerMove = GetComponent<PlayerMove>();
         playerAim = GetComponent<PlayerAim>();
         slashDetect = GameObject.Find("SlashCollider").GetComponent<SlashDetect>();
@@ -68,7 +73,7 @@ public class PlayerSlashAttack : MonoBehaviour
 
     public void GetSlashInput(InputAction.CallbackContext context)
     {
-        if (context.performed && slashState == SlashState.Idle&&playerAim.isLocked)
+        if (context.started && slashState == SlashState.Idle&&playerAim.isLocked)
         {
             if (playerAim.CheckLockedEnemy())
             {
@@ -93,8 +98,12 @@ public class PlayerSlashAttack : MonoBehaviour
                     playerAnimator.SetTrigger("Dash");
                     sword.SetActive(true);
                     DashToShieldEnemy();
+                    aimCollider.enabled = false;
+                    aimDetect.ClearAimList();
+                    playerAim.showLockUI = false;
                     playerAim.aimmingImage.SetActive(false);
                     playerAim.FarLockImage.SetActive(false);
+                    playerAim.NearLockImage.SetActive(false);
                     return;
                 }
                 if (enemyHp.corrupted && !enemyHp.corruption_P)
@@ -103,8 +112,12 @@ public class PlayerSlashAttack : MonoBehaviour
                     playerAnimator.SetTrigger("Dash");
                     sword.SetActive(true);
                     DashToEnemy();
+                    aimCollider.enabled = false;
+                    aimDetect.ClearAimList();
+                    playerAim.showLockUI = false;
                     playerAim.aimmingImage.SetActive(false);
                     playerAim.FarLockImage.SetActive(false);
+                    playerAim.NearLockImage.SetActive(false);
                 }
             }
         }
@@ -112,6 +125,7 @@ public class PlayerSlashAttack : MonoBehaviour
         {
             if (slashState == SlashState.Attacking && dashCounting == false)
             {
+                Debug.Log("1");
                 ReturnAnimation();
             }
         }
@@ -123,14 +137,14 @@ public class PlayerSlashAttack : MonoBehaviour
         {
             if (hitCounter < 3)
             {
-                print(hitCounter);
+                //print(hitCounter);
 				
 				slashCD = 0.2f;
                 Invoke("TriggerSlash", 0.1f);
 				switch (hitCounter)
 				{
 					case 0:
-						print("S1");
+						//print("S1");
 						playerAnimator.Play("S1");
                         slashEffectYellowR.flip = new Vector3(0, 0, 0);
 						slashEffectYellowR.transform.localRotation = Quaternion.Euler(79f, 315f, 207f);
@@ -138,7 +152,7 @@ public class PlayerSlashAttack : MonoBehaviour
 						playerAnimator.SetBool("OnAttack", true);
 						break;
 					case 1:
-						print("S2");
+						//print("S2");
 						playerAnimator.Play("S2");
 						slashEffectYellowR.flip = new Vector3(0, 1, 0);
 						slashEffectYellowR.transform.localRotation = Quaternion.Euler(61f, 141f, 305f); 
@@ -147,7 +161,7 @@ public class PlayerSlashAttack : MonoBehaviour
 						playerAnimator.SetBool("OnAttack", true);
 						break;
 					case 2:
-						print("S3");
+						//print("S3");
 						playerAnimator.Play("S3");
 						slashEffectYellowR.flip = new Vector3(0, 0, 0);
 						slashEffectYellowR.transform.localRotation = Quaternion.Euler(79f, 315f, 207f);
@@ -164,13 +178,13 @@ public class PlayerSlashAttack : MonoBehaviour
             }
             else
             {
-				print("S4");
+				//print("S4");
 				playerAnimator.Play("S4");
                 Invoke("TriggerSlash4", 0.3f);
                 playerAnimator.SetBool("OnAttack", false);
                 slashCD = 0.5f;
                 SlashTimer = 0;
-                attackTimer = 0;
+                attackTimer = 0f;
 				hitCounter = 0;
 			}
         }
@@ -337,10 +351,11 @@ public class PlayerSlashAttack : MonoBehaviour
             }
             if (attackTimer > maxTime)
             {
+                Debug.Log("2");
                 ReturnAnimation();
             }
         }
-        ////Debug.Log("SlashState: " + slashState);
+        Debug.Log("SlashState: " + slashState);
         if (slashState == SlashState.FallingBack|| slashState == SlashState.Idle && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Stand__Idle"))
         {
             //playerAnimator.SetTrigger("ReFly");
@@ -368,6 +383,8 @@ public class PlayerSlashAttack : MonoBehaviour
 
     public void FallBackFinish()
     {
+        playerAim.showLockUI = true;
+        aimCollider.enabled = true;
         target = playerAim.emptyAimObject;
         playerAim.aimmingImage.SetActive(true);
         shieldEffect.SetActive(true);
@@ -380,11 +397,13 @@ public class PlayerSlashAttack : MonoBehaviour
         if (tweener != null && (tweener.IsPlaying() || slashState == SlashState.Dashing))
         {
             tweener.Kill();
+            Debug.Log("3");
             ReturnAnimation();
             return;
         }
         if (slashState == SlashState.Arrived|| slashState == SlashState.Attacking)
         {
+            Debug.Log("4");
             ReturnAnimation();
             return;
         }
@@ -394,6 +413,7 @@ public class PlayerSlashAttack : MonoBehaviour
     {
         if (!playerAim._lockedEnemy.CompareTag("Enemy"))
         {
+            Debug.Log("5");
             ReturnAnimation();
         }
     }
