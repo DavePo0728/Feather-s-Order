@@ -55,14 +55,14 @@ Material:
     - _QueueOffset: 0
     - _SrcBlend: 5
     - _Surface: 1
-    - _Use_Gradient: 0
+    - _Use_Gradient: 1
     - _ZTest: 4
     - _ZWrite: 0
     - _ZWriteControl: 0
     m_Colors:
     - _Color: {r: 0.2854801, g: 3.66, b: 0.3311068, a: 0}
     - _Color_1: {r: 0.7283019, g: 0.19742018, b: 0.18001422, a: 0}
-    - _Color_2: {r: 1, g: 1, b: 1, a: 0}
+    - _Color_2: {r: 0.23773581, g: 0.07132072, b: 0.07132072, a: 1}
     - _GlowColor: {r: 0.2854801, g: 3.66, b: 0.3311068, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &2271871176724215420
