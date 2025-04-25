@@ -19,7 +19,7 @@ public class PlayerMissileMove : MonoBehaviour
 
     public void Initialize(Vector3 direction,GameObject enemy)
     {
-        speed = 2f;
+        speed = 3f;
         // 設定初始發射方向
         transform.rotation = Quaternion.LookRotation(direction);
         lockedEnemy = enemy;

@@ -48908,7 +48908,7 @@ MonoBehaviour:
   corruptionExplosionEffect: {fileID: 0}
   corrupted: 1
   corruption: 0
-  MaxcorruptionStack: 0
+  maxCorruptionValue: 0
   corruptionCleanseObject: {fileID: 0}
   chainEffectObject: {fileID: 0}
   shieldEffect: {fileID: 0}
@@ -48965,7 +48965,11 @@ MonoBehaviour:
   moveTime: 0
   leaveTime: 0
   lifeTime: 10
-  paralyzeTime: 0
+  initialParalyzeTime: 0
+  MaxParalyzeTime: 0
+  paralyzeCountMax: 0
+  addParalyzeTime: 0
+  paralyzeTimeStackMultiplier: 0
   startPoint: {x: 0, y: 0, z: 0}
   endPoint: {x: 0, y: 0, z: 0}
   leavePoint: {x: 0, y: 0, z: 0}

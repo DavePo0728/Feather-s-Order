@@ -70,8 +70,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13b1858800b2b1f4ca60e6f8f80e6a89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxSpeed: 150
-  speed: 100
+  MaxSpeed: 250
+  speed: 200
   lifeTime: 6
   spreadDuration: 0.05
   maxRotationSpeed: 360
@@ -4876,7 +4876,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4458906101981424, guid: b754cb6e007692245bcdfa629b37e171, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.702
+      value: -0.831
       objectReference: {fileID: 0}
     - target: {fileID: 4985825594347044, guid: b754cb6e007692245bcdfa629b37e171, type: 3}
       propertyPath: m_LocalScale.x
@@ -4932,7 +4932,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 198862391873483400, guid: b754cb6e007692245bcdfa629b37e171, type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 0.8
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 198862391873483400, guid: b754cb6e007692245bcdfa629b37e171, type: 3}
       propertyPath: InitialModule.startSize.minScalar

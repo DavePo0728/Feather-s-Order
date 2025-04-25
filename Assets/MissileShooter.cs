@@ -36,6 +36,9 @@ public class MissileShooter : MonoBehaviour
     List<GameObject> lockEnemyImageList = new List<GameObject>();
     [SerializeField] AudioClip farLockSFX;
     [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip missileFireSFX;
+    [SerializeField] [Range(0f, 1.5f)] float missileFireVolume = 1.0f;
+    [SerializeField] Vector2 pitchRange = new Vector2(0.9f, 1.1f); // 隨機音高範圍
     // Start is called before the first frame update
 
     private HashSet<GameObject> alreadyPlayedLockSFX = new HashSet<GameObject>();
@@ -121,14 +124,34 @@ public class MissileShooter : MonoBehaviour
     }
     void ShootMissile(float missileAmount)
     {
+        int missileCount = Mathf.FloorToInt(missileAmount);
 
-        for (int i = 0; i < missileAmount; i++) {
-            float angle = i * (360 / missileAmount);
+        for (int i = 0; i < missileCount; i++)
+        {
+            float angle = i * (360 / missileCount);
             float radian = angle * Mathf.Deg2Rad;
             Vector3 direction = new Vector3(Mathf.Cos(radian), Mathf.Sin(radian), 0);
             GameObject temp = Instantiate(missile, transform.position, Quaternion.identity);
             PlayerMissileMove playerMissileMove = temp.GetComponent<PlayerMissileMove>();
             playerMissileMove.Initialize(direction, lockedEnemies[i]);
+        }
+
+        // 撥放音效（每發對應一個延遲）
+        StartCoroutine(PlayMissileSFXSequentially(missileCount));
+    }
+
+    IEnumerator PlayMissileSFXSequentially(int count)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            if (missileFireSFX != null)
+            {
+                audioSource.pitch = Random.Range(pitchRange.x, pitchRange.y);
+                audioSource.PlayOneShot(missileFireSFX, missileFireVolume);
+                audioSource.pitch = 1f;
+            }
+
+            yield return new WaitForSeconds(0.04f); // 播放間隔（可依需求調整）
         }
     }
     private void OnTriggerEnter(Collider other)
