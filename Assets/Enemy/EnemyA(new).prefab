@@ -11159,7 +11159,7 @@ GameObject:
   - component: {fileID: 2924366044075848480}
   - component: {fileID: 7180807004630605886}
   m_Layer: 7
-  m_Name: Image
+  m_Name: HPBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16391,7 +16391,7 @@ GameObject:
   - component: {fileID: 6857877241810520609}
   - component: {fileID: 8526467703342394001}
   m_Layer: 7
-  m_Name: HPCanvas
+  m_Name: StatusCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16798,6 +16798,7 @@ MonoBehaviour:
   hitimpactAudioClip: {fileID: 0}
   deathAudioClip: {fileID: 0}
   canvas: {fileID: 0}
+  hpImage: {fileID: 0}
 --- !u!54 &48920970644535995
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -16841,10 +16842,12 @@ MonoBehaviour:
   moveTime: 0
   leaveTime: 0
   lifeTime: 10
+  currentParalyzeTime: 0
   initialParalyzeTime: 0
-  MaxParalyzeTime: 0
-  paralyzeCountMax: 0
-  addParalyzeTime: 0
+  maxParalyzeTime: 0
+  paralyzeMaxCount: 0
+  currentParalyzeCount: 0
+  paralyzeAddTime: 0
   paralyzeTimeStackMultiplier: 0
   startPoint: {x: 0, y: 0, z: 0}
   endPoint: {x: 0, y: 0, z: 0}
@@ -16971,7 +16974,7 @@ GameObject:
   - component: {fileID: 7161742610948572590}
   - component: {fileID: 7896478860594658626}
   m_Layer: 7
-  m_Name: HPBG
+  m_Name: StatusUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17099,7 +17102,7 @@ GameObject:
   - component: {fileID: 1248469655192059818}
   - component: {fileID: 63168421528795101}
   m_Layer: 7
-  m_Name: HPBar
+  m_Name: HPBG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22657,7 +22660,7 @@ Transform:
   m_GameObject: {fileID: 8914477205634733985}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalPosition: {x: 0, y: 2.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

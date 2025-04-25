@@ -16,12 +16,10 @@ public class EnemyMove : MonoBehaviour
     public float leaveTime;
     public float lifeTime;
     bool paralyzing = false;   //是否癱瘓中
-    [SerializeField]
     float currentParalyzeTime = 0;  //目前癱瘓時間
     public float initialParalyzeTime;   //初始癱瘓時間
     public float maxParalyzeTime;   //最大癱瘓時間
     public int paralyzeMaxCount;    //最大癱瘓次數
-    [SerializeField]
     int currentParalyzeCount = 0;   //目前癱瘓次數
     public float paralyzeAddTime;   //增加癱瘓時間
     public float paralyzeTimeStackMultiplier;  //癱瘓時間堆疊倍率
@@ -266,7 +264,7 @@ public class EnemyMove : MonoBehaviour
     {
         yield return new WaitForSeconds(lifeTime);
         isLeave = true;
-        activeGun.SetActive(false );
+        activeGun.SetActive(false);
         //foreach (GameObject gun in gunList)
         //{
         //    if(gun.activeSelf)

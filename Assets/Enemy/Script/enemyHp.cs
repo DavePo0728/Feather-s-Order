@@ -61,14 +61,13 @@ public class EnemyHp : MonoBehaviour
     [Header("UI")]
     [SerializeField]
     Canvas canvas;
-    [SerializeField]
     Image hpImage;
     Image corruptionImage;
 
     private void Awake()
     {
         enemyMove = gameObject.GetComponent<EnemyMove>();
-        canvas = transform.Find("HPCanvas").GetComponent<Canvas>();
+        canvas = transform.Find("StatusCanvas").GetComponent<Canvas>();
         audioSource = GetComponent<AudioSource>();
         shieldEffect = transform.Find("MagicShieldBlue").gameObject;
         shieldExplosionEffect = transform.Find("TargetHitExplosion").gameObject;
