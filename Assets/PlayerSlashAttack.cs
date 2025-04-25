@@ -12,7 +12,6 @@ public class PlayerSlashAttack : MonoBehaviour
 {
     public enum SlashState { Idle, Dashing, Arrived, Attacking, FallingBack }
     public SlashState slashState = SlashState.Idle;
-
     PlayerMove playerMove;
     [SerializeField] CinemachineVirtualCamera playerVCam;
     Rigidbody playerRigidbody;

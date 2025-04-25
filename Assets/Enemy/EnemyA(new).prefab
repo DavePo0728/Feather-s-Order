@@ -16843,9 +16843,11 @@ MonoBehaviour:
   moveTime: 0
   leaveTime: 0
   lifeTime: 10
+  currentParalyzeTime: 0
   initialParalyzeTime: 3
   maxParalyzeTime: 5
   paralyzeMaxCount: 5
+  currentParalyzeCount: 0
   paralyzeAddTime: 2
   paralyzeTimeStackMultiplier: 0.8
   startPoint: {x: 0, y: 0, z: 0}
@@ -27994,6 +27996,18 @@ PrefabInstance:
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 409170, guid: b628ef88aad4ea74087e083e3e1366da, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 409170, guid: b628ef88aad4ea74087e083e3e1366da, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 409170, guid: b628ef88aad4ea74087e083e3e1366da, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 409170, guid: b628ef88aad4ea74087e083e3e1366da, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -28032,6 +28046,10 @@ PrefabInstance:
     - target: {fileID: 409170, guid: b628ef88aad4ea74087e083e3e1366da, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 409170, guid: b628ef88aad4ea74087e083e3e1366da, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 19818444, guid: b628ef88aad4ea74087e083e3e1366da, type: 3}
       propertyPath: playOnAwake
