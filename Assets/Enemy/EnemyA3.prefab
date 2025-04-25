@@ -17005,7 +17005,6 @@ MonoBehaviour:
   hitimpactAudioClip: {fileID: 0}
   deathAudioClip: {fileID: 0}
   canvas: {fileID: 0}
-  hpImage: {fileID: 0}
 --- !u!54 &48920970644535995
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -17049,11 +17048,9 @@ MonoBehaviour:
   moveTime: 0
   leaveTime: 0
   lifeTime: 10
-  currentParalyzeTime: 0
   initialParalyzeTime: 0
   maxParalyzeTime: 0
   paralyzeMaxCount: 0
-  currentParalyzeCount: 0
   paralyzeAddTime: 0
   paralyzeTimeStackMultiplier: 0
   startPoint: {x: 0, y: 0, z: 0}
@@ -27866,15 +27863,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 409170, guid: b628ef88aad4ea74087e083e3e1366da, type: 3}
       propertyPath: m_LocalScale.x
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 409170, guid: b628ef88aad4ea74087e083e3e1366da, type: 3}
       propertyPath: m_LocalScale.y
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 409170, guid: b628ef88aad4ea74087e083e3e1366da, type: 3}
       propertyPath: m_LocalScale.z
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 409170, guid: b628ef88aad4ea74087e083e3e1366da, type: 3}
       propertyPath: m_LocalPosition.x
@@ -27976,7 +27973,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 178598, guid: 64e5804fc2c7218438f64f1889a168b0, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 494700, guid: 64e5804fc2c7218438f64f1889a168b0, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 494700, guid: 64e5804fc2c7218438f64f1889a168b0, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 494700, guid: 64e5804fc2c7218438f64f1889a168b0, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 494700, guid: 64e5804fc2c7218438f64f1889a168b0, type: 3}
       propertyPath: m_LocalPosition.x
