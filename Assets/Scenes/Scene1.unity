@@ -3944,57 +3944,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6806084062278553910, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
-      propertyPath: isMove
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6806084062278553910, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
-      propertyPath: isDebug
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6806084062278553910, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
-      propertyPath: DebugMoveTime
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6806084062278553910, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
-      propertyPath: maxParalyzeTime
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6806084062278553910, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
-      propertyPath: paralyzeAddTime
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6806084062278553910, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
-      propertyPath: paralyzeMaxCount
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6806084062278553910, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
-      propertyPath: initialParalyzeTime
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6806084062278553910, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
-      propertyPath: paralyzeTimeStackMultiplier
-      value: 0.8
-      objectReference: {fileID: 0}
     - target: {fileID: 7469029502725969291, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
       propertyPath: m_Name
       value: EnemyB(new)
-      objectReference: {fileID: 0}
-    - target: {fileID: 8641771722476299812, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
-      propertyPath: maxHp
-      value: 9999
-      objectReference: {fileID: 0}
-    - target: {fileID: 8641771722476299812, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
-      propertyPath: haveshield
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8641771722476299812, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
-      propertyPath: maxShieldHp
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 8641771722476299812, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
-      propertyPath: maxCorruptionValue
-      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -14604,6 +14556,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4072529314359012074, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6806084062278553910, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
       propertyPath: isMove
       value: 1
@@ -15744,6 +15700,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 865236461114202406, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4072529314359012074, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
+      propertyPath: m_PlayOnAwake
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6806084062278553910, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
@@ -20641,46 +20601,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyA(new)_1
       objectReference: {fileID: 0}
-    - target: {fileID: 5531840777170294729, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
-      propertyPath: isMove
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5531840777170294729, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
-      propertyPath: isDebug
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5531840777170294729, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
-      propertyPath: DebugMoveTime
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5531840777170294729, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
-      propertyPath: maxParalyzeTime
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5531840777170294729, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
-      propertyPath: paralyzeAddTime
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5531840777170294729, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
-      propertyPath: paralyzeMaxCount
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5531840777170294729, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
-      propertyPath: initialParalyzeTime
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5531840777170294729, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
-      propertyPath: paralyzeTimeStackMultiplier
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 5953248887307944697, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
-      propertyPath: maxHp
-      value: 9999
-      objectReference: {fileID: 0}
-    - target: {fileID: 5953248887307944697, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
-      propertyPath: maxCorruptionValue
-      value: 100
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -25540,7 +25460,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1627942728}
   serializedVersion: 8
-  lengthInSec: 0.2
+  lengthInSec: 0.05
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 1
@@ -25549,7 +25469,7 @@ ParticleSystem:
   emitterVelocityMode: 0
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   startDelay:
@@ -26479,7 +26399,7 @@ ParticleSystem:
       repeatInterval: 0.01
       probability: 1
     - serializedVersion: 2
-      time: 0.15
+      time: 0.05
       countCurve:
         serializedVersion: 2
         minMaxState: 0
@@ -36831,54 +36751,6 @@ PrefabInstance:
     - target: {fileID: 5113663619280529763, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
       propertyPath: m_Name
       value: EnemyA(new)
-      objectReference: {fileID: 0}
-    - target: {fileID: 5531840777170294729, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
-      propertyPath: isMove
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5531840777170294729, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
-      propertyPath: isDebug
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5531840777170294729, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
-      propertyPath: DebugMoveTime
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5531840777170294729, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
-      propertyPath: maxParalyzeTime
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5531840777170294729, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
-      propertyPath: paralyzeAddTime
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5531840777170294729, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
-      propertyPath: paralyzeMaxCount
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5531840777170294729, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
-      propertyPath: initialParalyzeTime
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5531840777170294729, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
-      propertyPath: paralyzeTimeStackMultiplier
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 5953248887307944697, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
-      propertyPath: maxHp
-      value: 9999
-      objectReference: {fileID: 0}
-    - target: {fileID: 5953248887307944697, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
-      propertyPath: haveshield
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5953248887307944697, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
-      propertyPath: maxShieldHp
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 5953248887307944697, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
-      propertyPath: maxCorruptionValue
-      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
