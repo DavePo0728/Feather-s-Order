@@ -15,26 +15,16 @@ MonoBehaviour:
   data:
     enemy: {fileID: 5113663619280529763, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
     entryTime: 1
-    moveTime: 3
+    singleMoveTime: 0
     leaveTime: 0
     hp: 5
     lifeTime: 10
     haveShield: 0
     shieldHp: 0
     corrupted: 0
-    corruptionStack: 0
+    corruptionMaxValue: 100
     paralyzeTime: 0
-    spawnPosition: {x: 0, y: 1, z: 1}
-    endPosition: {x: 2, y: 1, z: 5}
-    LeavePositon: {x: 19, y: 5, z: 14}
-    curveHeight: -46.519623
-    gunIndex: 1
-    rpm: 300
-    shootingCoolDown: 1.5
-    bulletAmount: 3
-    spinSpeed: 0
-    bulletType: 1
-    MaxShootWave: 1
-    pathNum: 0
-    customPathNum: 0
-    pointWaitTime: 5
+    paralyzeMaxTime: 0
+    paralyzeAddTime: 0
+    paralyzeMaxCount: 0
+    paralyzeTimeStackMultiplier: 0

@@ -22,5 +22,9 @@ MonoBehaviour:
     haveShield: 0
     shieldHp: 0
     corrupted: 0
-    corruptionStack: 0
+    corruptionMaxValue: 100
     paralyzeTime: 0
+    paralyzeMaxTime: 0
+    paralyzeAddTime: 0
+    paralyzeMaxCount: 0
+    paralyzeTimeStackMultiplier: 0
