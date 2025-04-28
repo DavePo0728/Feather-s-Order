@@ -47,7 +47,8 @@ public class ScenesManager : MonoBehaviour
         if (gameClearImageObject != null)
             backImage = backImageObject.GetComponent<Image>();
         pauseImageObject = GameObject.Find("PauseImage");
-        pauseImageObject.SetActive(false);
+        if (pauseImageObject != null)
+            pauseImageObject.SetActive(false);
     }
     private void Start()
     {

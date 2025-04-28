@@ -57,6 +57,7 @@ public class EnemyHp : MonoBehaviour
     AudioClip hitimpactAudioClip; // 擊中敵人聲
     AudioSource audioSource;
     [SerializeField] AudioClip deathAudioClip; // 敵人死亡音效
+    [SerializeField] AudioSource SlashHITClip; // 敵人近戰受擊音效
 
     [Header("UI")]
     [SerializeField]
@@ -122,6 +123,7 @@ public class EnemyHp : MonoBehaviour
             shieldEffect.SetActive(false);
             currentShieldHp = 0;
         }
+        canvas.gameObject.SetActive(false); // 先隱藏UI
     }
 
     // Update is called once per frame
@@ -141,7 +143,9 @@ public class EnemyHp : MonoBehaviour
         }
         if (corrupted)      //如果有污穢
         {
-            if(corruption == true)      //如果污穢未被解除
+            if (canvas.gameObject.activeSelf == false)
+                canvas.gameObject.SetActive(true); // 顯示UI
+            if (corruption == true)      //如果污穢未被解除
             {
                 PlayhitimpactAudio();
                 currentHp -= damage * corruptionDamageModifier;
@@ -155,19 +159,6 @@ public class EnemyHp : MonoBehaviour
             }
             else       //如果污穢被解除
             {
-                    PlayhitimpactAudio();
-                    currentHp -= damage;
-                    UpdateUI();
-                    if (currentHp <= 0)
-                    {
-                        DeathEffect();
-                        scoreManager.AddScore();
-                    }
-            }
-            
-        }
-        else       //沒有污穢
-        {
                 PlayhitimpactAudio();
                 currentHp -= damage;
                 UpdateUI();
@@ -176,6 +167,21 @@ public class EnemyHp : MonoBehaviour
                     DeathEffect();
                     scoreManager.AddScore();
                 }
+            }
+            
+        }
+        else       //沒有污穢
+        {
+            if (canvas.gameObject.activeSelf == false)
+                canvas.gameObject.SetActive(true); // 顯示UI
+            PlayhitimpactAudio();
+            currentHp -= damage;
+            UpdateUI();
+            if (currentHp <= 0)
+            {
+                DeathEffect();
+                scoreManager.AddScore();
+            }
         }
     }
 
@@ -201,6 +207,8 @@ public class EnemyHp : MonoBehaviour
         {
             if (corrupted)
             {
+                if (canvas.gameObject.activeSelf == false)
+                    canvas.gameObject.SetActive(true); // 顯示UI
                 if (corruption == false)
                 {
                     PlayhitimpactAudio();
@@ -219,6 +227,8 @@ public class EnemyHp : MonoBehaviour
             }
             else
             {
+                if (canvas.gameObject.activeSelf == false)
+                    canvas.gameObject.SetActive(true); // 顯示UI
                 PlayhitimpactAudio();
                 currentHp -= damage;
                 UpdateUI();
@@ -318,6 +328,8 @@ public class EnemyHp : MonoBehaviour
             hitCounter++;
             ShieldHurt(damage);
             Invoke("SetSlashDetectBool", 0.2f);
+
+            PlaySlashHitAudio(); // <<<<< 新增！播放近戰打擊音效
         }
         else if (hitCounter >= 3)
         {
@@ -326,6 +338,8 @@ public class EnemyHp : MonoBehaviour
             hitCounter = 0;
             ShieldHurt(damage);
             Invoke("SetSlashDetectBool", 0.3f);
+
+            PlaySlashHitAudio(); // <<<<< 新增！播放近戰打擊音效
         }
     }
     void SetSlashDetectBool()
@@ -339,17 +353,20 @@ public class EnemyHp : MonoBehaviour
             currentCorruptionValue += corruptionDamage;
             UpdateCorruptionUI();
         }
-        if (currentCorruptionValue >=maxCorruptionValue)
+        if (corruption)
         {
-            corruption = false;
-            corruptionCleanseObject.SetActive(true);
-            chainEffectObject.SetActive(true);
-            chainEffectParticle.Play();
-            corruptionCleanseParticle.Play();
-            corruptEffect.SetActive(false);
-            enemyMove.Paralyze();
+            if (currentCorruptionValue >= maxCorruptionValue)
+            {
+                corruption = false;
+                corruptionCleanseObject.SetActive(true);
+                chainEffectObject.SetActive(true);
+                chainEffectParticle.Play();
+                corruptionCleanseParticle.Play();
+                corruptEffect.SetActive(false);
+                enemyMove.Paralyze();
+            }
         }
-        if(corruption==false)
+        else
         {
             enemyMove.Paralyze();
         }
@@ -395,6 +412,14 @@ public class EnemyHp : MonoBehaviour
         if (audioSource != null && hitimpactAudioClip != null)
         {
             audioSource.PlayOneShot(hitimpactAudioClip);
+        }
+    }
+    private void PlaySlashHitAudio()
+    {
+        if (SlashHITClip != null)
+        {
+            SlashHITClip.pitch = Random.Range(0.95f, 1.05f); // 可選，加一點隨機音高讓音效更自然
+            SlashHITClip.Play();
         }
     }
 

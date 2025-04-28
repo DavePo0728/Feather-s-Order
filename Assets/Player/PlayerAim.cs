@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 
 public class PlayerAim : MonoBehaviour
 {
+    [HideInInspector]
+    public bool showLockUI;
     //Vector3 playerOriPos;
     [SerializeField]
     Camera playerCamera;
@@ -50,6 +52,7 @@ public class PlayerAim : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        showLockUI = true;
         //playerOriPos = transform.position;
         //aimOriPos = playerOriPos;
         //aimOriPos.z = playerOriPos.z+200f;
@@ -87,6 +90,7 @@ public class PlayerAim : MonoBehaviour
         {
             if (lockedEnemy != null)
             {
+                if(showLockUI)
                 FarLockImage.SetActive(true);
                 FarLockImage.transform.position = playerCamera.WorldToScreenPoint(lockedEnemy.transform.position);
                 enemyHp = lockedEnemy.GetComponent<EnemyHp>();
@@ -108,6 +112,7 @@ public class PlayerAim : MonoBehaviour
 
                 if (enemyHp.corrupted && !enemyHp.corruption_P || enemyHp.haveshield)
                 {
+                    if (showLockUI)
                     NearLockImage.SetActive(true);
                     NearLockImage.transform.position = playerCamera.WorldToScreenPoint(lockedEnemy.transform.position);
                 }

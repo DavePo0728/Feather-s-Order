@@ -37,7 +37,7 @@ public class MoveTypeA : IMoveBehaviour
         }
         else
         {
-            Debug.Log("MoveTypeA CheckMoveStatus: " + tweenPlaying);
+            //Debug.Log("MoveTypeA CheckMoveStatus: " + tweenPlaying);
             return tweenPlaying;
         }
     }
