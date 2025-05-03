@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 
 public class BossController : MonoBehaviour
 {
-	[Header("一般控制滑條")]
+
+	//[Header("一般控制滑條")]
 	[Range(0f, 1f)] public float trigger1 = 0;
 	[Range(0f, 1f)] public float trigger2 = 0;
 	[Range(0f, 1f)] public float trigger3 = 0;
@@ -13,29 +15,29 @@ public class BossController : MonoBehaviour
 	[Range(0f, 1f)] public float newTrigger = 0;
 	[Range(0f, 1f)] public float outTrigger = 0;
 
-	[Header("觸手葉子滑條 (四個方向)")]
+	//[Header("觸手葉子滑條 (四個方向)")]
 	[Range(0f, 1f)] public float tentacleLeftUptrigger = 0;
 	[Range(0f, 1f)] public float tentacleRightUptrigger = 0;
 	[Range(0f, 1f)] public float tentacleLeftDowntrigger = 0;
 	[Range(0f, 1f)] public float tentacleRightDowntrigger = 0;
 
-	[Header("觸手花瓣滑條 (四個方向)")]
+	//[Header("觸手花瓣滑條 (四個方向)")]
 	[Range(0f, 1f)] public float tentacleflowerLeftUptrigger = 0;
 	[Range(0f, 1f)] public float tentacleflowerRightUptrigger = 0;
 	[Range(0f, 1f)] public float tentacleflowerLeftDowntrigger = 0;
 	[Range(0f, 1f)] public float tentacleflowerRightDowntrigger = 0;
 
-	[Header("一般眼睛控制群組")]
+	//[Header("一般眼睛控制群組")]
 	public List<Transform> targetGroup1 = new List<Transform>();
 	public List<Transform> targetGroup2 = new List<Transform>();
 	public List<Transform> targetGroup3 = new List<Transform>();
 	public List<Transform> targetGroup4 = new List<Transform>();
 
-	[Header("中央眼睛群組")]
+	//[Header("中央眼睛群組")]
 	public List<Transform> downList = new List<Transform>();
 	public Transform target;
 
-	[Header("眼睛花瓣旋轉控制")]
+	//[Header("眼睛花瓣旋轉控制")]
 	public List<Transform> rotationGroup1 = new List<Transform>();
 	public List<Transform> rotationGroup2 = new List<Transform>();
 	public List<Transform> rotationGroup3 = new List<Transform>();
@@ -44,11 +46,11 @@ public class BossController : MonoBehaviour
 	public float maxRotation2 = 45f;
 	public float maxRotation3 = 60f;
 
-	[Header("眼睛朝向設定")]
+	//[Header("眼睛朝向設定")]
 	public Transform Look_Target;
 	public List<Transform> EyesGroup = new List<Transform>();
 
-	[Header("觸手葉片群組 (每個方向5個List)")]
+	//[Header("觸手葉片群組 (每個方向5個List)")]
 	public List<Transform> tentacleLeftUpGroup1 = new List<Transform>();
 	public List<Transform> tentacleLeftUpGroup2 = new List<Transform>();
 	public List<Transform> tentacleLeftUpGroup3 = new List<Transform>();
@@ -73,14 +75,14 @@ public class BossController : MonoBehaviour
 	public List<Transform> tentacleRightDownGroup4 = new List<Transform>();
 	public List<Transform> tentacleRightDownGroup5 = new List<Transform>();
 
-	[Header("觸手葉片最大旋轉 (每個5個最大值)")]
+	//[Header("觸手葉片最大旋轉 (每個5個最大值)")]
 	public float maxLeafRotation1 = 90f;
 	public float maxLeafRotation2 = 80f;
 	public float maxLeafRotation3 = 70f;
 	public float maxLeafRotation4 = 60f;
 	public float maxLeafRotation5 = 50f;
 
-	[Header("觸手花瓣群組 (每個方向3個List)")]
+	//[Header("觸手花瓣群組 (每個方向3個List)")]
 	public List<Transform> tentacleflowerLeftUpGroup1 = new List<Transform>();
 	public List<Transform> tentacleflowerLeftUpGroup2 = new List<Transform>();
 	public List<Transform> tentacleflowerLeftUpGroup3 = new List<Transform>();
@@ -97,16 +99,70 @@ public class BossController : MonoBehaviour
 	public List<Transform> tentacleflowerRightDownGroup2 = new List<Transform>();
 	public List<Transform> tentacleflowerRightDownGroup3 = new List<Transform>();
 
-	[Header("觸手花瓣最大旋轉 (每個3個最大值)")]
+	//[Header("觸手花瓣最大旋轉 (每個3個最大值)")]
 	public float maxFlowerRotation1 = 90f;
 	public float maxFlowerRotation2 = 60f;
 	public float maxFlowerRotation3 = 30f;
 	private Dictionary<Transform, Quaternion> originalRotations = new Dictionary<Transform, Quaternion>();
 
+	public MultiAimConstraint UpRightAim;
+	public MultiAimConstraint UpLeftAim;
+	public MultiAimConstraint DownLeftAim;
+	public MultiAimConstraint DownRightAim;
+
+
+	public Transform Tentacle_ShootingUpRight;
+	public Transform Tentacle_ShootingUpLeft;
+	public Transform Tentacle_ShootingDownRight;
+	public Transform Tentacle_ShootingDownLeft;
+
+	//[Range(-30f, 30f)] public float TentacleRotaRightUpX = 0f;  // 控制右上方向的 X 偏移
+	//[Range(-30f, 30f)] public float TentacleRotaRightUpY = 0f;  // 控制右上方向的 Y 偏移
+
+	//[Range(-30f, 30f)] public float TentacleRotaLeftDownX = 0f; // 控制左下方向的 X 偏移
+	//[Range(-30f, 30f)] public float TentacleRotaLeftDownY = 0f; // 控制左下方向的 Y 偏移
+
+	//[Range(-30f, 30f)] public float TentacleRotaLeftUpX = 0f;   // 控制左上方向的 X 偏移
+	//[Range(-30f, 30f)] public float TentacleRotaLeftUpY = 0f;   // 控制左上方向的 Y 偏移
+
+	//[Range(-30f, 30f)] public float TentacleRotaRightDownX = 0f; // 控制右下方向的 X 偏移
+	//[Range(-30f, 30f)] public float TentacleRotaRightDownY = 0f; // 控制右下方向的 Y 偏移
+
+	[Range(0f, 1f)] public float EyesTrigger1 = 0;  // 跟隨強度
+	[Range(0f, 1f)] public float EyesTrigger2 = 0;  // 跟隨強度
+	[Range(0f, 1f)] public float EyesTrigger3 = 0;  // 跟隨強度
+	[Range(0f, 1f)] public float EyesTrigger4 = 0;  // 跟隨強度
+
+	public Transform MainSight1;
+	public Transform MainSight2;
+	public Transform MainSight3;
+	public Transform MainSight4;
+
+	public float movementSpeed = 2f; // 移動速度
+	public float maxMoveDistance = 10f; // 最大移動範圍，設定為10f
+
+	private Transform[] sights;
+	private Vector3[] originalPositions;
 	private void Start()
 	{
+		//StartCoroutine(LoopTestModesRightUp());
 		// 記錄所有物件的初始旋轉
 		CacheOriginalRotations();
+
+		//sights = new Transform[] { MainSight1, MainSight2, MainSight3, MainSight4 };
+		//originalPositions = new Vector3[sights.Length];
+
+		//// 記錄每個物件的原始位置
+		//for (int i = 0; i < sights.Length; i++)
+		//{
+		//	originalPositions[i] = sights[i].position;
+		//}
+
+		//// 開始隨機移動
+		//foreach (var sight in sights)
+		//{
+		//	StartCoroutine(MoveRandomly(sight, System.Array.IndexOf(sights, sight)));
+		//}
 	}
 
 	private void CacheOriginalRotations()
@@ -148,7 +204,7 @@ public class BossController : MonoBehaviour
 
 		UpdateDown();
 		UpdateTarget();
-		UpdateEyesGroupPosition();
+		//UpdateEyesGroupPosition();
 		//UpdateTentacleLeaf();
 		//UpdateTentacleFlower();
 		UpdateRotation(rotationGroup1, outTrigger, maxRotation1, Vector3.forward);
@@ -199,6 +255,9 @@ public class BossController : MonoBehaviour
 		UpdateRotation(tentacleRightDownGroup4, tentacleRightDowntrigger, maxLeafRotation4, Vector3.forward);
 		UpdateRotation(tentacleRightDownGroup5, tentacleRightDowntrigger, maxLeafRotation5, Vector3.forward);
 
+		//UpdateMultiAimConstraint();
+
+
 	}
 
 	private void UpdateTentacleLeaf()
@@ -227,6 +286,14 @@ public class BossController : MonoBehaviour
 		RotateGroup(tentacleRightDowntrigger, tentacleRightDownGroup4, maxLeafRotation4);
 		RotateGroup(tentacleRightDowntrigger, tentacleRightDownGroup5, maxLeafRotation5);
 	}
+	//void UpdateMultiAimConstraint()
+	//{
+	//	// 將 X 和 Y 偏移應用到 MultiAimConstraint 中，注意這裡的假設是 Y 對應 Z 軸
+	//	UpRightAim.data.offset = new Vector3(-TentacleRotaRightUpX, UpRightAim.data.offset.y, TentacleRotaRightUpY);
+	//	DownLeftAim.data.offset = new Vector3(-TentacleRotaLeftDownX, DownLeftAim.data.offset.y, TentacleRotaLeftDownY);
+	//	UpLeftAim.data.offset = new Vector3(-TentacleRotaLeftUpX, UpLeftAim.data.offset.y, TentacleRotaLeftUpY);
+	//	DownRightAim.data.offset = new Vector3(-TentacleRotaRightDownX, DownRightAim.data.offset.y, TentacleRotaRightDownY);
+	//}
 
 	private void UpdateTentacleFlower()
 	{
@@ -301,16 +368,99 @@ public class BossController : MonoBehaviour
 			}
 		}
 	}
-	void UpdateEyesGroupPosition()
+	//void UpdateEyesGroupPosition()
+	//{
+	//	// 控制 MainSight1
+	//	UpdateMainSight(MainSight1, EyesTrigger1);
+
+	//	// 控制 MainSight2
+	//	UpdateMainSight(MainSight2, EyesTrigger2);
+
+	//	// 控制 MainSight3
+	//	UpdateMainSight(MainSight3, EyesTrigger3);
+
+	//	// 控制 MainSight4
+	//	UpdateMainSight(MainSight4, EyesTrigger4);
+	//}
+
+	//void UpdateMainSight(Transform mainSight, float eyesTrigger)
+	//{
+	//	if (mainSight != null && Look_Target != null)
+	//	{
+	//		Vector3 targetPosition = Look_Target.position;
+
+	//		根據 EyesTrigger 的值來決定跟隨的強度
+	//		if (eyesTrigger == 0)
+	//		{
+	//			完全不跟隨
+	//			mainSight.position = mainSight.position;
+	//		}
+	//		else if (eyesTrigger == 1)
+	//		{
+	//			直接跟隨目標位置
+	//			mainSight.position = targetPosition;
+	//		}
+	//		else
+	//		{
+	//			慣性跟隨，使用插值來平滑過渡
+	//			使用 Time.deltaTime 來確保跟隨的速度固定
+	//			float speed = eyesTrigger; // 使用 EyesTrigger 來控制跟隨的速度
+	//			mainSight.position = Vector3.Lerp(mainSight.position, targetPosition, speed * Time.deltaTime);
+	//		}
+	//	}
+	//}
+	private IEnumerator MoveRandomly(Transform sight, int index)
 	{
-		foreach (Transform eye in EyesGroup)
+		while (true)
 		{
-			if (eye != null && eye.parent != null && Look_Target != null)
+			// 隨機生成一個目標位置，並限制最大距離
+			Vector3 targetPosition = GetRandomPosition(index);
+
+			// 移動到目標位置
+			while (Vector3.Distance(sight.position, targetPosition) > 0.1f)
 			{
-				Vector3 localPos = eye.parent.InverseTransformPoint(Look_Target.position);
-				eye.localPosition = localPos;
+				sight.position = Vector3.MoveTowards(sight.position, targetPosition, movementSpeed * Time.deltaTime);
+				yield return null;
 			}
+
+			// 等待一段時間後回到原點
+			yield return new WaitForSeconds(1f);
+
+			// 慢慢回到原本的位置
+			while (Vector3.Distance(sight.position, originalPositions[index]) > 0.1f)
+			{
+				sight.position = Vector3.MoveTowards(sight.position, originalPositions[index], movementSpeed * Time.deltaTime);
+				yield return null;
+			}
+
+			// 等待一段時間後再次隨機移動
+			yield return new WaitForSeconds(1f);
 		}
 	}
+
+	private Vector3 GetRandomPosition(int index)
+	{
+		// 隨機生成X和Y值，並確保它們在範圍內
+		float randomX = Random.Range(-maxMoveDistance, maxMoveDistance);
+		float randomY = Random.Range(-maxMoveDistance, maxMoveDistance);
+
+		// 保證移動範圍不會超過原始位置的10f範圍
+		Vector3 randomPosition = originalPositions[index] + new Vector3(randomX, randomY, 0);
+		return ClampPosition(randomPosition, index);
+	}
+
+	private Vector3 ClampPosition(Vector3 targetPosition, int index)
+	{
+		// 限制目標位置在範圍內，確保距離原點不超過最大範圍
+		Vector3 directionToTarget = targetPosition - originalPositions[index];
+		if (directionToTarget.magnitude > maxMoveDistance)
+		{
+			directionToTarget = directionToTarget.normalized * maxMoveDistance;
+		}
+
+		return originalPositions[index] + directionToTarget;
+	}
 }
+
+
 

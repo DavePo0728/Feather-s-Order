@@ -34,7 +34,7 @@ public class PlayerSlashAttack : MonoBehaviour
     [SerializeField] CinemachineFollowZoom followZoom;
     [SerializeField] GameObject flashImage;
 
-    bool dashCounting=false;
+    bool dashCounting = false;
     int hitCounter;
     float SlashTimer;
     float slashCD = 0.2f;
@@ -72,12 +72,12 @@ public class PlayerSlashAttack : MonoBehaviour
 
     public void GetSlashInput(InputAction.CallbackContext context)
     {
-        if (context.started && slashState == SlashState.Idle&&playerAim.isLocked)
+        if (context.started && slashState == SlashState.Idle && playerAim.isLocked)
         {
             if (playerAim.CheckLockedEnemy())
             {
-                
-                if(playerAim._lockedEnemy.CompareTag("Enemy"))
+
+                if (playerAim._lockedEnemy.CompareTag("Enemy"))
                 {
                     target = playerAim._lockedEnemy;
                     enemyHp = target.GetComponent<EnemyHp>();
@@ -86,12 +86,12 @@ public class PlayerSlashAttack : MonoBehaviour
                 {
                     target = playerAim.emptyAimObject;
                 }
-                
+
             }
 
             if (enemyHp != null)
             {
-                
+
                 if (enemyHp.haveshield)
                 {
                     playerAnimator.SetTrigger("Dash");
@@ -120,7 +120,7 @@ public class PlayerSlashAttack : MonoBehaviour
                 }
             }
         }
-        if(context.canceled)
+        if (context.canceled)
         {
             if (slashState == SlashState.Attacking && dashCounting == false)
             {
@@ -137,55 +137,55 @@ public class PlayerSlashAttack : MonoBehaviour
             if (hitCounter < 3)
             {
                 //print(hitCounter);
-				
-				slashCD = 0.2f;
+
+                slashCD = 0.2f;
                 Invoke("TriggerSlash", 0.1f);
-				switch (hitCounter)
-				{
-					case 0:
-						//print("S1");
-						playerAnimator.Play("S1");
+                switch (hitCounter)
+                {
+                    case 0:
+                        //print("S1");
+                        playerAnimator.Play("S1");
                         slashEffectYellowR.flip = new Vector3(0, 0, 0);
-						slashEffectYellowR.transform.localRotation = Quaternion.Euler(79f, 315f, 207f);
+                        slashEffectYellowR.transform.localRotation = Quaternion.Euler(79f, 315f, 207f);
 
-						playerAnimator.SetBool("OnAttack", true);
-						break;
-					case 1:
-						//print("S2");
-						playerAnimator.Play("S2");
-						slashEffectYellowR.flip = new Vector3(0, 1, 0);
-						slashEffectYellowR.transform.localRotation = Quaternion.Euler(61f, 141f, 305f); 
+                        playerAnimator.SetBool("OnAttack", true);
+                        break;
+                    case 1:
+                        //print("S2");
+                        playerAnimator.Play("S2");
+                        slashEffectYellowR.flip = new Vector3(0, 1, 0);
+                        slashEffectYellowR.transform.localRotation = Quaternion.Euler(61f, 141f, 305f);
 
 
-						playerAnimator.SetBool("OnAttack", true);
-						break;
-					case 2:
-						//print("S3");
-						playerAnimator.Play("S3");
-						slashEffectYellowR.flip = new Vector3(0, 0, 0);
-						slashEffectYellowR.transform.localRotation = Quaternion.Euler(79f, 315f, 207f);
+                        playerAnimator.SetBool("OnAttack", true);
+                        break;
+                    case 2:
+                        //print("S3");
+                        playerAnimator.Play("S3");
+                        slashEffectYellowR.flip = new Vector3(0, 0, 0);
+                        slashEffectYellowR.transform.localRotation = Quaternion.Euler(79f, 315f, 207f);
 
-						playerAnimator.SetBool("OnAttack", true);
-						break;
-				}
-				hitCounter++;
+                        playerAnimator.SetBool("OnAttack", true);
+                        break;
+                }
+                hitCounter++;
                 SlashTimer = 0;
                 attackTimer = 0;
-				
-				//print(hitCounter);
-				
+
+                //print(hitCounter);
+
             }
             else
             {
-				//print("S4");
-				playerAnimator.Play("S4");
+                //print("S4");
+                playerAnimator.Play("S4");
                 Invoke("TriggerSlash4", 0.3f);
-                playerAnimator.SetBool("OnAttack", false);
+                playerAnimator.SetBool("OnAttack", true);
                 slashCD = 0.5f;
                 SlashTimer = 0;
                 attackTimer = 0f;
-				hitCounter = 0;
-			}
+                hitCounter = 0;
+            }
         }
     }
 
@@ -198,28 +198,28 @@ public class PlayerSlashAttack : MonoBehaviour
         Invoke("InactiveCollider", 0.1f);
         flashImage.SetActive(true);
         Invoke("InactiveFlashImage", 0.01f);
-    //    switch (hitCounter)
-    //    {
-    //        case 0:
-    //            slashEffectYellowObject.transform.localScale = new Vector3(2.72f, -2.72f, 2.72f);
-    //            print(hitCounter);
-    //            break;
-    //        case 1:
-    //            slashEffectYellowObject.transform.localScale = new Vector3(2.72f, -2.72f, 2.72f);
-				//print(hitCounter);
-				//break;
-    //        case 2:
-    //            slashEffectYellowObject.transform.localScale = new Vector3(2.72f, 2.72f, 2.72f);
-				//print(hitCounter);
-				//break;
-    //        case 3:
-    //            slashEffectYellowObject.transform.localScale = new Vector3(2.72f, -2.72f, 2.72f);
-				//print(hitCounter);
-				//break;
-    //    }
+        //    switch (hitCounter)
+        //    {
+        //        case 0:
+        //            slashEffectYellowObject.transform.localScale = new Vector3(2.72f, -2.72f, 2.72f);
+        //            print(hitCounter);
+        //            break;
+        //        case 1:
+        //            slashEffectYellowObject.transform.localScale = new Vector3(2.72f, -2.72f, 2.72f);
+        //print(hitCounter);
+        //break;
+        //        case 2:
+        //            slashEffectYellowObject.transform.localScale = new Vector3(2.72f, 2.72f, 2.72f);
+        //print(hitCounter);
+        //break;
+        //        case 3:
+        //            slashEffectYellowObject.transform.localScale = new Vector3(2.72f, -2.72f, 2.72f);
+        //print(hitCounter);
+        //break;
+        //    }
         slashEffectRedObject.SetActive(true);
         slashEffectRed.Play();
-        
+
         Shake(1.0f);
         Time.timeScale = 0.1f;
         Invoke("TimeScaleNormal", 0.02f);
@@ -241,8 +241,8 @@ public class PlayerSlashAttack : MonoBehaviour
         Invoke("TimeScaleNormal", 0.01f);
         Invoke("DelayDetect", 0.05f);
         SetAttack();
-		
-	}
+
+    }
 
     void DashToEnemy()
     {
@@ -264,9 +264,9 @@ public class PlayerSlashAttack : MonoBehaviour
                     isCounting = true;
                     followZoom.m_Width = 0;
                     TriggerSlash();
-					slashEffectYellowR.flip = new Vector3(0, 0, 0);
+                    slashEffectYellowR.flip = new Vector3(0, 0, 0);
                     slashEffectYellowR.transform.localRotation = Quaternion.Euler(280f, 180f, 191f);
-					IsReturnAnimation = false;
+                    IsReturnAnimation = false;
                     playerAnimator.SetBool("OnAttack", true);
                     attackTimer = 0;
                 });
@@ -328,9 +328,10 @@ public class PlayerSlashAttack : MonoBehaviour
         }
     }
 
-    void SetAttack() { 
+    void SetAttack()
+    {
         slashState = SlashState.Attacking;
-        
+
     }
     void DashGap()
     {
@@ -355,11 +356,15 @@ public class PlayerSlashAttack : MonoBehaviour
             }
         }
         Debug.Log("SlashState: " + slashState);
-        if (slashState == SlashState.FallingBack|| slashState == SlashState.Idle && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Stand__Idle"))
+        if (slashState == SlashState.FallingBack || slashState == SlashState.Idle && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Stand__Idle"))
         {
             //playerAnimator.SetTrigger("ReFly");
             playerAnimator.Play("ReFly");
         }
+  //      if (Input.GetKey("g"))
+  //      {
+		//	Vibrate(0.5f, 0.5f, 0.05f);
+		//}
     }
 
     void ReturnAnimation()
@@ -400,7 +405,7 @@ public class PlayerSlashAttack : MonoBehaviour
             ReturnAnimation();
             return;
         }
-        if (slashState == SlashState.Arrived|| slashState == SlashState.Attacking)
+        if (slashState == SlashState.Arrived || slashState == SlashState.Attacking)
         {
             Debug.Log("4");
             ReturnAnimation();
@@ -421,8 +426,9 @@ public class PlayerSlashAttack : MonoBehaviour
     void TimeScaleNormal() => Time.timeScale = 1;
     void InactiveCollider() => slashCollider.enabled = false;
     void Shake(float intensity) => impulseSource.GenerateImpulseWithForce(intensity);
-    void ResetTimer() {
-        isCounting = false; 
+    void ResetTimer()
+    {
+        isCounting = false;
         attackTimer = 0f;
         SlashTimer = 0f;
     }
@@ -441,4 +447,10 @@ public class PlayerSlashAttack : MonoBehaviour
             Gamepad.current.SetMotorSpeeds(0f, 0f);
         }
     }
+	//void OnApplicationQuit()
+	//{
+	//	Debug.Log("應用程式關閉");
+	//	Gamepad.current?.SetMotorSpeeds(0, 0);
+	//}
+
 }
