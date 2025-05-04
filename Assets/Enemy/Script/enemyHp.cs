@@ -57,7 +57,7 @@ public class EnemyHp : MonoBehaviour
     AudioClip hitimpactAudioClip; // 擊中敵人聲
     AudioSource audioSource;
     [SerializeField] AudioClip deathAudioClip; // 敵人死亡音效
-    [SerializeField] AudioSource SlashHITClip; // 敵人近戰受擊音效
+    [SerializeField] AudioClip SlashHITClip; // 敵人近戰受擊音效
 
     [Header("UI")]
     [SerializeField]
@@ -84,6 +84,7 @@ public class EnemyHp : MonoBehaviour
         shieldHitAudioClip = Resources.Load<AudioClip>("Sound/ShieldHitSound");
         shieldBreakAudioClip = Resources.Load<AudioClip>("Sound/ShieldBreakSound");
         hitimpactAudioClip = Resources.Load<AudioClip>("Sound/HitImpactSound");
+        SlashHITClip = Resources.Load<AudioClip>("Sound/slashHit");
         corruptionImage = canvas.transform.GetChild(0).GetChild(1).Find("CorruptionBar").GetComponent<Image>();
         corruptionCleanseObject = transform.Find("CorruptionCleanse").gameObject;
         corruptionCleanseParticle =corruptionCleanseObject.GetComponent<ParticleSystem>();
@@ -416,10 +417,11 @@ public class EnemyHp : MonoBehaviour
     }
     private void PlaySlashHitAudio()
     {
-        if (SlashHITClip != null)
+        if (audioSource != null && SlashHITClip != null)
         {
-            SlashHITClip.pitch = Random.Range(0.95f, 1.05f); // 可選，加一點隨機音高讓音效更自然
-            SlashHITClip.Play();
+            audioSource.pitch = Random.Range(0.95f, 1.05f); // 在 AudioSource 上調音高
+            audioSource.PlayOneShot(SlashHITClip); // 播放 Clip
+            audioSource.pitch = 1f; // 播放後重置回正常，避免後面別的聲音也受影響
         }
     }
 
