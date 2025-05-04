@@ -405,7 +405,7 @@ public class WaveManager : MonoBehaviour
             { "RecordWave2", recordedWaves[2] },
             { "RecordWave3", recordedWaves[3] },
         };
-        spawnGroupDictionary = new Dictionary<string, SpawnGroup>()
+        spawnGroupDictionary = new Dictionary<string, SpawnGroup>() //新的字典
         {
             { "SpawnT1", spawnGroupList.spawnGroupDatas[0] },
             { "SpawnT2", spawnGroupList.spawnGroupDatas[1] },
@@ -628,6 +628,11 @@ public class WaveManager : MonoBehaviour
         ILeaveBehaviour leave = leaveBehaviour;
         enemyMove.SetBehaviours(entry, move, leave);
         EnemyShootingController enemyShootingController = temp.transform.Find("Guns").GetComponent<EnemyShootingController>();
+        if(enemyShootingController == null)
+        {
+            Debug.LogError("EnemyShootingController not found!");
+            return;
+        }
         enemyShootingController.gunDataList = activeGunDataList;
     }
     public IEntryBehaviour CreateEntryBehaviour(EntryType type)
