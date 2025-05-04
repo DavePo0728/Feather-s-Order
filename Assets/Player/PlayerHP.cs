@@ -35,7 +35,7 @@ public class PlayerHP : MonoBehaviour
     //[SerializeField]
     //GameObject body;
     //bool isRotating= false;
-    bool isMuteki = false;
+    public bool isMuteki = false;
 
     //float rotationDuration = 0.5f; // Duration of the rotation in seconds
     //private float startTime; // Time when the rotation starts
@@ -91,8 +91,6 @@ public class PlayerHP : MonoBehaviour
         playerHp -= damage;
         UpdateHpUI();
         bulletGraze.UpdateGrazeEnergyOutside(10);
-        StartCoroutine(MuTeKiTime(0.1f));
-        
     }
     void InactiveFlashImage()
     {
@@ -132,7 +130,6 @@ public class PlayerHP : MonoBehaviour
         {
             StopVibration();
             GameOver();
-
         }
     }
     public void Heal(int healAmount)
@@ -150,18 +147,14 @@ public class PlayerHP : MonoBehaviour
         gameOverUI.SetActive(true);
         Time.timeScale = 0;
     }
-    void Pause()
-    {
-        
-    }
-    IEnumerator MuTeKiTime(float mutekiTime)
-    {
-        isMuteki = true;
-        //Physics.IgnoreLayerCollision(8, 6, true);
-        yield return new WaitForSeconds(mutekiTime);
-        isMuteki = false;
-        //Physics.IgnoreLayerCollision(8, 6, false);
-    }
+    //IEnumerator MuTeKiTime(float mutekiTime)
+    //{
+    //    isMuteki = true;
+    //    //Physics.IgnoreLayerCollision(8, 6, true);
+    //    yield return new WaitForSeconds(mutekiTime);
+    //    isMuteki = false;
+    //    //Physics.IgnoreLayerCollision(8, 6, false);
+    //}
     void Vibrate(float lowFrequency, float highFrequency, float duration)
     {
         if (Gamepad.current != null) // 確保手把已連接

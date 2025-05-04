@@ -49,16 +49,11 @@ public class BulletPool : MonoBehaviour
     private void Awake()
     {
         poolInstance = this;
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        //Debug.Log("hi");
         blackBulletPool = new List<GameObject>();
         playerBulletPool = new List<GameObject>();
         redBulletPool = new List<GameObject>();
         purpleBulletPool = new List<GameObject>();
-        GameObject tmp,tmp1;
+        GameObject tmp, tmp1;
         for (int i = 0; i < blackBulletAmountToPool; i++)
         {
             tmp = Instantiate(blackObjectToPool);
@@ -86,6 +81,58 @@ public class BulletPool : MonoBehaviour
             tmp1.SetActive(false);
             tmp1.transform.SetParent(playerBulletPoolParent.transform);
             playerBulletPool.Add(tmp1);
+        }
+    }
+    // Start is called before the first frame update
+    void Start()
+    {
+        //Debug.Log("hi");
+
+    }
+    public GameObject GetBulletPoolInstance(BulletType type)
+    {
+        switch (type)
+        {
+            case BulletType.Black:
+                for (int i = 0; i < blackBulletAmountToPool; i++)
+                {
+                    if (!blackBulletPool[i].activeInHierarchy)
+                    {
+                        return blackBulletPool[i];
+                    }
+                }
+                return null;
+            case BulletType.Red:
+                for (int i = 0; i < RedBulletAmountToPool; i++)
+                {
+                    if (!redBulletPool[i].activeInHierarchy)
+                    {
+                        //Debug.Log(i);
+                        return redBulletPool[i];
+                    }
+                }
+                return null;
+            case BulletType.Purple:
+                for (int i = 0; i < PurpleBulletAmountToPool; i++)
+                {
+                    if (!purpleBulletPool[i].activeInHierarchy)
+                    {
+                        return purpleBulletPool[i];
+                    }
+                }
+                return null;
+            case BulletType.BlackRed:
+                for (int i = 0; i < playerAmountToPool; i++)
+                {
+                    if (!playerBulletPool[i].activeInHierarchy)
+                    {
+                        return playerBulletPool[i];
+                    }
+                }
+                return null;
+            default:
+                Debug.LogError("BulletType not found");
+                return null;
         }
     }
     public GameObject GetBlackBulletPooledObject()

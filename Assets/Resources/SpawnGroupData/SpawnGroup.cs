@@ -13,7 +13,7 @@ public class SpawnGroup : SpawnGroupController
             var entry = manager.CreateEntryBehaviour(group.entryType);
             var move = manager.CreateMoveBehaviour(group.moveType);
             var leave = manager.CreateLeaveBehaviour(group.leaveType);
-            manager.NewSpawn_WithRecord(group.enemyData,group.spawnData,group.gunData, entry, move, leave,group.spawnType);
+            manager.NewSpawn_WithRecord(group.enemyData, group.spawnData, group.gunData, entry, move, leave, group.spawnType);
             yield return new WaitForSeconds(group.delayTime);
         }
     }
@@ -23,7 +23,7 @@ public class SpawnGroupData
 {
     public int enemyData;
     public int spawnData;
-    public int gunData;
+    public GunDataList gunData;
     public EntryType entryType;
     public MoveType moveType;
     public LeaveType leaveType;

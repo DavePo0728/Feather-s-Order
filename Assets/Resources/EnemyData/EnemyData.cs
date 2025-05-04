@@ -8,13 +8,6 @@ public class EnemyData : ScriptableObject
 {
     public data data;
 }
-public enum BulletType
-{
-    Black,
-    Red,
-    Purple,
-    BlackRed,
-}
 [System.Serializable]
 public class data
 {

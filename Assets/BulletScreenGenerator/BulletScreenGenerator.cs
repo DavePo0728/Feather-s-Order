@@ -8,7 +8,7 @@ using TMPro;
 
 public class BulletScreenGenerator : MonoBehaviour
 {
-	EnemyShooting enemyShooting;
+	EnemyShootingController enemyShooting;
 
 	code[,] bullet2DArray = new code[13,22];
 
@@ -23,8 +23,8 @@ public class BulletScreenGenerator : MonoBehaviour
     public void GenerateBulletMap(GameObject enemy)
 	{
 		ReadTextFile();
-		enemyShooting = enemy.GetComponent<EnemyShooting>();
-		enemyShooting.ClearChosenList();
+		enemyShooting = enemy.GetComponent<EnemyShootingController>();
+		//enemyShooting.ClearChosenList();
         for (int x = 0; x < 13; x++)
         {
             for (int y = 0; y < 22; y++)
@@ -71,7 +71,7 @@ public class BulletScreenGenerator : MonoBehaviour
         {
             if (codeMapping.code ==code.A)
             {
-				enemyShooting.AddChosen2DArrayToList(x, y);
+				//enemyShooting.AddChosen2DArrayToList(x, y);
             }
         }
     }

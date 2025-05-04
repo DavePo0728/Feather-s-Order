@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: StraightShooter
   m_EditorClassIdentifier: 
   data:
+    patternType: 0
     gunIndex: 0
-    rpm: 250
-    shootingCoolDown: 1.5
-    bulletAmount: 3
+    rpm: 300
+    shootingCoolDown: 1
+    bulletAmount: 1
+    spreadAngle: 0
     spinSpeed: 0
     bulletType: 1
-    MaxShootWave: 99
+    MaxShootWave: 3

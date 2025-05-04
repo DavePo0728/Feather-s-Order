@@ -17,7 +17,7 @@ public class RecordedWaveData : ScriptableObject
         public int spawnDataIndex;
 
         [Tooltip("GunDataList 中的索引")]
-        public int gunDataIndex;
+        public GunDataList gunData;
 
         [Tooltip("敵人進場的行為腳本類型名稱")]
         public string entryTypeName;

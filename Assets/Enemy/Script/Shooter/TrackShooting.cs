@@ -40,31 +40,31 @@ public class TrackShooting : MonoBehaviour
     void Update()
     {
         //Debug.Log(canShoot && shootWaveCount < MaxShootWave);
-        if (canShoot&&shootWaveCount<maxShootWave)
-        {
-            timeSinceLastShot += Time.deltaTime;
-            if (timeSinceLastShot >= timeBetweenShots)
-            {
+        //if (canShoot&&shootWaveCount<maxShootWave)
+        //{
+        //    timeSinceLastShot += Time.deltaTime;
+        //    if (timeSinceLastShot >= timeBetweenShots)
+        //    {
                 AimPlayer();
-                switch (bulletType)
-                {
-                    case BulletType.Black:
-                        ShootBlackBullet();
-                        break;
-                    case BulletType.Red:
-                        ShootRedBullet();
-                        break;
-                    case BulletType.Purple:
-                        ShootPurpleBullet();
-                        break;
-                    case BulletType.BlackRed:
-                        //ShootBlackRedBullet();
-                        break;
-                }
+        //        switch (bulletType)
+        //        {
+        //            case BulletType.Black:
+        //                ShootBlackBullet();
+        //                break;
+        //            case BulletType.Red:
+        //                ShootRedBullet();
+        //                break;
+        //            case BulletType.Purple:
+        //                ShootPurpleBullet();
+        //                break;
+        //            case BulletType.BlackRed:
+        //                //ShootBlackRedBullet();
+        //                break;
+        //        }
                 
-            }
+        //    }
             
-        }
+        //}
     }
     //void ShootBlackRedBullet()
     //{
