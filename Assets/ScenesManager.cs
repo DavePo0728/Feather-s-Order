@@ -41,6 +41,7 @@ public class ScenesManager : MonoBehaviour
     }
     private void Awake()
     {
+        Time.timeScale = 1;
         LoadImage = LoadingPanel.GetComponent<Image>();
         if (gameClearImageObject != null)
             gameClearImage = gameClearImageObject.GetComponent<Image>();

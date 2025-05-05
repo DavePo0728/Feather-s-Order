@@ -53,7 +53,7 @@ public class PlayerHP : MonoBehaviour
 
     private void Awake()
     {
-        Time.timeScale = 1;
+        
         hurtAudioSource = GetComponent<AudioSource>();
         hurtClip1 = Resources.Load<AudioClip>("Sound/PlayerGetHit01");
         hurtClip2 = Resources.Load<AudioClip>("Sound/PlayerGetHit02");
