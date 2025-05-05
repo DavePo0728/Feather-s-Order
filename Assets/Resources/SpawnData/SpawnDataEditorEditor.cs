@@ -4,14 +4,20 @@ using UnityEngine;
 [CustomEditor(typeof(SpawnDataEditor))]
 public class SpawnDataEditorEditor : Editor
 {
-    public override void OnInspectorGUI()
+	private bool showGroup1 = false; // 改名字比較直覺
+	public override void OnInspectorGUI()
     {
-        //serializedObject.Update();
 
-        SerializedProperty iterator = serializedObject.GetIterator();
+		serializedObject.Update();
+		//serializedObject.Update();
+		SpawnDataEditor SDEditor = (SpawnDataEditor)target;
+
+		
+		
+		SerializedProperty iterator = serializedObject.GetIterator();
         SerializedProperty iterator2 = serializedObject.GetIterator();
         iterator.NextVisible(true); // 跳過 script 欄位
-		EditorGUILayout.PropertyField(serializedObject.FindProperty("Target"));
+		
 		while (iterator.NextVisible(false))
         {
             EditorGUILayout.PropertyField(iterator, true);
@@ -29,15 +35,16 @@ public class SpawnDataEditorEditor : Editor
                     GUILayout.BeginHorizontal();
                     if (GUILayout.Button("EditPos"))
                     {
-                        Debug.Log("EditPos clicked: " + spawnPosProp.vector3Value);
-                    }
+						SDEditor.GotoTargetPosition(SDEditor.spawnData.spawnPosition);
+					}
 					GUILayout.BeginHorizontal();
 					GUILayout.FlexibleSpace(); // 讓上鍵居中
 					if (GUILayout.Button("←", GUILayout.Width(30), GUILayout.Height(30)))
 					{
-						Debug.Log("Move Left");
+						SDEditor.spawnData.spawnPosition = SDEditor.MicroPos(SDEditor.spawnData.spawnPosition,new Vector3(-1f,0,0));
+						SDEditor.GotoTargetPosition(SDEditor.spawnData.spawnPosition);
 					}
-					GUILayout.FlexibleSpace();
+					//GUILayout.FlexibleSpace();
 					GUILayout.EndHorizontal();
 
 					// 中（左與右）
@@ -45,22 +52,36 @@ public class SpawnDataEditorEditor : Editor
 					
 					if (GUILayout.Button("↑", GUILayout.Width(30), GUILayout.Height(30)))
 					{
-						Debug.Log("Move Up");
+						SDEditor.spawnData.spawnPosition =  SDEditor.MicroPos(SDEditor.spawnData.spawnPosition, new Vector3(0, -1f, 0));
+						SDEditor.GotoTargetPosition(SDEditor.spawnData.spawnPosition);
 					}
 
 					// 下
 					GUILayout.BeginHorizontal();
-					GUILayout.FlexibleSpace(); // 讓下鍵居中
+					//GUILayout.FlexibleSpace(); // 讓下鍵居中
 					if (GUILayout.Button("↓", GUILayout.Width(30), GUILayout.Height(30)))
 					{
-						Debug.Log("Move Down");
+						SDEditor.spawnData.spawnPosition =  SDEditor.MicroPos(SDEditor.spawnData.spawnPosition, new Vector3(0, 1, 0));
+						SDEditor.GotoTargetPosition(SDEditor.spawnData.spawnPosition);
 					}
-					GUILayout.FlexibleSpace();
+					//GUILayout.FlexibleSpace();
 					GUILayout.EndHorizontal();
-					GUILayout.Space(10);
+					//GUILayout.Space(10);
 					if (GUILayout.Button("→", GUILayout.Width(30), GUILayout.Height(30)))
 					{
-						Debug.Log("Move Right");
+						SDEditor.spawnData.spawnPosition =  SDEditor.MicroPos(SDEditor.spawnData.spawnPosition, new Vector3(1, 0, 0));
+						SDEditor.GotoTargetPosition(SDEditor.spawnData.spawnPosition);
+					}
+					GUILayout.Space(50);
+					if (GUILayout.Button("←", GUILayout.Width(30), GUILayout.Height(30)))
+					{
+						SDEditor.spawnData.spawnPosition = SDEditor.MicroPos(SDEditor.spawnData.spawnPosition, new Vector3(0, 0, -1));
+						SDEditor.GotoTargetPosition(SDEditor.spawnData.spawnPosition);
+					}
+					if (GUILayout.Button("→", GUILayout.Width(30), GUILayout.Height(30)))
+					{
+						SDEditor.spawnData.spawnPosition = SDEditor.MicroPos(SDEditor.spawnData.spawnPosition, new Vector3(0, 0, 1f));
+						SDEditor.GotoTargetPosition(SDEditor.spawnData.spawnPosition);
 					}
 					GUILayout.EndHorizontal();
 					GUILayout.EndHorizontal();
@@ -74,15 +95,16 @@ public class SpawnDataEditorEditor : Editor
                     GUILayout.BeginHorizontal();
                     if (GUILayout.Button("EditPos"))
                     {
-                        Debug.Log("EditPos clicked: " + endPosition.vector3Value);
-                    }
+						SDEditor.GotoTargetPosition(SDEditor.spawnData.endPosition);
+					}
 					GUILayout.BeginHorizontal();
 					GUILayout.FlexibleSpace(); // 讓上鍵居中
 					if (GUILayout.Button("←", GUILayout.Width(30), GUILayout.Height(30)))
 					{
-						Debug.Log("Move Left");
+						SDEditor.spawnData.endPosition = SDEditor.MicroPos(SDEditor.spawnData.endPosition, new Vector3(-1f, 0, 0));
+						SDEditor.GotoTargetPosition(SDEditor.spawnData.endPosition);
 					}
-					GUILayout.FlexibleSpace();
+					//GUILayout.FlexibleSpace();
 					GUILayout.EndHorizontal();
 
 					// 中（左與右）
@@ -90,22 +112,36 @@ public class SpawnDataEditorEditor : Editor
 
 					if (GUILayout.Button("↑", GUILayout.Width(30), GUILayout.Height(30)))
 					{
-						Debug.Log("Move Up");
+						SDEditor.spawnData.endPosition =  SDEditor.MicroPos(SDEditor.spawnData.endPosition, new Vector3(0, -1f, 0));
+						SDEditor.GotoTargetPosition(SDEditor.spawnData.endPosition);
 					}
 
 					// 下
 					GUILayout.BeginHorizontal();
-					GUILayout.FlexibleSpace(); // 讓下鍵居中
+					//GUILayout.FlexibleSpace(); // 讓下鍵居中
 					if (GUILayout.Button("↓", GUILayout.Width(30), GUILayout.Height(30)))
 					{
-						Debug.Log("Move Down");
+						SDEditor.spawnData.endPosition =  SDEditor.MicroPos(SDEditor.spawnData.endPosition, new Vector3(0, 1, 0));
+						SDEditor.GotoTargetPosition(SDEditor.spawnData.endPosition);
 					}
-					GUILayout.FlexibleSpace();
+					//GUILayout.FlexibleSpace();
 					GUILayout.EndHorizontal();
-					GUILayout.Space(10);
+					//GUILayout.Space(10);
 					if (GUILayout.Button("→", GUILayout.Width(30), GUILayout.Height(30)))
 					{
-						Debug.Log("Move Right");
+						SDEditor.spawnData.endPosition = SDEditor.MicroPos(SDEditor.spawnData.endPosition, new Vector3(1, 0, 0));
+						SDEditor.GotoTargetPosition(SDEditor.spawnData.endPosition);
+					}
+					GUILayout.Space(50);
+					if (GUILayout.Button("←", GUILayout.Width(30), GUILayout.Height(30)))
+					{
+						SDEditor.spawnData.endPosition = SDEditor.MicroPos(SDEditor.spawnData.endPosition, new Vector3(0, 0, -1));
+						SDEditor.GotoTargetPosition(SDEditor.spawnData.endPosition);
+					}
+					if (GUILayout.Button("→", GUILayout.Width(30), GUILayout.Height(30)))
+					{
+						SDEditor.spawnData.endPosition = SDEditor.MicroPos(SDEditor.spawnData.endPosition, new Vector3(0, 0, 1f));
+						SDEditor.GotoTargetPosition(SDEditor.spawnData.endPosition);
 					}
 					GUILayout.EndHorizontal();
 					GUILayout.EndHorizontal();
@@ -119,15 +155,16 @@ public class SpawnDataEditorEditor : Editor
 					GUILayout.BeginHorizontal();
 					if (GUILayout.Button("EditPos"))
 					{
-						Debug.Log("EditPos clicked: " + LeavePositon.vector3Value);
+						SDEditor.GotoTargetPosition(SDEditor.spawnData.LeavePositon);
 					}
 					GUILayout.BeginHorizontal();
 					GUILayout.FlexibleSpace(); // 讓上鍵居中
 					if (GUILayout.Button("←", GUILayout.Width(30), GUILayout.Height(30)))
 					{
-						Debug.Log("Move Left");
+						SDEditor.spawnData.LeavePositon = SDEditor.MicroPos(SDEditor.spawnData.LeavePositon, new Vector3(-1f, 0, 0));
+						SDEditor.GotoTargetPosition(SDEditor.spawnData.LeavePositon);
 					}
-					GUILayout.FlexibleSpace();
+					//GUILayout.FlexibleSpace();
 					GUILayout.EndHorizontal();
 
 					// 中（左與右）
@@ -135,22 +172,36 @@ public class SpawnDataEditorEditor : Editor
 
 					if (GUILayout.Button("↑", GUILayout.Width(30), GUILayout.Height(30)))
 					{
-						Debug.Log("Move Up");
+						SDEditor.spawnData.LeavePositon = SDEditor.spawnData.endPosition = SDEditor.MicroPos(SDEditor.spawnData.LeavePositon, new Vector3(0, -1f, 0));
+						SDEditor.GotoTargetPosition(SDEditor.spawnData.LeavePositon);
 					}
 
 					// 下
 					GUILayout.BeginHorizontal();
-					GUILayout.FlexibleSpace(); // 讓下鍵居中
+					//GUILayout.FlexibleSpace(); // 讓下鍵居中
 					if (GUILayout.Button("↓", GUILayout.Width(30), GUILayout.Height(30)))
 					{
-						Debug.Log("Move Down");
+						SDEditor.spawnData.LeavePositon = SDEditor.MicroPos(SDEditor.spawnData.LeavePositon, new Vector3(0, 1, 0));
+						SDEditor.GotoTargetPosition(SDEditor.spawnData.LeavePositon);
 					}
-					GUILayout.FlexibleSpace();
+					//GUILayout.FlexibleSpace();
 					GUILayout.EndHorizontal();
-					GUILayout.Space(10);
+					//GUILayout.Space(10);
 					if (GUILayout.Button("→", GUILayout.Width(30), GUILayout.Height(30)))
 					{
-						Debug.Log("Move Right");
+						SDEditor.spawnData.LeavePositon = SDEditor.MicroPos(SDEditor.spawnData.LeavePositon, new Vector3(1, 0, 0));
+						SDEditor.GotoTargetPosition(SDEditor.spawnData.LeavePositon);
+					}
+					GUILayout.Space(50);
+					if (GUILayout.Button("←", GUILayout.Width(30), GUILayout.Height(30)))
+					{
+						SDEditor.spawnData.LeavePositon = SDEditor.MicroPos(SDEditor.spawnData.LeavePositon, new Vector3(0, 0, -1));
+						SDEditor.GotoTargetPosition(SDEditor.spawnData.LeavePositon);
+					}
+					if (GUILayout.Button("→", GUILayout.Width(30), GUILayout.Height(30)))
+					{
+						SDEditor.spawnData.LeavePositon = SDEditor.MicroPos(SDEditor.spawnData.LeavePositon, new Vector3(0, 0, 1f));
+						SDEditor.GotoTargetPosition(SDEditor.spawnData.LeavePositon);
 					}
 					GUILayout.EndHorizontal();
 					GUILayout.EndHorizontal();
@@ -159,13 +210,27 @@ public class SpawnDataEditorEditor : Editor
 				break;
             }
 		}
-
-        serializedObject.ApplyModifiedProperties();
-
-        // 原本的功能保留
-        if (GUILayout.Button("判斷 Spawn 區域"))
+		showGroup1 = EditorGUILayout.Foldout(showGroup1, "資料", true);
+		if (showGroup1)
+		{
+			EditorGUILayout.PropertyField(serializedObject.FindProperty("Center"));
+			EditorGUILayout.PropertyField(serializedObject.FindProperty("Up"));
+			EditorGUILayout.PropertyField(serializedObject.FindProperty("Down"));
+			EditorGUILayout.PropertyField(serializedObject.FindProperty("Left"));
+			EditorGUILayout.PropertyField(serializedObject.FindProperty("Right"));
+			EditorGUILayout.PropertyField(serializedObject.FindProperty("UpLeft"));
+			EditorGUILayout.PropertyField(serializedObject.FindProperty("UpRight"));
+			EditorGUILayout.PropertyField(serializedObject.FindProperty("DownLeft"));
+			EditorGUILayout.PropertyField(serializedObject.FindProperty("DownRight"));
+			EditorGUILayout.PropertyField(serializedObject.FindProperty("Target"));
+			
+		}
+		EditorGUILayout.PropertyField(serializedObject.FindProperty("NewDataName"));
+		// 原本的功能保留
+		if (GUILayout.Button("新增 生成資料"))
         {
-            ((SpawnDataEditor)target).PrintSpawnRegion();
+            ((SpawnDataEditor)target).CreateSpawnDataAsset();
         }
-    }
+		serializedObject.ApplyModifiedProperties();
+	}
 }
