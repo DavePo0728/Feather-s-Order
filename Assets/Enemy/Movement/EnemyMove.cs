@@ -52,14 +52,14 @@ public class EnemyMove : MonoBehaviour
     EnemyData testData;
     //GunData testGunData;
     //public bool canShoot = false;
-    public enum BulletType
-    {
-        Black,
-        Red,
-        Purple,
-        BlackRed,
-    }
-    public BulletType bulletType;
+    //public enum BulletType
+    //{
+    //    Black,
+    //    Red,
+    //    Purple,
+    //    BlackRed,
+    //}
+    //public BulletType bulletType;
     //[SerializeField]
     //protected float rotationSpeed;
     //[SerializeField]

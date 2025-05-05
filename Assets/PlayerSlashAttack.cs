@@ -285,6 +285,8 @@ public class PlayerSlashAttack : MonoBehaviour
     void DashToShieldEnemy()
     {
         slashState = SlashState.Dashing;
+        shieldEffect.SetActive(false);
+        shieldEffectBIG.SetActive(false);
         playerRigidbody.velocity = Vector3.zero;
         if (target != null)
         {
@@ -355,7 +357,7 @@ public class PlayerSlashAttack : MonoBehaviour
                 ReturnAnimation();
             }
         }
-        Debug.Log("SlashState: " + slashState);
+        //Debug.Log("SlashState: " + slashState);
         if (slashState == SlashState.FallingBack || slashState == SlashState.Idle && playerAnimator.GetCurrentAnimatorStateInfo(0).IsName("Base Layer.Stand__Idle"))
         {
             //playerAnimator.SetTrigger("ReFly");

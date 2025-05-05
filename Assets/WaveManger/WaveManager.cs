@@ -31,7 +31,7 @@ public class WaveManager : MonoBehaviour
     public EnemyData[] enemyDatas => enemyDataList.enemyDatas;
     public SpawnDataList spawnDataList;
     public SpawnData[] spawnDatas => spawnDataList.spawnDatas;
-    public GunDataList gunDataList;
+    //public GunDataList gunDataList;
     public SpawnGroupList spawnGroupList;
     [Header("Recording")]
     [SerializeField] 
@@ -603,7 +603,14 @@ public class WaveManager : MonoBehaviour
         enemyMove.paralyzeTimeStackMultiplier = enemyData.data.paralyzeTimeStackMultiplier;
         enemyMove.endPoint = endPoint;
         enemyMove.leavePoint = leavePoint;
-        if(spawnData.data.curveHeight == 0)
+        EnemyShootingController enemyShootingController = temp.transform.Find("Guns").GetComponent<EnemyShootingController>();
+        if (enemyShootingController == null)
+        {
+            Debug.LogError("EnemyShootingController not found!");
+            return;
+        }
+        enemyShootingController.gunDataList = activeGunDataList;
+        if (spawnData.data.curveHeight == 0)
         {
             spawnData.data.curveHeight = Random.Range(-100f, 100f);
         }
@@ -627,13 +634,6 @@ public class WaveManager : MonoBehaviour
         IMoveBehaviour move = moveABehaviour;
         ILeaveBehaviour leave = leaveBehaviour;
         enemyMove.SetBehaviours(entry, move, leave);
-        EnemyShootingController enemyShootingController = temp.transform.Find("Guns").GetComponent<EnemyShootingController>();
-        if(enemyShootingController == null)
-        {
-            Debug.LogError("EnemyShootingController not found!");
-            return;
-        }
-        enemyShootingController.gunDataList = activeGunDataList;
     }
     public IEntryBehaviour CreateEntryBehaviour(EntryType type)
     {

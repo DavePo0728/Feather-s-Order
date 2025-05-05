@@ -563,6 +563,140 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
+--- !u!1 &952190707
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 952190710}
+  - component: {fileID: 952190709}
+  - component: {fileID: 952190708}
+  m_Layer: 5
+  m_Name: WaveText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &952190708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 952190707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: New Text
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 7533c64868d9838418180bb1197505c8, type: 2}
+  m_sharedMaterial: {fileID: -9024698009666537427, guid: 7533c64868d9838418180bb1197505c8, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 49.52
+  m_fontSizeBase: 49.52
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 256
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &952190709
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 952190707}
+  m_CullTransparentMesh: 1
+--- !u!224 &952190710
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 952190707}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5298464670112836152}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -25}
+  m_SizeDelta: {x: 200, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1026203907
 GameObject:
   m_ObjectHideFlags: 0
@@ -11175,6 +11309,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9c96d6dbf5c317449a0d86b8e0b6357, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  showLockUI: 0
   playerCamera: {fileID: 1083290502}
   aimmingImage: {fileID: 871952479113143506}
   FarLockImage: {fileID: 1731748670776784991}
@@ -79755,6 +79890,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerAim: {fileID: 337013966081710535}
   AimObject: {fileID: 1535614347}
+  enemiesInRange: []
 --- !u!23 &1469637192945004122
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -380762,11 +380898,11 @@ MonoBehaviour:
   - {fileID: 0}
   customPathDataList:
   - {fileID: 11400000, guid: 322cdde3ab75c844fa0328e8035981cd, type: 2}
+  waveText: {fileID: 952190708}
   tutorialImage: {fileID: 0}
   debug: 0
   enemyDataList: {fileID: 11400000, guid: ea9fd51ecabf28f488513454d6693a43, type: 2}
   spawnDataList: {fileID: 11400000, guid: 02c786a34ce55624c9369eefdc51c91c, type: 2}
-  gunDataList: {fileID: 11400000, guid: 903753f85a2c6334196fe5e0bed4bf1e, type: 2}
   spawnGroupList: {fileID: 11400000, guid: a80600eba4e6a1540a1b741a0787c31e, type: 2}
   isRecording: 1
   currentRecording: {fileID: 11400000, guid: 8c9dc73155b23224fb13a97d6fe4a66b, type: 2}
@@ -380904,6 +381040,7 @@ RectTransform:
   - {fileID: 2001459739}
   - {fileID: 1719028016}
   - {fileID: 8097266560048732833}
+  - {fileID: 952190710}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -554206,6 +554343,9 @@ MonoBehaviour:
   lockEnemyImageList: []
   farLockSFX: {fileID: 8300000, guid: d96c01fac5d4db44dbdbe9793ab56625, type: 3}
   audioSource: {fileID: 1028065657751121718}
+  missileFireSFX: {fileID: 0}
+  missileFireVolume: 1
+  pitchRange: {x: 0.9, y: 1.1}
 --- !u!23 &7683703022885114485
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -560524,6 +560664,7 @@ MonoBehaviour:
   impulseSource: {fileID: 6742983075018330138}
   followZoom: {fileID: 6132993366673876887}
   flashImage: {fileID: 6412157610908123682}
+  maxTime: 0
   attackTimer: 0
   playerAnimator: {fileID: 5723090075333883862}
   clothDB: {fileID: 663615064}
@@ -574652,10 +574793,21 @@ MonoBehaviour:
   maxHp: 100
   playerHp: 0
   hpBarImage: {fileID: 4714000662104424276}
+  delayHpBarImage: {fileID: 0}
   hpText: {fileID: 2525602420840287815}
   gameOverUI: {fileID: 7330929058450365109}
   hpDamageImage: {fileID: 7277099928494051740}
+  hpBarRoot: {fileID: 0}
   impulseSource: {fileID: 6742983075018330138}
+  normalBackground: {fileID: 0}
+  hurtFlashBackground: {fileID: 0}
+  healFlashBackground: {fileID: 0}
+  flashDuration: 0.1
+  delaySpeed: 0.5
+  hurtShakeStrength: 5
+  healShakeStrength: 2
+  hurtShakeDuration: 0.3
+  healShakeDuration: 0.15
   debug: 0
 --- !u!4 &8039318310143110669
 Transform:

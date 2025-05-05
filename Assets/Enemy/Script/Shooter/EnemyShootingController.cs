@@ -41,6 +41,10 @@ public class EnemyShootingController : MonoBehaviour
         {
             spinShooterList.Add(spinShooter.transform.GetChild(i).gameObject);
         }
+        
+    }
+    private void Start()
+    {
         if (debug)
         {
             gunDataList = Resources.Load<GunDataList>("GunData/GunPattern/TestGunDataList");
@@ -56,6 +60,15 @@ public class EnemyShootingController : MonoBehaviour
         }
         else
         {
+            if (gunDataList == null)
+            {
+                Debug.LogError("GunDataList is null");
+                return;
+            }
+            for (int i = 0; i < gunDataList.gunDatas.Length; i++)
+            {
+                availableGuns.Add(gunDataList.gunDatas[i].Data);
+            }
             // 一次取出所有 SubGunData
             modes = new List<SubGunData>();
             foreach (var gd in availableGuns)
@@ -63,9 +76,6 @@ public class EnemyShootingController : MonoBehaviour
                 modes.Add(gd.data);
             }
         }
-    }
-    private void Start()
-    {
         IsAttackLooping = true;
         StartAttacking();
     }

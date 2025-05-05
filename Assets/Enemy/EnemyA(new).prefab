@@ -11090,7 +11090,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3611441381287583105}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -16864,8 +16864,6 @@ MonoBehaviour:
   DebugMoveTime: 0.5
   isDebugHaveGun: 0
   isMove: 1
-  gunList: []
-  bulletType: 0
 --- !u!82 &3888258094929980030
 AudioSource:
   m_ObjectHideFlags: 0
@@ -17567,9 +17565,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debug: 0
   availableGuns: []
-  shooter: {fileID: 0}
   shooterList: []
+  spinShooter: {fileID: 0}
+  spinShooterList: []
   useAllmode: 0
+  currentModeIndex: 0
+  IsAttackLooping: 0
+  gunDataList: {fileID: 0}
 --- !u!1 &6993816417676551798
 GameObject:
   m_ObjectHideFlags: 0
