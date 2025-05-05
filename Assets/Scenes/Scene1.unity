@@ -32694,7 +32694,7 @@ MonoBehaviour:
     end: {x: 0, y: 0}
   - start: {x: 0, y: -40}
     end: {x: 40, y: -40}
-  duration: 1
+  duration: 0.1
   speedCurve:
     serializedVersion: 2
     m_Curve:
@@ -32720,7 +32720,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   loop: 1
-  waitTime: 0
+  waitTime: 2
 --- !u!1 &1716289650
 GameObject:
   m_ObjectHideFlags: 0
@@ -33453,7 +33453,7 @@ MonoBehaviour:
     end: {x: 0, y: -40}
   - start: {x: 0, y: 0}
     end: {x: -40, y: 0}
-  duration: 1
+  duration: 0.1
   speedCurve:
     serializedVersion: 2
     m_Curve:
@@ -33479,7 +33479,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   loop: 1
-  waitTime: 0
+  waitTime: 2
 --- !u!1 &1764954665
 GameObject:
   m_ObjectHideFlags: 0
@@ -34576,7 +34576,7 @@ MonoBehaviour:
     end: {x: 0, y: 40}
   - start: {x: 0, y: 0}
     end: {x: 40, y: 0}
-  duration: 1
+  duration: 0.1
   speedCurve:
     serializedVersion: 2
     m_Curve:
@@ -34602,7 +34602,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   loop: 1
-  waitTime: 0
+  waitTime: 2
 --- !u!1 &1850296046
 GameObject:
   m_ObjectHideFlags: 0
@@ -39325,7 +39325,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4417413039048126395, guid: 92a1c3b4e68c4634abd899540b91c0f2, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4645500966169656283, guid: 92a1c3b4e68c4634abd899540b91c0f2, type: 3}
       propertyPath: m_LocalRotation.w
@@ -39847,7 +39847,7 @@ MonoBehaviour:
     end: {x: 0, y: 0}
   - start: {x: 0, y: 40}
     end: {x: -40, y: 40}
-  duration: 1
+  duration: 0.1
   speedCurve:
     serializedVersion: 2
     m_Curve:
@@ -39873,7 +39873,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   loop: 1
-  waitTime: 0
+  waitTime: 2
 --- !u!1 &2103542045
 GameObject:
   m_ObjectHideFlags: 0
@@ -126540,6 +126540,7 @@ MonoBehaviour:
   mpUIShaker: {fileID: 5079637811424640023}
   fakeDelay: 0.3
   fakeSpeed: 0.5
+  grazeColor: {fileID: 0}
 --- !u!4 &2597694417859325145
 Transform:
   m_ObjectHideFlags: 0
@@ -289172,7 +289173,6 @@ MonoBehaviour:
   debug: 0
   enemyDataList: {fileID: 11400000, guid: ea9fd51ecabf28f488513454d6693a43, type: 2}
   spawnDataList: {fileID: 11400000, guid: 02c786a34ce55624c9369eefdc51c91c, type: 2}
-  gunDataList: {fileID: 0}
   spawnGroupList: {fileID: 11400000, guid: a80600eba4e6a1540a1b741a0787c31e, type: 2}
   isRecording: 1
   currentRecording: {fileID: 11400000, guid: 8c9dc73155b23224fb13a97d6fe4a66b, type: 2}

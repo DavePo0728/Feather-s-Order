@@ -3,6 +3,7 @@ using UnityEditor;
 #endif
 using UnityEngine;
 using System.IO;
+using System.Collections.Generic;
 
 public enum SpawnRegion
 {
@@ -23,11 +24,18 @@ public class SpawnDataEditor : MonoBehaviour
 
 	private const int gridSize = 8;
 
-	public RectTransform Target;
+	public RectTransform StartTarget;
+	public RectTransform EndTarget;
+	public RectTransform LeaveTarget;
+	public Transform StartPoint;
+	public Transform EndPoint;
+	public Transform LeavePoint;
 
+	public SpawnDataList SpawnDataList;
 
 	public string NewDataName = "NewData";
-
+	
+	public Canvas canvas;
 	public DefaultAsset Center;
 	public DefaultAsset Up;
 	public DefaultAsset Down;
@@ -48,7 +56,25 @@ public class SpawnDataEditor : MonoBehaviour
 		SpawnRegion region = GetSpawnRegion(spawnData.spawnPosition);
 		Debug.Log("Spawn Position 位於區域: " + region + "座標" + new Vector2(spawnData.spawnPosition.x, spawnData.spawnPosition.y));
 	}
+	public void SyncPointsToUI()
+	{
+		if (StartTarget != null && StartPoint != null)
+		{
+			StartPoint.position = StartTarget.position;
+		}
 
+		if (EndTarget != null && EndPoint != null)
+		{
+			EndPoint.position = EndTarget.position;
+		}
+
+		if (LeaveTarget != null && LeavePoint != null)
+		{
+			LeavePoint.position = LeaveTarget.position;
+		}
+
+		Debug.Log("3D Points 已對齊到對應的 UI 目標位置");
+	}
 	private SpawnRegion GetSpawnRegion(Vector3 pos)
 	{
 		float x = pos.x;
@@ -69,11 +95,12 @@ public class SpawnDataEditor : MonoBehaviour
 
 		return SpawnRegion.Center; // 預設 fallback
 	}
+	
 	public string GetRegionName(Vector3 pos)
 	{
 		return GetSpawnRegion(pos).ToString();
 	}
-	public void GotoTargetPosition(Vector3 gridPos)
+	public void GotoTargetPosition(RectTransform PointTarget , Vector3 gridPos)
 	{
 		Vector2 originUI = new Vector2(960, -480);
 		Vector2 cellSize = new Vector2(40, 40);
@@ -85,21 +112,26 @@ public class SpawnDataEditor : MonoBehaviour
 		Vector2 uiPos2D = new Vector2(uiX, uiY);
 		float zPos = uiZ;
 
-		if (Target != null)
+		if (PointTarget != null)
 		{
-			Target.anchoredPosition = uiPos2D;
+			PointTarget.anchoredPosition = uiPos2D;
 
-			Vector3 currentLocal = Target.localPosition;
-			Target.localPosition = new Vector3(currentLocal.x, currentLocal.y, zPos);
+			Vector3 currentLocal = PointTarget.localPosition;
+			PointTarget.localPosition = new Vector3(currentLocal.x, currentLocal.y, zPos);
 
-			Debug.Log($"Moved Target to UI position: {uiPos2D} (Z: {zPos}) from Grid({gridPos.x}, {gridPos.y}, {gridPos.z})");
+			//Debug.Log($"Moved Target to UI position: {uiPos2D} (Z: {zPos}) from Grid({gridPos.x}, {gridPos.y}, {gridPos.z})");
 		}
 		else
 		{
 			Debug.LogWarning("Target is not assigned.");
 		}
+		SyncPointsToUI();
 	}
 
+	public void TextChange()
+	{
+
+	}
 	public Vector3Int PosConversion(Vector3 pos)
 	{
 		// UI 中央點 (960, -480) 是網格 (24, 12, 0)
@@ -116,8 +148,6 @@ public class SpawnDataEditor : MonoBehaviour
 
 		return new Vector3Int(gridX, gridY, gridZ);
 	}
-
-
 	public Vector3 MicroPos(Vector3 target, Vector3 offset)
 	{
 		target = target + offset;
@@ -162,8 +192,20 @@ public class SpawnDataEditor : MonoBehaviour
 		AssetDatabase.CreateAsset(newAsset, assetPath);
 		AssetDatabase.SaveAssets();
 		AssetDatabase.Refresh();
-
 		Debug.Log($"Created new SpawnData asset at: {assetPath}");
+		if (SpawnDataList != null)
+		{
+			var tempList = new List<SpawnData>(SpawnDataList.spawnDatas ?? new SpawnData[0]);
+			tempList.Add(newAsset);
+			SpawnDataList.spawnDatas = tempList.ToArray();
+			EditorUtility.SetDirty(SpawnDataList);
+			AssetDatabase.SaveAssets();
+			Debug.Log("SpawnData 新增至 SpawnDataList");
+		}
+		else
+		{
+			Debug.LogWarning("SpawnDataList 為空，無法加入資料");
+		}
 	}
 	private string GetRegionFolderPath(SpawnRegion region)
 	{

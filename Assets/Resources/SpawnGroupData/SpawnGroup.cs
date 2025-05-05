@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,22 +14,30 @@ public class SpawnGroup : SpawnGroupController
             var entry = manager.CreateEntryBehaviour(group.entryType);
             var move = manager.CreateMoveBehaviour(group.moveType);
             var leave = manager.CreateLeaveBehaviour(group.leaveType);
-            manager.NewSpawn_WithRecord(group.enemyData, group.spawnData, group.gunData, entry, move, leave, group.spawnType);
+            manager.NewSpawn_WithRecord(group.enemyData, (int)group.spawnData, group.gunData, entry, move, leave, group.spawnType);
+            Debug.Log("原始直"+ group.spawnData + "修改直: = " +(int)group.spawnDataType);
             yield return new WaitForSeconds(group.delayTime);
         }
     }
 }
-[System.Serializable]
+
+
+[Serializable]
 public class SpawnGroupData
 {
-    public int enemyData;
-    public int spawnData;
-    public GunDataList gunData;
-    public EntryType entryType;
-    public MoveType moveType;
-    public LeaveType leaveType;
-    public float delayTime;
-    public WaveManager.SpawnType spawnType;
+	public int enemyData;
+	public int spawnData;
+
+	[SerializeField]
+    public SpawnDataType spawnDataType;
+    public EnemyDataType enemyDataType;
+
+	public GunDataList gunData;
+	public EntryType entryType;
+	public MoveType moveType;
+	public LeaveType leaveType;
+	public float delayTime;
+	public WaveManager.SpawnType spawnType;
 }
 public enum EntryType
 {

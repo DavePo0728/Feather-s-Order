@@ -35,14 +35,14 @@ public class SpawnDataEditorEditor : Editor
                     GUILayout.BeginHorizontal();
                     if (GUILayout.Button("EditPos"))
                     {
-						SDEditor.GotoTargetPosition(SDEditor.spawnData.spawnPosition);
+						SDEditor.GotoTargetPosition(SDEditor.StartTarget,SDEditor.spawnData.spawnPosition);
 					}
 					GUILayout.BeginHorizontal();
 					GUILayout.FlexibleSpace(); // 讓上鍵居中
 					if (GUILayout.Button("←", GUILayout.Width(30), GUILayout.Height(30)))
 					{
 						SDEditor.spawnData.spawnPosition = SDEditor.MicroPos(SDEditor.spawnData.spawnPosition,new Vector3(-1f,0,0));
-						SDEditor.GotoTargetPosition(SDEditor.spawnData.spawnPosition);
+						SDEditor.GotoTargetPosition(SDEditor.StartTarget,SDEditor.spawnData.spawnPosition);
 					}
 					//GUILayout.FlexibleSpace();
 					GUILayout.EndHorizontal();
@@ -53,7 +53,7 @@ public class SpawnDataEditorEditor : Editor
 					if (GUILayout.Button("↑", GUILayout.Width(30), GUILayout.Height(30)))
 					{
 						SDEditor.spawnData.spawnPosition =  SDEditor.MicroPos(SDEditor.spawnData.spawnPosition, new Vector3(0, -1f, 0));
-						SDEditor.GotoTargetPosition(SDEditor.spawnData.spawnPosition);
+						SDEditor.GotoTargetPosition(SDEditor.StartTarget,SDEditor.spawnData.spawnPosition);
 					}
 
 					// 下
@@ -62,7 +62,7 @@ public class SpawnDataEditorEditor : Editor
 					if (GUILayout.Button("↓", GUILayout.Width(30), GUILayout.Height(30)))
 					{
 						SDEditor.spawnData.spawnPosition =  SDEditor.MicroPos(SDEditor.spawnData.spawnPosition, new Vector3(0, 1, 0));
-						SDEditor.GotoTargetPosition(SDEditor.spawnData.spawnPosition);
+						SDEditor.GotoTargetPosition(SDEditor.StartTarget,SDEditor.spawnData.spawnPosition);
 					}
 					//GUILayout.FlexibleSpace();
 					GUILayout.EndHorizontal();
@@ -70,18 +70,18 @@ public class SpawnDataEditorEditor : Editor
 					if (GUILayout.Button("→", GUILayout.Width(30), GUILayout.Height(30)))
 					{
 						SDEditor.spawnData.spawnPosition =  SDEditor.MicroPos(SDEditor.spawnData.spawnPosition, new Vector3(1, 0, 0));
-						SDEditor.GotoTargetPosition(SDEditor.spawnData.spawnPosition);
+						SDEditor.GotoTargetPosition(SDEditor.StartTarget,SDEditor.spawnData.spawnPosition);
 					}
 					GUILayout.Space(50);
 					if (GUILayout.Button("←", GUILayout.Width(30), GUILayout.Height(30)))
 					{
 						SDEditor.spawnData.spawnPosition = SDEditor.MicroPos(SDEditor.spawnData.spawnPosition, new Vector3(0, 0, -1));
-						SDEditor.GotoTargetPosition(SDEditor.spawnData.spawnPosition);
+						SDEditor.GotoTargetPosition(SDEditor.StartTarget,SDEditor.spawnData.spawnPosition);
 					}
 					if (GUILayout.Button("→", GUILayout.Width(30), GUILayout.Height(30)))
 					{
 						SDEditor.spawnData.spawnPosition = SDEditor.MicroPos(SDEditor.spawnData.spawnPosition, new Vector3(0, 0, 1f));
-						SDEditor.GotoTargetPosition(SDEditor.spawnData.spawnPosition);
+						SDEditor.GotoTargetPosition(SDEditor.StartTarget,SDEditor.spawnData.spawnPosition);
 					}
 					GUILayout.EndHorizontal();
 					GUILayout.EndHorizontal();
@@ -95,14 +95,14 @@ public class SpawnDataEditorEditor : Editor
                     GUILayout.BeginHorizontal();
                     if (GUILayout.Button("EditPos"))
                     {
-						SDEditor.GotoTargetPosition(SDEditor.spawnData.endPosition);
+						SDEditor.GotoTargetPosition(SDEditor.EndTarget,SDEditor.spawnData.endPosition);
 					}
 					GUILayout.BeginHorizontal();
 					GUILayout.FlexibleSpace(); // 讓上鍵居中
 					if (GUILayout.Button("←", GUILayout.Width(30), GUILayout.Height(30)))
 					{
 						SDEditor.spawnData.endPosition = SDEditor.MicroPos(SDEditor.spawnData.endPosition, new Vector3(-1f, 0, 0));
-						SDEditor.GotoTargetPosition(SDEditor.spawnData.endPosition);
+						SDEditor.GotoTargetPosition(SDEditor.EndTarget,SDEditor.spawnData.endPosition);
 					}
 					//GUILayout.FlexibleSpace();
 					GUILayout.EndHorizontal();
@@ -113,7 +113,7 @@ public class SpawnDataEditorEditor : Editor
 					if (GUILayout.Button("↑", GUILayout.Width(30), GUILayout.Height(30)))
 					{
 						SDEditor.spawnData.endPosition =  SDEditor.MicroPos(SDEditor.spawnData.endPosition, new Vector3(0, -1f, 0));
-						SDEditor.GotoTargetPosition(SDEditor.spawnData.endPosition);
+						SDEditor.GotoTargetPosition(SDEditor.EndTarget,SDEditor.spawnData.endPosition);
 					}
 
 					// 下
@@ -122,7 +122,7 @@ public class SpawnDataEditorEditor : Editor
 					if (GUILayout.Button("↓", GUILayout.Width(30), GUILayout.Height(30)))
 					{
 						SDEditor.spawnData.endPosition =  SDEditor.MicroPos(SDEditor.spawnData.endPosition, new Vector3(0, 1, 0));
-						SDEditor.GotoTargetPosition(SDEditor.spawnData.endPosition);
+						SDEditor.GotoTargetPosition(SDEditor.EndTarget,SDEditor.spawnData.endPosition);
 					}
 					//GUILayout.FlexibleSpace();
 					GUILayout.EndHorizontal();
@@ -130,18 +130,18 @@ public class SpawnDataEditorEditor : Editor
 					if (GUILayout.Button("→", GUILayout.Width(30), GUILayout.Height(30)))
 					{
 						SDEditor.spawnData.endPosition = SDEditor.MicroPos(SDEditor.spawnData.endPosition, new Vector3(1, 0, 0));
-						SDEditor.GotoTargetPosition(SDEditor.spawnData.endPosition);
+						SDEditor.GotoTargetPosition(SDEditor.EndTarget,SDEditor.spawnData.endPosition);
 					}
 					GUILayout.Space(50);
 					if (GUILayout.Button("←", GUILayout.Width(30), GUILayout.Height(30)))
 					{
 						SDEditor.spawnData.endPosition = SDEditor.MicroPos(SDEditor.spawnData.endPosition, new Vector3(0, 0, -1));
-						SDEditor.GotoTargetPosition(SDEditor.spawnData.endPosition);
+						SDEditor.GotoTargetPosition(SDEditor.EndTarget,SDEditor.spawnData.endPosition);
 					}
 					if (GUILayout.Button("→", GUILayout.Width(30), GUILayout.Height(30)))
 					{
 						SDEditor.spawnData.endPosition = SDEditor.MicroPos(SDEditor.spawnData.endPosition, new Vector3(0, 0, 1f));
-						SDEditor.GotoTargetPosition(SDEditor.spawnData.endPosition);
+						SDEditor.GotoTargetPosition(SDEditor.EndTarget,SDEditor.spawnData.endPosition);
 					}
 					GUILayout.EndHorizontal();
 					GUILayout.EndHorizontal();
@@ -155,14 +155,14 @@ public class SpawnDataEditorEditor : Editor
 					GUILayout.BeginHorizontal();
 					if (GUILayout.Button("EditPos"))
 					{
-						SDEditor.GotoTargetPosition(SDEditor.spawnData.LeavePositon);
+						SDEditor.GotoTargetPosition(SDEditor.LeaveTarget,SDEditor.spawnData.LeavePositon);
 					}
 					GUILayout.BeginHorizontal();
 					GUILayout.FlexibleSpace(); // 讓上鍵居中
 					if (GUILayout.Button("←", GUILayout.Width(30), GUILayout.Height(30)))
 					{
 						SDEditor.spawnData.LeavePositon = SDEditor.MicroPos(SDEditor.spawnData.LeavePositon, new Vector3(-1f, 0, 0));
-						SDEditor.GotoTargetPosition(SDEditor.spawnData.LeavePositon);
+						SDEditor.GotoTargetPosition(SDEditor.LeaveTarget, SDEditor.spawnData.LeavePositon);
 					}
 					//GUILayout.FlexibleSpace();
 					GUILayout.EndHorizontal();
@@ -173,7 +173,7 @@ public class SpawnDataEditorEditor : Editor
 					if (GUILayout.Button("↑", GUILayout.Width(30), GUILayout.Height(30)))
 					{
 						SDEditor.spawnData.LeavePositon = SDEditor.spawnData.endPosition = SDEditor.MicroPos(SDEditor.spawnData.LeavePositon, new Vector3(0, -1f, 0));
-						SDEditor.GotoTargetPosition(SDEditor.spawnData.LeavePositon);
+						SDEditor.GotoTargetPosition(SDEditor.LeaveTarget, SDEditor.spawnData.LeavePositon);
 					}
 
 					// 下
@@ -182,7 +182,7 @@ public class SpawnDataEditorEditor : Editor
 					if (GUILayout.Button("↓", GUILayout.Width(30), GUILayout.Height(30)))
 					{
 						SDEditor.spawnData.LeavePositon = SDEditor.MicroPos(SDEditor.spawnData.LeavePositon, new Vector3(0, 1, 0));
-						SDEditor.GotoTargetPosition(SDEditor.spawnData.LeavePositon);
+						SDEditor.GotoTargetPosition(SDEditor.LeaveTarget, SDEditor.spawnData.LeavePositon);
 					}
 					//GUILayout.FlexibleSpace();
 					GUILayout.EndHorizontal();
@@ -190,18 +190,18 @@ public class SpawnDataEditorEditor : Editor
 					if (GUILayout.Button("→", GUILayout.Width(30), GUILayout.Height(30)))
 					{
 						SDEditor.spawnData.LeavePositon = SDEditor.MicroPos(SDEditor.spawnData.LeavePositon, new Vector3(1, 0, 0));
-						SDEditor.GotoTargetPosition(SDEditor.spawnData.LeavePositon);
+						SDEditor.GotoTargetPosition(SDEditor.LeaveTarget, SDEditor.spawnData.LeavePositon);
 					}
 					GUILayout.Space(50);
 					if (GUILayout.Button("←", GUILayout.Width(30), GUILayout.Height(30)))
 					{
 						SDEditor.spawnData.LeavePositon = SDEditor.MicroPos(SDEditor.spawnData.LeavePositon, new Vector3(0, 0, -1));
-						SDEditor.GotoTargetPosition(SDEditor.spawnData.LeavePositon);
+						SDEditor.GotoTargetPosition(SDEditor.LeaveTarget, SDEditor.spawnData.LeavePositon);
 					}
 					if (GUILayout.Button("→", GUILayout.Width(30), GUILayout.Height(30)))
 					{
 						SDEditor.spawnData.LeavePositon = SDEditor.MicroPos(SDEditor.spawnData.LeavePositon, new Vector3(0, 0, 1f));
-						SDEditor.GotoTargetPosition(SDEditor.spawnData.LeavePositon);
+						SDEditor.GotoTargetPosition(SDEditor.LeaveTarget,SDEditor.spawnData.LeavePositon);
 					}
 					GUILayout.EndHorizontal();
 					GUILayout.EndHorizontal();
@@ -222,15 +222,22 @@ public class SpawnDataEditorEditor : Editor
 			EditorGUILayout.PropertyField(serializedObject.FindProperty("UpRight"));
 			EditorGUILayout.PropertyField(serializedObject.FindProperty("DownLeft"));
 			EditorGUILayout.PropertyField(serializedObject.FindProperty("DownRight"));
-			EditorGUILayout.PropertyField(serializedObject.FindProperty("Target"));
+			EditorGUILayout.PropertyField(serializedObject.FindProperty("StartTarget"));
+			EditorGUILayout.PropertyField(serializedObject.FindProperty("EndTarget"));
+			EditorGUILayout.PropertyField(serializedObject.FindProperty("LeaveTarget"));
+			EditorGUILayout.PropertyField(serializedObject.FindProperty("StartPoint"));
+			EditorGUILayout.PropertyField(serializedObject.FindProperty("EndPoint"));
+			EditorGUILayout.PropertyField(serializedObject.FindProperty("LeavePoint"));
+			EditorGUILayout.PropertyField(serializedObject.FindProperty("SpawnDataList"));
 			
 		}
 		EditorGUILayout.PropertyField(serializedObject.FindProperty("NewDataName"));
 		// 原本的功能保留
 		if (GUILayout.Button("新增 生成資料"))
-        {
-            ((SpawnDataEditor)target).CreateSpawnDataAsset();
-        }
+		{
+			((SpawnDataEditor)target).CreateSpawnDataAsset();
+		}
+
 		serializedObject.ApplyModifiedProperties();
 	}
 }
