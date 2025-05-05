@@ -449,10 +449,19 @@ public class PlayerSlashAttack : MonoBehaviour
             Gamepad.current.SetMotorSpeeds(0f, 0f);
         }
     }
-	//void OnApplicationQuit()
-	//{
-	//	Debug.Log("應用程式關閉");
-	//	Gamepad.current?.SetMotorSpeeds(0, 0);
-	//}
-
+    //void OnApplicationQuit()
+    //{
+    //	Debug.Log("應用程式關閉");
+    //	Gamepad.current?.SetMotorSpeeds(0, 0);
+    //}
+    void OnApplicationQuit()
+    {
+        Debug.Log("搖桿震動關閉");
+        Gamepad.current?.SetMotorSpeeds(0, 0);
+    }
+    void OnDisable()
+    {
+        Debug.Log("搖桿震動關閉");
+        Gamepad.current?.SetMotorSpeeds(0, 0);
+    }
 }
