@@ -69,6 +69,7 @@ public class PlayerMove : MonoBehaviour
 
 	public List<GameObject> outline = new List<GameObject>();
 
+    
 	private void Awake()
     {
         playerRigidbody = GetComponent<Rigidbody>();
@@ -85,7 +86,8 @@ public class PlayerMove : MonoBehaviour
         //UpdateUI();
         
 
-    }
+
+	}
     public void GetMove(InputAction.CallbackContext context)
     {
         movementInput = context.ReadValue<Vector2>();

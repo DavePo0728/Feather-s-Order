@@ -363,11 +363,12 @@ public class PlayerSlashAttack : MonoBehaviour
             //playerAnimator.SetTrigger("ReFly");
             playerAnimator.Play("ReFly");
         }
-  //      if (Input.GetKey("g"))
-  //      {
-		//	Vibrate(0.5f, 0.5f, 0.05f);
+		//Vibrate(0.5f, 0.5f, 0.05f);
+		//      if (Input.GetKey("g"))
+		//      {
+		//	
 		//}
-    }
+	}
 
     void ReturnAnimation()
     {
@@ -449,19 +450,14 @@ public class PlayerSlashAttack : MonoBehaviour
             Gamepad.current.SetMotorSpeeds(0f, 0f);
         }
     }
-    //void OnApplicationQuit()
-    //{
-    //	Debug.Log("應用程式關閉");
-    //	Gamepad.current?.SetMotorSpeeds(0, 0);
-    //}
     void OnApplicationQuit()
     {
         Debug.Log("搖桿震動關閉");
         Gamepad.current?.SetMotorSpeeds(0, 0);
     }
-    void OnDisable()
-    {
-        Debug.Log("搖桿震動關閉");
-        Gamepad.current?.SetMotorSpeeds(0, 0);
-    }
+	void OnDisable()
+	{
+		Debug.Log("搖桿震動關閉");
+		Gamepad.current?.SetMotorSpeeds(0, 0);
+	}
 }

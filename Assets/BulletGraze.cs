@@ -35,7 +35,9 @@ public class BulletGraze : MonoBehaviour
 
     AlphaBreathingWithYOffset shieldFlashEffect;
 
-    private void Awake()
+    public GrazeColor grazeColor;
+
+	private void Awake()
     {
         grazeSound = GetComponent<AudioSource>();
         grazeClip = Resources.Load<AudioClip>("Sound/BulletGrazing");
@@ -84,8 +86,9 @@ public class BulletGraze : MonoBehaviour
                 grazeEffect.SetActive(true);
                 if (!grazeEffectParticle.isPlaying)
                     grazeEffectParticle.Play();
+				grazeColor.ApplyGrazeEffect();
 
-                Vibrate(0.1f, 0.1f, 0.05f);
+				Vibrate(0.1f, 0.1f, 0.05f);
                 grazeSound.PlayOneShot(grazeClip);
 
                 if (shieldFlashEffect != null)

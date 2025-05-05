@@ -27,12 +27,10 @@ public class GrazeColor : MonoBehaviour
 			ApplyGrazeEffect();
 	}
 
-	private IEnumerator Transition(SkinnedMeshRenderer renderer, Color fromColor, Color toColor, float fromRim, float toRim)
+	private IEnumerator Transition(SkinnedMeshRenderer renderer, Color fromColor, Color toColor, float fromRim, float toRim, bool handleEmission = false, Color fromEmission = default, Color toEmission = default)
 	{
 		if (renderer == null)
-		{
 			yield break;
-		}
 
 		float timer = 0f;
 		Material[] materials = renderer.materials;
@@ -43,21 +41,23 @@ public class GrazeColor : MonoBehaviour
 
 			foreach (Material mat in materials)
 			{
-				if (mat.HasProperty("_BaseColor")) // 用於修改 Albedo 顏色
+				if (mat.HasProperty("_BaseColor"))
 					mat.SetColor("_BaseColor", Color.Lerp(fromColor, toColor, t));
 
-				if (mat.HasProperty("_RimLightStrength")) // 用於修改 Rim Strength
+				if (mat.HasProperty("_RimLightStrength"))
 					mat.SetFloat("_RimLightStrength", Mathf.Lerp(fromRim, toRim, t));
 
-				if (mat.HasProperty("_RimLightOn")) // 啟用 Rim Light
+				if (mat.HasProperty("_RimLightOn"))
 					mat.SetFloat("_RimLightOn", 1f);
+
+				if (handleEmission && mat.HasProperty("_EmissionColor"))
+					mat.SetColor("_EmissionColor", Color.Lerp(fromEmission, toEmission, t));
 			}
 
 			timer += Time.deltaTime;
 			yield return null;
 		}
 
-		// 最終值修正
 		foreach (Material mat in materials)
 		{
 			if (mat.HasProperty("_BaseColor"))
@@ -67,9 +67,13 @@ public class GrazeColor : MonoBehaviour
 				mat.SetFloat("_RimLightStrength", toRim);
 
 			if (mat.HasProperty("_RimLightOn"))
-				mat.SetFloat("_RimLightOn", toRim > 0f ? 1f : 0f);  // 若強度為 0 就關閉 Rim Light
+				mat.SetFloat("_RimLightOn", toRim > 0f ? 1f : 0f);
+
+			if (handleEmission && mat.HasProperty("_EmissionColor"))
+				mat.SetColor("_EmissionColor", toEmission);
 		}
 	}
+
 
 	public void ApplyGrazeEffect()
 	{
@@ -78,23 +82,20 @@ public class GrazeColor : MonoBehaviour
 
 	private IEnumerator GrazeAndResetRoutine()
 	{
-		// 執行 graze 變化
 		StartCoroutine(Transition(Body, besaColor, grazeColor, 0f, RimStrengthBody));
-		StartCoroutine(Transition(Wing, besaColor, grazeColor, 0f, RimStrengthWing));
+		StartCoroutine(Transition(Wing, besaColor, grazeColor, 0f, RimStrengthWing, true, Color.white, Color.black));
 		StartCoroutine(Transition(Dress, besaColor, grazeColor, 0f, RimStrengthDress));
 		StartCoroutine(Transition(Hair, besaColor, grazeColor, 0f, RimStrengthHair));
 		StartCoroutine(Transition(Leg, besaColor, grazeColor, 0f, RimStrengthBody));
-		// 等待變化完成
 		yield return new WaitForSeconds(transitionDuration);
 
-		// 執行還原
 		ResetColor();
 	}
 
 	public void ResetColor()
 	{
 		StartCoroutine(Transition(Body, grazeColor, besaColor, RimStrengthBody, 0f));
-		StartCoroutine(Transition(Wing, grazeColor, besaColor, RimStrengthWing, 0f));
+		StartCoroutine(Transition(Wing, grazeColor, besaColor, RimStrengthWing, 0f, true, Color.black, Color.white));
 		StartCoroutine(Transition(Dress, grazeColor, besaColor, RimStrengthDress, 0f));
 		StartCoroutine(Transition(Hair, grazeColor, besaColor, RimStrengthHair, 0f));
 		StartCoroutine(Transition(Leg, grazeColor, besaColor, RimStrengthBody, 0f));
