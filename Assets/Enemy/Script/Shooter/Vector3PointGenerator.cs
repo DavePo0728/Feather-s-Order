@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-//[ExecuteInEditMode]
+[ExecuteInEditMode]
 public class Vector3PointGenerator : MonoBehaviour
 {
     public static Vector3PointGenerator instance;

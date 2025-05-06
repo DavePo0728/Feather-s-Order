@@ -139,31 +139,73 @@ public class EnemyShootingController : MonoBehaviour
         switch (gunData.patternType)
         {
             case ShootingPatternType.Straight:
-                //shooter = shooterList[0];
+                shooter = shooterList[0];
+                if (shooter != null)
+                {
+                    if (shooter.activeSelf == false)
+                    {
+                        shooter.SetActive(true);
+                    }
+                }
                 ActiveBullet(shooter.transform.position, shooter.transform.rotation, gunData.bulletType);
                 break;
 
             case ShootingPatternType.tracking:
                 shooter = shooterList[1];
+                if(shooter != null)
+                {
+                    if(shooter.activeSelf ==false)
+                    {
+                        shooter.SetActive(true);
+                    }
+                }
                 ActiveBullet(shooter.transform.position, shooter.transform.rotation, gunData.bulletType);
                 break;
 
             case ShootingPatternType.Spread:
-                //shooter = shooterList[2];
+                shooter = shooterList[0];
+                if (shooter != null)
+                {
+                    if (shooter.activeSelf == false)
+                    {
+                        shooter.SetActive(true);
+                    }
+                }
                 SpreadFire(gunData);
                 break;
 
             case ShootingPatternType.Spiral:
-                //shooter = shooterList[3];
+                shooter = shooterList[0];
+                if (shooter != null)
+                {
+                    if (shooter.activeSelf == false)
+                    {
+                        shooter.SetActive(true);
+                    }
+                }
                 SpiralFire(gunData);
                 break;
             case ShootingPatternType.shotgun:
-                //shooter = shooterList[4];
+                shooter = shooterList[0];
+                if (shooter != null)
+                {
+                    if (shooter.activeSelf == false)
+                    {
+                        shooter.SetActive(true);
+                    }
+                }
                 StartCoroutine(ShotGun(gunData));
                 break;
             case ShootingPatternType.FourWay:
                 foreach(var shooter in spinShooterList)
                 {
+                    if (shooter != null)
+                    {
+                        if (shooter.activeSelf == false)
+                        {
+                            shooter.SetActive(true);
+                        }
+                    }
                     ActiveBullet(shooter.transform.position, shooter.transform.rotation, gunData.bulletType);
                 }
                 break;
