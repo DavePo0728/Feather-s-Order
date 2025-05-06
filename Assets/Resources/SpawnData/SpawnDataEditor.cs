@@ -112,8 +112,6 @@ public class SpawnDataEditor : MonoBehaviour
 				break;
 		}
 	}
-
-
 	private SpawnRegion GetSpawnRegion(Vector3 pos)
 	{
 		float x = pos.x;
@@ -134,7 +132,6 @@ public class SpawnDataEditor : MonoBehaviour
 
 		return SpawnRegion.Center; // 預設 fallback
 	}
-
 	public string GetRegionName(Vector3 pos)
 	{
 		return GetSpawnRegion(pos).ToString();
@@ -166,12 +163,10 @@ public class SpawnDataEditor : MonoBehaviour
 		}
 		SetLineToPath();
 	}
-
 	public void TextChange()
 	{
 
 	}
-
 	public Vector3 MicroPos(Vector3 target, Vector3 offset)
 	{
 		target = target + offset;
@@ -387,7 +382,6 @@ public class SpawnDataEditor : MonoBehaviour
 
 		Debug.Log($"生成 Target_Path 數量：{EndTargePath.Count}");
 	}
-
 	public void SetWaypoints(int index)
 	{
 		Vector3 gridPos = EndTargetList[index];
