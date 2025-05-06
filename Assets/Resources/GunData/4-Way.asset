@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data:
     patternType: 5
+    seperateMode: 0
     gunIndex: 0
     rpm: 300
-    shootingCoolDown: 0.1
-    bulletAmount: 1
+    bulletAmount: 2
     spreadAngle: 0
-    spinSpeed: 0
+    spinSpeed: 1
     bulletType: 1
-    MaxShootWave: 3
+    MaxShootWave: 30

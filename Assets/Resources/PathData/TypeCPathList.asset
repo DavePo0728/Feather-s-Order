@@ -9,16 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1d36a8fb6caf1640a57d3e453e56159, type: 3}
-  m_Name: TrackShooting_black
+  m_Script: {fileID: 11500000, guid: 2c20e7aa1776e504492b16c8993b58ef, type: 3}
+  m_Name: TypeCPathList
   m_EditorClassIdentifier: 
-  data:
-    patternType: 1
-    seperateMode: 0
-    gunIndex: 1
-    rpm: 300
-    bulletAmount: 1
-    spreadAngle: 0
-    spinSpeed: 0
-    bulletType: 0
-    MaxShootWave: 20
+  customPathDataList:
+  - {fileID: 11400000, guid: 3e30ae6b45bd49c40a9ba658593cda26, type: 2}

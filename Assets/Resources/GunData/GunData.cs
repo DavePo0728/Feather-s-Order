@@ -36,8 +36,8 @@ public enum ShootingPatternType
 }
 public enum BulletType
 {
-    Black,
     Red,
+    Black,
     Purple,
     BlackRed,
 }

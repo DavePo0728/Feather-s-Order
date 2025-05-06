@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a1d36a8fb6caf1640a57d3e453e56159, type: 3}
-  m_Name: TrackShooting_black
+  m_Name: Spiral
   m_EditorClassIdentifier: 
   data:
-    patternType: 1
+    patternType: 4
     seperateMode: 0
-    gunIndex: 1
-    rpm: 300
+    gunIndex: 0
+    rpm: 1200
     bulletAmount: 1
     spreadAngle: 0
-    spinSpeed: 0
+    spinSpeed: 360
     bulletType: 0
-    MaxShootWave: 20
+    MaxShootWave: 360

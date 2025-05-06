@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a1d36a8fb6caf1640a57d3e453e56159, type: 3}
-  m_Name: TrackShooting_black
+  m_Name: HomingMissile
   m_EditorClassIdentifier: 
   data:
-    patternType: 1
+    patternType: 6
     seperateMode: 0
-    gunIndex: 1
-    rpm: 300
-    bulletAmount: 1
+    gunIndex: 0
+    rpm: 0
+    bulletAmount: 0
     spreadAngle: 0
     spinSpeed: 0
-    bulletType: 0
-    MaxShootWave: 20
+    bulletType: 2
+    MaxShootWave: 0

@@ -6,8 +6,7 @@ using System.Linq;
 
 public class EnemyShootingController : MonoBehaviour
 {
-    [SerializeField]
-    bool debug;
+    public bool debug;
     public List<GunData> availableGuns;  // 在生成時就設定好
 
 
@@ -17,6 +16,7 @@ public class EnemyShootingController : MonoBehaviour
     List<GameObject> shooterList;
     [SerializeField]
     GameObject spinShooter;
+    FourWayGunSpin fourWayGunSpin;
     [SerializeField]
     List<GameObject> spinShooterList;
 
@@ -33,7 +33,8 @@ public class EnemyShootingController : MonoBehaviour
     {
         shooter = transform.GetChild(0).gameObject;
         spinShooter = transform.Find("4-waySpinGun").gameObject;
-        for(int i=0; i < transform.childCount; i++)
+        fourWayGunSpin = spinShooter.GetComponent<FourWayGunSpin>();
+        for (int i=0; i < transform.childCount; i++)
         {
             shooterList.Add(transform.GetChild(i).gameObject);
         }
@@ -111,11 +112,19 @@ public class EnemyShootingController : MonoBehaviour
         while (IsAttackLooping)
         {
             var mode = modes[currentModeIndex];
-            Debug.Log(currentModeIndex+mode.patternType);
+            Debug.Log(mode.patternType);
             yield return StartCoroutine(HandleMode(mode));
             currentModeIndex = (currentModeIndex + 1) % modes.Count;
             yield return new WaitForSeconds(gunDataList.gunDatas[currentModeIndex].delayTime);
         }
+    }
+    private void OnEnable()
+    {
+        StartAttacking();
+    }
+    private void OnDisable()
+    {
+        StopAttacking();
     }
     public void StopAttacking()
     {
@@ -132,6 +141,49 @@ public class EnemyShootingController : MonoBehaviour
             yield return new WaitForSeconds(interval);
         }
     }
+    // 散彈射擊
+    private IEnumerator ShotGun(SubGunData g)
+    {
+        for (int i = 0; i < g.bulletAmount; i++)
+        {
+            // 隨機在 [-half, +half] 度範圍內抖動 Yaw（左右）與 Pitch（上下）
+            float half = g.spreadAngle * 0.5f;
+            float yaw = Random.Range(-half, half);
+            float pitch = Random.Range(-half, half);
+
+            // 把偏航與俯仰疊加到火點的朝向上
+            Quaternion randomRot = shooter.transform.rotation * Quaternion.Euler(pitch, yaw, 0);
+            ActiveBullet(shooter.transform.position, randomRot, g.bulletType);
+        }
+        yield return new WaitForSeconds(60f / g.rpm);
+    }
+
+    // 扇形射擊 
+    private void SpreadFire(SubGunData g) ////有問題
+    {
+        // 先計算出每顆子彈的角度
+        float half = g.spreadAngle * 0.5f;
+        float angle = half / (g.bulletAmount - 1);
+        for (int i = 0; i < g.bulletAmount; i++)
+        {
+            // 計算每顆子彈的偏航角度
+            float yaw = -half + angle * i;
+            var rot = shooter.transform.rotation * Quaternion.Euler(0, yaw, 0);
+            ActiveBullet(shooter.transform.position, rot, g.bulletType);
+        }
+    }
+    // 螺旋射擊
+    private void SpiralFire(SubGunData g)
+    {
+        // 用 Time.time 來持續變化角度，或者每次呼叫從外面帶進來一個累加器
+        for (int i = 0; i < g.bulletAmount; i++)
+        {
+            float angle = Time.time * g.spinSpeed;
+            var rot = shooter.transform.rotation * Quaternion.Euler(0, angle, 0);
+            ActiveBullet(shooter.transform.position, rot, g.bulletType);
+        }
+    }
+
 
     // 一次波次內，根據 bulletAmount & patternType 生成子彈
     private void FireOnce(SubGunData gunData)
@@ -197,7 +249,8 @@ public class EnemyShootingController : MonoBehaviour
                 StartCoroutine(ShotGun(gunData));
                 break;
             case ShootingPatternType.FourWay:
-                foreach(var shooter in spinShooterList)
+                fourWayGunSpin.speed = gunData.spinSpeed;
+                foreach (var shooter in spinShooterList)
                 {
                     if (shooter != null)
                     {
@@ -208,6 +261,17 @@ public class EnemyShootingController : MonoBehaviour
                     }
                     ActiveBullet(shooter.transform.position, shooter.transform.rotation, gunData.bulletType);
                 }
+                break;
+            case ShootingPatternType.Homing:
+                shooter = shooterList[0];
+                if (shooter != null)
+                {
+                    if (shooter.activeSelf == false)
+                    {
+                        shooter.SetActive(true);
+                    }
+                }
+                ActiveBullet(shooter.transform.position, shooter.transform.rotation, gunData.bulletType);
                 break;
             case ShootingPatternType.All:
                 StartCoroutine(TriggerAllMode());
@@ -220,47 +284,6 @@ public class EnemyShootingController : MonoBehaviour
                 break;
         }
     }
-
-    // 散彈射擊
-    private IEnumerator ShotGun(SubGunData g)
-    {
-        for (int i = 0; i < g.bulletAmount; i++)
-        {
-            // 隨機在 [-half, +half] 度範圍內抖動 Yaw（左右）與 Pitch（上下）
-            float half = g.spreadAngle * 0.5f;
-            float yaw = Random.Range(-half, half);
-            float pitch = Random.Range(-half, half);
-
-            // 把偏航與俯仰疊加到火點的朝向上
-            Quaternion randomRot = shooter.transform.rotation * Quaternion.Euler(pitch, yaw, 0);
-            ActiveBullet(shooter.transform.position, randomRot, g.bulletType);
-        }
-        yield return new WaitForSeconds(60f / g.rpm);
-    }
-
-    // 扇形射擊
-    private void SpreadFire(SubGunData g)
-    {
-        float half = (g.bulletAmount - 1) * 0.5f;
-        for (int i = 0; i < g.bulletAmount; i++)
-        {
-            float angle = (i - half) * g.spinSpeed;
-            var rot = shooter.transform.rotation * Quaternion.Euler(0, angle, 0);
-            ActiveBullet(shooter.transform.position, rot, g.bulletType);
-        }
-    }
-
-    // 螺旋射擊
-
-
-    private void SpiralFire(SubGunData g)
-    {
-        // 用 Time.time 來持續變化角度，或者每次呼叫從外面帶進來一個累加器
-        float angle = Time.time * g.spinSpeed;
-        var rot = shooter.transform.rotation * Quaternion.Euler(0, angle, 0);
-        ActiveBullet(shooter.transform.position, rot, g.bulletType);
-    }
-
     // 依照 BulletType 決定要 Instantiate 哪一個 Prefab
     private void ActiveBullet(Vector3 pos, Quaternion rot, BulletType type)
     {
