@@ -11,17 +11,23 @@ public class SubGunData
 {
     public ShootingPatternType patternType;
     [Header("Gun Data")]
-    public bool seperateMode;
+    //public bool seperateMode;
     [HideInInspector]
     public int gunIndex;
     public float rpm;
-    //public float shootingCoolDown;
-    public float bulletAmount;
-    [Header("ShotGun")]
-    public float spreadAngle;
-    public float spinSpeed;
     public BulletType bulletType;
     public float MaxShootWave;
+    //public float shootingCoolDown;
+    public float bulletAmount;
+    [Header("ShotGun&SpreadShot")]
+    public float spreadAngle;
+    [Header("4Way&Spiral")]
+    public float spinSpeed;
+    [Header("Homing")]
+    public GameObject missilePrefab;
+    public float trackDuration;
+    public float maxRotationSpeed;
+    public float spreadDuration;
 }
 public enum ShootingPatternType
 {

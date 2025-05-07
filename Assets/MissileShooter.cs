@@ -122,22 +122,19 @@ public class MissileShooter : MonoBehaviour
             }
         }
     }
-    void ShootMissile(float missileAmount)
+    void ShootMissile(int missileAmount)
     {
-        int missileCount = Mathf.FloorToInt(missileAmount);
-
-        for (int i = 0; i < missileCount; i++)
+        for (int i = 0; i < missileAmount; i++)
         {
-            float angle = i * (360 / missileCount);
+            float angle = i * (360 / missileAmount);
             float radian = angle * Mathf.Deg2Rad;
             Vector3 direction = new Vector3(Mathf.Cos(radian), Mathf.Sin(radian), 0);
             GameObject temp = Instantiate(missile, transform.position, Quaternion.identity);
             PlayerMissileMove playerMissileMove = temp.GetComponent<PlayerMissileMove>();
             playerMissileMove.Initialize(direction, lockedEnemies[i]);
         }
-
         // 撥放音效（每發對應一個延遲）
-        StartCoroutine(PlayMissileSFXSequentially(missileCount));
+        StartCoroutine(PlayMissileSFXSequentially(missileAmount));
     }
 
     IEnumerator PlayMissileSFXSequentially(int count)

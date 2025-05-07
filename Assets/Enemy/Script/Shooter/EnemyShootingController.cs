@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using System.Linq;
+using System.Drawing;
+using System.Reflection;
 
 public class EnemyShootingController : MonoBehaviour
 {
@@ -159,7 +161,7 @@ public class EnemyShootingController : MonoBehaviour
     }
 
     // 扇形射擊 
-    private void SpreadFire(SubGunData g) ////有問題
+    private IEnumerator SpreadFire(SubGunData g) ////有問題
     {
         // 先計算出每顆子彈的角度
         float half = g.spreadAngle * 0.5f;
@@ -171,6 +173,7 @@ public class EnemyShootingController : MonoBehaviour
             var rot = shooter.transform.rotation * Quaternion.Euler(0, yaw, 0);
             ActiveBullet(shooter.transform.position, rot, g.bulletType);
         }
+        yield return new WaitForSeconds(60f / g.rpm);
     }
     // 螺旋射擊
     private void SpiralFire(SubGunData g)
@@ -183,7 +186,16 @@ public class EnemyShootingController : MonoBehaviour
             ActiveBullet(shooter.transform.position, rot, g.bulletType);
         }
     }
-
+    private void HomingMissile(SubGunData g)
+    {
+        for (int i = 0; i < g.bulletAmount; i++)
+        {
+            float angle = i * (360 / g.bulletAmount);
+            float radian = angle * Mathf.Deg2Rad;
+            Vector3 direction = new Vector3(Mathf.Cos(radian), Mathf.Sin(radian), 0);
+            ActiveMissile(g,shooter.transform.position, shooter.transform.rotation,direction);
+        }
+    }
 
     // 一次波次內，根據 bulletAmount & patternType 生成子彈
     private void FireOnce(SubGunData gunData)
@@ -223,7 +235,7 @@ public class EnemyShootingController : MonoBehaviour
                         shooter.SetActive(true);
                     }
                 }
-                SpreadFire(gunData);
+                StartCoroutine(SpreadFire(gunData));
                 break;
 
             case ShootingPatternType.Spiral:
@@ -271,7 +283,7 @@ public class EnemyShootingController : MonoBehaviour
                         shooter.SetActive(true);
                     }
                 }
-                ActiveBullet(shooter.transform.position, shooter.transform.rotation, gunData.bulletType);
+                HomingMissile(gunData);
                 break;
             case ShootingPatternType.All:
                 StartCoroutine(TriggerAllMode());
@@ -283,6 +295,17 @@ public class EnemyShootingController : MonoBehaviour
                 ActiveBullet(shooter.transform.position, shooter.transform.rotation, gunData.bulletType);
                 break;
         }
+    }
+    public void ActiveMissile(SubGunData g,Vector3 pos, Quaternion rot,Vector3 direction)
+    {
+        Debug.Log("ActiveMissile");
+        GameObject purple = Instantiate(g.missilePrefab, pos, rot);
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        HighSpeedVioletBulletMove purpleBulletMove = purple.GetComponent<HighSpeedVioletBulletMove>();
+        purpleBulletMove.spreadDuration = g.spreadDuration;
+        purpleBulletMove.trackDuration = g.trackDuration;
+        purpleBulletMove.maxRotationSpeed = g.maxRotationSpeed;
+        purpleBulletMove.Initialize(direction, player);
     }
     // 依照 BulletType 決定要 Instantiate 哪一個 Prefab
     private void ActiveBullet(Vector3 pos, Quaternion rot, BulletType type)
@@ -314,19 +337,6 @@ public class EnemyShootingController : MonoBehaviour
                 red.SetActive(true);
                 RedBulletMove redBulletMove = red.GetComponent<RedBulletMove>();
                 redBulletMove.Initial();
-                break;
-            case BulletType.Purple:
-                GameObject purple = BulletPool.poolInstance.GetBulletPoolInstance(type);
-                if (purple == null)
-                {
-                    Debug.LogError("Purple bullet is null");
-                    return;
-                }
-                purple.transform.position = pos;
-                purple.transform.rotation = rot;
-                purple.SetActive(true);
-                //PurpleBulletMove purpleBulletMove = purple.GetComponent<PurpleBulletMove>();
-                //purpleBulletMove.Initial();
                 break;
             case BulletType.BlackRed:
                 GameObject blackRed = BulletPool.poolInstance.GetBulletPoolInstance(type);
