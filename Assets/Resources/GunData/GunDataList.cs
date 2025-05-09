@@ -11,4 +11,7 @@ public class GunListWithDelay
 {
     public GunData Data;
     public float delayTime;
+    public bool IsAdditonalAttack;
+    public GunData additionalData;
+    public float additionalDelayTime;
 }

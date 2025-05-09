@@ -82,6 +82,19 @@ public class EnemyShootingController : MonoBehaviour
         IsAttackLooping = true;
         StartAttacking();
     }
+    private void OnEnable()
+    {
+        StartAttacking();
+    }
+    private void OnDisable()
+    {
+        StopAttacking();
+    }
+    public void FireExtraMode()
+    {
+        var extra = gunDataList.gunDatas[currentModeIndex].additionalData.data;
+        StartCoroutine(HandleMode(extra));
+    }
     /// <summary>
     /// ¶}©l§ðÀ»
     /// </summary>
@@ -113,6 +126,10 @@ public class EnemyShootingController : MonoBehaviour
     {
         while (IsAttackLooping)
         {
+            if (gunDataList.gunDatas[currentModeIndex].IsAdditonalAttack)
+            {
+                Invoke("FireExtraMode", gunDataList.gunDatas[currentModeIndex].additionalDelayTime);
+            }
             var mode = modes[currentModeIndex];
             Debug.Log(mode.patternType);
             yield return StartCoroutine(HandleMode(mode));
@@ -120,14 +137,7 @@ public class EnemyShootingController : MonoBehaviour
             yield return new WaitForSeconds(gunDataList.gunDatas[currentModeIndex].delayTime);
         }
     }
-    private void OnEnable()
-    {
-        StartAttacking();
-    }
-    private void OnDisable()
-    {
-        StopAttacking();
-    }
+
     public void StopAttacking()
     {
         IsAttackLooping = false;
