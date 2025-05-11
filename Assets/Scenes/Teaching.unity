@@ -2114,6 +2114,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 478688095041657607, guid: ef9a44eca7e62fa41bc5be78d6bced8f, type: 3}
   m_PrefabInstance: {fileID: 1801374114}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2020361337 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6178342775721283881, guid: ef9a44eca7e62fa41bc5be78d6bced8f, type: 3}
+  m_PrefabInstance: {fileID: 1801374114}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2020361336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d9b729e2d20f1a42af2294c4a6d34e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2036507153
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -101835,7 +101846,7 @@ MonoBehaviour:
   mpUIShaker: {fileID: 536043984}
   fakeDelay: 0.3
   fakeSpeed: 0.5
-  grazeColor: {fileID: 0}
+  grazeColor: {fileID: 2020361337}
 --- !u!4 &2508566089523984910
 Transform:
   m_ObjectHideFlags: 0
