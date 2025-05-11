@@ -14,11 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data:
     patternType: 5
-    seperateMode: 0
     gunIndex: 0
-    rpm: 300
-    bulletAmount: 2
+    rpm: 400
+    bulletType: 0
+    MaxShootWave: 10
+    bulletAmount: 1
     spreadAngle: 0
-    spinSpeed: 1
-    bulletType: 1
-    MaxShootWave: 30
+    spinSpeed: 360
+    bulletsPerArm: 3
+    crossSpacing: 3
+    ringRadius: 0
+    swingSpeed: 0
+    swingAngle: 0
+    missilePrefab: {fileID: 0}
+    trackDuration: 0
+    maxRotationSpeed: 0
+    spreadDuration: 0

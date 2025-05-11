@@ -12,6 +12,12 @@ public class GunListWithDelay
     public GunData Data;
     public float delayTime;
     public bool IsAdditonalAttack;
+    public List<AddtionalGunData> addtionalGunData;
+}
+[System.Serializable]
+public class AddtionalGunData
+{
     public GunData additionalData;
     public float additionalDelayTime;
+
 }

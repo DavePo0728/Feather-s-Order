@@ -252264,8 +252264,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6d7a6eee8b092749ae7347c36645222, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathList: {fileID: 0}
-  customPathDataList: {fileID: 0}
+  pathList: {fileID: 11400000, guid: e5b862eed7fa27a45aec36be597a0cea, type: 2}
+  customPathDataList: {fileID: 11400000, guid: c28b3ce9cd13e0c499f7fa6285e394f0, type: 2}
   waveText: {fileID: 128831291}
   tutorialImage: {fileID: 797469822}
   debug: 1

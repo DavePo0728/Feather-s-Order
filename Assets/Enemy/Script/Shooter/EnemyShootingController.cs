@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
@@ -9,10 +9,10 @@ using System.Reflection;
 public class EnemyShootingController : MonoBehaviour
 {
     public bool debug;
-    public List<GunData> availableGuns;  // ¦b¥Í¦¨®É´N³]©w¦n
+    public List<GunData> availableGuns;  // åœ¨ç”Ÿæˆæ™‚å°±è¨­å®šå¥½
 
 
-    [Header("®gÀ»ÂI")]
+    [Header("å°„æ“Šé»")]
     GameObject shooter;
     [SerializeField]
     List<GameObject> shooterList;
@@ -24,8 +24,9 @@ public class EnemyShootingController : MonoBehaviour
 
     public bool useAllmode;
 
-    // ¤º³¡§Ö¨ú
+    // å…§éƒ¨å¿«å–
     private List<SubGunData> modes;
+    int addtionalCount;
     [SerializeField]
     private int currentModeIndex = 0;
     public bool IsAttackLooping;
@@ -44,7 +45,7 @@ public class EnemyShootingController : MonoBehaviour
         {
             spinShooterList.Add(spinShooter.transform.GetChild(i).gameObject);
         }
-        
+        addtionalCount = 0;
     }
     private void Start()
     {
@@ -72,7 +73,7 @@ public class EnemyShootingController : MonoBehaviour
             {
                 availableGuns.Add(gunDataList.gunDatas[i].Data);
             }
-            // ¤@¦¸¨ú¥X©Ò¦³ SubGunData
+            // ä¸€æ¬¡å–å‡ºæ‰€æœ‰ SubGunData
             modes = new List<SubGunData>();
             foreach (var gd in availableGuns)
             {
@@ -92,13 +93,18 @@ public class EnemyShootingController : MonoBehaviour
     }
     public void FireExtraMode()
     {
-        var extra = gunDataList.gunDatas[currentModeIndex].additionalData.data;
+        var extra = gunDataList.gunDatas[currentModeIndex].addtionalGunData[addtionalCount].additionalData.data;
         StartCoroutine(HandleMode(extra));
+        addtionalCount++;
+        if(addtionalCount> gunDataList.gunDatas[currentModeIndex].addtionalGunData.Count)
+        {
+            addtionalCount = 0;
+        }
     }
     /// <summary>
-    /// ¶}©l§ğÀ»
+    /// é–‹å§‹æ”»æ“Š
     /// </summary>
-    /// <param name="useAllAtOnce">true=¦P®É±Ò°Ê©Ò¦³¼Ò¦¡¡Ffalse=³æ¼Ò¦¡½ü¬y</param>
+    /// <param name="useAllAtOnce">true=åŒæ™‚å•Ÿå‹•æ‰€æœ‰æ¨¡å¼ï¼›false=å–®æ¨¡å¼è¼ªæµ</param>
     public void StartAttacking()
     {
         StartCoroutine(AttackRotate());
@@ -108,7 +114,7 @@ public class EnemyShootingController : MonoBehaviour
         var mode = modes[currentModeIndex];
         yield return StartCoroutine(AttackAllModes(mode));
     }
-    // ¦P®É©Ò¦³¼Ò¦¡¦U±Ò°Ê¤@¦¸ Coroutine¡]¤¬¤£¤zÂZ¡^
+    // åŒæ™‚æ‰€æœ‰æ¨¡å¼å„å•Ÿå‹•ä¸€æ¬¡ Coroutineï¼ˆäº’ä¸å¹²æ“¾ï¼‰
     private IEnumerator AttackAllModes(SubGunData gunData)
     {
         for (int wave = 0; wave < gunData.MaxShootWave; wave++)
@@ -121,14 +127,14 @@ public class EnemyShootingController : MonoBehaviour
         yield break;
     }
 
-    // ¤@ºØ¼Ò¦¡¥´§¹¤@ªi¤§«á¦A´«¤U¤@ºØ¡A´`Àô©¹´_
+    // ä¸€ç¨®æ¨¡å¼æ‰“å®Œä¸€æ³¢ä¹‹å¾Œå†æ›ä¸‹ä¸€ç¨®ï¼Œå¾ªç’°å¾€å¾©
     private IEnumerator AttackRotate()
     {
         while (IsAttackLooping)
         {
             if (gunDataList.gunDatas[currentModeIndex].IsAdditonalAttack)
             {
-                Invoke("FireExtraMode", gunDataList.gunDatas[currentModeIndex].additionalDelayTime);
+                Invoke("FireExtraMode", gunDataList.gunDatas[currentModeIndex].addtionalGunData[addtionalCount].additionalDelayTime);
             }
             var mode = modes[currentModeIndex];
             Debug.Log(mode.patternType);
@@ -143,57 +149,122 @@ public class EnemyShootingController : MonoBehaviour
         IsAttackLooping = false;
         StopCoroutine(AttackRotate());
     }
-    // ®Ú¾Ú SubGunData °õ¦æ¤@­Ó¡uªi¡vªº®gÀ»
+    // æ ¹æ“š SubGunData åŸ·è¡Œä¸€å€‹ã€Œæ³¢ã€çš„å°„æ“Š
     private IEnumerator HandleMode(SubGunData gunData)
     {
-        float interval = 60f / gunData.rpm;  // ¨CÁû¤l¼u¶¡¹j
+        float interval = 60f / gunData.rpm;  // æ¯é¡†å­å½ˆé–“éš”
         for (int wave = 0; wave < gunData.MaxShootWave; wave++)
         {
             FireOnce(gunData);
             yield return new WaitForSeconds(interval);
         }
     }
-    // ´²¼u®gÀ»
+    // æ•£å½ˆå°„æ“Š
     private IEnumerator ShotGun(SubGunData g)
     {
         for (int i = 0; i < g.bulletAmount; i++)
         {
-            // ÀH¾÷¦b [-half, +half] «×½d³ò¤º§İ°Ê Yaw¡]¥ª¥k¡^»P Pitch¡]¤W¤U¡^
+            // éš¨æ©Ÿåœ¨ [-half, +half] åº¦ç¯„åœå…§æŠ–å‹• Yawï¼ˆå·¦å³ï¼‰èˆ‡ Pitchï¼ˆä¸Šä¸‹ï¼‰
             float half = g.spreadAngle * 0.5f;
             float yaw = Random.Range(-half, half);
             float pitch = Random.Range(-half, half);
 
-            // §â°¾¯è»P­Á¥õÅ|¥[¨ì¤õÂIªº´Â¦V¤W
+            // æŠŠåèˆªèˆ‡ä¿¯ä»°ç–ŠåŠ åˆ°ç«é»çš„æœå‘ä¸Š
             Quaternion randomRot = shooter.transform.rotation * Quaternion.Euler(pitch, yaw, 0);
             ActiveBullet(shooter.transform.position, randomRot, g.bulletType);
         }
         yield return new WaitForSeconds(60f / g.rpm);
     }
 
-    // ®°§Î®gÀ» 
-    private IEnumerator SpreadFire(SubGunData g) ////¦³°İÃD
+    // æ‰‡å½¢å°„æ“Š 
+    private IEnumerator SpreadFire(SubGunData g) ////æœ‰å•é¡Œ
     {
-        // ¥ı­pºâ¥X¨CÁû¤l¼uªº¨¤«×
+        // å…ˆè¨ˆç®—å‡ºæ¯é¡†å­å½ˆçš„è§’åº¦
         float half = g.spreadAngle * 0.5f;
         float angle = half / (g.bulletAmount - 1);
         for (int i = 0; i < g.bulletAmount; i++)
         {
-            // ­pºâ¨CÁû¤l¼uªº°¾¯è¨¤«×
+            // è¨ˆç®—æ¯é¡†å­å½ˆçš„åèˆªè§’åº¦
             float yaw = -half + angle * i;
             var rot = shooter.transform.rotation * Quaternion.Euler(0, yaw, 0);
             ActiveBullet(shooter.transform.position, rot, g.bulletType);
         }
         yield return new WaitForSeconds(60f / g.rpm);
     }
-    // Á³±Û®gÀ»
+    // èºæ—‹å°„æ“Š
     private void SpiralFire(SubGunData g)
     {
-        // ¥Î Time.time ¨Ó«ùÄòÅÜ¤Æ¨¤«×¡A©ÎªÌ¨C¦¸©I¥s±q¥~­±±a¶i¨Ó¤@­Ó²Ö¥[¾¹
-        for (int i = 0; i < g.bulletAmount; i++)
+        int count = Mathf.Max(1, g.bulletAmount);
+
+        for (int i = 0; i < count; i++)
         {
-            float angle = Time.time * g.spinSpeed;
-            var rot = shooter.transform.rotation * Quaternion.Euler(0, angle, 0);
-            ActiveBullet(shooter.transform.position, rot, g.bulletType);
+            // å‡åˆ† 360Â°
+            float angleDeg = i * (360f / count);
+            float angleRad = angleDeg * Mathf.Deg2Rad;
+
+            // åœ¨æœ¬åœ° XY å¹³é¢ä¸Šè¨ˆç®—åœ“ç’°ä½ç½® (X = cos, Y = sin, Z = 0)
+            Vector3 localDir = new Vector3(
+                Mathf.Cos(angleRad),
+                Mathf.Sin(angleRad),
+                0f
+            );
+
+            // è½‰åˆ°ä¸–ç•Œåº§æ¨™ä¸¦ä¹˜ä»¥åŠå¾‘
+            Vector3 worldOffset = shooter.transform.TransformDirection(localDir) * g.ringRadius;
+            Vector3 spawnPos = shooter.transform.position + worldOffset;
+
+            // è®“å­å½ˆæœå‘ã€Œåœ“å¿ƒå¤–å´æ–¹å‘ã€é£›å‡º
+            // up å‘é‡é¸ Z è»¸(ç’°è»¸) è®“æ—‹è½‰æ›´ç›´è¦º
+            Quaternion spawnRot = Quaternion.LookRotation(
+            Vector3.back,  // å­å½ˆ forward â†’ -Z
+            Vector3.up       // up å®šç‚ºå…¨åŸŸ Y è»¸
+           );
+
+            ActiveBullet(spawnPos, spawnRot, g.bulletType);
+        }
+    }
+    private void FanSwing(SubGunData g)
+    {
+        // 1. è¨ˆç®—æ“ºå‹•è§’åº¦ï¼šsin æœƒåœ¨ -1â€¦+1 ä¹‹é–“æ“ºå‹•
+        float angle = Mathf.Sin(Time.time * g.swingSpeed * Mathf.PI * 2f)
+                      * g.swingAngle;
+
+        // 2. æŠŠé€™å€‹è§’åº¦åŠ åˆ°ç«é»æœ¬èº«çš„æ—‹è½‰ä¸Š (ç¹ X è»¸åš Pitch)
+        Quaternion rot = shooter.transform.rotation* Quaternion.Euler(angle, 0f, 0f);
+
+        // 3. ä¸€æ¬¡ç”Ÿæˆä¸€é¡†å­å½ˆï¼ˆå¦‚æœè¦ä¸€æ¬¡å¤šé¡†ï¼Œå°±æŠŠä¸‹æ–¹é€™è¡Œæ”¾åˆ° for è¿´åœˆè£¡ï¼‰
+        ActiveBullet(shooter.transform.position, rot, g.bulletType);
+    }
+    public void CrossSpin(SubGunData g)
+    {
+        // 1. ç®—å‡ºç•¶å‰æ—‹è½‰è§’åº¦
+        float angle = Time.time * g.spinSpeed;
+        Quaternion rotZ = Quaternion.AngleAxis(angle, Vector3.forward); // ç¹ Z è»¸
+
+        // 2. å®šç¾©æœ¬åœ°åå­—åŸºæº–æ–¹å‘ï¼ˆå³ã€ä¸Šã€å·¦ã€ä¸‹ï¼‰
+        Vector3[] baseDirs = new Vector3[] {
+        Vector3.right,
+        Vector3.up,
+        Vector3.left,
+        Vector3.down
+    };
+
+        // 3. æ¯æ¢è‡‚ä¸Šä¾ bulletsPerArm æ’åˆ—å­å½ˆ
+        for (int i = 0; i < baseDirs.Length; i++)
+        {
+            // æ—‹è½‰å¾Œçš„æ–¹å‘å‘é‡
+            Vector3 dir = rotZ * baseDirs[i];
+
+            for (int j = 1; j <= g.bulletsPerArm; j++)
+            {
+                // æ’åˆ—ä½ç½® = ç«é» + dir * spacing * j
+                Vector3 spawnPos = shooter.transform.position + dir * (g.crossSpacing * j);
+
+                // å­å½ˆæœå‘ -Z
+                Quaternion spawnRot = Quaternion.LookRotation(Vector3.back, Vector3.up);
+
+                ActiveBullet(spawnPos, spawnRot, g.bulletType);
+            }
         }
     }
     private void HomingMissile(SubGunData g)
@@ -207,7 +278,7 @@ public class EnemyShootingController : MonoBehaviour
         }
     }
 
-    // ¤@¦¸ªi¦¸¤º¡A®Ú¾Ú bulletAmount & patternType ¥Í¦¨¤l¼u
+    // ä¸€æ¬¡æ³¢æ¬¡å…§ï¼Œæ ¹æ“š bulletAmount & patternType ç”Ÿæˆå­å½ˆ
     private void FireOnce(SubGunData gunData)
     {
         switch (gunData.patternType)
@@ -271,18 +342,38 @@ public class EnemyShootingController : MonoBehaviour
                 StartCoroutine(ShotGun(gunData));
                 break;
             case ShootingPatternType.FourWay:
-                fourWayGunSpin.speed = gunData.spinSpeed;
-                foreach (var shooter in spinShooterList)
+                //fourWayGunSpin.speed = gunData.spinSpeed;
+                //foreach (var shooter in spinShooterList)
+                //{
+                //    if (shooter != null)
+                //    {
+                //        if (shooter.activeSelf == false)
+                //        {
+                //            shooter.SetActive(true);
+                //        }
+                //    }
+                //    CrossSpin(gunData);
+                //}
+                shooter = shooterList[0];
+                if (shooter != null)
                 {
-                    if (shooter != null)
+                    if (shooter.activeSelf == false)
                     {
-                        if (shooter.activeSelf == false)
-                        {
-                            shooter.SetActive(true);
-                        }
+                        shooter.SetActive(true);
                     }
-                    ActiveBullet(shooter.transform.position, shooter.transform.rotation, gunData.bulletType);
                 }
+                CrossSpin(gunData);
+                break;
+            case ShootingPatternType.FanSwing:
+                shooter = shooterList[0];
+                if (shooter != null)
+                {
+                    if (shooter.activeSelf == false)
+                    {
+                        shooter.SetActive(true);
+                    }
+                }
+                FanSwing(gunData);
                 break;
             case ShootingPatternType.Homing:
                 shooter = shooterList[0];
@@ -298,9 +389,9 @@ public class EnemyShootingController : MonoBehaviour
             case ShootingPatternType.All:
                 StartCoroutine(TriggerAllMode());
                 break;
-            // ¨ä¥L¼Ò¦¡¡K¡K
+            // å…¶ä»–æ¨¡å¼â€¦â€¦
             default:
-                // ¹w³]·í³æµo
+                // é è¨­ç•¶å–®ç™¼
                 Debug.LogWarning("Unknown shooting pattern type: " + gunData.patternType);
                 ActiveBullet(shooter.transform.position, shooter.transform.rotation, gunData.bulletType);
                 break;
@@ -317,7 +408,7 @@ public class EnemyShootingController : MonoBehaviour
         purpleBulletMove.maxRotationSpeed = g.maxRotationSpeed;
         purpleBulletMove.Initialize(direction, player);
     }
-    // ¨Ì·Ó BulletType ¨M©w­n Instantiate ­ş¤@­Ó Prefab
+    // ä¾ç…§ BulletType æ±ºå®šè¦ Instantiate å“ªä¸€å€‹ Prefab
     private void ActiveBullet(Vector3 pos, Quaternion rot, BulletType type)
     {
         switch (type)

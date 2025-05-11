@@ -9,11 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 020630e1ead07b64c808f9917b65c821, type: 3}
-  m_Name: TestGunDataList
+  m_Script: {fileID: 11500000, guid: 46d8c5ce65be20548a09541b6db7dba5, type: 3}
+  m_Name: New SpawnDataList
   m_EditorClassIdentifier: 
-  gunDatas:
-  - Data: {fileID: 11400000, guid: 11756208a4d74b843b8e8166bf7cbf6d, type: 2}
-    delayTime: 0
-    IsAdditonalAttack: 0
-    addtionalGunData: []
+  spawnGroupDatas: []

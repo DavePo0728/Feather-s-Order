@@ -18,11 +18,18 @@ public class SubGunData
     public BulletType bulletType;
     public float MaxShootWave;
     //public float shootingCoolDown;
-    public float bulletAmount;
+    public int bulletAmount;
     [Header("ShotGun&SpreadShot")]
     public float spreadAngle;
-    [Header("4Way&Spiral")]
+    [Header("4Way")]
     public float spinSpeed;
+    public float bulletsPerArm;
+    public float crossSpacing;
+    [Header("ring")]
+    public float ringRadius;
+    [Header("FanSwing")]
+    public float swingSpeed;
+    public float swingAngle;
     [Header("Homing")]
     public GameObject missilePrefab;
     public float trackDuration;
@@ -38,6 +45,7 @@ public enum ShootingPatternType
     Spiral,    // Á³±Û
     FourWay,   // ¥|¦V
     Homing,    // °lÂÜ
+    FanSwing,
     All,       // ¥þ¼u
 }
 public enum BulletType
