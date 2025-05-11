@@ -93,75 +93,82 @@ public class SpawnDataEditorEditor : Editor
 					GUILayout.EndHorizontal();
 				}
 				SerializedProperty endPosition = iterator.FindPropertyRelative("endPosition");
-				if (SDEditor.spawnEditDataType == SpawnEditDataType.TypeA)
-				{
-					if (endPosition != null)
-					{
-						EditorGUILayout.PropertyField(endPosition);
+                if (SDEditor.spawnEditDataType == SpawnEditDataType.TypeA)
+                {
 
-						// 插入按鈕在 spawnPosition 下
-						GUILayout.BeginHorizontal();
-						if (GUILayout.Button("EditPos"))
-						{
-							SDEditor.GotoTargetPosition(SDEditor.EndTarget, SDEditor.spawnData.endPosition);
-						}
-						GUILayout.BeginHorizontal();
-						GUILayout.FlexibleSpace(); // 讓上鍵居中
-						if (GUILayout.Button("←", GUILayout.Width(30), GUILayout.Height(30)))
-						{
-							SDEditor.spawnData.endPosition = SDEditor.MicroPos(SDEditor.spawnData.endPosition, new Vector3(-1f, 0, 0));
-							SDEditor.GotoTargetPosition(SDEditor.EndTarget, SDEditor.spawnData.endPosition);
-						}
-						//GUILayout.FlexibleSpace();
-						GUILayout.EndHorizontal();
+                    if (endPosition != null)
+                    {
+                        EditorGUILayout.PropertyField(endPosition);
 
-						// 中（左與右）
-						GUILayout.BeginHorizontal();
+                        // 插入按鈕在 spawnPosition 下
+                        GUILayout.BeginHorizontal();
+                        if (GUILayout.Button("EditPos"))
+                        {
+                            SDEditor.GotoTargetPosition(SDEditor.EndTarget, SDEditor.spawnData.endPosition);
+                        }
+                        GUILayout.BeginHorizontal();
+                        GUILayout.FlexibleSpace(); // 讓上鍵居中
+                        if (GUILayout.Button("←", GUILayout.Width(30), GUILayout.Height(30)))
+                        {
+                            SDEditor.spawnData.endPosition = SDEditor.MicroPos(SDEditor.spawnData.endPosition, new Vector3(-1f, 0, 0));
+                            SDEditor.GotoTargetPosition(SDEditor.EndTarget, SDEditor.spawnData.endPosition);
+                        }
+                        //GUILayout.FlexibleSpace();
+                        GUILayout.EndHorizontal();
 
-						if (GUILayout.Button("↑", GUILayout.Width(30), GUILayout.Height(30)))
-						{
-							SDEditor.spawnData.endPosition = SDEditor.MicroPos(SDEditor.spawnData.endPosition, new Vector3(0, -1f, 0));
-							SDEditor.GotoTargetPosition(SDEditor.EndTarget, SDEditor.spawnData.endPosition);
-						}
+                        // 中（左與右）
+                        GUILayout.BeginHorizontal();
 
-						// 下
-						GUILayout.BeginHorizontal();
-						//GUILayout.FlexibleSpace(); // 讓下鍵居中
-						if (GUILayout.Button("↓", GUILayout.Width(30), GUILayout.Height(30)))
-						{
-							SDEditor.spawnData.endPosition = SDEditor.MicroPos(SDEditor.spawnData.endPosition, new Vector3(0, 1, 0));
-							SDEditor.GotoTargetPosition(SDEditor.EndTarget, SDEditor.spawnData.endPosition);
-						}
-						//GUILayout.FlexibleSpace();
-						GUILayout.EndHorizontal();
-						//GUILayout.Space(10);
-						if (GUILayout.Button("→", GUILayout.Width(30), GUILayout.Height(30)))
-						{
-							SDEditor.spawnData.endPosition = SDEditor.MicroPos(SDEditor.spawnData.endPosition, new Vector3(1, 0, 0));
-							SDEditor.GotoTargetPosition(SDEditor.EndTarget, SDEditor.spawnData.endPosition);
-						}
-						GUILayout.Space(50);
-						if (GUILayout.Button("←", GUILayout.Width(30), GUILayout.Height(30)))
-						{
-							SDEditor.spawnData.endPosition = SDEditor.MicroPos(SDEditor.spawnData.endPosition, new Vector3(0, 0, -1));
-							SDEditor.GotoTargetPosition(SDEditor.EndTarget, SDEditor.spawnData.endPosition);
-						}
-						if (GUILayout.Button("→", GUILayout.Width(30), GUILayout.Height(30)))
-						{
-							SDEditor.spawnData.endPosition = SDEditor.MicroPos(SDEditor.spawnData.endPosition, new Vector3(0, 0, 1f));
-							SDEditor.GotoTargetPosition(SDEditor.EndTarget, SDEditor.spawnData.endPosition);
-						}
-						GUILayout.EndHorizontal();
-						GUILayout.EndHorizontal();
-					}
+                        if (GUILayout.Button("↑", GUILayout.Width(30), GUILayout.Height(30)))
+                        {
+                            SDEditor.spawnData.endPosition = SDEditor.MicroPos(SDEditor.spawnData.endPosition, new Vector3(0, -1f, 0));
+                            SDEditor.GotoTargetPosition(SDEditor.EndTarget, SDEditor.spawnData.endPosition);
+                        }
+
+                        // 下
+                        GUILayout.BeginHorizontal();
+                        //GUILayout.FlexibleSpace(); // 讓下鍵居中
+                        if (GUILayout.Button("↓", GUILayout.Width(30), GUILayout.Height(30)))
+                        {
+                            SDEditor.spawnData.endPosition = SDEditor.MicroPos(SDEditor.spawnData.endPosition, new Vector3(0, 1, 0));
+                            SDEditor.GotoTargetPosition(SDEditor.EndTarget, SDEditor.spawnData.endPosition);
+                        }
+                        //GUILayout.FlexibleSpace();
+                        GUILayout.EndHorizontal();
+                        //GUILayout.Space(10);
+                        if (GUILayout.Button("→", GUILayout.Width(30), GUILayout.Height(30)))
+                        {
+                            SDEditor.spawnData.endPosition = SDEditor.MicroPos(SDEditor.spawnData.endPosition, new Vector3(1, 0, 0));
+                            SDEditor.GotoTargetPosition(SDEditor.EndTarget, SDEditor.spawnData.endPosition);
+                        }
+                        GUILayout.Space(50);
+                        if (GUILayout.Button("←", GUILayout.Width(30), GUILayout.Height(30)))
+                        {
+                            SDEditor.spawnData.endPosition = SDEditor.MicroPos(SDEditor.spawnData.endPosition, new Vector3(0, 0, -1));
+                            SDEditor.GotoTargetPosition(SDEditor.EndTarget, SDEditor.spawnData.endPosition);
+                        }
+                        if (GUILayout.Button("→", GUILayout.Width(30), GUILayout.Height(30)))
+                        {
+                            SDEditor.spawnData.endPosition = SDEditor.MicroPos(SDEditor.spawnData.endPosition, new Vector3(0, 0, 1f));
+                            SDEditor.GotoTargetPosition(SDEditor.EndTarget, SDEditor.spawnData.endPosition);
+                        }
+                        GUILayout.EndHorizontal();
+                        GUILayout.EndHorizontal();
+                    }
+
+                    SDEditor.SetLineToPath();
+					SDEditor.TargetWaySetActive();
+
 				}
-				if (SDEditor.spawnEditDataType == SpawnEditDataType.TypeC)
-				{
+                if (SDEditor.spawnEditDataType == SpawnEditDataType.TypeC)
+                {
 
-					reorderableList.DoLayoutList();
+                    reorderableList.DoLayoutList();
 
+					SDEditor.SetLineToPath();
+					SDEditor.TargetWaySetActive();
 				}
-				SerializedProperty LeavePositon = iterator.FindPropertyRelative("LeavePositon");
+                SerializedProperty LeavePositon = iterator.FindPropertyRelative("LeavePositon");
 				if (LeavePositon != null)
 				{
 					EditorGUILayout.PropertyField(LeavePositon);
@@ -249,7 +256,8 @@ public class SpawnDataEditorEditor : Editor
 			EditorGUILayout.PropertyField(serializedObject.FindProperty("PathList"));
 			EditorGUILayout.PropertyField(serializedObject.FindProperty("LineRenderer"));
 			EditorGUILayout.PropertyField(serializedObject.FindProperty("PathData"));
-
+			EditorGUILayout.PropertyField(serializedObject.FindProperty("Target_End"));
+			EditorGUILayout.PropertyField(serializedObject.FindProperty("Target_PathList"));
 		}
 		EditorGUILayout.PropertyField(serializedObject.FindProperty("NewDataName"));
 		// 原本的功能保留
@@ -285,6 +293,10 @@ public class SpawnDataEditorEditor : Editor
 
 			// 執行同步
 			SDEditor.SyncTargetPathsWithEndTargePath();
+			for (int i = 0; i < SDEditor.EndTargePath.Count; i++)
+			{
+				SDEditor.GotoTargetPosition(SDEditor.EndTargePath[i], SDEditor.EndTargetList[i]);
+			}
 			//SDEditor.SetWaypoints();
 		};
 
@@ -301,6 +313,10 @@ public class SpawnDataEditorEditor : Editor
 				list.index = Mathf.Clamp(list.index, 0, endTargetListProp.arraySize - 1);
 
 				SDEditor.SyncTargetPathsWithEndTargePath();
+                for (int i = 0; i < SDEditor.EndTargePath.Count; i++)
+                {
+					SDEditor.GotoTargetPosition(SDEditor.EndTargePath[i], SDEditor.EndTargetList[i]);
+				}
 				//SDEditor.SetWaypoints();
 			}
 		};
@@ -325,48 +341,48 @@ public class SpawnDataEditorEditor : Editor
 				//Debug.Log("第" + index + "項");
 				if (GUI.Button(new Rect(startX, startY, 60, btnH), "EditPos"))
 				{
-					SDEditor.GotoTargetPosition(SDEditor.EndTarget, SDEditor.EndTargetList[index]);
+					SDEditor.GotoTargetPosition(SDEditor.EndTargePath[index], SDEditor.EndTargetList[index]);
 				}
 
 				if (GUI.Button(new Rect(startX + 70, startY, btnW, btnH), "←"))
 				{
 					SDEditor.EndTargetList[index] = SDEditor.MicroPos(SDEditor.EndTargetList[index], new Vector3(-1f, 0, 0));
-					SDEditor.GotoTargetPosition(SDEditor.EndTarget, SDEditor.EndTargetList[index]);
+					SDEditor.GotoTargetPosition(SDEditor.EndTargePath[index], SDEditor.EndTargetList[index]);
 					SDEditor.SetWaypoints(index);
 				}
 
 				if (GUI.Button(new Rect(startX + 105, startY - btnH - spacing, btnW, btnH), "↑"))
 				{
 					SDEditor.EndTargetList[index] = SDEditor.MicroPos(SDEditor.EndTargetList[index], new Vector3(0, -1f, 0));
-					SDEditor.GotoTargetPosition(SDEditor.EndTarget, SDEditor.EndTargetList[index]);
+					SDEditor.GotoTargetPosition(SDEditor.EndTargePath[index], SDEditor.EndTargetList[index]);
 					SDEditor.SetWaypoints(index);
 				}
 
 				if (GUI.Button(new Rect(startX + 105, startY + btnH + spacing, btnW, btnH), "↓"))
 				{
 					SDEditor.EndTargetList[index] = SDEditor.MicroPos(SDEditor.EndTargetList[index], new Vector3(0, 1f, 0));
-					SDEditor.GotoTargetPosition(SDEditor.EndTarget, SDEditor.EndTargetList[index]);
+					SDEditor.GotoTargetPosition(SDEditor.EndTargePath[index], SDEditor.EndTargetList[index]);
 					SDEditor.SetWaypoints(index);
 				}
 
 				if (GUI.Button(new Rect(startX + 140, startY, btnW, btnH), "→"))
 				{
 					SDEditor.EndTargetList[index] = SDEditor.MicroPos(SDEditor.EndTargetList[index], new Vector3(1f, 0, 0));
-					SDEditor.GotoTargetPosition(SDEditor.EndTarget, SDEditor.EndTargetList[index]);
+					SDEditor.GotoTargetPosition(SDEditor.EndTargePath[index], SDEditor.EndTargetList[index]);
 					SDEditor.SetWaypoints(index);
 				}
 
 				if (GUI.Button(new Rect(startX + 180, startY, btnW, btnH), "Z←"))
 				{
 					SDEditor.EndTargetList[index] = SDEditor.MicroPos(SDEditor.EndTargetList[index], new Vector3(0, 0, -1f));
-					SDEditor.GotoTargetPosition(SDEditor.EndTarget, SDEditor.EndTargetList[index]);
+					SDEditor.GotoTargetPosition(SDEditor.EndTargePath[index], SDEditor.EndTargetList[index]);
 					SDEditor.SetWaypoints(index);
 				}
 
 				if (GUI.Button(new Rect(startX + 215, startY, btnW, btnH), "Z→"))
 				{
 					SDEditor.EndTargetList[index] = SDEditor.MicroPos(SDEditor.EndTargetList[index], new Vector3(0, 0, 1f));
-					SDEditor.GotoTargetPosition(SDEditor.EndTarget, SDEditor.EndTargetList[index]);
+					SDEditor.GotoTargetPosition(SDEditor.EndTargePath[index], SDEditor.EndTargetList[index]);
 					SDEditor.SetWaypoints(index);
 				}
 			}

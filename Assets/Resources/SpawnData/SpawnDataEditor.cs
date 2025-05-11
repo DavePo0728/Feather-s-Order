@@ -40,9 +40,6 @@ public class SpawnDataEditor : MonoBehaviour
 	public RectTransform StartTarget;
 	public RectTransform EndTarget;
 	public RectTransform LeaveTarget;
-	//public Transform StartPoint;
-	//public Transform EndPoint;
-	//public Transform LeavePoint;
 
 	public LineRenderer LineRenderer;
 
@@ -60,23 +57,43 @@ public class SpawnDataEditor : MonoBehaviour
 	public DefaultAsset UpRight;
 	public DefaultAsset DownLeft;
 	public DefaultAsset DownRight;
-	public DefaultAsset PathData;
-	public void PrintSpawnRegion()
-	{
-		if (spawnData == null)
-		{
-			Debug.LogWarning("spawnData 未設定");
-			return;
-		}
+    public DefaultAsset PathData;
 
-		SpawnRegion region = GetSpawnRegion(spawnData.spawnPosition);
-		Debug.Log("Spawn Position 位於區域: " + region + "座標" + new Vector2(spawnData.spawnPosition.x, spawnData.spawnPosition.y));
+	public Transform Target_End;
+	public Transform Target_PathList;
+
+    public void PrintSpawnRegion()
+    {
+        if (spawnData == null)
+        {
+            Debug.LogWarning("spawnData 未設定");
+            return;
+        }
+
+        SpawnRegion region = GetSpawnRegion(spawnData.spawnPosition);
+        Debug.Log("Spawn Position 位於區域: " + region + "座標" + new Vector2(spawnData.spawnPosition.x, spawnData.spawnPosition.y));
+    }
+
+	public void TargetWaySetActive()
+	{
+		switch (spawnEditDataType)
+		{
+			case SpawnEditDataType.TypeA:
+				Target_End.gameObject.SetActive(true);
+				Target_PathList.gameObject.SetActive(false);
+				break;
+			case SpawnEditDataType.TypeC:
+				Target_End.gameObject.SetActive(false);
+				Target_PathList.gameObject.SetActive(true);
+				break;
+		}
 	}
 	public void SetLineToPath()
 	{
 		// 確保 LineRenderer 已經初始化
 		if (LineRenderer == null)
 		{
+
 			Debug.LogError("LineRenderer 沒有設置！");
 			return;
 		}
@@ -93,18 +110,14 @@ public class SpawnDataEditor : MonoBehaviour
 				LineRenderer.SetPosition(1, ConvertGridToUI(spawnData.endPosition));
 				LineRenderer.SetPosition(2, ConvertGridToUI(spawnData.LeavePositon));
 				break;
-
 			case SpawnEditDataType.TypeC:
 				int targetCount = EndTargetList.Count + 2;
 				LineRenderer.positionCount = targetCount;
-
 				LineRenderer.SetPosition(0, ConvertGridToUI(spawnData.spawnPosition));
-
 				for (int i = 0; i < EndTargetList.Count; i++)
 				{
 					LineRenderer.SetPosition(i + 1, ConvertGridToUI(EndTargetList[i]));
 				}
-
 				LineRenderer.SetPosition(targetCount - 1, ConvertGridToUI(spawnData.LeavePositon));
 				break;
 
@@ -337,7 +350,6 @@ public class SpawnDataEditor : MonoBehaviour
 			case SpawnRegion.DownLeft: folderAsset = DownLeft; break;
 			case SpawnRegion.DownRight: folderAsset = DownRight; break;
 		}
-
 		if (folderAsset == null) return null;
 
 		// 用 UnityEditor 的 API 取得資源路徑
