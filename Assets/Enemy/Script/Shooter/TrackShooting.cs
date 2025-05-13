@@ -107,24 +107,6 @@ public class TrackShooting : MonoBehaviour
         }
 
     }
-    void ShootPurpleBullet()
-    {
-        bullet = BulletPool.poolInstance.GetPurpleBulletPooledObject();
-        if (bullet != null)
-        {
-            bullet.transform.position = transform.position;
-            bullet.transform.rotation = transform.rotation;
-            bullet.SetActive(true);
-            HighSpeedVioletBulletMove purpleBulletMove = bullet.GetComponent<HighSpeedVioletBulletMove>();
-            purpleBulletMove.Initial();
-            timeSinceLastShot = 0.0f;
-            shotCount++; // 增加計數器
-            if (shotCount >= maxShots)
-            {
-                StartCoroutine(ShootRoutine());
-            }
-        }
-    }
     void ShootBullet()
     {
         bullet = BulletPool.poolInstance.GetBlackBulletPooledObject();

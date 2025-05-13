@@ -78,22 +78,8 @@ public class SpreadShot : MonoBehaviour
         }
 
     }
-    void ShootPurpleBullet()
-    {
-        bullet = BulletPool.poolInstance.GetPurpleBulletPooledObject();
-        if (bullet != null)
-        {
-            bullet.transform.position = transform.position;
-            bullet.transform.rotation = transform.rotation;
-            bullet.SetActive(true);
-            HighSpeedVioletBulletMove purpleBulletMove = bullet.GetComponent<HighSpeedVioletBulletMove>();
-            purpleBulletMove.FlatSpeard();
-            purpleBulletMove.Initial();
-        }
-    }
     public void SpreadShotMode(float amount)
     {
-
         for (int i = 0; i <= amount; i++)
         {
             bullet = BulletPool.poolInstance.GetRedBulletPooledObject();
@@ -109,7 +95,7 @@ public class SpreadShot : MonoBehaviour
                         ShootRedBullet();
                         break;
                     case BulletType.Purple:
-                        ShootPurpleBullet();
+                        //ShootPurpleBullet();
                         break;
                     case BulletType.BlackRed:
                         //ShootBlackRedBullet();

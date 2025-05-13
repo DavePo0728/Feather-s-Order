@@ -13,7 +13,7 @@ public class DrawPlayArea : MonoBehaviour
         if(playerCamera != null)
         {
             Gizmos.color = Color.yellow;
-            Gizmos.DrawWireCube(new Vector3(transform.position.x, transform.position.y - 6.5f, transform.position.z + 500), new Vector3(90, 23, 1000));
+            Gizmos.DrawWireCube(new Vector3(transform.position.x, transform.position.y - 6.5f, transform.position.z + 500), new Vector3(130, 60, 1000));
         }
         if (Cam2 != null)
         {

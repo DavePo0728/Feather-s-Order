@@ -15,10 +15,18 @@ MonoBehaviour:
   data:
     patternType: 5
     gunIndex: 0
-    rpm: 300
-    shootingCoolDown: 0.1
+    rpm: 400
+    bulletType: 0
+    MaxShootWave: 1
     bulletAmount: 1
     spreadAngle: 0
-    spinSpeed: 0
-    bulletType: 1
-    MaxShootWave: 3
+    spinSpeed: 360
+    bulletsPerArm: 3
+    crossSpacing: 3
+    ringRadius: 0
+    swingSpeed: 0
+    swingAngle: 0
+    missilePrefab: {fileID: 0}
+    trackDuration: 0
+    maxRotationSpeed: 0
+    spreadDuration: 0

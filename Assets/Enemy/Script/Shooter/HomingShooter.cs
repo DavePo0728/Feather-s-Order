@@ -13,14 +13,6 @@ public class HomingShooter : MonoBehaviour
     GameObject bullet;
     [SerializeField]
     List<GameObject> pointList = new List<GameObject>();
-    public enum BulletType
-    {
-        Black,
-        Red,
-        Purple,
-        BlackRed,
-    }
-    public BulletType bulletType;
     // Start is called before the first frame update
     void Start()
     {
@@ -39,34 +31,6 @@ public class HomingShooter : MonoBehaviour
             StartCoroutine(HomingShot(bulletAmount));
         }
     }
-    void ShootBlackBullet()
-    {
-        bullet = BulletPool.poolInstance.GetBlackBulletPooledObject();
-        if (bullet != null)
-        {
-            bullet.transform.position = transform.position;
-            bullet.transform.rotation = transform.rotation;
-            //Debug.Log("rotation:" + transform.localRotation.x + "BulletRotation:" + bullet.transform.rotation);
-            bullet.SetActive(true);
-            BlackBulletMove bulletMove = bullet.GetComponent<BlackBulletMove>();
-            bulletMove.HomingInitial();
-            
-        }
-    }
-    void ShootRedBullet()
-    {
-        bullet = BulletPool.poolInstance.GetRedBulletPooledObject();
-        if (bullet != null)
-        {
-            bullet.transform.position = transform.position;
-            bullet.transform.rotation = transform.rotation;
-            bullet.SetActive(true);
-            RedBulletMove bulletMove = bullet.GetComponent<RedBulletMove>();
-            bulletMove.HomingInitial();
-            
-        }
-
-    }
     void ShootHomingPurpleBullet(GameObject point)
     {
         bullet = BulletPool.poolInstance.GetPurpleBulletPooledObject();
@@ -75,10 +39,10 @@ public class HomingShooter : MonoBehaviour
             bullet.transform.position = transform.position;
             bullet.transform.rotation = transform.rotation;
             bullet.SetActive(true);
-            HighSpeedVioletBulletMove purpleBulletMove = bullet.GetComponent<HighSpeedVioletBulletMove>();
-            purpleBulletMove.homingTime = 1f;
-            purpleBulletMove.SetHomingShooterTransform(transform);
-            purpleBulletMove.HomingInitial(point); 
+            //HighSpeedVioletBulletMove purpleBulletMove = bullet.GetComponent<HighSpeedVioletBulletMove>();
+            //purpleBulletMove.homingTime = 1f;
+            //purpleBulletMove.SetHomingShooterTransform(transform);
+            //purpleBulletMove.HomingInitial(point); 
         }
     }
     IEnumerator HomingShot(int bulletAmount)
@@ -89,21 +53,7 @@ public class HomingShooter : MonoBehaviour
             GameObject bullet = BulletPool.poolInstance.GetRedBulletPooledObject();
             if (bullet != null)
             {
-                switch (bulletType)
-                {
-                    case BulletType.Black:
-                        ShootBlackBullet();
-                        break;
-                    case BulletType.Red:
-                        ShootRedBullet();
-                        break;
-                    case BulletType.Purple:
-                        ShootHomingPurpleBullet(pointList[i]);
-                        break;
-                    case BulletType.BlackRed:
-                        //ShootBlackRedBullet();
-                        break;
-                }
+                ShootHomingPurpleBullet(pointList[i]);
             }
         }
         shootWaveCount++;

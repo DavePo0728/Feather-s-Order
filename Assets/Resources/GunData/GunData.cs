@@ -11,17 +11,30 @@ public class SubGunData
 {
     public ShootingPatternType patternType;
     [Header("Gun Data")]
-    public bool seperateMode;
+    //public bool seperateMode;
     [HideInInspector]
     public int gunIndex;
     public float rpm;
-    //public float shootingCoolDown;
-    public float bulletAmount;
-    [Header("ShotGun")]
-    public float spreadAngle;
-    public float spinSpeed;
     public BulletType bulletType;
     public float MaxShootWave;
+    //public float shootingCoolDown;
+    public int bulletAmount;
+    [Header("ShotGun&SpreadShot")]
+    public float spreadAngle;
+    [Header("4Way")]
+    public float spinSpeed;
+    public float bulletsPerArm;
+    public float crossSpacing;
+    [Header("ring")]
+    public float ringRadius;
+    [Header("FanSwing")]
+    public float swingSpeed;
+    public float swingAngle;
+    [Header("Homing")]
+    public GameObject missilePrefab;
+    public float trackDuration;
+    public float maxRotationSpeed;
+    public float spreadDuration;
 }
 public enum ShootingPatternType
 {
@@ -32,12 +45,13 @@ public enum ShootingPatternType
     Spiral,    // Á³±Û
     FourWay,   // ¥|¦V
     Homing,    // °lÂÜ
+    FanSwing,
     All,       // ¥þ¼u
 }
 public enum BulletType
 {
-    Black,
     Red,
+    Black,
     Purple,
     BlackRed,
 }

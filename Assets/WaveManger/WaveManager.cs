@@ -16,9 +16,9 @@ public class WaveManager : MonoBehaviour
 {
     [Space(10)]
     [SerializeField]
-    List<PathCreator> pathList;
+    TypeBPathList pathList;
     [SerializeField]
-    List<CustomPathData> customPathDataList;
+    CustomPathDataList customPathDataList;
 
     [Header("UI")]
     [SerializeField]
@@ -431,8 +431,8 @@ public class WaveManager : MonoBehaviour
             pressBAction = inputActions.FindActionMap("GameScene").FindAction("PressB");
             pressBAction.Enable();
         }
-        //customPathDataList = new List<CustomPathData>();
-        //customPathDataList.Add(Resources.Load<CustomPathData>("PathData/PathData1"));
+        pathList = Resources.Load<TypeBPathList>("PathData/TypeBPathData/TypeBPathList");
+        customPathDataList = Resources.Load<CustomPathDataList>("PathData/TypeCPathList");
         if (debugTextStyle == null)
         {
             debugTextStyle = new GUIStyle(GUI.skin.label);
@@ -440,8 +440,6 @@ public class WaveManager : MonoBehaviour
             debugTextStyle.fontSize = 14;
         }
     }
-
-    //public BulletType bulletType;
     // Start is called before the first frame update
     void Start()
     {
@@ -623,10 +621,10 @@ public class WaveManager : MonoBehaviour
             case SpawnType.TypeA:
                 break;
             case SpawnType.TypeB:
-                enemyMove.moveB_PathList = CurvePathGenerator.pathInstance.GetCurvePath(pathList[spawnData.data.pathNum]);
+                enemyMove.moveB_PathList = CurvePathGenerator.pathInstance.GetCurvePath(pathList.typeBPathCreatorPathList[spawnData.data.pathNum]);
                 break;
             case SpawnType.TypeC:
-                var path = customPathDataList[spawnData.data.customPathNum];
+                var path = customPathDataList.customPathDataList[spawnData.data.customPathNum];
                 enemyMove.moveC_PathList = Vector3PointGenerator.instance.GetMoveCPathList(path.pathX.Count, path);
                 break;
         }
