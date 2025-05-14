@@ -293,6 +293,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
+--- !u!114 &366818743 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6178342775721283881, guid: ef9a44eca7e62fa41bc5be78d6bced8f, type: 3}
+  m_PrefabInstance: {fileID: 1453316740}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4910982658993335663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d9b729e2d20f1a42af2294c4a6d34e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &386857294
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -225329,7 +225340,7 @@ MonoBehaviour:
   mpUIShaker: {fileID: 0}
   fakeDelay: 0.3
   fakeSpeed: 0.5
-  grazeColor: {fileID: 0}
+  grazeColor: {fileID: 366818743}
 --- !u!205 &3350750370078917946
 LODGroup:
   m_ObjectHideFlags: 0
