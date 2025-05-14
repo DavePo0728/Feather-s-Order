@@ -2114,6 +2114,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 478688095041657607, guid: ef9a44eca7e62fa41bc5be78d6bced8f, type: 3}
   m_PrefabInstance: {fileID: 1801374114}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2020361337 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6178342775721283881, guid: ef9a44eca7e62fa41bc5be78d6bced8f, type: 3}
+  m_PrefabInstance: {fileID: 1801374114}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2020361336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d9b729e2d20f1a42af2294c4a6d34e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2036507153
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -62277,7 +62288,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1315287053770628869
 Transform:
   m_ObjectHideFlags: 0
@@ -101835,7 +101846,7 @@ MonoBehaviour:
   mpUIShaker: {fileID: 536043984}
   fakeDelay: 0.3
   fakeSpeed: 0.5
-  grazeColor: {fileID: 0}
+  grazeColor: {fileID: 2020361337}
 --- !u!4 &2508566089523984910
 Transform:
   m_ObjectHideFlags: 0
@@ -252268,18 +252279,15 @@ MonoBehaviour:
   customPathDataList: {fileID: 11400000, guid: c28b3ce9cd13e0c499f7fa6285e394f0, type: 2}
   waveText: {fileID: 128831291}
   tutorialImage: {fileID: 797469822}
-  debug: 1
+  debug: 0
   enemyDataList: {fileID: 11400000, guid: ea9fd51ecabf28f488513454d6693a43, type: 2}
   spawnDataList: {fileID: 11400000, guid: 02c786a34ce55624c9369eefdc51c91c, type: 2}
-  spawnGroupList: {fileID: 11400000, guid: a80600eba4e6a1540a1b741a0787c31e, type: 2}
+  spawnNormalGroupList: {fileID: 11400000, guid: a80600eba4e6a1540a1b741a0787c31e, type: 2}
   isRecording: 1
   currentRecording: {fileID: 11400000, guid: 8c9dc73155b23224fb13a97d6fe4a66b, type: 2}
   recordStartTime: 0
   savePath: Assets/WaveRecordings/
-  recordedWaveDataList:
-  - {fileID: 11400000, guid: 8c9dc73155b23224fb13a97d6fe4a66b, type: 2}
-  - {fileID: 11400000, guid: 95d4bcd011822854d9d340c4c7db27f0, type: 2}
-  - {fileID: 11400000, guid: 4c3fa0d638bddb24fb253d28a4f7b4b4, type: 2}
+  recordedWaveDataList: {fileID: 11400000, guid: 533ef7aba7782fc40b3197ecac193731, type: 2}
   showDebugUI: 0
   debugUIPosition: {x: 10, y: 10}
   debugUISize: {x: 300, y: 200}

@@ -32,7 +32,7 @@ public class WaveManager : MonoBehaviour
     public SpawnDataList spawnDataList;
     public SpawnData[] spawnDatas => spawnDataList.spawnDatas;
     //public GunDataList gunDataList;
-    public SpawnGroupList spawnGroupList;
+    public SpawnGroupList spawnNormalGroupList;
     [Header("Recording")]
     [SerializeField] 
     private bool isRecording = false;
@@ -43,7 +43,7 @@ public class WaveManager : MonoBehaviour
     [SerializeField] 
     private string savePath = "Assets/WaveRecordings/";
     [SerializeField] 
-    private List<RecordedWaveData> recordedWaveDataList;
+    private RecordingWaveList recordedWaveDataList;
     [Header("Debug UI")]
     [SerializeField] 
     private bool showDebugUI = true;
@@ -152,14 +152,14 @@ public class WaveManager : MonoBehaviour
 
         GUILayout.Label("<b><size=16>🎛️ Wave Debug UI</size></b>", debugTextStyle);
 
-        if (recordedWaveDataList.Count > 0)
+        if (recordedWaveDataList.recordingWaves.Count > 0)
         {
             GUILayout.Label($"當前錄製資料：<b>{currentRecording.name}</b>", debugTextStyle);
 
             if (GUILayout.Button("🔁 切換錄製資料 (F4)"))
             {
-                currentRecordingIndex = (currentRecordingIndex + 1) % recordedWaveDataList.Count;
-                currentRecording = recordedWaveDataList[currentRecordingIndex];
+                currentRecordingIndex = (currentRecordingIndex + 1) % recordedWaveDataList.recordingWaves.Count;
+                currentRecording = recordedWaveDataList.recordingWaves[currentRecordingIndex];
                 Debug.Log($"切換到錄製資料：{currentRecording.name}");
             }
 
@@ -372,54 +372,58 @@ public class WaveManager : MonoBehaviour
     }
     private void Awake()
     {
-        spawnGroupMap = new Dictionary<string, System.Func<IEnumerator>>()
-    {
-        { "R", SpawnGroup_R },
-        { "L", SpawnGroup_L },
-        { "BlackBullet", SpawnGroup_BlackBullet },
-        { "M_to_LB", SpawnGroup_M_to_LB },
-        { "CT_to_RB_red", SpawnGroup_CT_to_RB_red },
-        { "LB_to_RT", SpawnGroup_LB_to_RT },
-        { "LC_to_R", SpawnGroup_LC_to_R },
-        { "LT_RB", SpawnGroup_LT_RB },
-        { "RB_LT", SpawnGroup_RB_LT },
-        { "RC_to_LC", SpawnGroup_RC_to_LC },
-        { "R_A3", SpawnGroup_R_A3 },
-        { "L_RB_B", SpawnGroup_L_RB_B },
-        { "L_M_R_B2", SpawnGroup_L_M_R_B2 },
-        { "CT_A", SpawnGroup_CT_A },
-        { "LT_RB_A", SpawnGroup_LT_RB_A },
-        { "RB_LT_A", SpawnGroup_RB_LT_A },
-        {"t1",TutorialWave1 },
-        {"t2",TutorialWave2 },
-        {"t3",TutorialWave3 },
-        {"t4",TutorialWave4 },
-        {"t5",TutorialWave5 },
-        {"EmptyWaveDelay",EmptyWaveDelay },
-        {"EmptyWave",EmptyWave },
-    };
-        recordedWaveMap = new Dictionary<string, RecordedWaveData>()
-        {
-            { "RecordWave0", recordedWaves[0] },
-            { "RecordWave1", recordedWaves[1] },
-            { "RecordWave2", recordedWaves[2] },
-            { "RecordWave3", recordedWaves[3] },
-        };
-        spawnGroupDictionary = new Dictionary<string, SpawnGroup>() //新的字典
-        {
-            { "SpawnT1", spawnGroupList.spawnGroupDatas[0] },
-            { "SpawnT2", spawnGroupList.spawnGroupDatas[1] },
-            { "SpawnT3", spawnGroupList.spawnGroupDatas[2] },
-            { "SpawnT4", spawnGroupList.spawnGroupDatas[3] },
-            { "SpawnT5", spawnGroupList.spawnGroupDatas[4] },
-            { "SpawnL2", spawnGroupList.spawnGroupDatas[5] },
-            { "SpawnR1", spawnGroupList.spawnGroupDatas[6] },
-            { "SpawnBlackBullet", spawnGroupList.spawnGroupDatas[7] },
-            //{ "SpawnT9", spawnGroupList.spawnGroupDatas[8] },
-            //{ "SpawnT10", spawnGroupList.spawnGroupDatas[9] },
-            //{ "SpawnT11", spawnGroupList.spawnGroupDatas[10] },
-            //{ "SpawnT12", spawnGroupList.spawnGroupDatas[11] },
-        };
+        //spawnGroupMap = new Dictionary<string, System.Func<IEnumerator>>()
+        //{
+        //{ "R", SpawnGroup_R },
+        //{ "L", SpawnGroup_L },
+        //{ "BlackBullet", SpawnGroup_BlackBullet },
+        //{ "M_to_LB", SpawnGroup_M_to_LB },
+        //{ "CT_to_RB_red", SpawnGroup_CT_to_RB_red },
+        //{ "LB_to_RT", SpawnGroup_LB_to_RT },
+        //{ "LC_to_R", SpawnGroup_LC_to_R },
+        //{ "LT_RB", SpawnGroup_LT_RB },
+        //{ "RB_LT", SpawnGroup_RB_LT },
+        //{ "RC_to_LC", SpawnGroup_RC_to_LC },
+        //{ "R_A3", SpawnGroup_R_A3 },
+        //{ "L_RB_B", SpawnGroup_L_RB_B },
+        //{ "L_M_R_B2", SpawnGroup_L_M_R_B2 },
+        //{ "CT_A", SpawnGroup_CT_A },
+        //{ "LT_RB_A", SpawnGroup_LT_RB_A },
+        //{ "RB_LT_A", SpawnGroup_RB_LT_A },
+        //{"t1",TutorialWave1 },
+        //{"t2",TutorialWave2 },
+        //{"t3",TutorialWave3 },
+        //{"t4",TutorialWave4 },
+        //{"t5",TutorialWave5 },
+        //{"EmptyWaveDelay",EmptyWaveDelay },
+        //{"EmptyWave",EmptyWave },
+        //};
+        spawnGroupDictionary = new Dictionary<string, SpawnGroup>();
+        recordedWaveMap = new Dictionary<string, RecordedWaveData>();
+        AddListToDictionary();
+        AddRecordListToDictionary();
+        //recordedWaveMap = new Dictionary<string, RecordedWaveData>()
+        //{
+        //    { "RecordWave0", recordedWaves[0] },
+        //    { "RecordWave1", recordedWaves[1] },
+        //    { "RecordWave2", recordedWaves[2] },
+        //    { "RecordWave3", recordedWaves[3] },
+        //};
+        //spawnGroupDictionary = new Dictionary<string, SpawnGroup>() //新的字典
+        //{
+        //    { "SpawnT1", spawnNormalGroupList.spawnGroupDatas[0] },
+        //    { "SpawnT2", spawnNormalGroupList.spawnGroupDatas[1] },
+        //    { "SpawnT3", spawnNormalGroupList.spawnGroupDatas[2] },
+        //    { "SpawnT4", spawnNormalGroupList.spawnGroupDatas[3] },
+        //    { "SpawnT5", spawnNormalGroupList.spawnGroupDatas[4] },
+        //    { "SpawnL2", spawnNormalGroupList.spawnGroupDatas[5] },
+        //    { "SpawnR1", spawnNormalGroupList.spawnGroupDatas[6] },
+        //    { "SpawnBlackBullet", spawnNormalGroupList.spawnGroupDatas[7] },
+        //    //{ "SpawnT9", spawnGroupList.spawnGroupDatas[8] },
+        //    //{ "SpawnT10", spawnGroupList.spawnGroupDatas[9] },
+        //    //{ "SpawnT11", spawnGroupList.spawnGroupDatas[10] },
+        //    //{ "SpawnT12", spawnGroupList.spawnGroupDatas[11] },
+        //};
         scenesManager = GameObject.Find("SceneManager").GetComponent<ScenesManager>();
         soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         if (tutorialMode)
@@ -459,34 +463,34 @@ public class WaveManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyUp(KeyCode.KeypadEnter))
+        if(Input.GetKey(KeyCode.LeftShift)&&Input.GetKeyDown(KeyCode.Alpha1))
         {
-            
+            StartCoroutine(GetWave("WaveRe_01"));
         }
         if(Input.GetKeyDown(KeyCode.Alpha1))
         {
-            StartCoroutine(spawnGroupList.spawnGroupDatas[0].GenerateGroup(this));
+            StartCoroutine(spawnNormalGroupList.spawnGroupDatas[0].GenerateGroup(this));
             //StartCoroutine(TestSpawn());
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            StartCoroutine(SpawnGroup_L());
+            StartCoroutine(spawnNormalGroupList.spawnGroupDatas[1].GenerateGroup(this));
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            StartCoroutine(SpawnGroup_BlackBullet());
+            StartCoroutine(spawnNormalGroupList.spawnGroupDatas[2].GenerateGroup(this));
         }
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-            StartCoroutine(SpawnGroup_M_to_LB());
+            StartCoroutine(spawnNormalGroupList.spawnGroupDatas[3].GenerateGroup(this));
         }
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {
-            StartCoroutine(SpawnGroup_CT_to_RB_red());
+            StartCoroutine(spawnNormalGroupList.spawnGroupDatas[4].GenerateGroup(this));
         }
         if (Input.GetKeyDown(KeyCode.Alpha6))
         {
-            StartCoroutine(SpawnGroup_LB_to_RT());
+            StartCoroutine(spawnNormalGroupList.spawnGroupDatas[5].GenerateGroup(this));
         }
         if (Input.GetKeyDown(KeyCode.Alpha7))
         {
@@ -549,9 +553,9 @@ public class WaveManager : MonoBehaviour
         // === 切換錄製資料 ===
         if (Input.GetKeyDown(KeyCode.F4))
         {
-            if (recordedWaveDataList.Count == 0) return;
-            currentRecordingIndex = (currentRecordingIndex + 1) % recordedWaveDataList.Count;
-            currentRecording = recordedWaveDataList[currentRecordingIndex];
+            if (recordedWaveDataList.recordingWaves.Count == 0) return;
+            currentRecordingIndex = (currentRecordingIndex + 1) % recordedWaveDataList.recordingWaves.Count;
+            currentRecording = recordedWaveDataList.recordingWaves[currentRecordingIndex];
             Debug.Log($"切換到錄製資料：{currentRecording.name}");
         }
 
@@ -941,5 +945,29 @@ public class WaveManager : MonoBehaviour
     Debug.LogError("CreateNewRecordingAsset only works in the Unity Editor.");
 #endif
     }
-
+    public void AddListToDictionary()
+    {
+        spawnGroupDictionary.Clear();
+        for (int i = 0; i < spawnNormalGroupList.spawnGroupDatas.Length; i++)
+        {
+            if (spawnGroupDictionary.ContainsKey(spawnNormalGroupList.spawnGroupDatas[i].name))
+            {
+                Debug.LogWarning($"Key '{spawnNormalGroupList.spawnGroupDatas[i].name}' already exists in the dictionary.");
+                return;
+            }
+            spawnGroupDictionary.Add(spawnNormalGroupList.spawnGroupDatas[i].name, spawnNormalGroupList.spawnGroupDatas[i]);
+        }
+    }public void AddRecordListToDictionary()
+    {
+        recordedWaveMap.Clear();
+        for (int i = 0; i < recordedWaveDataList.recordingWaves.Count; i++)
+        {
+            if (recordedWaveMap.ContainsKey(recordedWaveDataList.recordingWaves[i].name))
+            {
+                Debug.LogWarning($"Key '{recordedWaveDataList.recordingWaves[i].name}' already exists in the dictionary.");
+                return;
+            }
+            recordedWaveMap.Add(recordedWaveDataList.recordingWaves[i].name, recordedWaveDataList.recordingWaves[i]);
+        }
+    }
 }

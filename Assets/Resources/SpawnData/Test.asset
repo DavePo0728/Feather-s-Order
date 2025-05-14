@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Test
   m_EditorClassIdentifier: 
   data:
-    spawnPosition: {x: 2, y: 1, z: 1}
-    endPosition: {x: 2, y: 1, z: 5}
-    LeavePositon: {x: 19, y: 5, z: 14}
-    curveHeight: -4.825035
+    spawnPosition: {x: 0, y: 1, z: 1}
+    endPosition: {x: 20, y: 1, z: 5}
+    LeavePositon: {x: 47, y: 47, z: 14}
+    curveHeight: 76.64456
     pathNum: 0
     customPathNum: 0
     pointWaitTime: 0

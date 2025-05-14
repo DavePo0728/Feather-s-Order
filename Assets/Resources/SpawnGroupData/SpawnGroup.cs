@@ -15,7 +15,7 @@ public class SpawnGroup : SpawnGroupController
             var move = manager.CreateMoveBehaviour(group.moveType);
             var leave = manager.CreateLeaveBehaviour(group.leaveType);
             manager.NewSpawn_WithRecord(group.enemyData, (int)group.spawnData, group.gunData, entry, move, leave, group.spawnType);
-            Debug.Log("原始直"+ group.spawnData + "修改直: = " +(int)group.spawnDataType);
+            //Debug.Log("原始直"+ group.spawnData + "修改直: = " +(int)group.spawnDataType);
             yield return new WaitForSeconds(group.delayTime);
         }
     }

@@ -698,9 +698,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debug: 0
   availableGuns: []
-  shooter: {fileID: 0}
   shooterList: []
+  spinShooter: {fileID: 0}
+  spinShooterList: []
   useAllmode: 0
+  currentModeIndex: 0
+  IsAttackLooping: 0
+  gunDataList: {fileID: 0}
 --- !u!1 &1443281554646270140
 GameObject:
   m_ObjectHideFlags: 0
@@ -10857,7 +10861,6 @@ MonoBehaviour:
   - {fileID: 5296477984446463243}
   - {fileID: 4088985289951656685}
   - {fileID: 7613394568909230523}
-  bulletType: 0
 --- !u!1 &2082531857723394341
 GameObject:
   m_ObjectHideFlags: 0
@@ -121279,11 +121282,10 @@ MonoBehaviour:
   path: []
   moveB_PathList: []
   moveC_PathList: []
-  isDebug: 1
-  DebugMoveTime: 0.5
-  isDebugHaveGun: 0
-  isMove: 1
-  bulletType: 0
+  isDebug: 0
+  DebugMoveTime: 0
+  gun: {fileID: 0}
+  isMove: 0
 --- !u!82 &9137181306585716035
 AudioSource:
   m_ObjectHideFlags: 0

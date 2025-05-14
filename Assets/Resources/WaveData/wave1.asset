@@ -13,47 +13,47 @@ MonoBehaviour:
   m_Name: wave1
   m_EditorClassIdentifier: 
   waveSequence:
-  - groupName: RecordWave0
+  - groupName: WaveRe_test
     repeatCount: 1
     delayAfterGroup: 4
     killAllEnemies: 0
-  - groupName: RecordWave1
+  - groupName: WaveRe_01
     repeatCount: 2
     delayAfterGroup: 4
     killAllEnemies: 0
-  - groupName: RecordWave02
+  - groupName: WaveRe_02
     repeatCount: 3
     delayAfterGroup: 4
     killAllEnemies: 0
-  - groupName: R
+  - groupName: SpawnGroup_R1
     repeatCount: 2
     delayAfterGroup: 3
     killAllEnemies: 0
-  - groupName: L
+  - groupName: SpawnGroup_L2
     repeatCount: 2
     delayAfterGroup: 3
     killAllEnemies: 0
-  - groupName: BlackBullet
+  - groupName: SpawnGroup_BlackBullet
     repeatCount: 1
     delayAfterGroup: 2
     killAllEnemies: 1
-  - groupName: M_to_LB
+  - groupName: SpawnGroup_M_to_LB
     repeatCount: 1
     delayAfterGroup: 1
     killAllEnemies: 0
-  - groupName: CT_to_RB_red
+  - groupName: SpawnGroup_CT_to_RB_red
     repeatCount: 1
     delayAfterGroup: 1
     killAllEnemies: 0
-  - groupName: RecordWave0
+  - groupName: SpawnGroup_RecordWave0
     repeatCount: 2
     delayAfterGroup: 1
     killAllEnemies: 0
-  - groupName: R_A3
+  - groupName: SpawnGroup_R_A3
     repeatCount: 1
     delayAfterGroup: 1
     killAllEnemies: 0
-  - groupName: RecordWave1
+  - groupName: WaveRe_01
     repeatCount: 2
     delayAfterGroup: 4
     killAllEnemies: 1

@@ -15,12 +15,17 @@ MonoBehaviour:
   data:
     patternType: 6
     gunIndex: 0
-    rpm: 300
+    rpm: 50
     bulletType: 2
-    MaxShootWave: 2
+    MaxShootWave: 1
     bulletAmount: 3
     spreadAngle: 0
     spinSpeed: 0
+    bulletsPerArm: 0
+    crossSpacing: 0
+    ringRadius: 0
+    swingSpeed: 0
+    swingAngle: 0
     missilePrefab: {fileID: 7169194746986329639, guid: 8d67999f4fe3daa4980967b8c8fadc0b, type: 3}
     trackDuration: 2.2
     maxRotationSpeed: 360

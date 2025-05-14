@@ -95,7 +95,11 @@ public class EnemyShootingController : MonoBehaviour
     {
         var extra = gunDataList.gunDatas[currentModeIndex].addtionalGunData[addtionalCount].additionalData.data;
         StartCoroutine(HandleMode(extra));
-        addtionalCount++;
+        Debug.Log(addtionalCount);
+        if(addtionalCount< gunDataList.gunDatas[currentModeIndex].addtionalGunData.Count-1)
+        {
+            addtionalCount++;
+        }
         if(addtionalCount> gunDataList.gunDatas[currentModeIndex].addtionalGunData.Count)
         {
             addtionalCount = 0;
@@ -137,7 +141,7 @@ public class EnemyShootingController : MonoBehaviour
                 Invoke("FireExtraMode", gunDataList.gunDatas[currentModeIndex].addtionalGunData[addtionalCount].additionalDelayTime);
             }
             var mode = modes[currentModeIndex];
-            Debug.Log(mode.patternType);
+            //Debug.Log(mode.patternType);
             yield return StartCoroutine(HandleMode(mode));
             currentModeIndex = (currentModeIndex + 1) % modes.Count;
             yield return new WaitForSeconds(gunDataList.gunDatas[currentModeIndex].delayTime);

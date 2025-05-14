@@ -6173,7 +6173,6 @@ MonoBehaviour:
   - {fileID: 3466365266200823646}
   - {fileID: 1193096247686993406}
   - {fileID: 5485863274610438003}
-  bulletType: 0
 --- !u!1 &3419614872257415304
 GameObject:
   m_ObjectHideFlags: 0
@@ -16860,10 +16859,10 @@ MonoBehaviour:
   path: []
   moveB_PathList: []
   moveC_PathList: []
-  isDebug: 1
-  DebugMoveTime: 0.5
-  isDebugHaveGun: 0
-  isMove: 1
+  isDebug: 0
+  DebugMoveTime: 0
+  gun: {fileID: 0}
+  isMove: 0
 --- !u!82 &3888258094929980030
 AudioSource:
   m_ObjectHideFlags: 0

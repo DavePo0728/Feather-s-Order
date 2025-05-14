@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d900d0d08c14be479f0037b64d61641, type: 3}
+  m_Name: New RecordingWaveList
+  m_EditorClassIdentifier: 
+  recordingWaves:
+  - {fileID: 11400000, guid: 8c9dc73155b23224fb13a97d6fe4a66b, type: 2}
+  - {fileID: 11400000, guid: 95d4bcd011822854d9d340c4c7db27f0, type: 2}
+  - {fileID: 11400000, guid: 4c3fa0d638bddb24fb253d28a4f7b4b4, type: 2}
+  - {fileID: 11400000, guid: 868e573f992a9c240a366ad0a0edf2f1, type: 2}

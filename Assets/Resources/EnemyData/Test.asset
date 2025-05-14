@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Test
   m_EditorClassIdentifier: 
   data:
-    enemy: {fileID: 0}
+    enemy: {fileID: 5113663619280529763, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
     entryTime: 1
-    singleMoveTime: 1
+    singleMoveTime: 0.5
     leaveTime: 1
-    hp: 0
-    lifeTime: 999
+    hp: 10
+    lifeTime: 5
     haveShield: 0
     shieldHp: 0
     corrupted: 0

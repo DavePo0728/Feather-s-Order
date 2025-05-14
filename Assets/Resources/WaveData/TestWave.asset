@@ -13,23 +13,27 @@ MonoBehaviour:
   m_Name: TestWave
   m_EditorClassIdentifier: 
   waveSequence:
-  - groupName: SpawnT1
+  - groupName: TestWave
     repeatCount: 3
     delayAfterGroup: 3
     killAllEnemies: 0
-  - groupName: SpawnT2
+  - groupName: TutorialWave1
     repeatCount: 3
     delayAfterGroup: 3
     killAllEnemies: 0
-  - groupName: SpawnT3
+  - groupName: TutorialWave2
     repeatCount: 3
     delayAfterGroup: 3
     killAllEnemies: 0
-  - groupName: SpawnT4
+  - groupName: TutorialWave3
     repeatCount: 3
     delayAfterGroup: 3
     killAllEnemies: 0
-  - groupName: SpawnT5
+  - groupName: TutorialWave4
+    repeatCount: 3
+    delayAfterGroup: 3
+    killAllEnemies: 0
+  - groupName: TutorialWave5
     repeatCount: 3
     delayAfterGroup: 3
     killAllEnemies: 0

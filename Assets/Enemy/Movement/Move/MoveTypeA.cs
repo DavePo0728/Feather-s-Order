@@ -16,7 +16,7 @@ public class MoveTypeA : IMoveBehaviour
         if (enemyMove.gameObject != null)
         {
             _nextPos = CurvePathGenerator.pathInstance.GetLandingPosZ(enemyMove.originPos, 10);
-            //Debug.Log("EnemyName: "+enemyMove.name+" NextPos: " + _nextPos);
+            Debug.Log("EnemyName: "+enemyMove.name+" NextPos: " + _nextPos);
             onMoveA = enemyMove.transform.DOMove(_nextPos, enemyMove.moveTime).SetEase(Ease.Linear).SetDelay(waitTime).OnPause(() => { tweenPlaying = false; }).OnPlay(() => { tweenPlaying = true; });
             if(!tweenPlaying)
             onMoveA.Play();
