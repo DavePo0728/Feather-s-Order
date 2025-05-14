@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: RC_to_LC
   m_EditorClassIdentifier: 
   data:
-    spawnPosition: {x: 16, y: 4, z: 1}
-    endPosition: {x: 13, y: 4, z: 5}
-    LeavePositon: {x: 0, y: 5, z: 10}
+    spawnPosition: {x: 32, y: 8, z: 1}
+    endPosition: {x: 26, y: 8, z: 5}
+    LeavePositon: {x: 0, y: 10, z: 10}
     curveHeight: -4.825035
     pathNum: 0
     customPathNum: 0
