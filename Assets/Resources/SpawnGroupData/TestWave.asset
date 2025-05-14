@@ -12,14 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680bd5654b8588d4ca635541184ffb83, type: 3}
   m_Name: TestWave
   m_EditorClassIdentifier: 
-  spawnGroupDataList:
-  - enemyData: 6
-    spawnData: 19
-    spawnDataType: 15
-    enemyDataType: 0
-    gunData: {fileID: 11400000, guid: 882793a8883fc0c4a82215336c4bdacf, type: 2}
-    entryType: 0
-    moveType: 2
-    leaveType: 0
-    delayTime: 0.5
-    spawnType: 2
+  spawnGroupDataList: []
