@@ -33,6 +33,7 @@ public class WaveManager : MonoBehaviour
     public SpawnData[] spawnDatas => spawnDataList.spawnDatas;
     //public GunDataList gunDataList;
     public SpawnGroupList spawnNormalGroupList;
+    public SpawnEmptyGroupList spawnEmptyGroupList;
     [Header("Recording")]
     [SerializeField] 
     private bool isRecording = false;
@@ -57,9 +58,11 @@ public class WaveManager : MonoBehaviour
     private bool autoStartRecording = false;
     public List<RecordedWaveData> recordedWaves;
     private int currentRecordingIndex = 0;
+
     private Dictionary<string, System.Func<IEnumerator>> spawnGroupMap;
     private Dictionary<string, RecordedWaveData> recordedWaveMap;
     private Dictionary<string, SpawnGroup> spawnGroupDictionary;
+    private Dictionary<string, SpawnEmptyGroup> spawnEmptyGroupDictionary;
     [SerializeField]
     private WaveSpawnController currentWaveController;
     public ScenesManager scenesManager;
@@ -352,14 +355,19 @@ public class WaveManager : MonoBehaviour
             yield return group.GenerateGroup(this);
             yield break;
         }
-        // 若在 spawnGroupMap 裡，執行對應 Coroutine
-        if (spawnGroupMap.TryGetValue(key, out var routine))
+        //// 若在 spawnGroupMap 裡，執行對應 Coroutine
+        //if (spawnGroupMap.TryGetValue(key, out var routine))
+        //{
+        //    waveText.text = key;
+        //    yield return routine();
+        //    yield break;
+        //}
+        if(spawnEmptyGroupDictionary.TryGetValue(key, out var emptyGroup))
         {
             waveText.text = key;
-            yield return routine();
+            yield return emptyGroup.GenerateGroup(this);
             yield break;
         }
-
         //若在 recordedWaveMap 裡，撥放錄製波次
         if (recordedWaveMap.TryGetValue(key, out var data))
         {
@@ -400,8 +408,10 @@ public class WaveManager : MonoBehaviour
         //};
         spawnGroupDictionary = new Dictionary<string, SpawnGroup>();
         recordedWaveMap = new Dictionary<string, RecordedWaveData>();
+        spawnEmptyGroupDictionary = new Dictionary<string, SpawnEmptyGroup>();
         AddListToDictionary();
         AddRecordListToDictionary();
+        AddEmptyWaveListToDictionary();
         //recordedWaveMap = new Dictionary<string, RecordedWaveData>()
         //{
         //    { "RecordWave0", recordedWaves[0] },
@@ -944,6 +954,19 @@ public class WaveManager : MonoBehaviour
 #else
     Debug.LogError("CreateNewRecordingAsset only works in the Unity Editor.");
 #endif
+    }
+    public void AddEmptyWaveListToDictionary()
+    {
+        spawnEmptyGroupDictionary.Clear();
+        for (int i = 0; i < spawnEmptyGroupList.spawnEmptyGroupDatas.Count; i++)
+        {
+            if (spawnEmptyGroupDictionary.ContainsKey(spawnEmptyGroupList.spawnEmptyGroupDatas[i].name))
+            {
+                Debug.LogWarning($"Key '{spawnEmptyGroupList.spawnEmptyGroupDatas[i].name}' already exists in the dictionary.");
+                return;
+            }
+            spawnEmptyGroupDictionary.Add(spawnEmptyGroupList.spawnEmptyGroupDatas[i].name, spawnEmptyGroupList.spawnEmptyGroupDatas[i]);
+        }
     }
     public void AddListToDictionary()
     {
