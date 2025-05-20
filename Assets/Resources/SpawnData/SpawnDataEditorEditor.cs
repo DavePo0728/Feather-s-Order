@@ -13,17 +13,11 @@ public class SpawnDataEditorEditor : Editor
 	{
 		serializedObject.Update();
 		EditorGUILayout.PropertyField(serializedObject.FindProperty("spawnEditDataType"));
-
-
 		//serializedObject.Update();
 		SpawnDataEditor SDEditor = (SpawnDataEditor)target;
-
-
-
 		SerializedProperty iterator = serializedObject.GetIterator();
 		SerializedProperty iterator2 = serializedObject.GetIterator();
 		iterator.NextVisible(true); // 跳過 script 欄位
-
 		while (iterator.NextVisible(false))
 		{
 			EditorGUILayout.PropertyField(iterator, true);
@@ -258,6 +252,7 @@ public class SpawnDataEditorEditor : Editor
 			EditorGUILayout.PropertyField(serializedObject.FindProperty("PathData"));
 			EditorGUILayout.PropertyField(serializedObject.FindProperty("Target_End"));
 			EditorGUILayout.PropertyField(serializedObject.FindProperty("Target_PathList"));
+			
 		}
 		EditorGUILayout.PropertyField(serializedObject.FindProperty("NewDataName"));
 		// 原本的功能保留
@@ -265,7 +260,19 @@ public class SpawnDataEditorEditor : Editor
 		{
 			((SpawnDataEditor)target).CreateSpawnDataAsset();
 		}
+		EditorGUILayout.PropertyField(serializedObject.FindProperty("CustomPathData"));
+		EditorGUILayout.PropertyField(serializedObject.FindProperty("SpawnData"));
+		if (GUILayout.Button("讀取資料"))
+		{
+			((SpawnDataEditor)target).LoadingMyData();
 
+		}
+		GUILayout.Space(100);
+		if (GUILayout.Button("覆蓋資料"))
+		{
+			((SpawnDataEditor)target).OverwriteData();
+
+		}
 		serializedObject.ApplyModifiedProperties();
 	}
 	private ReorderableList reorderableList;
@@ -281,23 +288,20 @@ public class SpawnDataEditorEditor : Editor
 		{
 			EditorGUI.LabelField(rect, "End Target List");
 		};
+
 		reorderableList.onAddCallback = (ReorderableList list) =>
 		{
 			serializedObject.Update();
-
 			endTargetListProp.arraySize++;
 			serializedObject.ApplyModifiedProperties();
 
-			// 選取最後一個元素（剛新增的）
 			list.index = endTargetListProp.arraySize - 1;
 
-			// 執行同步
 			SDEditor.SyncTargetPathsWithEndTargePath();
 			for (int i = 0; i < SDEditor.EndTargePath.Count; i++)
 			{
 				SDEditor.GotoTargetPosition(SDEditor.EndTargePath[i], SDEditor.EndTargetList[i]);
 			}
-			//SDEditor.SetWaypoints();
 		};
 
 		reorderableList.onRemoveCallback = (ReorderableList list) =>
@@ -305,19 +309,27 @@ public class SpawnDataEditorEditor : Editor
 			if (list.index >= 0)
 			{
 				serializedObject.Update();
-
 				endTargetListProp.DeleteArrayElementAtIndex(list.index);
 				serializedObject.ApplyModifiedProperties();
 
-				// 調整選擇 index（保持在有效範圍）
 				list.index = Mathf.Clamp(list.index, 0, endTargetListProp.arraySize - 1);
 
 				SDEditor.SyncTargetPathsWithEndTargePath();
-                for (int i = 0; i < SDEditor.EndTargePath.Count; i++)
-                {
+				for (int i = 0; i < SDEditor.EndTargePath.Count; i++)
+				{
 					SDEditor.GotoTargetPosition(SDEditor.EndTargePath[i], SDEditor.EndTargetList[i]);
 				}
-				//SDEditor.SetWaypoints();
+			}
+		};
+
+		reorderableList.onReorderCallback = (ReorderableList list) =>
+		{
+			serializedObject.ApplyModifiedProperties();
+
+			SDEditor.SyncTargetPathsWithEndTargePath();
+			for (int i = 0; i < SDEditor.EndTargePath.Count; i++)
+			{
+				SDEditor.GotoTargetPosition(SDEditor.EndTargePath[i], SDEditor.EndTargetList[i]);
 			}
 		};
 
@@ -331,14 +343,14 @@ public class SpawnDataEditorEditor : Editor
 				element,
 				new GUIContent($"Target {index}")
 			);
-			
+
 			if (index == reorderableList.index)
 			{
 				float spacing = 2f;
 				float btnW = 30f, btnH = 30f;
 				float startX = rect.x + 20;
-				float startY = rect.y + lineHeight + spacing +35f;
-				//Debug.Log("第" + index + "項");
+				float startY = rect.y + lineHeight + spacing + 35f;
+
 				if (GUI.Button(new Rect(startX, startY, 60, btnH), "EditPos"))
 				{
 					SDEditor.GotoTargetPosition(SDEditor.EndTargePath[index], SDEditor.EndTargetList[index]);
@@ -395,4 +407,5 @@ public class SpawnDataEditorEditor : Editor
 				: EditorGUIUtility.singleLineHeight;
 		};
 	}
+
 }
