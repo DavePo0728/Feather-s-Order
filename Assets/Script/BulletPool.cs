@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BulletPool : MonoBehaviour
 {
-    
+
     public static BulletPool poolInstance;
 
     [Header("PlayerBulletPool")]
@@ -179,5 +179,36 @@ public class BulletPool : MonoBehaviour
             }
         }
         return null;
+    }
+    public void ClearAllBullet()
+    {
+        for (int i = 0; i < blackBulletAmountToPool; i++)
+        {
+            if(blackBulletPool[i].activeInHierarchy)
+            {
+                blackBulletPool[i].SetActive(false);
+            }
+        }
+        for (int i = 0; i < RedBulletAmountToPool; i++)
+        {
+            if (redBulletPool[i].activeInHierarchy)
+            {
+                redBulletPool[i].SetActive(false);
+            }
+        }
+        for (int i = 0; i < PurpleBulletAmountToPool; i++)
+        {
+            if (purpleBulletPool[i].activeInHierarchy)
+            {
+                purpleBulletPool[i].SetActive(false);
+            }
+        }
+        for (int i = 0; i < playerAmountToPool; i++)
+        {
+            if (playerBulletPool[i].activeInHierarchy)
+            {
+                playerBulletPool[i].SetActive(false);
+            }
+        }
     }
 }

@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class ScenesManager : MonoBehaviour
 {
+    PlayerHP playerHP;
     [SerializeField]
     public GameObject LoadingPanel;
     public float fadeDuration;
@@ -50,6 +51,7 @@ public class ScenesManager : MonoBehaviour
         pauseImageObject = GameObject.Find("PauseImage");
         if (pauseImageObject != null)
             pauseImageObject.SetActive(false);
+        playerHP = GameObject.Find("Player").transform.Find("HPCollider").GetComponent<PlayerHP>();
     }
     private void Start()
     {
@@ -163,9 +165,13 @@ public class ScenesManager : MonoBehaviour
     }
     public void GetReloadInput(InputAction.CallbackContext context)
     {
-        if (context.performed&&isGameOver ==true)
+        if (context.performed && isGameOver == true)
         {
             ReloadScene();
+        }
+        else if (context.performed && isGameOver == false)
+        {
+            playerHP.SecondLife();
         }
     }
     public void BackTotitle(InputAction.CallbackContext context)

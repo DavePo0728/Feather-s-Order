@@ -1365,6 +1365,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyA(new)
       objectReference: {fileID: 0}
+    - target: {fileID: 5531840777170294729, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
+      propertyPath: isMove
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5531840777170294729, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
+      propertyPath: isDebug
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5531840777170294729, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
+      propertyPath: DebugMoveTime
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6711691231238446872, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -236220,6 +236232,7 @@ MonoBehaviour:
   hurtShakeDuration: 0.3
   healShakeDuration: 0.1
   debug: 0
+  ExtraLife: 1
 --- !u!114 &7558705319349850883
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -252442,9 +252455,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 95d4bcd011822854d9d340c4c7db27f0, type: 2}
   - {fileID: 11400000, guid: 4c3fa0d638bddb24fb253d28a4f7b4b4, type: 2}
   - {fileID: 11400000, guid: 868e573f992a9c240a366ad0a0edf2f1, type: 2}
-  currentWaveController: {fileID: 11400000, guid: 7afa12d9b5c2a6c478e98c3c876d655e, type: 2}
+  currentWaveController: {fileID: 11400000, guid: b4dbe4d6718771d4aae204ee77f3f238, type: 2}
   scenesManager: {fileID: 2771671530409663363}
-  tutorialMode: 1
+  tutorialMode: 0
   inputActions: {fileID: -944628639613478452, guid: 6315d56ce0b2b034b859a84c624f7c72, type: 3}
   preTutorialObject: {fileID: 1224190587}
 --- !u!1 &8823263089456624626

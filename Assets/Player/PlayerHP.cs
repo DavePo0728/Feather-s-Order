@@ -51,6 +51,8 @@ public class PlayerHP : MonoBehaviour
     float flashTimer = 0f;
     GameObject currentFlashingBackground;
 
+    public bool ExtraLife = true; // 是否有額外生命
+
     private void Awake()
     {
         
@@ -147,9 +149,18 @@ public class PlayerHP : MonoBehaviour
         if (playerHp <= 0)
         {
             StopVibration();
-            GameOver();
+            if (ExtraLife)
+            {
+                FirstDeath();
+                return;
+            }
+            else
+            {
+                GameOver();
+            }
         }
     }
+
 
     public void Heal(int healAmount)
     {
@@ -165,7 +176,21 @@ public class PlayerHP : MonoBehaviour
 
         TriggerHealFlash();
     }
-
+    public void FirstDeath()
+    {
+        gameOverUI.SetActive(true);
+        StopVibration();    
+        Time.timeScale = 0;
+    }
+    public void SecondLife()
+    {
+        Time.timeScale = 1;
+        StopVibration();
+        ExtraLife = false;
+        Heal(maxHp);
+        gameOverUI.SetActive(false);
+        BulletPool.poolInstance.ClearAllBullet();
+    }
     void GameOver()
     {
         scenesManager.isGameOver = true;

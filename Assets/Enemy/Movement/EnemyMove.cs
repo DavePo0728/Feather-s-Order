@@ -104,6 +104,7 @@ public class EnemyMove : MonoBehaviour
                 gun.SetActive(true);
         }
         originPos = transform.position;
+        Debug.Log(moveBehavior.ToString());
         moveBehavior.Move(this);
         isMove = true;
     }
@@ -214,6 +215,22 @@ public class EnemyMove : MonoBehaviour
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(originPos, 10);
             //Debug.Log("Draw");
+            // 確保至少有兩個點才能畫線
+            if (moveC_PathList != null ||moveC_PathList.Length >= 2)
+            {
+
+                // 依序用 DrawRay 連接每一對相鄰點
+                for (int i = 0; i < moveC_PathList.Length - 1; i++)
+                {
+                    Vector3 start = moveC_PathList[i];
+                    Vector3 end = moveC_PathList[i + 1];
+                    Vector3 dir = end - start;          // 從 start 指向 end 的方向向量
+
+                    // origin: start, direction: dir
+                    Debug.DrawRay(start, dir, Color.red);
+                }
+            }
         }
+
     }
 }
