@@ -5,6 +5,8 @@ using UnityEngine;
 using System.IO;
 using System.Collections.Generic;
 using System;
+using Tayx.Graphy.Utils.NumString;
+using UnityEditorInternal.VR;
 
 public enum SpawnEditDataType
 {
@@ -57,22 +59,25 @@ public class SpawnDataEditor : MonoBehaviour
 	public DefaultAsset UpRight;
 	public DefaultAsset DownLeft;
 	public DefaultAsset DownRight;
-    public DefaultAsset PathData;
+	public DefaultAsset PathData;
 
 	public Transform Target_End;
 	public Transform Target_PathList;
 
-    public void PrintSpawnRegion()
-    {
-        if (spawnData == null)
-        {
-            Debug.LogWarning("spawnData 未設定");
-            return;
-        }
+	public CustomPathData CustomPathData;
+	public SpawnData SpawnData;
 
-        SpawnRegion region = GetSpawnRegion(spawnData.spawnPosition);
-        Debug.Log("Spawn Position 位於區域: " + region + "座標" + new Vector2(spawnData.spawnPosition.x, spawnData.spawnPosition.y));
-    }
+	public void PrintSpawnRegion()
+	{
+		if (spawnData == null)
+		{
+			Debug.LogWarning("spawnData 未設定");
+			return;
+		}
+
+		SpawnRegion region = GetSpawnRegion(spawnData.spawnPosition);
+		Debug.Log("Spawn Position 位於區域: " + region + "座標" + new Vector2(spawnData.spawnPosition.x, spawnData.spawnPosition.y));
+	}
 
 	public void TargetWaySetActive()
 	{
@@ -328,7 +333,7 @@ public class SpawnDataEditor : MonoBehaviour
 			default:
 				break;
 		}
-		
+
 	}
 	private string GetRegionFolderPath(SpawnRegion region)
 	{
@@ -426,7 +431,7 @@ public class SpawnDataEditor : MonoBehaviour
 	}
 	private Vector3 ConvertGridToUI(Vector3 gridPos)
 	{
-		Vector2 originUI = new Vector2(960, -480)+new Vector2(-24*40,12*40);
+		Vector2 originUI = new Vector2(960, -480) + new Vector2(-24 * 40, 12 * 40);
 		Vector2 cellSize = new Vector2(40, 40);
 
 		float uiX = (gridPos.x - 24) * cellSize.x + originUI.x;
@@ -438,4 +443,82 @@ public class SpawnDataEditor : MonoBehaviour
 		// 將 local UI 座標轉為世界座標
 		return canvas.transform.TransformPoint(localUIPos);
 	}
+
+	public void LoadingMyData()
+	{
+		LoadingData(SpawnData, CustomPathData);
+	}
+	public void LoadingData(SpawnData sp, CustomPathData cpd)
+	{
+		// 1. 重新建立 EndTargetList（包含 endPosition + 自定義路徑）
+		EndTargetList.Clear();
+		EndTargetList.Add(sp.data.endPosition); // 第一點是原本 endPosition
+
+		// 2. 根據 pathX/Y/Z 長度，建立剩餘點位
+		int customCount = Mathf.Min(cpd.pathX.Count, cpd.pathY.Count, cpd.pathZ.Count);
+		for (int i = 0; i < customCount; i++)
+		{
+			Vector3 pos = new Vector3(
+				cpd.pathX[i].ToFloat(),
+				cpd.pathY[i].ToFloat(),
+				cpd.pathZ[i].ToFloat()
+			);
+			EndTargetList.Add(pos);
+		}
+
+		// 3. 載入其他資料
+		spawnData.spawnPosition = sp.data.spawnPosition;
+		spawnData.LeavePositon = sp.data.LeavePositon;
+
+		// 4. 同步路徑
+		SyncTargetPathsWithEndTargePath();
+		for (int i = 0; i < EndTargePath.Count; i++)
+		{
+			GotoTargetPosition(EndTargePath[i], EndTargetList[i]);
+		}
+		GotoTargetPosition(StartTarget, spawnData.spawnPosition);
+		GotoTargetPosition(LeaveTarget, spawnData.LeavePositon);
+	}
+	public void OverwriteData()
+	{
+		if (SpawnData == null || CustomPathData == null)
+		{
+			Debug.LogWarning("SpawnData 或 CustomPathData 為空，無法覆蓋");
+			return;
+		}
+
+		// 1. 覆蓋 SpawnData 資料
+		SpData newSpData = new SpData
+		{
+			spawnPosition = spawnData.spawnPosition,
+			endPosition = EndTargetList.Count > 0 ? EndTargetList[0] : spawnData.endPosition,
+			LeavePositon = spawnData.LeavePositon,
+			curveHeight = spawnData.curveHeight,
+			pathNum = spawnData.pathNum,
+			customPathNum = EndTargetList.Count - 1,
+			pointWaitTime = spawnData.pointWaitTime
+		};
+		SpawnData.data = newSpData;
+		EditorUtility.SetDirty(SpawnData);
+
+		// 2. 覆蓋 CustomPathData 資料
+		CustomPathData.pathX.Clear();
+		CustomPathData.pathY.Clear();
+		CustomPathData.pathZ.Clear();
+
+		for (int i = 1; i < EndTargetList.Count; i++) // 從第 1 個 endPoint 開始
+		{
+			Vector3 pos = EndTargetList[i];
+			CustomPathData.pathX.Add(Mathf.RoundToInt(pos.x));
+			CustomPathData.pathY.Add(Mathf.RoundToInt(pos.y));
+			CustomPathData.pathZ.Add(Mathf.RoundToInt(pos.z));
+		}
+		EditorUtility.SetDirty(CustomPathData);
+
+		AssetDatabase.SaveAssets();
+		AssetDatabase.Refresh();
+
+		Debug.Log("成功覆蓋 SpawnData 與 CustomPathData");
+	}
+
 }
