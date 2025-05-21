@@ -1,11 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 [CreateAssetMenu(fileName = "New SpawnGroupData", menuName = "SpawnGroupData/New SpawnGroupData")]
 public class SpawnGroup : SpawnGroupController
 {
-    public List<SpawnGroupData> spawnGroupDataList;
+	public SpawnDataList spawnDataList;
+	public CustomPathDataList customPathDataList;
+	public List<SpawnGroupData> spawnGroupDataList;
     public override IEnumerator GenerateGroup(WaveManager manager)
     {
         Debug.Log("SpawnGroup Start");
@@ -28,9 +31,6 @@ public class SpawnGroupData
 	public int enemyData;
 	public int spawnData;
 
-	[SerializeField]
-    public SpawnDataType spawnDataType;
-    public EnemyDataType enemyDataType;
 
 	public GunDataList gunData;
 	public EntryType entryType;

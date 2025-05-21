@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbc2ec931fe6c5f468160c04b38f041f, type: 3}
-  m_Name: DowntoLeftUp_TypeC
+  m_Name: LeftDownToUp_TypeC
   m_EditorClassIdentifier: 
   data:
-    spawnPosition: {x: 24, y: 24, z: 0}
-    endPosition: {x: 23, y: 18, z: 2}
-    LeavePositon: {x: 0, y: 5, z: 12}
+    spawnPosition: {x: 0, y: 19, z: 12}
+    endPosition: {x: 7, y: 18, z: 10}
+    LeavePositon: {x: 24, y: 0, z: 0}
     curveHeight: 50
     pathNum: 0
-    customPathNum: 0
+    customPathNum: 2
     pointWaitTime: 0

@@ -11,9 +11,9 @@ public class textsss : MonoBehaviour
 
 	void Start()
 	{
-		int index = (int)spawnDataType;
-		Debug.Log(    (int)spawnData.spawnGroupDataList[0].spawnDataType    );
-		Debug.Log(    (int)spawnData.spawnGroupDataList[0].enemyDataType    );
+		//int index = (int)spawnDataType;
+		//Debug.Log(    (int)spawnData.spawnGroupDataList[0].spawnDataType    );
+		//Debug.Log(    (int)spawnData.spawnGroupDataList[0].enemyDataType    );
 
 	}
 	

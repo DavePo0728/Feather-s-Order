@@ -1,4 +1,6 @@
 // 自動產生的 enum，請勿手動修改
+using UnityEngine;
+
 public enum SpawnDataType
 {
 	LC_to_R,
@@ -19,4 +21,17 @@ public enum SpawnDataType
 	M_1,
 	M_1_1,
 	M_1_2,
+	TpyeCPath001_TypeC,
+	Test,
+	UpToLeftDown_TypeC,
+	UpToRightDown_TypeC,
+	DownToRightUp_TypeC,
+	DownToLeftUp_TypeC,
+	LeftUpToDown_TypeC,
+	RightUpToDown_TypeC,
+	RightToLeft_TypeC,
+	LeftToRight_TypeC,
+	LeftDownToUp_TypeC,
+	//[InspectorName("左下到上")]
+	RightDownToUp_TypeC,
 }

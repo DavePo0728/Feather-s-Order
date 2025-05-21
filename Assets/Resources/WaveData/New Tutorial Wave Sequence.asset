@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: New Tutorial Wave Sequence
   m_EditorClassIdentifier: 
   tutorialSteps:
+  - tutorialImage: {fileID: 21300000, guid: dac76c48355e4d744bd5c87db716d9a1, type: 3}
+    waveGroupName: AsuisuiWave1
+    specialTutorial: 0
   - tutorialImage: {fileID: 21300000, guid: 62d5a5c289bc19245ad54c51171ade15, type: 3}
     waveGroupName: TutorialWave1
     specialTutorial: 0
   - tutorialImage: {fileID: 21300000, guid: 0253383ec93a3b9498387b9bc979b90f, type: 3}
     waveGroupName: TutorialWave2
     specialTutorial: 0
-  - tutorialImage: {fileID: 21300000, guid: dac76c48355e4d744bd5c87db716d9a1, type: 3}
-    waveGroupName: EmptyWave
-    specialTutorial: 1
   - tutorialImage: {fileID: 21300000, guid: 72d34f000139c7941974fccb29a3305f, type: 3}
     waveGroupName: TutorialWave3
     specialTutorial: 1

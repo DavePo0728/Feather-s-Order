@@ -7,4 +7,5 @@ public enum EnemyDataType
 	B01,
 	B02,
 	C01,
+	Test,
 }
