@@ -16,24 +16,4 @@ MonoBehaviour:
   - groupName: TestWave
     repeatCount: 3
     delayAfterGroup: 3
-    killAllEnemies: 0
-  - groupName: TutorialWave1
-    repeatCount: 3
-    delayAfterGroup: 3
-    killAllEnemies: 0
-  - groupName: TutorialWave2
-    repeatCount: 3
-    delayAfterGroup: 3
-    killAllEnemies: 0
-  - groupName: TutorialWave3
-    repeatCount: 3
-    delayAfterGroup: 3
-    killAllEnemies: 0
-  - groupName: TutorialWave4
-    repeatCount: 3
-    delayAfterGroup: 3
-    killAllEnemies: 0
-  - groupName: TutorialWave5
-    repeatCount: 3
-    delayAfterGroup: 3
-    killAllEnemies: 0
+    killAllEnemies: 1
