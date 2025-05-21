@@ -446,7 +446,7 @@ public class WaveManager : MonoBehaviour
             pressBAction.Enable();
         }
         pathList = Resources.Load<TypeBPathList>("PathData/TypeBPathData/TypeBPathList");
-        customPathDataList = Resources.Load<CustomPathDataList>("PathData/TypeCPathList");
+        //customPathDataList = Resources.Load<CustomPathDataList>("PathData/TypeCPathList");
         if (debugTextStyle == null)
         {
             debugTextStyle = new GUIStyle(GUI.skin.label);
