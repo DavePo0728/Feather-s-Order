@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: DowntoRightUp_TypeC
   m_EditorClassIdentifier: 
   data:
-    spawnPosition: {x: 24, y: 24, z: 0}
+    spawnPosition: {x: 23, y: 23, z: 0}
     endPosition: {x: 25, y: 18, z: 2}
-    LeavePositon: {x: 48, y: 5, z: 12}
-    curveHeight: 50
+    LeavePositon: {x: 47, y: 5, z: 12}
+    curveHeight: 1
     pathNum: 0
     customPathNum: 1
     pointWaitTime: 0

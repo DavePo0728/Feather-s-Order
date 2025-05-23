@@ -11,13 +11,15 @@ public class SpawnGroup : SpawnGroupController
 	public List<SpawnGroupData> spawnGroupDataList;
     public override IEnumerator GenerateGroup(WaveManager manager)
     {
-        //Debug.Log("SpawnGroup Start");
-        foreach (var group in spawnGroupDataList)
+		Debug.Log(spawnGroupDataList);
+		//Debug.Log("SpawnGroup Start");
+		foreach (var group in spawnGroupDataList)
         {
             var entry = manager.CreateEntryBehaviour(group.entryType);
             var move = manager.CreateMoveBehaviour(group.moveType);
             var leave = manager.CreateLeaveBehaviour(group.leaveType);
             manager.NewSpawn_WithRecord(group.enemyData, (int)group.spawnData, group.gunData, entry, move, leave, group.spawnType);
+            
             //Debug.Log("原始直"+ group.spawnData + "修改直: = " +(int)group.spawnDataType);
             yield return new WaitForSeconds(group.delayTime);
         }

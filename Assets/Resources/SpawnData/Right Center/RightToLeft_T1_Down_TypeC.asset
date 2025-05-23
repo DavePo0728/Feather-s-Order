@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbc2ec931fe6c5f468160c04b38f041f, type: 3}
-  m_Name: RightDowntoUp_TypeC
+  m_Name: RightToLeft_T1_Down_TypeC
   m_EditorClassIdentifier: 
   data:
-    spawnPosition: {x: 48, y: 19, z: 12}
-    endPosition: {x: 41, y: 18, z: 10}
-    LeavePositon: {x: 24, y: 0, z: 0}
-    curveHeight: 50
+    spawnPosition: {x: 47, y: 10, z: 2}
+    endPosition: {x: 31, y: 10, z: 7}
+    LeavePositon: {x: 17, y: 10, z: 4}
+    curveHeight: 1
     pathNum: 0
-    customPathNum: 5
+    customPathNum: 12
     pointWaitTime: 0

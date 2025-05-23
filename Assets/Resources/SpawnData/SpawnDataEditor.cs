@@ -280,7 +280,7 @@ public class SpawnDataEditor : MonoBehaviour
 					LeavePositon = spawnData.LeavePositon,
 					curveHeight = spawnData.curveHeight,
 					pathNum = spawnData.pathNum,
-					customPathNum = EndTargetList.Count - 1,
+					customPathNum = spawnData.customPathNum,
 					pointWaitTime = spawnData.pointWaitTime
 				};
 
@@ -469,6 +469,8 @@ public class SpawnDataEditor : MonoBehaviour
 		// 3. 載入其他資料
 		spawnData.spawnPosition = sp.data.spawnPosition;
 		spawnData.LeavePositon = sp.data.LeavePositon;
+		SpawnData.data.customPathNum = sp.data.customPathNum;
+		SpawnData.data.curveHeight = sp.data.curveHeight;
 
 		// 4. 同步路徑
 		SyncTargetPathsWithEndTargePath();
@@ -495,7 +497,7 @@ public class SpawnDataEditor : MonoBehaviour
 			LeavePositon = spawnData.LeavePositon,
 			curveHeight = spawnData.curveHeight,
 			pathNum = spawnData.pathNum,
-			customPathNum = EndTargetList.Count - 1,
+			customPathNum = spawnData.customPathNum,
 			pointWaitTime = spawnData.pointWaitTime
 		};
 		SpawnData.data = newSpData;

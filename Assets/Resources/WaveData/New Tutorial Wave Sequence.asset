@@ -13,30 +13,30 @@ MonoBehaviour:
   m_Name: New Tutorial Wave Sequence
   m_EditorClassIdentifier: 
   tutorialSteps:
-  - tutorialImage: {fileID: 21300000, guid: dac76c48355e4d744bd5c87db716d9a1, type: 3}
-    waveGroupName: AsuisuiWave1
-    specialTutorial: 0
   - tutorialImage: {fileID: 21300000, guid: 62d5a5c289bc19245ad54c51171ade15, type: 3}
+    waveGroupName: EmptyWave
+    specialTutorial: 0
+  - tutorialImage: {fileID: 21300000, guid: 06743f2d5b02f104f980d3a63ba38868, type: 3}
+    waveGroupName: TutorialWave4
+    specialTutorial: 1
+  - tutorialImage: {fileID: 21300000, guid: 0253383ec93a3b9498387b9bc979b90f, type: 3}
     waveGroupName: TutorialWave1
     specialTutorial: 0
-  - tutorialImage: {fileID: 21300000, guid: 0253383ec93a3b9498387b9bc979b90f, type: 3}
+  - tutorialImage: {fileID: 21300000, guid: dac76c48355e4d744bd5c87db716d9a1, type: 3}
     waveGroupName: TutorialWave2
-    specialTutorial: 0
+    specialTutorial: 1
   - tutorialImage: {fileID: 21300000, guid: 72d34f000139c7941974fccb29a3305f, type: 3}
     waveGroupName: TutorialWave3
     specialTutorial: 1
-  - tutorialImage: {fileID: 21300000, guid: 06743f2d5b02f104f980d3a63ba38868, type: 3}
-    waveGroupName: EmptyWave
-    specialTutorial: 1
   - tutorialImage: {fileID: 21300000, guid: 64d245ba63afbcc45b99cb9bb5ce7c0e, type: 3}
-    waveGroupName: EmptyWave
+    waveGroupName: EmptyWave1
     specialTutorial: 1
   - tutorialImage: {fileID: 21300000, guid: 901b7c78bfac675498614ec8b67d08ca, type: 3}
-    waveGroupName: TutorialWave4
-    specialTutorial: 0
+    waveGroupName: EmptyWave1
+    specialTutorial: 1
   - tutorialImage: {fileID: 21300000, guid: e1ea800e2efe6aa4c926b5654b20627e, type: 3}
-    waveGroupName: EmptyWave
+    waveGroupName: TutorialWave4
     specialTutorial: 1
   - tutorialImage: {fileID: 21300000, guid: 96522ad6a26f5b346b48ad12c3e7d98d, type: 3}
-    waveGroupName: TutorialWave5
+    waveGroupName: TutorialWave4
     specialTutorial: 0

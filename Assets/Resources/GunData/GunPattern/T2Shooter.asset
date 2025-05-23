@@ -9,9 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dece9da6cbe88f949aa276027b130f15, type: 3}
-  m_Name: RightDowntoUp_TypeC_PathData
+  m_Script: {fileID: 11500000, guid: 020630e1ead07b64c808f9917b65c821, type: 3}
+  m_Name: T2Shooter
   m_EditorClassIdentifier: 
-  pathX: 240000001f0000001c00000019000000
-  pathY: 110000000f0000000b00000006000000
-  pathZ: 08000000060000000400000002000000
+  gunDatas:
+  - Data: {fileID: 11400000, guid: 1addcab5f931e164a8a29cdaf152ac7b, type: 2}
+    delayTime: 0.5
+    IsAdditonalAttack: 0
+    addtionalGunData: []
