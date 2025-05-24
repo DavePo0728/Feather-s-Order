@@ -10,32 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 680bd5654b8588d4ca635541184ffb83, type: 3}
-  m_Name: TutorialWave3
+  m_Name: TutorialWave7_slash
   m_EditorClassIdentifier: 
   spawnDataList: {fileID: 11400000, guid: cca16164670e772499695ce72801d513, type: 2}
   customPathDataList: {fileID: 11400000, guid: 005ab34dbeab2e944af123f4e064833d, type: 2}
   spawnGroupDataList:
-  - enemyData: 9
-    spawnData: 14
-    gunData: {fileID: 11400000, guid: 99ff78ffe29a55148a78a895f351fe2c, type: 2}
+  - enemyData: 13
+    spawnData: 36
+    gunData: {fileID: 11400000, guid: 8bd367b527fd2374b85e0dba8064b3d2, type: 2}
     entryType: 0
     moveType: 2
     leaveType: 0
     delayTime: 0
-    spawnType: 2
-  - enemyData: 9
-    spawnData: 17
-    gunData: {fileID: 11400000, guid: 99ff78ffe29a55148a78a895f351fe2c, type: 2}
-    entryType: 0
-    moveType: 2
-    leaveType: 0
-    delayTime: 0
-    spawnType: 2
-  - enemyData: 9
-    spawnData: 18
-    gunData: {fileID: 11400000, guid: 99ff78ffe29a55148a78a895f351fe2c, type: 2}
-    entryType: 0
-    moveType: 2
-    leaveType: 0
-    delayTime: 0.5
     spawnType: 2

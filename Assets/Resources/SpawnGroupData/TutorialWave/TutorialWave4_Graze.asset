@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 680bd5654b8588d4ca635541184ffb83, type: 3}
-  m_Name: TutorialWave4
+  m_Name: TutorialWave4_Graze
   m_EditorClassIdentifier: 
   spawnDataList: {fileID: 11400000, guid: cca16164670e772499695ce72801d513, type: 2}
   customPathDataList: {fileID: 11400000, guid: 005ab34dbeab2e944af123f4e064833d, type: 2}
   spawnGroupDataList:
-  - enemyData: 9
+  - enemyData: 10
     spawnData: 19
     gunData: {fileID: 11400000, guid: c3e37e6688dcd71409c2e42e4cd06591, type: 2}
     entryType: 0
@@ -23,7 +23,7 @@ MonoBehaviour:
     leaveType: 0
     delayTime: 0
     spawnType: 2
-  - enemyData: 9
+  - enemyData: 10
     spawnData: 20
     gunData: {fileID: 11400000, guid: c3e37e6688dcd71409c2e42e4cd06591, type: 2}
     entryType: 0
@@ -31,7 +31,7 @@ MonoBehaviour:
     leaveType: 0
     delayTime: 0
     spawnType: 2
-  - enemyData: 9
+  - enemyData: 10
     spawnData: 21
     gunData: {fileID: 11400000, guid: c3e37e6688dcd71409c2e42e4cd06591, type: 2}
     entryType: 0
@@ -39,7 +39,7 @@ MonoBehaviour:
     leaveType: 0
     delayTime: 0
     spawnType: 2
-  - enemyData: 9
+  - enemyData: 10
     spawnData: 22
     gunData: {fileID: 11400000, guid: c3e37e6688dcd71409c2e42e4cd06591, type: 2}
     entryType: 0
@@ -47,7 +47,7 @@ MonoBehaviour:
     leaveType: 0
     delayTime: 0
     spawnType: 2
-  - enemyData: 9
+  - enemyData: 10
     spawnData: 23
     gunData: {fileID: 11400000, guid: c3e37e6688dcd71409c2e42e4cd06591, type: 2}
     entryType: 0
@@ -55,7 +55,7 @@ MonoBehaviour:
     leaveType: 0
     delayTime: 0
     spawnType: 2
-  - enemyData: 9
+  - enemyData: 10
     spawnData: 24
     gunData: {fileID: 11400000, guid: c3e37e6688dcd71409c2e42e4cd06591, type: 2}
     entryType: 0
