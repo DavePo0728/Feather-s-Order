@@ -1,13 +1,15 @@
-using PathCreationEditor;
+Ôªøusing PathCreationEditor;
+using System;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEditorInternal.VR;
 using UnityEngine;
+using static UnityEngine.Random;
 
 [CustomEditor(typeof(SpawnDataEditor))]
 public class SpawnDataEditorEditor : Editor
 {
-	private bool showGroup1 = false; // ßÔ¶W¶r§Ò∏˚™Ωƒ±
+	private bool showGroup1 = false; // ÊîπÂêçÂ≠óÊØîËºÉÁõ¥Ë¶∫
 	private SerializedProperty endTargetListProp;
 	public override void OnInspectorGUI()
 	{
@@ -17,12 +19,13 @@ public class SpawnDataEditorEditor : Editor
 		SpawnDataEditor SDEditor = (SpawnDataEditor)target;
 		SerializedProperty iterator = serializedObject.GetIterator();
 		SerializedProperty iterator2 = serializedObject.GetIterator();
-		iterator.NextVisible(true); // ∏ıπL script ƒÊ¶Ï
+		SerializedProperty iterator3 = serializedObject.GetIterator();
+		iterator.NextVisible(true); // Ë∑≥ÈÅé script Ê¨Ñ‰Ωç
 		while (iterator.NextVisible(false))
 		{
 			EditorGUILayout.PropertyField(iterator, true);
 
-			// ß‰®Ï spawnPosition ƒ›© ´·¥°§J´ˆ∂s
+			// ÊâæÂà∞ spawnPosition Â±¨ÊÄßÂæåÊèíÂÖ•ÊåâÈàï
 			if (iterator.name == "spawnData")
 			{
 				SerializedProperty spawnPosProp = iterator.FindPropertyRelative("spawnPosition");
@@ -31,15 +34,27 @@ public class SpawnDataEditorEditor : Editor
 				{
 					EditorGUILayout.PropertyField(spawnPosProp);
 
-					// ¥°§J´ˆ∂s¶b spawnPosition §U
+					// ÊèíÂÖ•ÊåâÈàïÂú® spawnPosition ‰∏ã
 					GUILayout.BeginHorizontal();
 					if (GUILayout.Button("EditPos"))
 					{
 						SDEditor.GotoTargetPosition(SDEditor.StartTarget, SDEditor.spawnData.spawnPosition);
 					}
+
+
 					GUILayout.BeginHorizontal();
-					GUILayout.FlexibleSpace(); // ≈˝§W¡‰©~§§
-					if (GUILayout.Button("°ˆ", GUILayout.Width(30), GUILayout.Height(30)))
+					GUILayout.FlexibleSpace(); // ËÆì‰∏äÈçµÂ±Ö‰∏≠
+					if (GUILayout.Button("X‚Ü∫", GUILayout.Width(30), GUILayout.Height(30)))
+					{
+						SDEditor.spawnData.spawnPosition = SDEditor.ReversalPosX(SDEditor.spawnData.spawnPosition);
+						SDEditor.GotoTargetPosition(SDEditor.StartTarget, SDEditor.spawnData.spawnPosition);
+					}
+					if (GUILayout.Button("Y‚Ü∫", GUILayout.Width(30), GUILayout.Height(30)))
+					{
+						SDEditor.spawnData.spawnPosition = SDEditor.ReversalPosY(SDEditor.spawnData.spawnPosition);
+						SDEditor.GotoTargetPosition(SDEditor.StartTarget, SDEditor.spawnData.spawnPosition);
+					}
+					if (GUILayout.Button("‚Üê", GUILayout.Width(30), GUILayout.Height(30)))
 					{
 						SDEditor.spawnData.spawnPosition = SDEditor.MicroPos(SDEditor.spawnData.spawnPosition, new Vector3(-1f, 0, 0));
 						SDEditor.GotoTargetPosition(SDEditor.StartTarget, SDEditor.spawnData.spawnPosition);
@@ -47,19 +62,19 @@ public class SpawnDataEditorEditor : Editor
 					//GUILayout.FlexibleSpace();
 					GUILayout.EndHorizontal();
 
-					// §§°]•™ªP•k°^
+					// ‰∏≠ÔºàÂ∑¶ËàáÂè≥Ôºâ
 					GUILayout.BeginHorizontal();
 
-					if (GUILayout.Button("°Ù", GUILayout.Width(30), GUILayout.Height(30)))
+					if (GUILayout.Button("‚Üë", GUILayout.Width(30), GUILayout.Height(30)))
 					{
 						SDEditor.spawnData.spawnPosition = SDEditor.MicroPos(SDEditor.spawnData.spawnPosition, new Vector3(0, -1f, 0));
 						SDEditor.GotoTargetPosition(SDEditor.StartTarget, SDEditor.spawnData.spawnPosition);
 					}
 
-					// §U
+					// ‰∏ã
 					GUILayout.BeginHorizontal();
-					//GUILayout.FlexibleSpace(); // ≈˝§U¡‰©~§§
-					if (GUILayout.Button("°ı", GUILayout.Width(30), GUILayout.Height(30)))
+					//GUILayout.FlexibleSpace(); // ËÆì‰∏ãÈçµÂ±Ö‰∏≠
+					if (GUILayout.Button("‚Üì", GUILayout.Width(30), GUILayout.Height(30)))
 					{
 						SDEditor.spawnData.spawnPosition = SDEditor.MicroPos(SDEditor.spawnData.spawnPosition, new Vector3(0, 1, 0));
 						SDEditor.GotoTargetPosition(SDEditor.StartTarget, SDEditor.spawnData.spawnPosition);
@@ -67,18 +82,23 @@ public class SpawnDataEditorEditor : Editor
 					//GUILayout.FlexibleSpace();
 					GUILayout.EndHorizontal();
 					//GUILayout.Space(10);
-					if (GUILayout.Button("°˜", GUILayout.Width(30), GUILayout.Height(30)))
+					if (GUILayout.Button("‚Üí", GUILayout.Width(30), GUILayout.Height(30)))
 					{
 						SDEditor.spawnData.spawnPosition = SDEditor.MicroPos(SDEditor.spawnData.spawnPosition, new Vector3(1, 0, 0));
 						SDEditor.GotoTargetPosition(SDEditor.StartTarget, SDEditor.spawnData.spawnPosition);
 					}
-					GUILayout.Space(50);
-					if (GUILayout.Button("°ˆ", GUILayout.Width(30), GUILayout.Height(30)))
+					GUILayout.Space(20);
+					if (GUILayout.Button("‚Ü∫", GUILayout.Width(30), GUILayout.Height(30)))
+					{
+						SDEditor.spawnData.spawnPosition = SDEditor.ReversalPosZ(SDEditor.spawnData.spawnPosition);
+						SDEditor.GotoTargetPosition(SDEditor.StartTarget, SDEditor.spawnData.spawnPosition);
+					}
+					if (GUILayout.Button("‚Üê", GUILayout.Width(30), GUILayout.Height(30)))
 					{
 						SDEditor.spawnData.spawnPosition = SDEditor.MicroPos(SDEditor.spawnData.spawnPosition, new Vector3(0, 0, -1));
 						SDEditor.GotoTargetPosition(SDEditor.StartTarget, SDEditor.spawnData.spawnPosition);
 					}
-					if (GUILayout.Button("°˜", GUILayout.Width(30), GUILayout.Height(30)))
+					if (GUILayout.Button("‚Üí", GUILayout.Width(30), GUILayout.Height(30)))
 					{
 						SDEditor.spawnData.spawnPosition = SDEditor.MicroPos(SDEditor.spawnData.spawnPosition, new Vector3(0, 0, 1f));
 						SDEditor.GotoTargetPosition(SDEditor.StartTarget, SDEditor.spawnData.spawnPosition);
@@ -87,95 +107,120 @@ public class SpawnDataEditorEditor : Editor
 					GUILayout.EndHorizontal();
 				}
 				SerializedProperty endPosition = iterator.FindPropertyRelative("endPosition");
-                if (SDEditor.spawnEditDataType == SpawnEditDataType.TypeA)
-                {
+				if (SDEditor.spawnEditDataType == SpawnEditDataType.TypeA)
+				{
 
-                    if (endPosition != null)
-                    {
-                        EditorGUILayout.PropertyField(endPosition);
+					if (endPosition != null)
+					{
+						EditorGUILayout.PropertyField(endPosition);
 
-                        // ¥°§J´ˆ∂s¶b spawnPosition §U
-                        GUILayout.BeginHorizontal();
-                        if (GUILayout.Button("EditPos"))
-                        {
-                            SDEditor.GotoTargetPosition(SDEditor.EndTarget, SDEditor.spawnData.endPosition);
-                        }
-                        GUILayout.BeginHorizontal();
-                        GUILayout.FlexibleSpace(); // ≈˝§W¡‰©~§§
-                        if (GUILayout.Button("°ˆ", GUILayout.Width(30), GUILayout.Height(30)))
-                        {
-                            SDEditor.spawnData.endPosition = SDEditor.MicroPos(SDEditor.spawnData.endPosition, new Vector3(-1f, 0, 0));
-                            SDEditor.GotoTargetPosition(SDEditor.EndTarget, SDEditor.spawnData.endPosition);
-                        }
-                        //GUILayout.FlexibleSpace();
-                        GUILayout.EndHorizontal();
+						// ÊèíÂÖ•ÊåâÈàïÂú® spawnPosition ‰∏ã
+						GUILayout.BeginHorizontal();
+						if (GUILayout.Button("EditPos"))
+						{
+							SDEditor.GotoTargetPosition(SDEditor.EndTarget, SDEditor.spawnData.endPosition);
+						}
+						GUILayout.BeginHorizontal();
+						GUILayout.FlexibleSpace(); // ËÆì‰∏äÈçµÂ±Ö‰∏≠
+						if (GUILayout.Button("X‚Ü∫", GUILayout.Width(30), GUILayout.Height(30)))
+						{
+							SDEditor.spawnData.endPosition = SDEditor.ReversalPosX(SDEditor.spawnData.endPosition);
+							SDEditor.GotoTargetPosition(SDEditor.EndTarget, SDEditor.spawnData.endPosition);
+						}
+						if (GUILayout.Button("Y‚Ü∫", GUILayout.Width(30), GUILayout.Height(30)))
+						{
+							SDEditor.spawnData.endPosition = SDEditor.ReversalPosY(SDEditor.spawnData.endPosition);
+							SDEditor.GotoTargetPosition(SDEditor.EndTarget, SDEditor.spawnData.endPosition);
+						}
+						if (GUILayout.Button("‚Üê", GUILayout.Width(30), GUILayout.Height(30)))
+						{
+							SDEditor.spawnData.endPosition = SDEditor.MicroPos(SDEditor.spawnData.endPosition, new Vector3(-1f, 0, 0));
+							SDEditor.GotoTargetPosition(SDEditor.EndTarget, SDEditor.spawnData.endPosition);
+						}
+						//GUILayout.FlexibleSpace();
+						GUILayout.EndHorizontal();
 
-                        // §§°]•™ªP•k°^
-                        GUILayout.BeginHorizontal();
+						// ‰∏≠ÔºàÂ∑¶ËàáÂè≥Ôºâ
+						GUILayout.BeginHorizontal();
 
-                        if (GUILayout.Button("°Ù", GUILayout.Width(30), GUILayout.Height(30)))
-                        {
-                            SDEditor.spawnData.endPosition = SDEditor.MicroPos(SDEditor.spawnData.endPosition, new Vector3(0, -1f, 0));
-                            SDEditor.GotoTargetPosition(SDEditor.EndTarget, SDEditor.spawnData.endPosition);
-                        }
+						if (GUILayout.Button("‚Üë", GUILayout.Width(30), GUILayout.Height(30)))
+						{
+							SDEditor.spawnData.endPosition = SDEditor.MicroPos(SDEditor.spawnData.endPosition, new Vector3(0, -1f, 0));
+							SDEditor.GotoTargetPosition(SDEditor.EndTarget, SDEditor.spawnData.endPosition);
+						}
 
-                        // §U
-                        GUILayout.BeginHorizontal();
-                        //GUILayout.FlexibleSpace(); // ≈˝§U¡‰©~§§
-                        if (GUILayout.Button("°ı", GUILayout.Width(30), GUILayout.Height(30)))
-                        {
-                            SDEditor.spawnData.endPosition = SDEditor.MicroPos(SDEditor.spawnData.endPosition, new Vector3(0, 1, 0));
-                            SDEditor.GotoTargetPosition(SDEditor.EndTarget, SDEditor.spawnData.endPosition);
-                        }
-                        //GUILayout.FlexibleSpace();
-                        GUILayout.EndHorizontal();
-                        //GUILayout.Space(10);
-                        if (GUILayout.Button("°˜", GUILayout.Width(30), GUILayout.Height(30)))
-                        {
-                            SDEditor.spawnData.endPosition = SDEditor.MicroPos(SDEditor.spawnData.endPosition, new Vector3(1, 0, 0));
-                            SDEditor.GotoTargetPosition(SDEditor.EndTarget, SDEditor.spawnData.endPosition);
-                        }
-                        GUILayout.Space(50);
-                        if (GUILayout.Button("°ˆ", GUILayout.Width(30), GUILayout.Height(30)))
-                        {
-                            SDEditor.spawnData.endPosition = SDEditor.MicroPos(SDEditor.spawnData.endPosition, new Vector3(0, 0, -1));
-                            SDEditor.GotoTargetPosition(SDEditor.EndTarget, SDEditor.spawnData.endPosition);
-                        }
-                        if (GUILayout.Button("°˜", GUILayout.Width(30), GUILayout.Height(30)))
-                        {
-                            SDEditor.spawnData.endPosition = SDEditor.MicroPos(SDEditor.spawnData.endPosition, new Vector3(0, 0, 1f));
-                            SDEditor.GotoTargetPosition(SDEditor.EndTarget, SDEditor.spawnData.endPosition);
-                        }
-                        GUILayout.EndHorizontal();
-                        GUILayout.EndHorizontal();
-                    }
+						// ‰∏ã
+						GUILayout.BeginHorizontal();
+						//GUILayout.FlexibleSpace(); // ËÆì‰∏ãÈçµÂ±Ö‰∏≠
+						if (GUILayout.Button("‚Üì", GUILayout.Width(30), GUILayout.Height(30)))
+						{
+							SDEditor.spawnData.endPosition = SDEditor.MicroPos(SDEditor.spawnData.endPosition, new Vector3(0, 1, 0));
+							SDEditor.GotoTargetPosition(SDEditor.EndTarget, SDEditor.spawnData.endPosition);
+						}
+						//GUILayout.FlexibleSpace();
+						GUILayout.EndHorizontal();
+						//GUILayout.Space(10);
+						if (GUILayout.Button("‚Üí", GUILayout.Width(30), GUILayout.Height(30)))
+						{
+							SDEditor.spawnData.endPosition = SDEditor.MicroPos(SDEditor.spawnData.endPosition, new Vector3(1, 0, 0));
+							SDEditor.GotoTargetPosition(SDEditor.EndTarget, SDEditor.spawnData.endPosition);
+						}
+						GUILayout.Space(20);
+						if (GUILayout.Button("‚Ü∫", GUILayout.Width(30), GUILayout.Height(30)))
+						{
+							SDEditor.spawnData.endPosition = SDEditor.ReversalPosZ(SDEditor.spawnData.endPosition);
+							SDEditor.GotoTargetPosition(SDEditor.EndTarget, SDEditor.spawnData.endPosition);
+						}
+						if (GUILayout.Button("‚Üê", GUILayout.Width(30), GUILayout.Height(30)))
+						{
+							SDEditor.spawnData.endPosition = SDEditor.MicroPos(SDEditor.spawnData.endPosition, new Vector3(0, 0, -1));
+							SDEditor.GotoTargetPosition(SDEditor.EndTarget, SDEditor.spawnData.endPosition);
+						}
+						if (GUILayout.Button("‚Üí", GUILayout.Width(30), GUILayout.Height(30)))
+						{
+							SDEditor.spawnData.endPosition = SDEditor.MicroPos(SDEditor.spawnData.endPosition, new Vector3(0, 0, 1f));
+							SDEditor.GotoTargetPosition(SDEditor.EndTarget, SDEditor.spawnData.endPosition);
+						}
+						GUILayout.EndHorizontal();
+						GUILayout.EndHorizontal();
+					}
 
-                    SDEditor.SetLineToPath();
+					SDEditor.SetLineToPath();
 					SDEditor.TargetWaySetActive();
 
 				}
-                if (SDEditor.spawnEditDataType == SpawnEditDataType.TypeC)
-                {
+				if (SDEditor.spawnEditDataType == SpawnEditDataType.TypeC)
+				{
 
-                    reorderableList.DoLayoutList();
+					reorderableList.DoLayoutList();
 
 					SDEditor.SetLineToPath();
 					SDEditor.TargetWaySetActive();
 				}
-                SerializedProperty LeavePositon = iterator.FindPropertyRelative("LeavePositon");
+				SerializedProperty LeavePositon = iterator.FindPropertyRelative("LeavePositon");
 				if (LeavePositon != null)
 				{
 					EditorGUILayout.PropertyField(LeavePositon);
 
-					// ¥°§J´ˆ∂s¶b spawnPosition §U
+					// ÊèíÂÖ•ÊåâÈàïÂú® spawnPosition ‰∏ã
 					GUILayout.BeginHorizontal();
 					if (GUILayout.Button("EditPos"))
 					{
 						SDEditor.GotoTargetPosition(SDEditor.LeaveTarget, SDEditor.spawnData.LeavePositon);
 					}
 					GUILayout.BeginHorizontal();
-					GUILayout.FlexibleSpace(); // ≈˝§W¡‰©~§§
-					if (GUILayout.Button("°ˆ", GUILayout.Width(30), GUILayout.Height(30)))
+					GUILayout.FlexibleSpace(); // ËÆì‰∏äÈçµÂ±Ö‰∏≠
+					if (GUILayout.Button("X‚Ü∫", GUILayout.Width(30), GUILayout.Height(30)))
+					{
+						SDEditor.spawnData.LeavePositon = SDEditor.ReversalPosX(SDEditor.spawnData.LeavePositon);
+						SDEditor.GotoTargetPosition(SDEditor.LeaveTarget, SDEditor.spawnData.LeavePositon);
+					}
+					if (GUILayout.Button("Y‚Ü∫", GUILayout.Width(30), GUILayout.Height(30)))
+					{
+						SDEditor.spawnData.LeavePositon = SDEditor.ReversalPosY(SDEditor.spawnData.LeavePositon);
+						SDEditor.GotoTargetPosition(SDEditor.LeaveTarget, SDEditor.spawnData.LeavePositon);
+					}
+					if (GUILayout.Button("‚Üê", GUILayout.Width(30), GUILayout.Height(30)))
 					{
 						SDEditor.spawnData.LeavePositon = SDEditor.MicroPos(SDEditor.spawnData.LeavePositon, new Vector3(-1f, 0, 0));
 						SDEditor.GotoTargetPosition(SDEditor.LeaveTarget, SDEditor.spawnData.LeavePositon);
@@ -183,19 +228,19 @@ public class SpawnDataEditorEditor : Editor
 					//GUILayout.FlexibleSpace();
 					GUILayout.EndHorizontal();
 
-					// §§°]•™ªP•k°^
+					// ‰∏≠ÔºàÂ∑¶ËàáÂè≥Ôºâ
 					GUILayout.BeginHorizontal();
 
-					if (GUILayout.Button("°Ù", GUILayout.Width(30), GUILayout.Height(30)))
+					if (GUILayout.Button("‚Üë", GUILayout.Width(30), GUILayout.Height(30)))
 					{
 						SDEditor.spawnData.LeavePositon = SDEditor.spawnData.endPosition = SDEditor.MicroPos(SDEditor.spawnData.LeavePositon, new Vector3(0, -1f, 0));
 						SDEditor.GotoTargetPosition(SDEditor.LeaveTarget, SDEditor.spawnData.LeavePositon);
 					}
 
-					// §U
+					// ‰∏ã
 					GUILayout.BeginHorizontal();
-					//GUILayout.FlexibleSpace(); // ≈˝§U¡‰©~§§
-					if (GUILayout.Button("°ı", GUILayout.Width(30), GUILayout.Height(30)))
+					//GUILayout.FlexibleSpace(); // ËÆì‰∏ãÈçµÂ±Ö‰∏≠
+					if (GUILayout.Button("‚Üì", GUILayout.Width(30), GUILayout.Height(30)))
 					{
 						SDEditor.spawnData.LeavePositon = SDEditor.MicroPos(SDEditor.spawnData.LeavePositon, new Vector3(0, 1, 0));
 						SDEditor.GotoTargetPosition(SDEditor.LeaveTarget, SDEditor.spawnData.LeavePositon);
@@ -203,18 +248,23 @@ public class SpawnDataEditorEditor : Editor
 					//GUILayout.FlexibleSpace();
 					GUILayout.EndHorizontal();
 					//GUILayout.Space(10);
-					if (GUILayout.Button("°˜", GUILayout.Width(30), GUILayout.Height(30)))
+					if (GUILayout.Button("‚Üí", GUILayout.Width(30), GUILayout.Height(30)))
 					{
 						SDEditor.spawnData.LeavePositon = SDEditor.MicroPos(SDEditor.spawnData.LeavePositon, new Vector3(1, 0, 0));
 						SDEditor.GotoTargetPosition(SDEditor.LeaveTarget, SDEditor.spawnData.LeavePositon);
 					}
-					GUILayout.Space(50);
-					if (GUILayout.Button("°ˆ", GUILayout.Width(30), GUILayout.Height(30)))
+					GUILayout.Space(20);
+					if (GUILayout.Button("‚Ü∫", GUILayout.Width(30), GUILayout.Height(30)))
+					{
+						SDEditor.spawnData.LeavePositon = SDEditor.ReversalPosZ(SDEditor.spawnData.LeavePositon);
+						SDEditor.GotoTargetPosition(SDEditor.LeaveTarget, SDEditor.spawnData.LeavePositon);
+					}
+					if (GUILayout.Button("‚Üê", GUILayout.Width(30), GUILayout.Height(30)))
 					{
 						SDEditor.spawnData.LeavePositon = SDEditor.MicroPos(SDEditor.spawnData.LeavePositon, new Vector3(0, 0, -1));
 						SDEditor.GotoTargetPosition(SDEditor.LeaveTarget, SDEditor.spawnData.LeavePositon);
 					}
-					if (GUILayout.Button("°˜", GUILayout.Width(30), GUILayout.Height(30)))
+					if (GUILayout.Button("‚Üí", GUILayout.Width(30), GUILayout.Height(30)))
 					{
 						SDEditor.spawnData.LeavePositon = SDEditor.MicroPos(SDEditor.spawnData.LeavePositon, new Vector3(0, 0, 1f));
 						SDEditor.GotoTargetPosition(SDEditor.LeaveTarget, SDEditor.spawnData.LeavePositon);
@@ -222,11 +272,63 @@ public class SpawnDataEditorEditor : Editor
 					GUILayout.EndHorizontal();
 					GUILayout.EndHorizontal();
 				}
-				// ≤§πL spawnData ™∫®‰æl§∫≥°ƒÊ¶Ï°A®æ§Ó≠´Ω∆≈„•‹
+				// Áï•ÈÅé spawnData ÁöÑÂÖ∂È§òÂÖßÈÉ®Ê¨Ñ‰ΩçÔºåÈò≤Ê≠¢ÈáçË§áÈ°ØÁ§∫
 				break;
 			}
 		}
-		showGroup1 = EditorGUILayout.Foldout(showGroup1, "∏ÍÆ∆", true);
+		//if (iterator.name == "ÁßªÂãïÊâÄÊúâ")
+		//{
+		//	float spacing = 2f;
+		//	float btnW = 30f, btnH = 30f;
+		//	float startX = rect.x + 20;
+		//	float startY = rect.y + lineHeight + spacing + 35f;
+		//	if (GUI.Button(new Rect(startX, startY, 60, btnH), "EditPos"))
+		//	{
+		//		//SDEditor.GotoTargetPosition(SDEditor.EndTargePath[index], SDEditor.EndTargetList[index]);
+		//	}
+
+		//	if (GUI.Button(new Rect(startX + 70, startY, btnW, btnH), "‚Üê"))
+		//	{
+				
+		//	}
+		//	if (GUI.Button(new Rect(startX, startY - btnH - spacing, btnW, btnH), "X‚Ü∫"))
+		//	{
+
+		//	}
+		//	if (GUI.Button(new Rect(startX + 105, startY - btnH - spacing, btnW, btnH), "‚Üë"))
+		//	{
+
+		//	}
+
+
+
+		//	if (GUI.Button(new Rect(startX + 105, startY + btnH + spacing, btnW, btnH), "‚Üì"))
+		//	{
+
+		//	}
+		//	if (GUI.Button(new Rect(startX, startY + btnH + spacing, btnW, btnH), "Y‚Ü∫"))
+		//	{
+
+		//	}
+		//	if (GUI.Button(new Rect(startX + 140, startY, btnW, btnH), "‚Üí"))
+		//	{
+
+		//	}
+
+		//	if (GUI.Button(new Rect(startX + 180, startY, btnW, btnH), "Z‚Üê"))
+		//	{
+
+		//	}
+		//	if (GUI.Button(new Rect(startX + 215, startY, btnW, btnH), "‚Ü∫"))
+		//	{
+
+		//	}
+		//	if (GUI.Button(new Rect(startX + 250, startY, btnW, btnH), "Z‚Üí"))
+		//	{
+
+		//	}
+		//}
+			showGroup1 = EditorGUILayout.Foldout(showGroup1, "Ë≥áÊñô", true);
 		if (showGroup1)
 		{
 			EditorGUILayout.PropertyField(serializedObject.FindProperty("Center"));
@@ -255,20 +357,20 @@ public class SpawnDataEditorEditor : Editor
 			
 		}
 		EditorGUILayout.PropertyField(serializedObject.FindProperty("NewDataName"));
-		// ≠Ï•ª™∫•\Ø‡´OØd
-		if (GUILayout.Button("∑sºW •Õ¶®∏ÍÆ∆"))
+		// ÂéüÊú¨ÁöÑÂäüËÉΩ‰øùÁïô
+		if (GUILayout.Button("Êñ∞Â¢û ÁîüÊàêË≥áÊñô"))
 		{
 			((SpawnDataEditor)target).CreateSpawnDataAsset();
 		}
 		EditorGUILayout.PropertyField(serializedObject.FindProperty("CustomPathData"));
 		EditorGUILayout.PropertyField(serializedObject.FindProperty("SpawnData"));
-		if (GUILayout.Button("≈™®˙∏ÍÆ∆"))
+		if (GUILayout.Button("ËÆÄÂèñË≥áÊñô"))
 		{
 			((SpawnDataEditor)target).LoadingMyData();
 
 		}
 		GUILayout.Space(100);
-		if (GUILayout.Button("¬–ª\∏ÍÆ∆"))
+		if (GUILayout.Button("Ë¶ÜËìãË≥áÊñô"))
 		{
 			((SpawnDataEditor)target).OverwriteData();
 
@@ -356,42 +458,59 @@ public class SpawnDataEditorEditor : Editor
 					SDEditor.GotoTargetPosition(SDEditor.EndTargePath[index], SDEditor.EndTargetList[index]);
 				}
 
-				if (GUI.Button(new Rect(startX + 70, startY, btnW, btnH), "°ˆ"))
+				if (GUI.Button(new Rect(startX + 70, startY, btnW, btnH), "‚Üê"))
 				{
 					SDEditor.EndTargetList[index] = SDEditor.MicroPos(SDEditor.EndTargetList[index], new Vector3(-1f, 0, 0));
 					SDEditor.GotoTargetPosition(SDEditor.EndTargePath[index], SDEditor.EndTargetList[index]);
 					SDEditor.SetWaypoints(index);
 				}
-
-				if (GUI.Button(new Rect(startX + 105, startY - btnH - spacing, btnW, btnH), "°Ù"))
+				if (GUI.Button(new Rect(startX , startY - btnH - spacing, btnW, btnH), "X‚Ü∫"))
+				{
+					SDEditor.EndTargetList[index] = SDEditor.ReversalPosX(SDEditor.EndTargetList[index]);
+					SDEditor.GotoTargetPosition(SDEditor.EndTargePath[index], SDEditor.EndTargetList[index]);
+					SDEditor.SetWaypoints(index);
+				}
+				if (GUI.Button(new Rect(startX + 105, startY - btnH - spacing, btnW, btnH), "‚Üë"))
 				{
 					SDEditor.EndTargetList[index] = SDEditor.MicroPos(SDEditor.EndTargetList[index], new Vector3(0, -1f, 0));
 					SDEditor.GotoTargetPosition(SDEditor.EndTargePath[index], SDEditor.EndTargetList[index]);
 					SDEditor.SetWaypoints(index);
 				}
 
-				if (GUI.Button(new Rect(startX + 105, startY + btnH + spacing, btnW, btnH), "°ı"))
+				
+
+				if (GUI.Button(new Rect(startX + 105, startY + btnH + spacing, btnW, btnH), "‚Üì"))
 				{
 					SDEditor.EndTargetList[index] = SDEditor.MicroPos(SDEditor.EndTargetList[index], new Vector3(0, 1f, 0));
 					SDEditor.GotoTargetPosition(SDEditor.EndTargePath[index], SDEditor.EndTargetList[index]);
 					SDEditor.SetWaypoints(index);
 				}
-
-				if (GUI.Button(new Rect(startX + 140, startY, btnW, btnH), "°˜"))
+				if (GUI.Button(new Rect(startX , startY + btnH + spacing, btnW, btnH), "Y‚Ü∫"))
+				{
+					SDEditor.EndTargetList[index] = SDEditor.ReversalPosY(SDEditor.EndTargetList[index]);
+					SDEditor.GotoTargetPosition(SDEditor.EndTargePath[index], SDEditor.EndTargetList[index]);
+					SDEditor.SetWaypoints(index);
+				}
+				if (GUI.Button(new Rect(startX + 140, startY, btnW, btnH), "‚Üí"))
 				{
 					SDEditor.EndTargetList[index] = SDEditor.MicroPos(SDEditor.EndTargetList[index], new Vector3(1f, 0, 0));
 					SDEditor.GotoTargetPosition(SDEditor.EndTargePath[index], SDEditor.EndTargetList[index]);
 					SDEditor.SetWaypoints(index);
 				}
 
-				if (GUI.Button(new Rect(startX + 180, startY, btnW, btnH), "Z°ˆ"))
+				if (GUI.Button(new Rect(startX + 180, startY, btnW, btnH), "Z‚Üê"))
 				{
 					SDEditor.EndTargetList[index] = SDEditor.MicroPos(SDEditor.EndTargetList[index], new Vector3(0, 0, -1f));
 					SDEditor.GotoTargetPosition(SDEditor.EndTargePath[index], SDEditor.EndTargetList[index]);
 					SDEditor.SetWaypoints(index);
 				}
-
-				if (GUI.Button(new Rect(startX + 215, startY, btnW, btnH), "Z°˜"))
+				if (GUI.Button(new Rect(startX + 215, startY, btnW, btnH), "‚Ü∫"))
+				{
+					SDEditor.EndTargetList[index] = SDEditor.ReversalPosZ(SDEditor.EndTargetList[index]);
+					SDEditor.GotoTargetPosition(SDEditor.EndTargePath[index], SDEditor.EndTargetList[index]);
+					SDEditor.SetWaypoints(index);
+				}
+				if (GUI.Button(new Rect(startX + 250, startY, btnW, btnH), "Z‚Üí"))
 				{
 					SDEditor.EndTargetList[index] = SDEditor.MicroPos(SDEditor.EndTargetList[index], new Vector3(0, 0, 1f));
 					SDEditor.GotoTargetPosition(SDEditor.EndTargePath[index], SDEditor.EndTargetList[index]);
@@ -407,5 +526,4 @@ public class SpawnDataEditorEditor : Editor
 				: EditorGUIUtility.singleLineHeight;
 		};
 	}
-
 }

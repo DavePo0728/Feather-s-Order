@@ -190,6 +190,27 @@ public class SpawnDataEditor : MonoBehaviour
 		target = target + offset;
 		return target;
 	}
+	public Vector3 ReversalPosX(Vector3 target)
+	{
+		Vector3 max = new Vector3(47, 23, 14);
+
+		target = new Vector3(max.x - target.x,target.y, target.z);
+		return target;
+	}
+	public Vector3 ReversalPosY(Vector3 target)
+	{
+		Vector3 max = new Vector3(47, 23, 14);
+
+		target = new Vector3(target.x, max.y - target.y, target.z);
+		return target;
+	}
+	public Vector3 ReversalPosZ(Vector3 target)
+	{
+		Vector3 max = new Vector3(47, 23, 14);
+		target = new Vector3(target.x,target.y, max.z-target.z);
+		return target;
+	}
+
 	public void CreateSpawnDataAsset()
 	{
 		switch (spawnEditDataType)
@@ -471,6 +492,7 @@ public class SpawnDataEditor : MonoBehaviour
 		spawnData.LeavePositon = sp.data.LeavePositon;
 		SpawnData.data.customPathNum = sp.data.customPathNum;
 		SpawnData.data.curveHeight = sp.data.curveHeight;
+		SpawnData.data.customPathNum = sp.data.customPathNum;
 
 		// 4. ¦P¨B¸ô®|
 		SyncTargetPathsWithEndTargePath();
