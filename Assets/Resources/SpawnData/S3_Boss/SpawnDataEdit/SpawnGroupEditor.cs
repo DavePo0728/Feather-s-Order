@@ -90,8 +90,8 @@ public class SpawnGroupEditor : Editor
 
 						points.Add(spData.LeavePositon);
 
-						PolylineGraphUtility.DrawPolylineGraph(points, v => new Vector2(v.x, v.y), "XY 折線圖 (X-Y)");
-						PolylineGraphUtility.DrawPolylineGraph(points, v => new Vector2(v.y, v.z), "YZ 折線圖 (Y-Z)");
+						PolylineGraphUtility.DrawPolylineGraph(points, v => new Vector2(v.x, v.y), "XY 折線圖 (X-Y)", new Vector2(0, 0), new Vector2(47, 23));
+						PolylineGraphUtility.DrawPolylineGraph(points, v => new Vector2(v.z, v.y), "YZ 折線圖 (Y-Z)", new Vector2(0, 0), new Vector2(14, 23));
 					}
 				}
 			}
@@ -153,8 +153,8 @@ public class SpawnGroupEditor : Editor
 		GUILayout.Space(xOffset);
 		GUILayout.BeginVertical();
 
-		PolylineGraphUtility.DrawPolylineGraph(points, v => new Vector2(v.x, v.y), "XY 折線圖 (X-Y)");
-		PolylineGraphUtility.DrawPolylineGraph(points, v => new Vector2(v.y, v.z), "YZ 折線圖 (Y-Z)");
+		PolylineGraphUtility.DrawPolylineGraph(points, v => new Vector2(v.x, v.y), "XY 折線圖 (X-Y)", new Vector2(0, 0), new Vector2(47, 23));
+		PolylineGraphUtility.DrawPolylineGraph(points, v => new Vector2(v.z, v.y), "YZ 折線圖 (Y-Z)", new Vector2(0, 0), new Vector2(14, 23));
 
 		GUILayout.EndVertical();
 		GUILayout.EndHorizontal();

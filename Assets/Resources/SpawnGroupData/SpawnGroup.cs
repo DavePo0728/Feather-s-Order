@@ -11,8 +11,9 @@ public class SpawnGroup : SpawnGroupController
 	public List<SpawnGroupData> spawnGroupDataList;
     public override IEnumerator GenerateGroup(WaveManager manager)
     {
-        //Debug.Log("SpawnGroup Start");
-        foreach (var group in spawnGroupDataList)
+		Debug.Log(spawnGroupDataList);
+		//Debug.Log("SpawnGroup Start");
+		foreach (var group in spawnGroupDataList)
         {
             Debug.Log("Group Name: "+ group.ToString()+" "+group.enemyData + " " + group.spawnData + " " + group.gunData);
             var entry = manager.CreateEntryBehaviour(group.entryType);

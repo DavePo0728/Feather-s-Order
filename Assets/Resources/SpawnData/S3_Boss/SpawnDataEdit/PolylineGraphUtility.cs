@@ -18,7 +18,7 @@ public static class PolylineGraphUtility
 		return labelStyle;
 	}
 
-	public static void DrawPolylineGraph(List<Vector3> points, System.Func<Vector3, Vector2> selector, string title)
+	public static void DrawPolylineGraph(List<Vector3> points, System.Func<Vector3, Vector2> selector, string title, Vector2 min, Vector2 max)
 	{
 		if (points == null || points.Count < 2) return;
 
@@ -27,7 +27,7 @@ public static class PolylineGraphUtility
 		float graphHeight = graphWidth / 2f;
 
 		GUILayout.BeginVertical();
-		DrawGraph(title, points, selector, new Vector2(0, 0), new Vector2(47, 23), graphWidth, graphHeight, true);
+		DrawGraph(title, points, selector, min, max, graphWidth, graphHeight, true);
 		GUILayout.EndVertical();
 	}
 
@@ -40,6 +40,7 @@ public static class PolylineGraphUtility
 		EditorGUI.DrawRect(rect, new Color(0.1f, 0.1f, 0.1f));
 
 		Vector2 size = max - min;
+
 		Handles.BeginGUI();
 
 		float xMin = rect.x + padding;
@@ -60,7 +61,7 @@ public static class PolylineGraphUtility
 			GUI.Label(new Rect(rect.x, rect.y + rect.height - padding - 8, padding - 5, 16), "0", style);
 		GUI.Label(new Rect(rect.x, rect.y + padding - 8, padding - 5, 16), max.y.ToString("F0"), style);
 
-		// 折線與節點
+		// 折線與節點（先畫線）
 		for (int i = 0; i < data.Count - 1; i++)
 		{
 			Vector2 p1 = selector(data[i]);
@@ -70,28 +71,39 @@ public static class PolylineGraphUtility
 			Vector2 norm2 = new Vector2((p2.x - min.x) / size.x, (p2.y - min.y) / size.y);
 
 			Vector2 guiP1 = new Vector2(rect.x + padding + norm1.x * (rect.width - 2 * padding),
-										rect.y + padding + norm1.y * (rect.height - 2 * padding));
+										rect.y + padding + (1 - norm1.y) * (rect.height - 2 * padding));  // Y 軸反轉
 			Vector2 guiP2 = new Vector2(rect.x + padding + norm2.x * (rect.width - 2 * padding),
-										rect.y + padding + norm2.y * (rect.height - 2 * padding));
+										rect.y + padding + (1 - norm2.y) * (rect.height - 2 * padding));  // Y 軸反轉
 
 			Handles.color = Color.cyan;
 			Handles.DrawLine(guiP1, guiP2);
 		}
 
-		for (int i = 1; i < data.Count; i++)
+		// 畫點和標籤（最後畫，確保在最上層）
+		for (int i = 0; i < data.Count; i++)
 		{
 			Vector2 p = selector(data[i]);
 			Vector2 norm = new Vector2((p.x - min.x) / size.x, (p.y - min.y) / size.y);
 			Vector2 guiP = new Vector2(rect.x + padding + norm.x * (rect.width - 2 * padding),
-									   rect.y + padding + norm.y * (rect.height - 2 * padding));
+									   rect.y + padding + (1 - norm.y) * (rect.height - 2 * padding)); // Y 軸反轉
 
-			Handles.color = Color.yellow;
-			Handles.DrawSolidDisc(guiP, Vector3.forward, 2);
-			GUI.color = Color.white;
-			GUI.Label(new Rect(guiP.x + 3, guiP.y - 12, 60, 16), $"({p.x:F0},{p.y:F0})", style);
+			// 起點和終點顏色與大小不同
+			bool isStart = (i == 0);
+			bool isEnd = (i == data.Count - 1);
+			Handles.color = (isStart || isEnd) ? Color.red : Color.yellow;
+			float radius = (isStart || isEnd) ? 4f : 2f;
+			Handles.DrawSolidDisc(guiP, Vector3.forward, radius);
+
+			// 標籤內容
+			string labelText = isStart ? $"Start ({p.x:F0},{p.y:F0})" :
+							  isEnd ? $"End ({p.x:F0},{p.y:F0})" :
+							  $"({p.x:F0},{p.y:F0})";
+
+			Vector2 labelOffset = new Vector2(5, -15); // 偏移讓標籤不蓋點
+			Handles.Label(guiP + labelOffset, labelText, style);
 		}
 
 		Handles.EndGUI();
 	}
-}
 
+}

@@ -13,20 +13,20 @@ MonoBehaviour:
   m_Name: wave1
   m_EditorClassIdentifier: 
   waveSequence:
-  - groupName: WaveRe_test
+  - groupName: SpawnGroup_L1_C1
+    repeatCount: 1
+    delayAfterGroup: 0.5
+    killAllEnemies: 1
+  - groupName: SpawnGroup_L1_W2
     repeatCount: 1
     delayAfterGroup: 4
     killAllEnemies: 0
-  - groupName: WaveRe_01
-    repeatCount: 2
-    delayAfterGroup: 4
+  - groupName: SpawnGroup_L1_W3
+    repeatCount: 1
+    delayAfterGroup: 3
     killAllEnemies: 0
-  - groupName: WaveRe_02
-    repeatCount: 3
-    delayAfterGroup: 4
-    killAllEnemies: 0
-  - groupName: SpawnGroup_R1
-    repeatCount: 2
+  - groupName: SpawnGroup_L1_W4
+    repeatCount: 1
     delayAfterGroup: 3
     killAllEnemies: 0
   - groupName: SpawnGroup_L2
