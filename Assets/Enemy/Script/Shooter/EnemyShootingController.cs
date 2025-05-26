@@ -183,16 +183,25 @@ public class EnemyShootingController : MonoBehaviour
     // 扇形射擊 
     private IEnumerator SpreadFire(SubGunData g) ////有問題
     {
-        // 先計算出每顆子彈的角度
+        // 1. 計算張角的一半
         float half = g.spreadAngle * 0.5f;
-        float angle = half / (g.bulletAmount - 1);
+        // 2. 計算每顆之間該間隔多少度 (N-1 段)
+        float step = (g.bulletAmount > 1)
+            ? (g.spreadAngle / (g.bulletAmount - 1))
+            : 0f;
+
+        // 3. 一次把所有顆都生在同一幀
         for (int i = 0; i < g.bulletAmount; i++)
         {
-            // 計算每顆子彈的偏航角度
-            float yaw = -half + angle * i;
-            var rot = shooter.transform.rotation * Quaternion.Euler(0, yaw, 0);
+            // 從 -half 開始，每顆向右加 step
+            float yaw = -half + step * i;
+            Quaternion rot = shooter.transform.rotation
+                             * Quaternion.Euler(0f, yaw, 0f);
+
             ActiveBullet(shooter.transform.position, rot, g.bulletType);
         }
+
+        // 4. 最後再等冷卻
         yield return new WaitForSeconds(60f / g.rpm);
     }
     // 螺旋射擊
@@ -312,7 +321,14 @@ public class EnemyShootingController : MonoBehaviour
                 break;
 
             case ShootingPatternType.Spread:
-                shooter = shooterList[0];
+                if (gunData.trackPlayer)
+                {
+                    shooter = shooterList[1];
+                }
+                else
+                {
+                    shooter = shooterList[0];
+                }
                 if (shooter != null)
                 {
                     if (shooter.activeSelf == false)
@@ -324,7 +340,14 @@ public class EnemyShootingController : MonoBehaviour
                 break;
 
             case ShootingPatternType.Spiral:
-                shooter = shooterList[0];
+                if (gunData.trackPlayer)
+                {
+                    shooter = shooterList[1];
+                }
+                else
+                {
+                    shooter = shooterList[0];
+                }
                 if (shooter != null)
                 {
                     if (shooter.activeSelf == false)
@@ -335,7 +358,14 @@ public class EnemyShootingController : MonoBehaviour
                 SpiralFire(gunData);
                 break;
             case ShootingPatternType.shotgun:
-                shooter = shooterList[0];
+                if (gunData.trackPlayer)
+                {
+                    shooter = shooterList[1];
+                }
+                else
+                {
+                    shooter = shooterList[0];
+                }
                 if (shooter != null)
                 {
                     if (shooter.activeSelf == false)
@@ -346,18 +376,6 @@ public class EnemyShootingController : MonoBehaviour
                 StartCoroutine(ShotGun(gunData));
                 break;
             case ShootingPatternType.FourWay:
-                //fourWayGunSpin.speed = gunData.spinSpeed;
-                //foreach (var shooter in spinShooterList)
-                //{
-                //    if (shooter != null)
-                //    {
-                //        if (shooter.activeSelf == false)
-                //        {
-                //            shooter.SetActive(true);
-                //        }
-                //    }
-                //    CrossSpin(gunData);
-                //}
                 shooter = shooterList[0];
                 if (shooter != null)
                 {
@@ -369,7 +387,14 @@ public class EnemyShootingController : MonoBehaviour
                 CrossSpin(gunData);
                 break;
             case ShootingPatternType.FanSwing:
-                shooter = shooterList[0];
+                if (gunData.trackPlayer)
+                {
+                    shooter = shooterList[1];
+                }
+                else
+                {
+                    shooter = shooterList[0];
+                }
                 if (shooter != null)
                 {
                     if (shooter.activeSelf == false)

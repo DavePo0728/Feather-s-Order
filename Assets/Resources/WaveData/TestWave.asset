@@ -13,7 +13,11 @@ MonoBehaviour:
   m_Name: TestWave
   m_EditorClassIdentifier: 
   waveSequence:
-  - groupName: TestWave
+  - groupName: EmptyWave
+    repeatCount: 1
+    delayAfterGroup: 3
+    killAllEnemies: 0
+  - groupName: AsuisuiWave1
     repeatCount: 3
     delayAfterGroup: 3
-    killAllEnemies: 1
+    killAllEnemies: 0

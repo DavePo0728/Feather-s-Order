@@ -22,6 +22,10 @@ public class AimDetect : MonoBehaviour
     private void Update()
     {
         transform.LookAt(AimObject.transform);
+        if (enemiesInRange.Count>0&&playerAim.CheckLockedEnemy() == false)
+        {
+            enemiesInRange.RemoveAt(0);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -83,5 +87,6 @@ public class AimDetect : MonoBehaviour
     {
         playerAim.lockedEnemy = AimObject;
         playerAim.isLocked = false;
+        
     }
 }

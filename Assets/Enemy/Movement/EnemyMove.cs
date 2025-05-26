@@ -58,6 +58,7 @@ public class EnemyMove : MonoBehaviour
     private void Awake()
     {
         enemyHp = GetComponent<EnemyHp>();
+        gun = transform.Find("Guns").gameObject;
         if (entryTime+moveTime+leaveTime>lifeTime)
         {
             Debug.LogError("you are idoit sandwich!!!!");

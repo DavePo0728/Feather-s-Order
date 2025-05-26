@@ -352,6 +352,7 @@ public class WaveManager : MonoBehaviour
         if (spawnGroupDictionary.TryGetValue(key, out var group))
         {
             waveText.text = key;
+            Debug.Log($"[GetWave] SpawnGroup: {key}");
             yield return group.GenerateGroup(this);
             yield break;
         }
@@ -365,6 +366,7 @@ public class WaveManager : MonoBehaviour
         if(spawnEmptyGroupDictionary.TryGetValue(key, out var emptyGroup))
         {
             waveText.text = key;
+            Debug.Log($"[GetWave] SpawnEmptyGroup: {key}");
             yield return emptyGroup.GenerateGroup(this);
             yield break;
         }
@@ -372,6 +374,7 @@ public class WaveManager : MonoBehaviour
         if (recordedWaveMap.TryGetValue(key, out var data))
         {
             waveText.text = key;
+            Debug.Log($"[GetWave] RecordedWave: {key}");
             yield return PlayRecordedWave(data);
             yield break;
         }
@@ -591,6 +594,7 @@ public class WaveManager : MonoBehaviour
     //spawn A
     public void NewSpawn(EnemyData enemyData,SpawnData spawnData,GunDataList activeGunDataList,IEntryBehaviour entryBehaviour, IMoveBehaviour moveABehaviour, ILeaveBehaviour leaveBehaviour,SpawnType spawnType)
     {
+        Debug.Log($"[NewSpawn] Spawn enemy: {enemyData.data.enemy.name} at {spawnData.data.spawnPosition}");
         Vector3 spawnPoint = Vector3PointGenerator.instance.GetPoint((int)spawnData.data.spawnPosition.x, (int)spawnData.data.spawnPosition.y, (int)spawnData.data.spawnPosition.z);
         Vector3 endPoint = Vector3PointGenerator.instance.GetPoint((int)spawnData.data.endPosition.x, (int)spawnData.data.endPosition.y, (int)spawnData.data.endPosition.z);
         Vector3 leavePoint = Vector3PointGenerator.instance.GetPoint((int)spawnData.data.LeavePositon.x, (int)spawnData.data.LeavePositon.y, (int)spawnData.data.LeavePositon.z);

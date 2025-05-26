@@ -11,7 +11,7 @@ public class SubGunData
 {
     public ShootingPatternType patternType;
     [Header("Gun Data")]
-    //public bool seperateMode;
+    public bool trackPlayer;
     [HideInInspector]
     public int gunIndex;
     public float rpm;
