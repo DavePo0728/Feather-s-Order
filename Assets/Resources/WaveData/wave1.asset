@@ -17,6 +17,10 @@ MonoBehaviour:
     repeatCount: 1
     delayAfterGroup: 0
     killAllEnemies: 0
+  - groupName: SpawnGroup_L1_Test
+    repeatCount: 1
+    delayAfterGroup: 1
+    killAllEnemies: 1
   - groupName: SpawnGroup_L1_Invisible1
     repeatCount: 1
     delayAfterGroup: 1
@@ -48,10 +52,6 @@ MonoBehaviour:
   - groupName: EmptyWave
     repeatCount: 1
     delayAfterGroup: 0
-    killAllEnemies: 0
-  - groupName: SpawnGroup_R_A3
-    repeatCount: 1
-    delayAfterGroup: 1
     killAllEnemies: 0
   - groupName: WaveRe_01
     repeatCount: 2

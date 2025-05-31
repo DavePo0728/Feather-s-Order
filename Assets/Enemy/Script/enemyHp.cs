@@ -69,7 +69,7 @@ public class EnemyHp : MonoBehaviour
     Image hpImage;
     Image corruptionImage;
 	EnterExitSchedule EES;
-	private void Awake()
+	
     Image corruptionImageLeft, corruptionImageRight;
 
 
