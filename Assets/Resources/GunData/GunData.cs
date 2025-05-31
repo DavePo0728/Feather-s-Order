@@ -21,6 +21,7 @@ public class SubGunData
     public int bulletAmount;
     [Header("ShotGun&SpreadShot")]
     public float spreadAngle;
+    public float shooterRotation;
     [Header("4Way")]
     public float spinSpeed;
     public float bulletsPerArm;

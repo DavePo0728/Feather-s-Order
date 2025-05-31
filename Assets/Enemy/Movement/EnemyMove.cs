@@ -34,7 +34,10 @@ public class EnemyMove : MonoBehaviour
     public float pointWaitTime;
     public Vector3 originPos;
     public bool isLeave = false;
-    
+    public int loopStartIndex; //循環開始點
+    public int loopEndIndex;   //循環結束點
+    public int loopTime;    //循環次數
+
     //[HideInInspector]
     public Vector3[] path;
     public Vector3[] moveB_PathList;

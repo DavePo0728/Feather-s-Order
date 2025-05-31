@@ -14,7 +14,7 @@ public class MoveTypeB : IMoveBehaviour
         //Debug.Log("Enter Move Type B");
         if (enemyMove.gameObject != null)
         {
-            onMoveB = enemyMove.transform.DOPath(enemyMove.moveB_PathList, enemyMove.stayTime).SetEase(Ease.Linear);
+            onMoveB = enemyMove.transform.DOPath(enemyMove.moveB_PathList, enemyMove.moveTime).SetEase(Ease.Linear);
             onMoveB.Play();
             onMoveB.OnComplete(() => { Move(enemyMove); });
             if (enemyMove.isLeave)

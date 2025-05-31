@@ -617,6 +617,8 @@ public class WaveManager : MonoBehaviour
         enemyMove.paralyzeAddTime = enemyData.data.paralyzeAddTime;
         enemyMove.paralyzeMaxCount = enemyData.data.paralyzeMaxCount;
         enemyMove.paralyzeTimeStackMultiplier = enemyData.data.paralyzeTimeStackMultiplier;
+        enemyHp.corruptionDecreaseTime = enemyData.data.corruptionDecreaseTime;
+        enemyHp.corruptionDecreaseSpeed = enemyData.data.corruptionDecreaseSpeed;
         enemyMove.endPoint = endPoint;
         enemyMove.leavePoint = leavePoint;
         EnemyShootingController enemyShootingController = temp.transform.Find("Guns").GetComponent<EnemyShootingController>();
@@ -644,6 +646,9 @@ public class WaveManager : MonoBehaviour
             case SpawnType.TypeC:
                 var path = customPathDataList.customPathDataList[spawnData.data.customPathNum];
                 enemyMove.moveC_PathList = Vector3PointGenerator.instance.GetMoveCPathList(path.pathX.Count, path);
+                enemyMove.loopStartIndex = path.loopStartIndex;
+                enemyMove.loopEndIndex = path.loopEndIndex;
+                enemyMove.loopTime = path.loopTime;
                 break;
         }
         IEntryBehaviour entry = entryBehaviour;

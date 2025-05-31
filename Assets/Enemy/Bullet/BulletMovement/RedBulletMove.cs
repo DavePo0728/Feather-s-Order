@@ -97,40 +97,6 @@ public class RedBulletMove : BulletBase
         BulletCollider.enabled = true;
         bulletGrazeCollider.enabled = true;
     }
-    public void HomingInitial()
-    {
-        BulletCollider.enabled = true;
-        bulletGrazeCollider.enabled = true;
-        hitEffect.SetActive(false);
-        bulletBody.SetActive(true);
-        BulletlifeTime = bulletData.lifeTime;
-        speed = bulletData.speed;
-        spreadSpeed = 0.2f;
-        minSpread = -10f;
-        MaxSpread = 10f;
-        if (homing)
-        {
-            homingTime = 2f;
-            maxRotateAngle = 15f;
-            homingTimer = 0;
-        }
-        destination = CurvePathGenerator.pathInstance.GetLandingPosZ(transform.position, 10);
-        //initialMove = false;
-        moveToPlayer = false;
-        StartCoroutine(CountDownInactive(BulletlifeTime));
-    }
-    public void FireWorkInitial()
-    {
-        BulletCollider.enabled = true;
-        bulletGrazeCollider.enabled = true;
-        hitEffect.SetActive(false);
-        bulletBody.SetActive(true);
-        BulletlifeTime = bulletData.lifeTime;
-        speed = bulletData.speed;
-        moveToPlayer = false;
-        fireWork = true;
-        StartCoroutine(CountDownInactive(BulletlifeTime));
-    }
     // Start is called before the first frame update
     void Start()
     {
@@ -140,37 +106,6 @@ public class RedBulletMove : BulletBase
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(homingMove)
-        homingTimer += Time.deltaTime;
-        //if (initialMove)
-        //{
-            //var step = spreadSpeed * Time.deltaTime; // calculate distance to move
-            //transform.position = Vector3.MoveTowards(transform.position, destination, step);
-                //initialMove = false;
-                if (homing)
-                {
-                    IsHoming();
-                    if (homingMove && homingTimer <= homingTime)
-                    {
-                        Homing();
-                    }
-                    else
-                    {
-                        homingMove = false;
-                        moveToPlayer = true;
-                    }
-                }
-                else
-                {
-                    moveToPlayer = true;
-                }
-        //}
-        if (fireWork)
-        {
-            transform.Translate(transform.forward * speed);
-            Debug.Log(direction);
-        }
-        
         if (moveToPlayer)
         {
             transform.Translate(Vector3.forward * speed);
@@ -186,6 +121,7 @@ public class RedBulletMove : BulletBase
         if (other.tag == "PlayerBullet")
         {
             speed = 0;
+            other.gameObject.SetActive(false);
             moveToPlayer = false;
             bulletBody.SetActive(false);
             hitEffect.gameObject.SetActive(true);

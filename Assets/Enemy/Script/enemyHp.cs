@@ -21,9 +21,13 @@ public class EnemyHp : MonoBehaviour
     [SerializeField]
     bool corruption;
     public bool corruption_P => corruption;
-    float corruptionDamageModifier;
-    float currentCorruptionValue;
-    public float maxCorruptionValue;
+    float corruptionDamageModifier;// 污穢傷害倍率
+    [SerializeField]
+    float currentCorruptionValue;// 當前污穢值
+    public float maxCorruptionValue;// 污穢值上限
+    public float corruptionDecreaseTime; // 污穢恢復時間
+    float corruptionDecreaseTimer; // 污穢恢復計時器
+    public float corruptionDecreaseSpeed; // 污穢恢復量
     [SerializeField]
     GameObject corruptionCleanseObject,chainEffectObject;
     ParticleSystem corruptionCleanseParticle, chainEffectParticle;
@@ -63,7 +67,8 @@ public class EnemyHp : MonoBehaviour
     [SerializeField]
     Canvas canvas;
     Image hpImage;
-    Image corruptionImage;
+    Image corruptionImageLeft, corruptionImageRight;
+
 
     private void Awake()
     {
@@ -85,7 +90,7 @@ public class EnemyHp : MonoBehaviour
         shieldBreakAudioClip = Resources.Load<AudioClip>("Sound/ShieldBreakSound");
         hitimpactAudioClip = Resources.Load<AudioClip>("Sound/HitImpactSound");
         SlashHITClip = Resources.Load<AudioClip>("Sound/slashHit");
-        corruptionImage = canvas.transform.GetChild(0).GetChild(1).Find("CorruptionBar").GetComponent<Image>();
+        corruptionImageLeft = canvas.transform.GetChild(0).GetChild(1).Find("CorruptionBar").GetComponent<Image>();
         corruptionCleanseObject = transform.Find("CorruptionCleanse").gameObject;
         corruptionCleanseParticle =corruptionCleanseObject.GetComponent<ParticleSystem>();
         chainEffectObject = transform.Find("ChainEffect").gameObject;
@@ -130,7 +135,15 @@ public class EnemyHp : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        corruptionDecreaseTimer += Time.deltaTime; // 增加計時器
+        if (corruptionDecreaseTimer > corruptionDecreaseTime)
+        {
+            if(currentCorruptionValue > 0)
+            {
+                currentCorruptionValue -= corruptionDecreaseSpeed;
+                UpdateCorruptionUI();
+            }
+        }
     }
 
     public void ShootHurt(float damage)
@@ -245,7 +258,7 @@ public class EnemyHp : MonoBehaviour
         }   
     }
 
-    public void DeathEffect()
+    public void DeathEffect()/// 死亡特效
     {
         GameObject sfxPlayer = new GameObject("DeathSFX");
         sfxPlayer.transform.position = transform.position;
@@ -295,6 +308,8 @@ public class EnemyHp : MonoBehaviour
         if (other.tag == "PlayerBullet")
         {
             ShootHurt(1);
+            CleanseCorruption(0.25f);
+            
         }
         if (other.tag == "ChargeBullet")
         {
@@ -347,8 +362,9 @@ public class EnemyHp : MonoBehaviour
     {
         slashDetectBool = false;
     }
-    void CleanseCorruption(int corruptionDamage)
+    void CleanseCorruption(float corruptionDamage)
     {
+        corruptionDecreaseTimer = 0; // 重置污穢恢復計時器
         if (currentCorruptionValue < maxCorruptionValue)
         {
             currentCorruptionValue += corruptionDamage;
@@ -385,7 +401,7 @@ public class EnemyHp : MonoBehaviour
     void UpdateCorruptionUI()
     {
         float CorruptionAmount = currentCorruptionValue / maxCorruptionValue;
-        corruptionImage.fillAmount = CorruptionAmount;
+        corruptionImageLeft.fillAmount = CorruptionAmount;
     }
     void UpdateUI()
     {

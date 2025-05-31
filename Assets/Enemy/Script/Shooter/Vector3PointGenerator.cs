@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-[ExecuteInEditMode]
+//[ExecuteInEditMode]
 public class Vector3PointGenerator : MonoBehaviour
 {
     public static Vector3PointGenerator instance;
@@ -100,6 +100,22 @@ public class Vector3PointGenerator : MonoBehaviour
             pathList[i] = GetPoint(pathData.pathX[i], pathData.pathY[i], pathData.pathZ[i]);
         }
 
+        return pathList;
+    }
+    public Vector3[] GetSomeMoveCPathList(CustomPathData pathData, int startIndex, int endIndex)
+    {
+        if (startIndex < 0 || startIndex > endIndex)
+        {
+            Debug.Log("startIndex: "+startIndex + " " +"endIndex: "+ endIndex);
+            Debug.LogError("Invalid start or end index.");
+            return null;
+        }
+        int pathLength = endIndex-startIndex+1;
+        Vector3[] pathList = new Vector3[pathLength];
+        for (int i = startIndex; i <= endIndex; i++)
+        {
+            pathList[i - startIndex] = GetPoint(pathData.pathX[i], pathData.pathY[i], pathData.pathZ[i]);
+        }
         return pathList;
     }
     //private void OnDrawGizmos()

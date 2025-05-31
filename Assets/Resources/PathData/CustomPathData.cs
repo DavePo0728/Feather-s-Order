@@ -8,4 +8,7 @@ public class CustomPathData : ScriptableObject
     public List<int> pathX;
     public List<int> pathY;
     public List<int> pathZ;
+    public int loopTime;
+    public int loopStartIndex;
+    public int loopEndIndex;
 }

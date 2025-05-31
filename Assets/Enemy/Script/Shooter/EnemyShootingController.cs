@@ -189,7 +189,7 @@ public class EnemyShootingController : MonoBehaviour
         float step = (g.bulletAmount > 1)
             ? (g.spreadAngle / (g.bulletAmount - 1))
             : 0f;
-
+        shooter.transform.rotation = Quaternion.Euler(shooter.transform.eulerAngles.x, shooter.transform.eulerAngles.y, g.shooterRotation); // 設定射擊點的旋轉
         // 3. 一次把所有顆都生在同一幀
         for (int i = 0; i < g.bulletAmount; i++)
         {

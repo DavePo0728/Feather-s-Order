@@ -13,10 +13,22 @@ MonoBehaviour:
   m_Name: Test
   m_EditorClassIdentifier: 
   data:
+    patternType: 3
+    trackPlayer: 0
     gunIndex: 0
     rpm: 0
-    shootingCoolDown: 1
-    bulletAmount: 3
-    spinSpeed: 0
-    bulletType: 1
+    bulletType: 0
     MaxShootWave: 99
+    bulletAmount: 3
+    spreadAngle: 30
+    shooterRotation: 45
+    spinSpeed: 0
+    bulletsPerArm: 0
+    crossSpacing: 0
+    ringRadius: 0
+    swingSpeed: 0
+    swingAngle: 0
+    missilePrefab: {fileID: 0}
+    trackDuration: 0
+    maxRotationSpeed: 0
+    spreadDuration: 0

@@ -33,4 +33,8 @@ public class data
     public int paralyzeMaxCount;
     [Tooltip("束縛時間增加係數")]
     public float paralyzeTimeStackMultiplier;
+    [Tooltip("未攻擊污穢消退時間")]
+    public float corruptionDecreaseTime;
+    [Tooltip("未攻擊污穢消退速度")]
+    public float corruptionDecreaseSpeed;
 }
