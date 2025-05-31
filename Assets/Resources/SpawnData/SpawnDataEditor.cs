@@ -492,8 +492,8 @@ public class SpawnDataEditor : MonoBehaviour
 		spawnData.LeavePositon = sp.data.LeavePositon;
 		SpawnData.data.customPathNum = sp.data.customPathNum;
 		SpawnData.data.curveHeight = sp.data.curveHeight;
-		SpawnData.data.customPathNum = sp.data.customPathNum;
-
+		spawnData.customPathNum = sp.data.customPathNum;
+		Debug.Log(sp.data.customPathNum);
 		// 4. ¦P¨B¸ô®|
 		SyncTargetPathsWithEndTargePath();
 		for (int i = 0; i < EndTargePath.Count; i++)

@@ -67,6 +67,9 @@ public class EnemyHp : MonoBehaviour
     [SerializeField]
     Canvas canvas;
     Image hpImage;
+    Image corruptionImage;
+	EnterExitSchedule EES;
+	private void Awake()
     Image corruptionImageLeft, corruptionImageRight;
 
 
@@ -101,7 +104,8 @@ public class EnemyHp : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (corrupted)
+		EES = GetComponent<EnterExitSchedule>();
+		if (corrupted)
         {
             corruption = true;
             corruptEffect.SetActive(true);
@@ -260,7 +264,8 @@ public class EnemyHp : MonoBehaviour
 
     public void DeathEffect()/// ¦º¤`¯S®Ä
     {
-        GameObject sfxPlayer = new GameObject("DeathSFX");
+		EES.FadeOut();
+		GameObject sfxPlayer = new GameObject("DeathSFX");
         sfxPlayer.transform.position = transform.position;
 
         AudioSource sfxAudio = sfxPlayer.AddComponent<AudioSource>();

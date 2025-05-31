@@ -17,7 +17,7 @@ MonoBehaviour:
   spawnGroupDataList:
   - enemyData: 14
     spawnData: 39
-    gunData: {fileID: 11400000, guid: 4e20ad36fd925a94a9f6e2c88f8c574e, type: 2}
+    gunData: {fileID: 11400000, guid: 182689edcaf40824686f91d8d55cc18f, type: 2}
     entryType: 0
     moveType: 2
     leaveType: 0
@@ -33,6 +33,30 @@ MonoBehaviour:
     spawnType: 2
   - enemyData: 14
     spawnData: 39
+    gunData: {fileID: 11400000, guid: 182689edcaf40824686f91d8d55cc18f, type: 2}
+    entryType: 0
+    moveType: 2
+    leaveType: 0
+    delayTime: 4
+    spawnType: 2
+  - enemyData: 14
+    spawnData: 40
+    gunData: {fileID: 11400000, guid: 182689edcaf40824686f91d8d55cc18f, type: 2}
+    entryType: 0
+    moveType: 2
+    leaveType: 0
+    delayTime: 0.5
+    spawnType: 2
+  - enemyData: 14
+    spawnData: 40
+    gunData: {fileID: 11400000, guid: 182689edcaf40824686f91d8d55cc18f, type: 2}
+    entryType: 0
+    moveType: 2
+    leaveType: 0
+    delayTime: 0.5
+    spawnType: 2
+  - enemyData: 14
+    spawnData: 40
     gunData: {fileID: 11400000, guid: 182689edcaf40824686f91d8d55cc18f, type: 2}
     entryType: 0
     moveType: 2

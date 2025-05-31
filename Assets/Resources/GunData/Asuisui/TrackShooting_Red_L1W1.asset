@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: TrackShooting_Red_L1W1
   m_EditorClassIdentifier: 
   data:
-    patternType: 0
+    patternType: 1
+    trackPlayer: 1
     gunIndex: 1
-    rpm: 300
+    rpm: 60
     bulletType: 0
-    MaxShootWave: 1
+    MaxShootWave: 10
     bulletAmount: 1
     spreadAngle: 0
     spinSpeed: 5

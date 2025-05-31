@@ -51,6 +51,7 @@ public class EnemyMove : MonoBehaviour
     public bool isMove =false;
     EnemyData testData;
 
+    EnterExitSchedule EES;
     public void SetBehaviours(IEntryBehaviour entry,IMoveBehaviour move,ILeaveBehaviour leave)
     {
         entryBehavior = entry;
@@ -71,7 +72,9 @@ public class EnemyMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (!isDebug)
+        EES = GetComponent<EnterExitSchedule>();
+
+		if (!isDebug)
         {
             startPoint = gameObject.transform.position;
             StartCoroutine(TimeToLeave());
@@ -108,7 +111,7 @@ public class EnemyMove : MonoBehaviour
                 gun.SetActive(true);
         }
         originPos = transform.position;
-        Debug.Log(moveBehavior.ToString());
+        //Debug.Log(moveBehavior.ToString());
         moveBehavior.Move(this);
         isMove = true;
     }
@@ -187,7 +190,9 @@ public class EnemyMove : MonoBehaviour
     }
     public void CallLeave()
     {
-        leaveBehavior.Leave(this);
+		EES.FadeOut();
+
+		leaveBehavior.Leave(this);
         if (gun != null)
         {
             if (gun.activeSelf == true)

@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data:
     enemy: {fileID: 5113663619280529763, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
-    entryTime: 1
-    singleMoveTime: 1
-    leaveTime: 1
+    entryTime: 1.5
+    singleMoveTime: 1.5
+    leaveTime: 1.5
     hp: 5
     lifeTime: 15
     haveShield: 0
