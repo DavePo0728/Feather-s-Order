@@ -64,8 +64,10 @@ public class MoveTypeC : IMoveBehaviour
             // 2) Append Interval 데ポ
             endSequence.AppendInterval(waitTime);
         }
-        loopSequence.SetLoops(loopTime, LoopType.Incremental);
         startSequence.AppendCallback(() => loopSequence.Play());
+        loopSequence.SetLoops(loopTime, LoopType.Restart);
+        //loopSequence.OnStepComplete(() => Debug.Log(loopSequence.CompletedLoops()));
+        loopSequence.OnComplete(() => endSequence.Play());
         // ��끝Œ㏏メ쯍쩾차놓
         endSequence.AppendCallback(() => enemyMove.CallLeave());
 
