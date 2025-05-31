@@ -13,11 +13,7 @@ MonoBehaviour:
   m_Name: TrackShooter L1W1 1
   m_EditorClassIdentifier: 
   gunDatas:
-  - Data: {fileID: 11400000, guid: 4680b34007e11cd41b6ed0d35ed8c850, type: 2}
+  - Data: {fileID: 11400000, guid: f501deccb4a5d2747bd7a89bcbf7818c, type: 2}
     delayTime: 1
     IsAdditonalAttack: 0
-    addtionalGunData:
-    - additionalData: {fileID: 11400000, guid: 4680b34007e11cd41b6ed0d35ed8c850, type: 2}
-      additionalDelayTime: 0
-    - additionalData: {fileID: 11400000, guid: 4680b34007e11cd41b6ed0d35ed8c850, type: 2}
-      additionalDelayTime: 0
+    addtionalGunData: []

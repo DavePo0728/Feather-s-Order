@@ -22,7 +22,8 @@ public class EnemyHp : MonoBehaviour
     bool corruption;
     public bool corruption_P => corruption;
     float corruptionDamageModifier;
-    float currentCorruptionValue;
+	[SerializeField]
+	float currentCorruptionValue;
     public float maxCorruptionValue;
     [SerializeField]
     GameObject corruptionCleanseObject,chainEffectObject;
@@ -64,8 +65,8 @@ public class EnemyHp : MonoBehaviour
     Canvas canvas;
     Image hpImage;
     Image corruptionImage;
-
-    private void Awake()
+	EnterExitSchedule EES;
+	private void Awake()
     {
         enemyMove = gameObject.GetComponent<EnemyMove>();
         canvas = transform.Find("StatusCanvas").GetComponent<Canvas>();
@@ -96,7 +97,8 @@ public class EnemyHp : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (corrupted)
+		EES = GetComponent<EnterExitSchedule>();
+		if (corrupted)
         {
             corruption = true;
             corruptEffect.SetActive(true);
@@ -247,7 +249,8 @@ public class EnemyHp : MonoBehaviour
 
     public void DeathEffect()
     {
-        GameObject sfxPlayer = new GameObject("DeathSFX");
+		EES.FadeOut();
+		GameObject sfxPlayer = new GameObject("DeathSFX");
         sfxPlayer.transform.position = transform.position;
 
         AudioSource sfxAudio = sfxPlayer.AddComponent<AudioSource>();

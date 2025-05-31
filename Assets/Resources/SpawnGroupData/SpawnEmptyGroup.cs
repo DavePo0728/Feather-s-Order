@@ -7,7 +7,7 @@ public class SpawnEmptyGroup : SpawnGroupController
     public List<EmptyGroupGroupData> spawnGroupDataList;
     public override IEnumerator GenerateGroup(WaveManager manager)
     {
-        Debug.Log("SpawnGroup Start");
+        //Debug.Log("SpawnGroup Start");
         foreach (var group in spawnGroupDataList)
         {
             yield return new WaitForSeconds(group.delayTime);

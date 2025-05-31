@@ -34538,6 +34538,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Bgshader: {fileID: 1340893651}
+  FadeInTime: 1
+  FadeOutTime: 1
+  haveblueS: 0
+  blueSG: {fileID: 0}
+  haveRedS: 0
+  RedS: {fileID: 0}
 --- !u!198 &363626462602948395
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -235218,6 +235224,7 @@ MonoBehaviour:
   tutorialMode: 1
   inputActions: {fileID: -944628639613478452, guid: 6315d56ce0b2b034b859a84c624f7c72, type: 3}
   preTutorialObject: {fileID: 1224190587}
+  vector3PointGenerator: {fileID: 163167523875149788}
 --- !u!1 &8823263089456624626
 GameObject:
   m_ObjectHideFlags: 0

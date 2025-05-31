@@ -73,7 +73,8 @@ public class WaveManager : MonoBehaviour
     [SerializeField]
     GameObject preTutorialObject;
     Image preTutorialImage;
-    public IEnumerator WaitForContinueInput()
+    public Vector3PointGenerator vector3PointGenerator;
+	public IEnumerator WaitForContinueInput()
     {
         bool pressed = false;
 
@@ -352,7 +353,7 @@ public class WaveManager : MonoBehaviour
         if (spawnGroupDictionary.TryGetValue(key, out var group))
         {
             waveText.text = key;
-            Debug.Log($"[GetWave] SpawnGroup: {key}");
+            //Debug.Log($"[GetWave] SpawnGroup: {key}");
             yield return group.GenerateGroup(this);
             yield break;
         }
@@ -366,7 +367,7 @@ public class WaveManager : MonoBehaviour
         if(spawnEmptyGroupDictionary.TryGetValue(key, out var emptyGroup))
         {
             waveText.text = key;
-            Debug.Log($"[GetWave] SpawnEmptyGroup: {key}");
+            //Debug.Log($"[GetWave] SpawnEmptyGroup: {key}");
             yield return emptyGroup.GenerateGroup(this);
             yield break;
         }
@@ -594,10 +595,14 @@ public class WaveManager : MonoBehaviour
     //spawn A
     public void NewSpawn(EnemyData enemyData,SpawnData spawnData,GunDataList activeGunDataList,IEntryBehaviour entryBehaviour, IMoveBehaviour moveABehaviour, ILeaveBehaviour leaveBehaviour,SpawnType spawnType)
     {
-        Debug.Log($"[NewSpawn] Spawn enemy: {enemyData.data.enemy.name} at {spawnData.data.spawnPosition}");
-        Vector3 spawnPoint = Vector3PointGenerator.instance.GetPoint((int)spawnData.data.spawnPosition.x, (int)spawnData.data.spawnPosition.y, (int)spawnData.data.spawnPosition.z);
-        Vector3 endPoint = Vector3PointGenerator.instance.GetPoint((int)spawnData.data.endPosition.x, (int)spawnData.data.endPosition.y, (int)spawnData.data.endPosition.z);
-        Vector3 leavePoint = Vector3PointGenerator.instance.GetPoint((int)spawnData.data.LeavePositon.x, (int)spawnData.data.LeavePositon.y, (int)spawnData.data.LeavePositon.z);
+        if (vector3PointGenerator == null)
+        {
+            Debug.Log("Vector3PointGenerator找不到");
+        }
+        //Debug.Log($"[NewSpawn] Spawn enemy: {enemyData.data.enemy.name} at {spawnData.data.spawnPosition}");
+        Vector3 spawnPoint = vector3PointGenerator.GetPoint((int)spawnData.data.spawnPosition.x, (int)spawnData.data.spawnPosition.y, (int)spawnData.data.spawnPosition.z);
+        Vector3 endPoint = vector3PointGenerator.GetPoint((int)spawnData.data.endPosition.x, (int)spawnData.data.endPosition.y, (int)spawnData.data.endPosition.z);
+        Vector3 leavePoint = vector3PointGenerator.GetPoint((int)spawnData.data.LeavePositon.x, (int)spawnData.data.LeavePositon.y, (int)spawnData.data.LeavePositon.z);
         GameObject temp = Instantiate(enemyData.data.enemy, spawnPoint, Quaternion.identity);
         EnemyMove enemyMove = temp.GetComponent<EnemyMove>();
         EnemyHp enemyHp = temp.GetComponent<EnemyHp>();
