@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbc2ec931fe6c5f468160c04b38f041f, type: 3}
-  m_Name: Invisible_L1_CCC_TypeC
+  m_Name: 2Circle_Loop_L1_TypeC
   m_EditorClassIdentifier: 
   data:
-    spawnPosition: {x: 38, y: 3, z: 4}
-    endPosition: {x: 17, y: 17, z: 4}
-    LeavePositon: {x: 24, y: 3, z: 4}
+    spawnPosition: {x: 0, y: 15, z: 7}
+    endPosition: {x: 7, y: 19, z: 6}
+    LeavePositon: {x: 16, y: 21, z: 7}
     curveHeight: -3
     pathNum: 0
-    customPathNum: 57
-    pointWaitTime: 2
+    customPathNum: 62
+    pointWaitTime: 0
