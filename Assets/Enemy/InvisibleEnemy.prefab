@@ -16685,6 +16685,7 @@ GameObject:
   - component: {fileID: 3888258094929980030}
   - component: {fileID: 7999512561291649746}
   - component: {fileID: 6111852671388279752}
+  - component: {fileID: 7426397245851674647}
   m_Layer: 7
   m_Name: InvisibleEnemy
   m_TagString: Enemy
@@ -16787,6 +16788,8 @@ MonoBehaviour:
   corruption: 0
   currentCorruptionValue: 0
   maxCorruptionValue: 100
+  corruptionDecreaseTime: 0
+  corruptionDecreaseSpeed: 0
   corruptionCleanseObject: {fileID: 0}
   chainEffectObject: {fileID: 0}
   shieldEffect: {fileID: 0}
@@ -16859,6 +16862,9 @@ MonoBehaviour:
   pointWaitTime: 0
   originPos: {x: 0, y: 0, z: 0}
   isLeave: 0
+  loopStartIndex: 0
+  loopEndIndex: 0
+  loopTime: 0
   path: []
   moveB_PathList: []
   moveC_PathList: []
@@ -17071,12 +17077,61 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Bgshader: {fileID: 8538147815007367606}
-  FadeInTime: 1
-  FadeOutTime: 0.5
+  FadeInTime: 0.1
+  FadeOutTime: 0.1
   haveblueS: 0
   blueSG: {fileID: 0}
   haveRedS: 0
   RedS: {fileID: 0}
+--- !u!114 &7426397245851674647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5113663619280529763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ebf0046248e50240ab3504d08d37d89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entryTime: 1
+  data:
+  - ModifyNum: 3
+    pointWaitTime: 0
+    EndpointWaitTime: 3
+    moveTime: 0.2
+    Invisibility: 1
+  - ModifyNum: 2
+    pointWaitTime: 0
+    EndpointWaitTime: 3
+    moveTime: 0.2
+    Invisibility: 1
+  - ModifyNum: 1
+    pointWaitTime: 0
+    EndpointWaitTime: 2
+    moveTime: 0.2
+    Invisibility: 1
+  - ModifyNum: 1
+    pointWaitTime: 0
+    EndpointWaitTime: 0
+    moveTime: 1
+    Invisibility: 1
+  - ModifyNum: 1
+    pointWaitTime: 0
+    EndpointWaitTime: 2
+    moveTime: 1
+    Invisibility: 1
+  - ModifyNum: 2
+    pointWaitTime: 0
+    EndpointWaitTime: 3
+    moveTime: 1
+    Invisibility: 1
+  leaveTime: 1
+  Invisibility: 1
+  EnemyMove: {fileID: 5531840777170294729}
+  enterExitSchedule: {fileID: 6111852671388279752}
+  SharpMissileBlue: {fileID: 3994484484505532415}
 --- !u!1 &5268054280095392628
 GameObject:
   m_ObjectHideFlags: 0
@@ -28190,6 +28245,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b754cb6e007692245bcdfa629b37e171, type: 3}
+--- !u!1 &3994484484505532415 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1550477657380252, guid: b754cb6e007692245bcdfa629b37e171, type: 3}
+  m_PrefabInstance: {fileID: 3993215534438212195}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3997919712141143111 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4985825594347044, guid: b754cb6e007692245bcdfa629b37e171, type: 3}
