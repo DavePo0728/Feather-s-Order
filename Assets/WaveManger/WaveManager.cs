@@ -654,6 +654,13 @@ public class WaveManager : MonoBehaviour
                 enemyMove.loopStartIndex = path.loopStartIndex;
                 enemyMove.loopEndIndex = path.loopEndIndex;
                 enemyMove.loopTime = path.loopTime;
+                foreach(var point in path.moveTimeValues)
+                {
+                    enemyMove.pointIndex.Add(point.pointIndex);
+                    enemyMove.betweenPointWaitTime.Add(point.pointWaitTime);
+                    enemyMove.endPointWaitTime.Add(point.endpointWaitTime);
+                    enemyMove.pointMoveTime.Add(point.moveTime);
+                }
                 break;
         }
         IEntryBehaviour entry = entryBehaviour;

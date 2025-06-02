@@ -37,6 +37,10 @@ public class EnemyMove : MonoBehaviour
     public int loopStartIndex; //循環開始點
     public int loopEndIndex;   //循環結束點
     public int loopTime;    //循環次數
+    public List<int> pointIndex; //移動時間變更點索引
+    public List<float> betweenPointWaitTime; //中間的點之間等待時間
+    public List<float> endPointWaitTime;
+    public List<float> pointMoveTime; //每個點的移動時間
 
     //[HideInInspector]
     public Vector3[] path;

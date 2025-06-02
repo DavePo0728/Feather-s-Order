@@ -67,9 +67,8 @@ public class EnemyHp : MonoBehaviour
     [SerializeField]
     Canvas canvas;
     Image hpImage;
-    Image corruptionImage;
 	EnterExitSchedule EES;
-	
+    [SerializeField]
     Image corruptionImageLeft, corruptionImageRight;
 
 
@@ -93,7 +92,8 @@ public class EnemyHp : MonoBehaviour
         shieldBreakAudioClip = Resources.Load<AudioClip>("Sound/ShieldBreakSound");
         hitimpactAudioClip = Resources.Load<AudioClip>("Sound/HitImpactSound");
         SlashHITClip = Resources.Load<AudioClip>("Sound/slashHit");
-        corruptionImageLeft = canvas.transform.GetChild(0).GetChild(1).Find("CorruptionBar").GetComponent<Image>();
+        corruptionImageLeft = canvas.transform.Find("StatusUI").Find("CorruptionBG").Find("CorruptionBarLeft").GetComponent<Image>();
+        corruptionImageRight = canvas.transform.Find("StatusUI").Find("CorruptionBG").Find("CorruptionBarRight").GetComponent<Image>();
         corruptionCleanseObject = transform.Find("CorruptionCleanse").gameObject;
         corruptionCleanseParticle =corruptionCleanseObject.GetComponent<ParticleSystem>();
         chainEffectObject = transform.Find("ChainEffect").gameObject;
@@ -407,6 +407,7 @@ public class EnemyHp : MonoBehaviour
     {
         float CorruptionAmount = currentCorruptionValue / maxCorruptionValue;
         corruptionImageLeft.fillAmount = CorruptionAmount;
+        corruptionImageRight.fillAmount = CorruptionAmount;
     }
     void UpdateUI()
     {
