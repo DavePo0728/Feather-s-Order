@@ -37,34 +37,44 @@ public class MoveTypeC : IMoveBehaviour
         for (int i = 0; i <= loopEndIndex; i++)
         {
             int currentNodeIndex = i;
-            if (currentNodeIndex >= loopStartIndex && currentNodeIndex <= loopEndIndex)
+            if (enemyMove.pointIndex.Count > 0)
             {
-                if (currentNodeIndex == enemyMove.pointIndex[startPointCount])
+                if (currentNodeIndex >= loopStartIndex && currentNodeIndex <= loopEndIndex)
                 {
-                    moveDuration = enemyMove.pointMoveTime[startPointCount];
-                    waitTime = enemyMove.betweenPointWaitTime[startPointCount];
-                    endPointWaitTime = enemyMove.endPointWaitTime[startPointCount];
-                    startPointCount++;
+                    if (currentNodeIndex == enemyMove.pointIndex[startPointCount])
+                    {
+                        moveDuration = enemyMove.pointMoveTime[startPointCount];
+                        waitTime = enemyMove.betweenPointWaitTime[startPointCount];
+                        endPointWaitTime = enemyMove.endPointWaitTime[startPointCount];
+                        startPointCount++;
+                    }
+                    else
+                    {
+                        moveDuration = enemyMove.moveTime;
+                        waitTime = enemyMove.pointWaitTime;
+                    }
+                }
+                // 1) Append 一段移動 tween
+
+                // 2) Append Interval 等待
+                if (i == enemyMove.pointIndex[startPointCount - 1])
+                {
+                    startSequence.AppendInterval(endPointWaitTime);
                 }
                 else
                 {
-                    moveDuration = enemyMove.moveTime;
-                    waitTime = enemyMove.pointWaitTime;
+                    startSequence.AppendInterval(waitTime);
                 }
-            }
-            // 1) Append 一段移動 tween
-            startSequence.Append(enemyMove.transform
-                .DOMove(path[i], moveDuration)
-                .SetEase(Ease.Linear)
-                .OnComplete(() => { Debug.Log($"[startSequence] 已到達節點 index = {currentNodeIndex}"); })
-            );
-            // 2) Append Interval 等待
-            if (i == enemyMove.pointIndex[startPointCount - 1])
-            {
-                startSequence.AppendInterval(endPointWaitTime);
             }
             else
             {
+                moveDuration = enemyMove.moveTime;
+                waitTime = enemyMove.pointWaitTime;
+                startSequence.Append(enemyMove.transform
+                .DOMove(path[i], moveDuration)
+                .SetEase(Ease.Linear)
+                .OnComplete(() => { Debug.Log($"[startSequence] 已到達節點 index = {currentNodeIndex}"); })
+                );
                 startSequence.AppendInterval(waitTime);
             }
         }

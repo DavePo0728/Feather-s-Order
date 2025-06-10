@@ -16,7 +16,7 @@ public class CustomPathData : ScriptableObject
 [System.Serializable]
 public class moveTimeValue
 {
-    public int pointIndex;
+    public int endPointIndex;
     public float moveTime;
     public float pointWaitTime;
     public float endpointWaitTime;
