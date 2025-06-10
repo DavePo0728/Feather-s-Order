@@ -17,6 +17,18 @@ MonoBehaviour:
     repeatCount: 1
     delayAfterGroup: 0
     killAllEnemies: 0
+  - groupName: SpawnGroup_L1_W8
+    repeatCount: 1
+    delayAfterGroup: 1
+    killAllEnemies: 1
+  - groupName: SpawnGroup_L1_W1
+    repeatCount: 1
+    delayAfterGroup: 4
+    killAllEnemies: 1
+  - groupName: SpawnGroup_L1_W5
+    repeatCount: 1
+    delayAfterGroup: 0
+    killAllEnemies: 0
   - groupName: SpawnGroup_L1_W7
     repeatCount: 1
     delayAfterGroup: 4
@@ -37,10 +49,6 @@ MonoBehaviour:
     repeatCount: 1
     delayAfterGroup: 1
     killAllEnemies: 1
-  - groupName: SpawnGroup_L1_W1
-    repeatCount: 1
-    delayAfterGroup: 4
-    killAllEnemies: 0
   - groupName: SpawnGroup_L1_W3
     repeatCount: 1
     delayAfterGroup: 3
@@ -48,10 +56,6 @@ MonoBehaviour:
   - groupName: EmptyWave
     repeatCount: 1
     delayAfterGroup: 4
-    killAllEnemies: 0
-  - groupName: SpawnGroup_L1_W5
-    repeatCount: 1
-    delayAfterGroup: 0
     killAllEnemies: 0
   - groupName: EmptyWave
     repeatCount: 1
