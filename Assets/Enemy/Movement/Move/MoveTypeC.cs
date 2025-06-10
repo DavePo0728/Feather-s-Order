@@ -7,7 +7,8 @@ using UnityEngine.Rendering;
 public class MoveTypeC : IMoveBehaviour
 {
     public Tweener onMoveC;
-    int pointCount = 0;
+    int startPointCount = 0;
+    int loopPointCount = 0;
     float endPointWaitTime;
     public void Move(EnemyMove enemyMove)
     {
@@ -36,6 +37,21 @@ public class MoveTypeC : IMoveBehaviour
         for (int i = 0; i <= loopEndIndex; i++)
         {
             int currentNodeIndex = i;
+            if (currentNodeIndex >= loopStartIndex && currentNodeIndex <= loopEndIndex)
+            {
+                if (currentNodeIndex == enemyMove.pointIndex[startPointCount])
+                {
+                    moveDuration = enemyMove.pointMoveTime[startPointCount];
+                    waitTime = enemyMove.betweenPointWaitTime[startPointCount];
+                    endPointWaitTime = enemyMove.endPointWaitTime[startPointCount];
+                    startPointCount++;
+                }
+                else
+                {
+                    moveDuration = enemyMove.moveTime;
+                    waitTime = enemyMove.pointWaitTime;
+                }
+            }
             // 1) Append 一段移動 tween
             startSequence.Append(enemyMove.transform
                 .DOMove(path[i], moveDuration)
@@ -43,31 +59,54 @@ public class MoveTypeC : IMoveBehaviour
                 .OnComplete(() => { Debug.Log($"[startSequence] 已到達節點 index = {currentNodeIndex}"); })
             );
             // 2) Append Interval 等待
-            startSequence.AppendInterval(waitTime);
-        }
-        for (int i = loopStartIndex; i <= loopEndIndex; i++)
-        {
-            int currentNodeIndex = i;
-            if(currentNodeIndex == enemyMove.pointIndex[pointCount])
+            if (i == enemyMove.pointIndex[startPointCount - 1])
             {
-                moveDuration = enemyMove.pointMoveTime[pointCount];
-                waitTime = enemyMove.betweenPointWaitTime[pointCount];
-                endPointWaitTime = enemyMove.endPointWaitTime[pointCount];
-                pointCount++;
+                startSequence.AppendInterval(endPointWaitTime);
             }
             else
             {
-                moveDuration = enemyMove.moveTime;
-                waitTime = enemyMove.pointWaitTime;
+                startSequence.AppendInterval(waitTime);
             }
-            // 1) Append 一段移動 tween
-            loopSequence.Append(enemyMove.transform
-                .DOMove(path[i], moveDuration)
-                .SetEase(Ease.Linear)
-                .OnComplete(() => { Debug.Log($"[loopSequence] 已到達節點 index = {currentNodeIndex}"); })
-            );
-            // 2) Append Interval 等待
-            loopSequence.AppendInterval(waitTime);
+        }
+        //
+        // loop Sequence
+        //
+        if (loopTime > 0)
+        {
+            for (int i = loopStartIndex; i <= loopEndIndex; i++)
+            {
+                int currentNodeIndex = i;
+                if (currentNodeIndex == enemyMove.pointIndex[loopPointCount])
+                {
+                    moveDuration = enemyMove.pointMoveTime[loopPointCount];
+                    waitTime = enemyMove.betweenPointWaitTime[loopPointCount];
+                    endPointWaitTime = enemyMove.endPointWaitTime[loopPointCount];
+                    loopPointCount++;
+                }
+                else
+                {
+                    moveDuration = enemyMove.moveTime;
+                    waitTime = enemyMove.pointWaitTime;
+                }
+                // 1) Append 一段移動 tween
+                loopSequence.Append(enemyMove.transform
+                    .DOMove(path[i], moveDuration)
+                    .SetEase(Ease.Linear)
+                    .OnComplete(() => { Debug.Log($"[loopSequence] 已到達節點 index = {currentNodeIndex}"); })
+                );
+                if (i == enemyMove.pointIndex[loopPointCount - 1])
+                {
+                    loopSequence.AppendInterval(endPointWaitTime);
+                }
+                else
+                {
+                    loopSequence.AppendInterval(waitTime);
+                }
+                // 2) Append Interval 等待
+            }
+            loopSequence.SetLoops(loopTime, LoopType.Restart);
+            //loopSequence.OnStepComplete(() => Debug.Log(loopSequence.CompletedLoops()));
+            loopSequence.OnComplete(() => endSequence.Play());
         }
         for (int i = loopEndIndex; i <= path.Length - 1; i++)
         {
@@ -79,10 +118,13 @@ public class MoveTypeC : IMoveBehaviour
             // 2) Append Interval 等待
             endSequence.AppendInterval(waitTime);
         }
-        startSequence.AppendCallback(() => loopSequence.Play());
-        loopSequence.SetLoops(loopTime, LoopType.Restart);
-        //loopSequence.OnStepComplete(() => Debug.Log(loopSequence.CompletedLoops()));
-        loopSequence.OnComplete(() => endSequence.Play());
+        if (loopTime > 0)
+        {
+            startSequence.AppendCallback(() => loopSequence.Play());
+        }else if(loopTime == 0)
+        {
+            startSequence.AppendCallback(() => endSequence.Play());
+        }
         // 全部走完後呼叫離場
         endSequence.AppendCallback(() => enemyMove.CallLeave());
 

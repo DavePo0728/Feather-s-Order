@@ -1446,7 +1446,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7767554562661257742, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
       propertyPath: debug
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7767554562661257742, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
       propertyPath: m_Enabled
@@ -27915,7 +27915,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1315287053770628869
 Transform:
   m_ObjectHideFlags: 0
@@ -217907,7 +217907,7 @@ MonoBehaviour:
   customPathDataList: {fileID: 11400000, guid: 005ab34dbeab2e944af123f4e064833d, type: 2}
   waveText: {fileID: 128831291}
   tutorialImage: {fileID: 797469822}
-  debug: 1
+  debug: 0
   enemyDataList: {fileID: 11400000, guid: ea9fd51ecabf28f488513454d6693a43, type: 2}
   spawnDataList: {fileID: 11400000, guid: cca16164670e772499695ce72801d513, type: 2}
   spawnNormalGroupList: {fileID: 11400000, guid: a80600eba4e6a1540a1b741a0787c31e, type: 2}

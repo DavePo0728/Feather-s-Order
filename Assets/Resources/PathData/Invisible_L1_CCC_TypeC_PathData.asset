@@ -17,4 +17,25 @@ MonoBehaviour:
   pathZ: 04000000040000000400000004000000040000000400000004000000040000000400000004000000
   loopTime: 10
   loopStartIndex: 0
-  loopEndIndex: 10
+  loopEndIndex: 9
+  moveTimeValues:
+  - pointIndex: 0
+    moveTime: 0.2
+    pointWaitTime: 1
+    endpointWaitTime: 0.5
+  - pointIndex: 4
+    moveTime: 3
+    pointWaitTime: 0.5
+    endpointWaitTime: 0.5
+  - pointIndex: 7
+    moveTime: 0.1
+    pointWaitTime: 0
+    endpointWaitTime: 0.5
+  - pointIndex: 8
+    moveTime: 3
+    pointWaitTime: 0.5
+    endpointWaitTime: 0.5
+  - pointIndex: 9
+    moveTime: 1
+    pointWaitTime: 0
+    endpointWaitTime: 0.5
