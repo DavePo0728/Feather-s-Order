@@ -31,7 +31,8 @@ public class MoveTypeC : IMoveBehaviour
         int loopStartIndex = enemyMove.loopStartIndex;
         int loopEndIndex = enemyMove.loopEndIndex;
         int loopTime = enemyMove.loopTime;
-        
+        loopType = enemyMove.loopType;
+
         // 如果沒有路徑或物件不存在就直接離場
         if (path == null || path.Length == 0 || enemyMove.gameObject == null)
         {
@@ -71,6 +72,10 @@ public class MoveTypeC : IMoveBehaviour
                     Debug.Log($"[startSequence] 開始移動到節點 index = {currentNodeIndex}" + $"MoveStatus: {moveStatus}");
                 })
                 );
+                if (loopType == loopType.Yoyo)
+                {
+                    startSequence.SetLoops(1, LoopType.Yoyo);
+                }
                 // 2) Append Interval 等待
                 if (i == enemyMove.pointIndex[startPointCount - 1])
                 {
