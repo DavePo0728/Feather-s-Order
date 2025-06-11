@@ -114,8 +114,7 @@ public class MoveTypeC : IMoveBehaviour
                 }
                 // 2) Append Interval 데ポ
             }
-            loopSequence.SetLoops(loopTime, LoopType.Restart);
-            //loopSequence.OnStepComplete(() => Debug.Log(loopSequence.CompletedLoops()));
+            loopSequence.SetLoops(loopTime, LoopType.Yoyo);
             loopSequence.OnComplete(() => endSequence.Play());
         }
         for (int i = loopEndIndex; i <= path.Length - 1; i++)
@@ -134,6 +133,9 @@ public class MoveTypeC : IMoveBehaviour
         }else if(loopTime == 0)
         {
             startSequence.AppendCallback(() => endSequence.Play());
+        }else if (loopTime == -1)
+        {
+            startSequence.AppendCallback(() => loopSequence.Play());
         }
         // ��끝Œ㏏メ쯍쩾차놓
         endSequence.AppendCallback(() => enemyMove.CallLeave());

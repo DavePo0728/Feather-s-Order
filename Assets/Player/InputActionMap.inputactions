@@ -87,15 +87,6 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "HeartUse",
-                    "type": "Button",
-                    "id": "62b32e9a-e408-4d4a-a26f-a93cb4308d6d",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "ReloadScene",
                     "type": "Button",
                     "id": "b6b953b8-b8d7-4037-a565-ed9b9b53967e",
@@ -188,6 +179,61 @@
                     "action": "Aim",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "2D Vector",
+                    "id": "8171d508-a2bc-418f-8f01-84a106044453",
+                    "path": "2DVector(mode=2)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Aim",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "1626ccad-072a-46e7-9ebd-65795a2c0054",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Aim",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "8254bd14-d856-4be3-a196-d97c77ce8c73",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Aim",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "d47e2ea4-0150-4afd-a84f-dd8a78785003",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Aim",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "a2228345-b93f-45d2-81ac-846541302a4d",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Aim",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 },
                 {
                     "name": "",
@@ -334,17 +380,6 @@
                 },
                 {
                     "name": "",
-                    "id": "5d0ff971-487d-44ca-b0f0-dd560e483287",
-                    "path": "<Gamepad>/leftShoulder",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "HeartUse",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "06365577-26ee-455f-9215-810d766e773d",
                     "path": "<Keyboard>/escape",
                     "interactions": "",
@@ -379,7 +414,7 @@
                 {
                     "name": "2D Vector",
                     "id": "3cb4a30e-41b6-45d6-bec8-8577c19d06f8",
-                    "path": "2DVector(mode=1)",
+                    "path": "2DVector(mode=2)",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
