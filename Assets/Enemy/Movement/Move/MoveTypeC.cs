@@ -6,10 +6,13 @@ using UnityEngine.Rendering;
 
 public class MoveTypeC : IMoveBehaviour
 {
-    public Tweener onMoveC;
+    Sequence startSequence = DOTween.Sequence();
+    Sequence loopSequence = DOTween.Sequence();
+    Sequence endSequence = DOTween.Sequence();
     int startPointCount = 0;
     int loopPointCount = 0;
     float endPointWaitTime;
+    bool startPause = false,loopPause=false,endPause=false;
     public void Move(EnemyMove enemyMove)
     {
         // 先取出等待時間，方便後面使用
@@ -27,12 +30,6 @@ public class MoveTypeC : IMoveBehaviour
             enemyMove.CallLeave();
             return;
         }
-
-        // 建立一個空的 Sequence
-        Sequence startSequence = DOTween.Sequence();
-        Sequence loopSequence = DOTween.Sequence();
-        Sequence endSequence = DOTween.Sequence();
-
         // 依序把「移動 → 等待」加入到 Sequence 裡
         for (int i = 0; i <= loopEndIndex; i++)
         {
@@ -145,27 +142,60 @@ public class MoveTypeC : IMoveBehaviour
     }
     public bool CheckMoveStatus()
     {
-        if (onMoveC == null)
+        if (startSequence.IsPlaying()||loopSequence.IsPlaying()||endSequence.IsPlaying())
         {
             return false;
         }
         else
         {
-            return onMoveC.IsPlaying();
+            return true;
         }
     }
     public void StopMove()
     {
-        if (onMoveC != null && onMoveC.IsPlaying())
-            onMoveC.Kill();
+        if (startSequence.IsPlaying())
+            startSequence.Kill();
+        if (loopSequence.IsPlaying())
+            loopSequence.Kill();
+        if (endSequence.IsPlaying())
+            endSequence.Kill();
     }
     public void ParalyzePause()
     {
-        onMoveC.Pause();
+        if (startSequence.IsPlaying())
+        {
+            startSequence.Pause();
+            startPause = true;
+        }
+        if (loopSequence.IsPlaying())
+        {
+            loopSequence.Pause();
+            loopPause = true;
+        }
+        if (endSequence.IsPlaying())
+        {
+            endSequence.Pause();
+            endPause = true;
+        }
+
     }
     public void ParalyzeRecover()
     {
-        onMoveC.Play();
+        if(startPause)
+        {
+            startSequence.Play();
+            startPause = false;
+        }
+        if (loopPause)
+        {
+            loopSequence.Play();
+            loopPause = false;
+        }
+        if (endPause)
+        {
+            endSequence.Play();
+            endPause = false;
+        }
     }
     public void OnDrawGizmos()
     {
