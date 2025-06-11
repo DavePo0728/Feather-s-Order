@@ -75,6 +75,7 @@ public class MoveTypeC : IMoveBehaviour
                 if (loopType == loopType.Yoyo)
                 {
                     startSequence.SetLoops(1, LoopType.Yoyo);
+                    Debug.Log($"[startSequence] 設定為 Yoyo 循環");
                 }
                 // 2) Append Interval 等待
                 if (i == enemyMove.pointIndex[startPointCount - 1])
@@ -146,7 +147,18 @@ public class MoveTypeC : IMoveBehaviour
                     }
                     // 2) Append Interval 等待
                 }
-                loopSequence.SetLoops(loopTime,DG.Tweening.LoopType.Restart);
+                switch (loopType)
+                {
+                    case loopType.Loop:
+                        loopSequence.SetLoops(loopTime, LoopType.Restart);
+                        break;
+                    case loopType.Yoyo:
+                        loopSequence.SetLoops(loopTime, LoopType.Yoyo);
+                        break;
+                    default:
+                        Debug.LogError("MoveTypeC: Invalid loop type specified.");
+                        return;
+                }
                 loopSequence.OnComplete(() => endSequence.Play());
             }
             else
