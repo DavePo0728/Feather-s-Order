@@ -81,7 +81,7 @@ public class MoveTypeC : IMoveBehaviour
         //
         // loop Sequence
         //
-        if (loopTime > 0)
+        if (loopTime > 0||loopTime==-1)
         {
             for (int i = loopStartIndex; i <= loopEndIndex; i++)
             {
