@@ -101,6 +101,11 @@ public class MoveTypeC : IMoveBehaviour
                     Debug.Log($"[startSequence] 開始移動到節點 index = {currentNodeIndex}"+$"MoveStatus: {moveStatus}");
                 })
                 );
+                if (loopType == loopType.Yoyo)
+                {
+                    startSequence.SetLoops(1, LoopType.Yoyo);
+                    Debug.Log($"[startSequence] 設定為 Yoyo 循環");
+                }
                 startSequence.AppendInterval(waitTime);
             }
         }
