@@ -41,6 +41,7 @@ public class EnemyMove : MonoBehaviour
     public List<float> betweenPointWaitTime; //中間的點之間等待時間
     public List<float> endPointWaitTime;
     public List<float> pointMoveTime; //每個點的移動時間
+    public loopType loopType; //循環類型
 
     //[HideInInspector]
     public Vector3[] path;

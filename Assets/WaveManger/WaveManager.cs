@@ -654,7 +654,8 @@ public class WaveManager : MonoBehaviour
                 enemyMove.loopStartIndex = path.loopStartIndex;
                 enemyMove.loopEndIndex = path.loopEndIndex;
                 enemyMove.loopTime = path.loopTime;
-                foreach(var point in path.moveTimeValues)
+                enemyMove.loopType = path.loopType;
+                foreach (var point in path.moveTimeValues)
                 {
                     enemyMove.pointIndex.Add(point.endPointIndex);
                     enemyMove.betweenPointWaitTime.Add(point.pointWaitTime);

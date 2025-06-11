@@ -15,6 +15,7 @@ public class MoveTypeC : IMoveBehaviour
     bool startPause = false,loopPause=false,endPause=false;
     [SerializeField]
     MoveStatus moveStatus;
+    loopType loopType;
     private enum MoveStatus
     {
         Start,
@@ -100,46 +101,82 @@ public class MoveTypeC : IMoveBehaviour
         //
         // loop Sequence
         //
-        if (loopTime > 0||loopTime==-1)
+        if (loopTime > 0 || loopTime == -1)
         {
-            for (int i = loopStartIndex; i <= loopEndIndex; i++)
+            if (enemyMove.pointIndex.Count > 0)
             {
-                int currentNodeIndex = i;
-                if (currentNodeIndex == enemyMove.pointIndex[loopPointCount])
+                for (int i = loopStartIndex; i <= loopEndIndex; i++)
                 {
-                    moveDuration = enemyMove.pointMoveTime[loopPointCount];
-                    waitTime = enemyMove.betweenPointWaitTime[loopPointCount];
-                    endPointWaitTime = enemyMove.endPointWaitTime[loopPointCount];
-                    loopPointCount++;
-                }
-                else
-                {
-                    moveDuration = enemyMove.moveTime;
-                    waitTime = enemyMove.pointWaitTime;
-                }
-                // 1) Append 一段移動 tween
-                loopSequence.Append(enemyMove.transform
-                    .DOMove(path[i], moveDuration)
-                    .SetEase(Ease.Linear)
-                    .OnComplete(() => { Debug.Log($"[loopSequence] 已到達節點 index = {currentNodeIndex}"); })
-                    .OnStart(() =>
+                    int currentNodeIndex = i;
+                    if (currentNodeIndex == enemyMove.pointIndex[loopPointCount])
                     {
-                        moveStatus = MoveStatus.Loop;
-                        Debug.Log($"[loopSequence] 開始移動到節點 index = {currentNodeIndex}" + $"MoveStatus: {moveStatus}");
-                    })
-                );
-                if (i == enemyMove.pointIndex[loopPointCount - 1])
-                {
-                    loopSequence.AppendInterval(endPointWaitTime);
+                        moveDuration = enemyMove.pointMoveTime[loopPointCount];
+                        waitTime = enemyMove.betweenPointWaitTime[loopPointCount];
+                        endPointWaitTime = enemyMove.endPointWaitTime[loopPointCount];
+                        loopPointCount++;
+                    }
+                    else
+                    {
+                        moveDuration = enemyMove.moveTime;
+                        waitTime = enemyMove.pointWaitTime;
+                    }
+                    // 1) Append 一段移動 tween
+                    loopSequence.Append(enemyMove.transform
+                        .DOMove(path[i], moveDuration)
+                        .SetEase(Ease.Linear)
+                        .OnComplete(() => { Debug.Log($"[loopSequence] 已到達節點 index = {currentNodeIndex}"); })
+                        .OnStart(() =>
+                        {
+                            moveStatus = MoveStatus.Loop;
+                            Debug.Log($"[loopSequence] 開始移動到節點 index = {currentNodeIndex}" + $"MoveStatus: {moveStatus}");
+                        })
+                    );
+                    if (i == enemyMove.pointIndex[loopPointCount - 1])
+                    {
+                        loopSequence.AppendInterval(endPointWaitTime);
+                    }
+                    else
+                    {
+                        loopSequence.AppendInterval(waitTime);
+                    }
+                    // 2) Append Interval 等待
                 }
-                else
+                loopSequence.SetLoops(loopTime,DG.Tweening.LoopType.Restart);
+                loopSequence.OnComplete(() => endSequence.Play());
+            }
+            else
+            {
+                for (int i = loopStartIndex; i <= loopEndIndex; i++)
                 {
+                    int currentNodeIndex = i;
+                    // 1) Append 一段移動 tween
+                    loopSequence.Append(enemyMove.transform
+                        .DOMove(path[i], moveDuration)
+                        .SetEase(Ease.Linear)
+                        .OnComplete(() => { Debug.Log($"[loopSequence] 已到達節點 index = {currentNodeIndex}"); })
+                        .OnStart(() =>
+                        {
+                            moveStatus = MoveStatus.Loop;
+                            Debug.Log($"[loopSequence] 開始移動到節點 index = {currentNodeIndex}" + $"MoveStatus: {moveStatus}");
+                        })
+                    );
+                    // 2) Append Interval 等待
                     loopSequence.AppendInterval(waitTime);
                 }
-                // 2) Append Interval 等待
+                switch (loopType)
+                {
+                    case loopType.Loop:
+                        loopSequence.SetLoops(loopTime, LoopType.Restart);
+                        break;
+                    case loopType.Yoyo:
+                        loopSequence.SetLoops(loopTime, LoopType.Yoyo);
+                        break;
+                    default:
+                        Debug.LogError("MoveTypeC: Invalid loop type specified.");
+                        return;
+                }
+                loopSequence.OnComplete(() => endSequence.Play());
             }
-            loopSequence.SetLoops(loopTime, LoopType.Yoyo);
-            loopSequence.OnComplete(() => endSequence.Play());
         }
         for (int i = loopEndIndex; i <= path.Length - 1; i++)
         {

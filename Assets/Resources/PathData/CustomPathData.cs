@@ -11,7 +11,9 @@ public class CustomPathData : ScriptableObject
     public int loopTime;
     public int loopStartIndex;
     public int loopEndIndex;
+    public loopType loopType;
     public List<moveTimeValue> moveTimeValues;
+
 }
 [System.Serializable]
 public class moveTimeValue
@@ -20,4 +22,9 @@ public class moveTimeValue
     public float moveTime;
     public float pointWaitTime;
     public float endpointWaitTime;
+}
+public enum loopType
+{
+    Loop,
+    Yoyo
 }
