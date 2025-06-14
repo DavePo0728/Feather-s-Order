@@ -7,6 +7,7 @@ using UnityEngine.Rendering;
 public class MoveTypeC : IMoveBehaviour
 {
     Sequence startSequence = DOTween.Sequence();
+    Sequence startBackSequence = DOTween.Sequence();
     Sequence loopSequence = DOTween.Sequence();
     Sequence endSequence = DOTween.Sequence();
     int startPointCount = 0;
@@ -46,6 +47,7 @@ public class MoveTypeC : IMoveBehaviour
             int currentNodeIndex = i;
             if (enemyMove.pointIndex.Count > 0)
             {
+                Debug.Log($"[start sequence] 有變速");
                 if (currentNodeIndex >= loopStartIndex && currentNodeIndex <= loopEndIndex)
                 {
                     if (currentNodeIndex == enemyMove.pointIndex[startPointCount])
@@ -65,7 +67,7 @@ public class MoveTypeC : IMoveBehaviour
                 startSequence.Append(enemyMove.transform
                 .DOMove(path[i], moveDuration)
                 .SetEase(Ease.Linear)
-                .OnComplete(() => { Debug.Log($"[startSequence] 已到達節點 index = {currentNodeIndex}"); })
+                //.OnComplete(() => { Debug.Log($"[startSequence] 已到達節點 index = {currentNodeIndex}"); })
                 .OnStart(() =>
                 {
                     moveStatus = MoveStatus.Start;
@@ -74,26 +76,28 @@ public class MoveTypeC : IMoveBehaviour
                 );
                 if (loopType == loopType.Yoyo)
                 {
-                    startSequence.SetLoops(1, LoopType.Yoyo);
+                    //startSequence
                     Debug.Log($"[startSequence] 設定為 Yoyo 循環");
                 }
                 // 2) Append Interval 等待
                 if (i == enemyMove.pointIndex[startPointCount - 1])
                 {
-                    startSequence.AppendInterval(endPointWaitTime);
+                    startBackSequence.AppendInterval(endPointWaitTime);
                 }
                 else
                 {
-                    startSequence.AppendInterval(waitTime);
+                    startBackSequence.AppendInterval(waitTime);
                 }
             }
             else
             {
+                Debug.Log($"[start sequence] 沒有變速");
                 moveDuration = enemyMove.moveTime;
                 waitTime = enemyMove.pointWaitTime;
                 startSequence.Append(enemyMove.transform
                 .DOMove(path[i], moveDuration)
                 .SetEase(Ease.Linear)
+                
                 .OnComplete(() => { Debug.Log($"[startSequence] 已到達節點 index = {currentNodeIndex}"); })
                 .OnStart(() =>
                 {
@@ -101,12 +105,108 @@ public class MoveTypeC : IMoveBehaviour
                     Debug.Log($"[startSequence] 開始移動到節點 index = {currentNodeIndex}"+$"MoveStatus: {moveStatus}");
                 })
                 );
-                if (loopType == loopType.Yoyo)
-                {
-                    startSequence.SetLoops(1, LoopType.Yoyo);
-                    Debug.Log($"[startSequence] 設定為 Yoyo 循環");
-                }
+                
                 startSequence.AppendInterval(waitTime);
+            }
+        }
+        if (loopTime != 0)
+        {
+            if(loopType == loopType.Yoyo)
+            {
+                startSequence.OnComplete(() => startBackSequence.Play());
+            }
+            else
+            {
+                startSequence.OnComplete(() => loopSequence.Play());
+            }
+        }
+        else if (loopTime == 0)
+        {
+            if (loopType == loopType.Yoyo)
+            {
+                startSequence.OnComplete(() => startBackSequence.Play());
+            }
+            else
+            {
+                startSequence.OnComplete(() => endSequence.Play());
+            }
+
+        }
+        //
+        // start Back Sequence
+        //
+        if (loopType == loopType.Yoyo)
+        {
+            for (int i = loopEndIndex-1; i >= 0; i--)
+            {              
+                int currentNodeIndex = i;
+                if (enemyMove.pointIndex.Count > 0)
+                {
+                    Debug.Log($"[start back sequence] 有變速");
+                    if (currentNodeIndex >= loopStartIndex && currentNodeIndex <= loopEndIndex)
+                    {
+                        if (currentNodeIndex == enemyMove.pointIndex[startPointCount])
+                        {
+                            moveDuration = enemyMove.pointMoveTime[startPointCount];
+                            waitTime = enemyMove.betweenPointWaitTime[startPointCount];
+                            endPointWaitTime = enemyMove.endPointWaitTime[startPointCount];
+                            startPointCount++;
+                        }
+                        else
+                        {
+                            moveDuration = enemyMove.moveTime;
+                            waitTime = enemyMove.pointWaitTime;
+                        }
+                    }
+
+                    // 1) Append 一段移動 tween
+                    startBackSequence.Append(enemyMove.transform
+                    .DOMove(path[i], moveDuration)
+                    .SetEase(Ease.Linear)
+                    //.OnComplete(() => { Debug.Log($"[startSequence] 已到達節點 index = {currentNodeIndex}"); })
+                    .OnStart(() =>
+                    {
+                        moveStatus = MoveStatus.Start;
+                        Debug.Log($"[startBackSequence] 開始移動到節點 index = {currentNodeIndex}" + $"MoveStatus: {moveStatus}");
+                    })
+                    );
+                    // 2) Append Interval 等待
+                    if (i == enemyMove.pointIndex[startPointCount - 1])
+                    {
+                        startBackSequence.AppendInterval(endPointWaitTime);
+                    }
+                    else
+                    {
+                        startBackSequence.AppendInterval(waitTime);
+                    }
+                }
+                else
+                {
+                    Debug.Log($"[start back sequence] 沒有變速");
+                    moveDuration = enemyMove.moveTime;
+                    waitTime = enemyMove.pointWaitTime;
+                    startSequence.Append(enemyMove.transform
+                    .DOMove(path[i], moveDuration)
+                    .SetEase(Ease.Linear)
+
+                    .OnComplete(() => { Debug.Log($"[startBackSequence] 已到達節點 index = {currentNodeIndex}"); })
+                    .OnStart(() =>
+                    {
+                        moveStatus = MoveStatus.Start;
+                        Debug.Log($"[startBackSequence] 開始移動到節點 index = {currentNodeIndex}" + $"MoveStatus: {moveStatus}");
+                    })
+                    );
+
+                    startBackSequence.AppendInterval(waitTime);
+                }
+            }
+            if (loopTime != 0)
+            {
+                startBackSequence.OnComplete(() => loopSequence.Play());
+            }
+            else if (loopTime == 0)
+            {
+                startBackSequence.OnComplete(() => endSequence.Play());
             }
         }
         //
@@ -119,6 +219,8 @@ public class MoveTypeC : IMoveBehaviour
                 for (int i = loopStartIndex; i <= loopEndIndex; i++)
                 {
                     int currentNodeIndex = i;
+                    if(i ==0&&loopType ==loopType.Yoyo)
+                        i=1;
                     if (currentNodeIndex == enemyMove.pointIndex[loopPointCount])
                     {
                         moveDuration = enemyMove.pointMoveTime[loopPointCount];
@@ -131,6 +233,7 @@ public class MoveTypeC : IMoveBehaviour
                         moveDuration = enemyMove.moveTime;
                         waitTime = enemyMove.pointWaitTime;
                     }
+                    Debug.Log($"moveTime:{moveDuration}");
                     // 1) Append 一段移動 tween
                     loopSequence.Append(enemyMove.transform
                         .DOMove(path[i], moveDuration)
@@ -171,6 +274,8 @@ public class MoveTypeC : IMoveBehaviour
                 for (int i = loopStartIndex; i <= loopEndIndex; i++)
                 {
                     int currentNodeIndex = i;
+                    if (i == 0 && loopType == loopType.Yoyo)
+                        i = 1;
                     // 1) Append 一段移動 tween
                     loopSequence.Append(enemyMove.transform
                         .DOMove(path[i], moveDuration)
@@ -215,16 +320,6 @@ public class MoveTypeC : IMoveBehaviour
             );
             // 2) Append Interval 等待
             endSequence.AppendInterval(waitTime);
-        }
-        if (loopTime > 0)
-        {
-            startSequence.AppendCallback(() => loopSequence.Play());
-        }else if(loopTime == 0)
-        {
-            startSequence.AppendCallback(() => endSequence.Play());
-        }else if (loopTime == -1)
-        {
-            startSequence.AppendCallback(() => loopSequence.Play());
         }
         // 全部走完後呼叫離場
         endSequence.AppendCallback(() => enemyMove.CallLeave());
