@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data:
     enemy: {fileID: 5113663619280529763, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
-    entryTime: 2
-    singleMoveTime: 2
-    leaveTime: 2
+    entryTime: 6
+    singleMoveTime: 8
+    leaveTime: 6
     hp: 5
     lifeTime: 15
     haveShield: 0
@@ -28,3 +28,5 @@ MonoBehaviour:
     paralyzeAddTime: 0.2
     paralyzeMaxCount: 5
     paralyzeTimeStackMultiplier: 1
+    corruptionDecreaseTime: 0
+    corruptionDecreaseSpeed: 0

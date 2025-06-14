@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 680bd5654b8588d4ca635541184ffb83, type: 3}
+  m_Name: SpawnGroup_L1_W6Test
+  m_EditorClassIdentifier: 
+  spawnDataList: {fileID: 11400000, guid: cca16164670e772499695ce72801d513, type: 2}
+  customPathDataList: {fileID: 11400000, guid: 005ab34dbeab2e944af123f4e064833d, type: 2}
+  spawnGroupDataList:
+  - enemyData: 0
+    spawnData: 59
+    gunData: {fileID: 11400000, guid: 3f0f148b68afed641a54c2f99a84509a, type: 2}
+    entryType: 0
+    moveType: 2
+    leaveType: 0
+    delayTime: 0.5
+    spawnType: 2

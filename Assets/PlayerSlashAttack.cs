@@ -23,7 +23,7 @@ public class PlayerSlashAttack : MonoBehaviour
     Vector3 PlayerOriginalPos;
     SlashDetect slashDetect;
     GameObject shieldEffect;
-    GameObject shieldEffectBIG;
+	[SerializeField] GameObject shieldEffectBIG;
     [SerializeField] GameObject slashEffectYellowObject, slashEffectRedObject;
     ParticleSystem slashEffectYellow, slashEffectRed;
     ParticleSystemRenderer slashEffectYellowR, slashEffectRedR;
