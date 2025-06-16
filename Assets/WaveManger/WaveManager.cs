@@ -644,6 +644,7 @@ public class WaveManager : MonoBehaviour
         switch (spawnType)
         {
             case SpawnType.TypeA:
+                enemyMove.randomMoveRadius = spawnData.data.randomMoveRadius;
                 break;
             case SpawnType.TypeB:
                 enemyMove.moveB_PathList = CurvePathGenerator.pathInstance.GetCurvePath(pathList.typeBPathCreatorPathList[spawnData.data.pathNum]);

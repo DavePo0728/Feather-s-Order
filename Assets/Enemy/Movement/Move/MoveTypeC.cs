@@ -97,7 +97,6 @@ public class MoveTypeC : IMoveBehaviour
                 startSequence.Append(enemyMove.transform
                 .DOMove(path[i], moveDuration)
                 .SetEase(Ease.Linear)
-                
                 .OnComplete(() => { Debug.Log($"[startSequence] 已到達節點 index = {currentNodeIndex}"); })
                 .OnStart(() =>
                 {
@@ -221,6 +220,7 @@ public class MoveTypeC : IMoveBehaviour
                     int currentNodeIndex = i;
                     if(i ==0&&loopType ==loopType.Yoyo)
                         i=1;
+                    
                     if (currentNodeIndex == enemyMove.pointIndex[loopPointCount])
                     {
                         moveDuration = enemyMove.pointMoveTime[loopPointCount];

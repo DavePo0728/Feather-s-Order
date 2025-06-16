@@ -9,13 +9,15 @@ public class MoveTypeA : IMoveBehaviour
     public Tweener onMoveA;
     float waitTime;
     bool tweenPlaying=false;
+    public float randomMoveRadius; 
     public void Move(EnemyMove enemyMove)
     {
         waitTime = enemyMove.pointWaitTime;
+        randomMoveRadius = enemyMove.randomMoveRadius;
         //Debug.Log("Enter Move Type A");
         if (enemyMove.gameObject != null)
         {
-            _nextPos = CurvePathGenerator.pathInstance.GetLandingPosZ(enemyMove.originPos, 10);
+            _nextPos = CurvePathGenerator.pathInstance.GetLandingPosZ(enemyMove.originPos, randomMoveRadius);
             //Debug.Log("EnemyName: "+enemyMove.name+" NextPos: " + _nextPos);
             onMoveA = enemyMove.transform.DOMove(_nextPos, enemyMove.moveTime).SetEase(Ease.Linear).SetDelay(waitTime).OnPause(() => { tweenPlaying = false; }).OnPlay(() => { tweenPlaying = true; });
             if(!tweenPlaying)
