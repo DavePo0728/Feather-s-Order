@@ -14,12 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data:
     patternType: 3
+    trackPlayer: 0
     gunIndex: 1
-    rpm: 300
+    rpm: 150
     bulletType: 1
     MaxShootWave: 1
     bulletAmount: 6
     spreadAngle: 25
+    shooterRotation: 0
     spinSpeed: 5
     bulletsPerArm: 5
     crossSpacing: 5

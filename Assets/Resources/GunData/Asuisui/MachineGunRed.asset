@@ -13,13 +13,15 @@ MonoBehaviour:
   m_Name: MachineGunRed
   m_EditorClassIdentifier: 
   data:
-    patternType: 0
+    patternType: 1
+    trackPlayer: 1
     gunIndex: 1
-    rpm: 300
+    rpm: 150
     bulletType: 0
     MaxShootWave: 1
     bulletAmount: 1
     spreadAngle: 0
+    shooterRotation: 0
     spinSpeed: 0
     bulletsPerArm: 0
     crossSpacing: 0

@@ -12,6 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dece9da6cbe88f949aa276027b130f15, type: 3}
   m_Name: 04A1_DownToUp_T3_left_TypeC_PathData
   m_EditorClassIdentifier: 
-  pathX: 
-  pathY: 
-  pathZ: 
+  pathX: 0c0000000c000000
+  pathY: 0c00000006000000
+  pathZ: 0400000004000000
+  loopTime: 0
+  loopStartIndex: 0
+  loopEndIndex: 0
+  loopType: 0
+  moveTimeValues: []

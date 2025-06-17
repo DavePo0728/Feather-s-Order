@@ -79,19 +79,19 @@ MonoBehaviour:
     leaveType: 0
     delayTime: 0.5
     spawnType: 2
-  - enemyData: 13
+  - enemyData: 23
     spawnData: 60
     gunData: {fileID: 11400000, guid: 8bd367b527fd2374b85e0dba8064b3d2, type: 2}
     entryType: 0
-    moveType: 2
+    moveType: 0
     leaveType: 0
     delayTime: 0.5
-    spawnType: 2
-  - enemyData: 13
+    spawnType: 0
+  - enemyData: 23
     spawnData: 61
     gunData: {fileID: 11400000, guid: 8bd367b527fd2374b85e0dba8064b3d2, type: 2}
     entryType: 0
-    moveType: 2
+    moveType: 0
     leaveType: 0
     delayTime: 0
-    spawnType: 2
+    spawnType: 0
