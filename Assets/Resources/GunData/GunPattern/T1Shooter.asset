@@ -16,12 +16,4 @@ MonoBehaviour:
   - Data: {fileID: 11400000, guid: 9d6e66795c0d2634e86d946c6eccd325, type: 2}
     delayTime: 1
     IsAdditonalAttack: 0
-    addtionalGunData:
-    - additionalData: {fileID: 11400000, guid: 9d6e66795c0d2634e86d946c6eccd325, type: 2}
-      additionalDelayTime: 0
-  - Data: {fileID: 11400000, guid: 9d6e66795c0d2634e86d946c6eccd325, type: 2}
-    delayTime: 0
-    IsAdditonalAttack: 0
-    addtionalGunData:
-    - additionalData: {fileID: 11400000, guid: 9d6e66795c0d2634e86d946c6eccd325, type: 2}
-      additionalDelayTime: 0
+    addtionalGunData: []

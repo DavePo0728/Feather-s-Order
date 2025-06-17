@@ -99,7 +99,7 @@ public class EnterExitSchedule : MonoBehaviour
 
 			timeElapsed += Time.deltaTime;
 
-			if (!FadeIn && t >= 0.8f)
+			if (!FadeIn && t >= duration*0.8f)
 			{
 				FadeIn = true;
 				Bgshader.SetActive(true);

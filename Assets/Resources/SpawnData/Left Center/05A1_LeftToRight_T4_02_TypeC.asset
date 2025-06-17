@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data:
     spawnPosition: {x: 0, y: 14, z: 1}
-    endPosition: {x: 8, y: 14, z: 2}
+    endPosition: {x: 19, y: 14, z: 2}
     LeavePositon: {x: 47, y: 14, z: 7}
-    curveHeight: 1
+    curveHeight: -3
     pathNum: 0
     customPathNum: 22
     pointWaitTime: 0

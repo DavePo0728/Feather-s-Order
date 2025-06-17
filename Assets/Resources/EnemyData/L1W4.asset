@@ -20,7 +20,7 @@ MonoBehaviour:
     hp: 400
     lifeTime: 999
     haveShield: 0
-    shieldHp: 10
+    shieldHp: 0
     corrupted: 1
     corruptionMaxValue: 100
     paralyzeTime: 10
@@ -28,3 +28,5 @@ MonoBehaviour:
     paralyzeAddTime: 0
     paralyzeMaxCount: 0
     paralyzeTimeStackMultiplier: 0
+    corruptionDecreaseTime: 0
+    corruptionDecreaseSpeed: 0

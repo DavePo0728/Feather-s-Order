@@ -15,3 +15,16 @@ MonoBehaviour:
   pathX: 
   pathY: 
   pathZ: 
+  loopTime: -1
+  loopStartIndex: 0
+  loopEndIndex: 3
+  loopType: 0
+  moveTimeValues:
+  - endPointIndex: 0
+    moveTime: 0.5
+    pointWaitTime: 0
+    endpointWaitTime: 0
+  - endPointIndex: 3
+    moveTime: 0.5
+    pointWaitTime: 0
+    endpointWaitTime: 0

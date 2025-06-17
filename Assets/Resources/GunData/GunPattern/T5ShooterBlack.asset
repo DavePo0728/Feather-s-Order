@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: T5ShooterBlack
   m_EditorClassIdentifier: 
   gunDatas:
-  - Data: {fileID: 11400000, guid: 9d6e66795c0d2634e86d946c6eccd325, type: 2}
-    delayTime: 1
+  - Data: {fileID: 11400000, guid: 1aa89dc94a15efe49b57883a1519d9ac, type: 2}
+    delayTime: 1.5
     IsAdditonalAttack: 1
     addtionalGunData:
-    - additionalData: {fileID: 11400000, guid: 9d6e66795c0d2634e86d946c6eccd325, type: 2}
+    - additionalData: {fileID: 11400000, guid: 1aa89dc94a15efe49b57883a1519d9ac, type: 2}
       additionalDelayTime: 0

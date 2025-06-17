@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: 04A1_DownToUp_T3_left_TypeC
   m_EditorClassIdentifier: 
   data:
-    spawnPosition: {x: 12, y: 22, z: 2}
-    endPosition: {x: 12, y: 11, z: 4}
-    LeavePositon: {x: 12, y: 4, z: 7}
-    curveHeight: 1
+    spawnPosition: {x: 12, y: 23, z: 2}
+    endPosition: {x: 12, y: 18, z: 4}
+    LeavePositon: {x: 12, y: 0, z: 7}
+    curveHeight: -3
     pathNum: 0
     customPathNum: 17
     pointWaitTime: 0

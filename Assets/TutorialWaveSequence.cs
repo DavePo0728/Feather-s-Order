@@ -17,7 +17,7 @@ public class TutorialWaveSequence : WaveSpawnController
     public override IEnumerator GenerateWave(WaveManager manager)
     {
         manager.PreteachImageFadeIn();
-        yield return manager.WaitForPressBInput();
+        //yield return manager.WaitForPressBInput();
         manager.PreteachImageFadeOut();
         foreach (var step in tutorialSteps)
         {
@@ -26,7 +26,7 @@ public class TutorialWaveSequence : WaveSpawnController
             manager.StartCoroutine(manager.scenesManager.Fade(manager.tutorialImage, 0f, 1f, 1f));
             if (step.specialTutorial)
             {
-                yield return manager.WaitForContinueInput();
+                //yield return manager.WaitForContinueInput();
                 manager.StartCoroutine(manager.scenesManager.Fade(manager.tutorialImage, 1f, 0f,1f));
             }
             

@@ -14,14 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunDatas:
   - Data: {fileID: 11400000, guid: a325d3bb76517c249b5dca0e6f7e2178, type: 2}
-    delayTime: 1
+    delayTime: 1.5
     IsAdditonalAttack: 0
-    addtionalGunData:
-    - additionalData: {fileID: 11400000, guid: a325d3bb76517c249b5dca0e6f7e2178, type: 2}
-      additionalDelayTime: 0
-  - Data: {fileID: 11400000, guid: a325d3bb76517c249b5dca0e6f7e2178, type: 2}
-    delayTime: 0
-    IsAdditonalAttack: 0
-    addtionalGunData:
-    - additionalData: {fileID: 11400000, guid: a325d3bb76517c249b5dca0e6f7e2178, type: 2}
-      additionalDelayTime: 0
+    addtionalGunData: []

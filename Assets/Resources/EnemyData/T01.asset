@@ -14,15 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data:
     enemy: {fileID: 5113663619280529763, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
-    entryTime: 6
-    singleMoveTime: 8
-    leaveTime: 6
+    entryTime: 2
+    singleMoveTime: 2
+    leaveTime: 2
     hp: 5
     lifeTime: 15
     haveShield: 0
     shieldHp: 0
     corrupted: 0
-    corruptionMaxValue: 100
+    corruptionMaxValue: 0
     paralyzeTime: 1
     paralyzeMaxTime: 2
     paralyzeAddTime: 0.2
