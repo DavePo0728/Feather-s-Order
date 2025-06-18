@@ -10,6 +10,8 @@ public class EnemyMove : MonoBehaviour
     IEntryBehaviour entryBehavior;
     IMoveBehaviour moveBehavior;
     ILeaveBehaviour leaveBehavior;
+    [SerializeField]
+    string moveName; //²¾°Ê¦WºÙ
     EnemyHp enemyHp;
     public float entryTime;
     public float moveTime;
@@ -63,6 +65,7 @@ public class EnemyMove : MonoBehaviour
         entryBehavior = entry;
         moveBehavior = move;
         leaveBehavior = leave;
+        moveName = moveBehavior.ToString();
         //Debug.Log(this.name+" SetBehaviours "+"Entry: "+ entry+" Move: "+ move+" Leave: "+leave);
     }
     private void Awake()

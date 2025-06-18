@@ -71,14 +71,14 @@ public class MoveTypeC : IMoveBehaviour
                 .OnStart(() =>
                 {
                     moveStatus = MoveStatus.Start;
-                    Debug.Log($"[startSequence] 開始移動到節點 index = {currentNodeIndex}" + $"MoveStatus: {moveStatus}");
+                    //Debug.Log($"[startSequence] 開始移動到節點 index = {currentNodeIndex}" + $"MoveStatus: {moveStatus}");
                 })
                 );
-                if (loopType == loopType.Yoyo)
-                {
-                    //startSequence
-                    Debug.Log($"[startSequence] 設定為 Yoyo 循環");
-                }
+                //if (loopType == loopType.Yoyo)
+                //{
+                //    //startSequence
+                //    Debug.Log($"[startSequence] 設定為 Yoyo 循環");
+                //}
                 // 2) Append Interval 等待
                 if (i == enemyMove.pointIndex[startPointCount - 1])
                 {
@@ -97,11 +97,11 @@ public class MoveTypeC : IMoveBehaviour
                 startSequence.Append(enemyMove.transform
                 .DOMove(path[i], moveDuration)
                 .SetEase(Ease.Linear)
-                .OnComplete(() => { Debug.Log($"[startSequence] 已到達節點 index = {currentNodeIndex}"); })
+                //.OnComplete(() => { Debug.Log($"[startSequence] 已到達節點 index = {currentNodeIndex}"); })
                 .OnStart(() =>
                 {
                     moveStatus = MoveStatus.Start;
-                    Debug.Log($"[startSequence] 開始移動到節點 index = {currentNodeIndex}"+$"MoveStatus: {moveStatus}");
+                    //Debug.Log($"[startSequence] 開始移動到節點 index = {currentNodeIndex}"+$"MoveStatus: {moveStatus}");
                 })
                 );
                 
@@ -166,7 +166,7 @@ public class MoveTypeC : IMoveBehaviour
                     .OnStart(() =>
                     {
                         moveStatus = MoveStatus.Start;
-                        Debug.Log($"[startBackSequence] 開始移動到節點 index = {currentNodeIndex}" + $"MoveStatus: {moveStatus}");
+                        //Debug.Log($"[startBackSequence] 開始移動到節點 index = {currentNodeIndex}" + $"MoveStatus: {moveStatus}");
                     })
                     );
                     // 2) Append Interval 等待
@@ -192,7 +192,7 @@ public class MoveTypeC : IMoveBehaviour
                     .OnStart(() =>
                     {
                         moveStatus = MoveStatus.Start;
-                        Debug.Log($"[startBackSequence] 開始移動到節點 index = {currentNodeIndex}" + $"MoveStatus: {moveStatus}");
+                        //Debug.Log($"[startBackSequence] 開始移動到節點 index = {currentNodeIndex}" + $"MoveStatus: {moveStatus}");
                     })
                     );
 
@@ -242,7 +242,7 @@ public class MoveTypeC : IMoveBehaviour
                         .OnStart(() =>
                         {
                             moveStatus = MoveStatus.Loop;
-                            Debug.Log($"[loopSequence] 開始移動到節點 index = {currentNodeIndex}" + $"MoveStatus: {moveStatus}");
+                            //Debug.Log($"[loopSequence] 開始移動到節點 index = {currentNodeIndex}" + $"MoveStatus: {moveStatus}");
                         })
                     );
                     if (i == enemyMove.pointIndex[loopPointCount - 1])
@@ -280,11 +280,11 @@ public class MoveTypeC : IMoveBehaviour
                     loopSequence.Append(enemyMove.transform
                         .DOMove(path[i], moveDuration)
                         .SetEase(Ease.Linear)
-                        .OnComplete(() => { Debug.Log($"[loopSequence] 已到達節點 index = {currentNodeIndex}"); })
+                        //.OnComplete(() => { Debug.Log($"[loopSequence] 已到達節點 index = {currentNodeIndex}"); })
                         .OnStart(() =>
                         {
                             moveStatus = MoveStatus.Loop;
-                            Debug.Log($"[loopSequence] 開始移動到節點 index = {currentNodeIndex}" + $"MoveStatus: {moveStatus}");
+                            //Debug.Log($"[loopSequence] 開始移動到節點 index = {currentNodeIndex}" + $"MoveStatus: {moveStatus}");
                         })
                     );
                     // 2) Append Interval 等待
@@ -315,7 +315,7 @@ public class MoveTypeC : IMoveBehaviour
                 .OnStart(() =>
                 {
                     moveStatus = MoveStatus.End;
-                    Debug.Log($"[endSequence] 開始移動到節點 index = {currentNodeIndex}" + $"MoveStatus: {moveStatus}");
+                    //Debug.Log($"[endSequence] 開始移動到節點 index = {currentNodeIndex}" + $"MoveStatus: {moveStatus}");
                 })
             );
             // 2) Append Interval 等待

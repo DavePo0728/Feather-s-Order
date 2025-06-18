@@ -508,44 +508,34 @@ public class WaveManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Alpha7))
         {
-            StartCoroutine(SpawnGroup_LC_to_R());
         }
         if (Input.GetKeyDown(KeyCode.Alpha8))
         {
-            StartCoroutine(SpawnGroup_LT_RB());
         }
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
-            StartCoroutine(SpawnGroup_RB_LT());
         }
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {
-            StartCoroutine(SpawnGroup_RC_to_LC());
         }
         if (Input.GetKeyDown(KeyCode.Keypad0))
         {
-            StartCoroutine(SpawnGroup_R_A3());
         }
         if (Input.GetKeyDown(KeyCode.Keypad1))
         {
-            StartCoroutine(SpawnGroup_L_RB_B());
         }
         if (Input.GetKeyDown(KeyCode.Keypad2))
         {
-            StartCoroutine(SpawnGroup_L_M_R_B2());
         }
         //特殊陣行
         if (Input.GetKeyDown(KeyCode.Keypad3))
         {
-            StartCoroutine(SpawnGroup_CT_A());
         }
         if (Input.GetKeyDown(KeyCode.Keypad4))
         {
-            StartCoroutine(SpawnGroup_LT_RB_A());
         }
         if (Input.GetKeyDown(KeyCode.Keypad5))
         {
-            StartCoroutine(SpawnGroup_RB_LT_A());
         }
         // === 錄製控制 ===
         if (Input.GetKeyDown(KeyCode.F1))
@@ -645,6 +635,7 @@ public class WaveManager : MonoBehaviour
         {
             case SpawnType.TypeA:
                 enemyMove.randomMoveRadius = spawnData.data.randomMoveRadius;
+                Debug.Log(enemyMove.randomMoveRadius);
                 break;
             case SpawnType.TypeB:
                 enemyMove.moveB_PathList = CurvePathGenerator.pathInstance.GetCurvePath(pathList.typeBPathCreatorPathList[spawnData.data.pathNum]);
@@ -705,240 +696,7 @@ public class WaveManager : MonoBehaviour
     // MoveTypeC :大範圍節點移動​
     // MoveTypeD :直進直出
     // MoveTypeE :自訂進停退時間
-    IEnumerator EmptyWaveDelay() // 空波次(延遲)
-    {
-        yield return new WaitForSeconds(10f);
-    }
-    IEnumerator EmptyWave() // 空波次
-    {
-        yield return null;
-    }
-    IEnumerator TutorialWave1() {
-        //yield return new WaitForSeconds(5f);
-        //NewSpawn_WithRecord(0, 15, new List<int> { 4 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(),SpawnType.TypeA);
-        //yield return new WaitForSeconds(0.5f);
-        //NewSpawn_WithRecord(0, 16, new List<int> { 4 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        //yield return new WaitForSeconds(0.5f);
-        //yield return new WaitForSeconds(3f);
-        //NewSpawn_WithRecord(0, 15, new List<int> { 0 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        //yield return new WaitForSeconds(0.5f);
-        //NewSpawn_WithRecord(0, 16, new List<int> { 0 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        yield return new WaitForSeconds(0.5f);
-    }
-    IEnumerator TutorialWave2() {
-        //yield return new WaitForSeconds(4f);
-        //NewSpawn_WithRecord(0, 15, new List<int> { 5 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        //yield return new WaitForSeconds(0.5f);
-        //NewSpawn_WithRecord(0, 16, new List<int> { 5 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        //yield return new WaitForSeconds(2f);
-        //NewSpawn_WithRecord(0, 17, new List<int> { 5 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        yield return new WaitForSeconds(0.5f);
-        
-    }
-    IEnumerator TutorialWave3() {
-        //NewSpawn_WithRecord(0, 0, new List<int> { 0 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        //yield return new WaitForSeconds(0.5f);
-        //NewSpawn_WithRecord(0, 0, new List<int> { 5 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        //yield return new WaitForSeconds(0.5f);
-        //NewSpawn_WithRecord(0, 0, new List<int> { 0 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        //yield return new WaitForSeconds(0.5f);
-        //NewSpawn_WithRecord(0, 0, new List<int> { 5 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        //yield return new WaitForSeconds(3f);
-        //NewSpawn_WithRecord(0, 0, new List<int> { 0 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        //yield return new WaitForSeconds(0.5f);
-        //NewSpawn_WithRecord(0, 0, new List<int> { 5 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        //yield return new WaitForSeconds(0.5f);
-        //NewSpawn_WithRecord(0, 0, new List<int> { 0 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        //yield return new WaitForSeconds(0.5f);
-        //NewSpawn_WithRecord(0, 0, new List<int> { 5 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        yield return null;
-    }
-    IEnumerator TutorialWave4() {
-        //NewSpawn_WithRecord(0, 0, new List<int> { 0 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        //yield return new WaitForSeconds(0.5f);
-        //NewSpawn_WithRecord(2, 0, new List<int> { 0 }, new EntryTypeA(), new MoveTypeA(), new LeaveTypeA(), SpawnType.TypeA);
-        //yield return new WaitForSeconds(0.5f);
-        //NewSpawn_WithRecord(0, 0, new List<int> { 0 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        yield return new WaitForSeconds(0.5f);
-    }
-    IEnumerator TutorialWave5() {
-        //NewSpawn_WithRecord(0, 0, new List<int> { 1 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        //yield return new WaitForSeconds(0.5f);
-        //NewSpawn_WithRecord(0, 0, new List<int> { 1 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        //yield return new WaitForSeconds(0.5f);
-        //NewSpawn_WithRecord(0, 0, new List<int> { 1 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        //yield return new WaitForSeconds(0.5f);
-        //NewSpawn_WithRecord(0, 0, new List<int> { 1 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        //yield return new WaitForSeconds(0.5f);
-        //NewSpawn_WithRecord(2, 0, new List<int> { 0 }, new EntryTypeA(), new MoveTypeA(), new LeaveTypeA(), SpawnType.TypeA);
-        yield return new WaitForSeconds(0.5f);
-    }
-    IEnumerator SpawnGroup_R() // R    1
-    {
-        //NewSpawn_WithRecord(0, 0, new List<int> { 0 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        //yield return new WaitForSeconds(0.5f);
-
-        //NewSpawn_WithRecord(0, 0, new List<int> { 0 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        //yield return new WaitForSeconds(0.5f);
-
-        //NewSpawn_WithRecord(0, 0, new List<int> { 0 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        yield return new WaitForSeconds(0.5f);
-    }
-    IEnumerator SpawnGroup_L() // L    2
-    {
-        //NewSpawn_WithRecord(0, 1, new List<int> { 0 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        //yield return new WaitForSeconds(0.5f);
-
-        //NewSpawn_WithRecord(0, 1, new List<int> { 0 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        //yield return new WaitForSeconds(0.5f);
-
-        //NewSpawn_WithRecord(0, 1, new List<int> { 0 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        yield return new WaitForSeconds(0.5f);
-    }
-    IEnumerator SpawnGroup_BlackBullet() // blackbullet   3
-    {
-        //NewSpawn_WithRecord(0, 2, new List<int> { 1 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        //yield return new WaitForSeconds(0.5f);
-
-        //NewSpawn_WithRecord(2, 2, new List<int> { 1 }, new EntryTypeA(), new MoveTypeA(), new LeaveTypeA(), SpawnType.TypeA);
-        //NewSpawn_WithRecord(2, 5, new List<int> { 1 }, new EntryTypeA(), new MoveTypeA(), new LeaveTypeA(), SpawnType.TypeA);
-        //yield return new WaitForSeconds(0.5f);
-
-        //NewSpawn_WithRecord(0, 2, new List<int> { 1 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        //yield return new WaitForSeconds(0.5f);
-        //NewSpawn_WithRecord(0, 2, new List<int> { 1 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        //yield return new WaitForSeconds(2f);
-        //NewSpawn_WithRecord(0, 2, new List<int> { 1 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        yield return new WaitForSeconds(2f);
-    }
-    IEnumerator SpawnGroup_M_to_LB() // M_to_LB red   4
-    {
-        //NewSpawn_WithRecord(0, 3, new List<int> { 0 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        //NewSpawn_WithRecord(2, 9, new List<int> { 0 }, new EntryTypeA(), new MoveTypeA(), new LeaveTypeA(), SpawnType.TypeA);
-        //NewSpawn_WithRecord(0, 5, new List<int> { 0 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        yield return new WaitForSeconds(0.5f);
-    }
-    IEnumerator SpawnGroup_CT_to_RB_red() // CT_to_RB_red   5
-    {
-        //NewSpawn_WithRecord(0, 6, new List<int> { 0 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        //NewSpawn_WithRecord(0, 7, new List<int> { 0 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        //NewSpawn_WithRecord(0, 8, new List<int> { 0 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        yield return new WaitForSeconds(0.5f);
-
-    }
-    IEnumerator SpawnGroup_LB_to_RT() // LB_to_RT red    6
-    {
-        //NewSpawn_WithRecord(0, 9, new List<int> { 0 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        //yield return new WaitForSeconds(0.5f);
-        //NewSpawn_WithRecord(0, 9, new List<int> { 0 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        //yield return new WaitForSeconds(0.5f);
-        //NewSpawn_WithRecord(0, 9, new List<int> { 0 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        yield return null;
-    }
-    IEnumerator SpawnGroup_LC_to_R() // LC_to_R     7
-    {
-        //NewSpawn_WithRecord(0, 10, new List<int> { 0 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        //yield return new WaitForSeconds(0.5f);
-        //NewSpawn_WithRecord(1, 10, new List<int> { 1 }, new EntryTypeA(), new MoveTypeA(), new LeaveTypeA(), SpawnType.TypeA);
-        //yield return new WaitForSeconds(0.5f);
-        //NewSpawn_WithRecord(0, 10, new List<int> { 0 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        yield return null;
-    }
-    IEnumerator SpawnGroup_LT_RB() //LT_RB    8
-    {
-        //NewSpawn_WithRecord(0, 11, new List<int> { 0 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        //yield return new WaitForSeconds(0.5f);
-        //NewSpawn_WithRecord(1, 11, new List<int> { 2 }, new EntryTypeA(), new MoveTypeA(), new LeaveTypeA(), SpawnType.TypeA);
-        //yield return new WaitForSeconds(0.5f);
-        //NewSpawn_WithRecord(0, 11, new List<int> { 0 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        yield return null;
-    }
-    IEnumerator SpawnGroup_RB_LT() //RB_LT     9
-    {
-        //NewSpawn_WithRecord(0, 12, new List<int> { 3 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        //yield return new WaitForSeconds(0.5f);
-        //NewSpawn_WithRecord(1, 12, new List<int> { 2 }, new EntryTypeA(), new MoveTypeA(), new LeaveTypeA(), SpawnType.TypeA);
-        //yield return new WaitForSeconds(0.5f);
-        //NewSpawn_WithRecord(0, 12, new List<int> { 3 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        yield return null;
-    }
-    IEnumerator SpawnGroup_RC_to_LC() //RC_to_LC    10
-    {
-        //NewSpawn_WithRecord(0, 13, new List<int> { 0 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        //yield return new WaitForSeconds(0.5f);
-        //NewSpawn_WithRecord(0, 13, new List<int> { 0 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        //yield return new WaitForSeconds(0.5f);
-        //NewSpawn_WithRecord(0, 13, new List<int> { 0 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        yield return new WaitForSeconds(0.5f);
-
-    }
-    //特殊陣行
-    IEnumerator SpawnGroup_R_A3() //R_A3*2    1
-    {
-    //    NewSpawn_WithRecord(0, 1, new List<int> { 0 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-    //    yield return new WaitForSeconds(0.5f);
-
-    //    NewSpawn_WithRecord(2, 1, new List<int> { 3 }, new EntryTypeA(), new MoveTypeA(), new LeaveTypeA(), SpawnType.TypeA);
-    //    NewSpawn_WithRecord(2, 2, new List<int> { 3 }, new EntryTypeA(), new MoveTypeA(), new LeaveTypeA(), SpawnType.TypeA);
-    //    yield return new WaitForSeconds(0.5f);
-
-    //    NewSpawn_WithRecord(0, 1, new List<int> { 0 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        yield return new WaitForSeconds(0.5f);
-    }
-    IEnumerator SpawnGroup_L_RB_B() // L_RB_B
-    {
-        //NewSpawn_WithRecord(0, 11, new List<int> { 0 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        //yield return new WaitForSeconds(0.5f);
-        //NewSpawn_WithRecord(3, 2, new List<int> { 2 }, new EntryTypeA(), new MoveTypeA(), new LeaveTypeA(), SpawnType.TypeA);
-        //yield return new WaitForSeconds(0.5f);
-        //NewSpawn_WithRecord(0, 11, new List<int> { 0 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        yield return null;
-    }
-    IEnumerator SpawnGroup_L_M_R_B2() //L_M_R_B2
-    {
-        //NewSpawn_WithRecord(3, 15, new List<int> { 2 }, new EntryTypeA(), new MoveTypeA(), new LeaveTypeA(), SpawnType.TypeA);
-        
-        //NewSpawn_WithRecord(1, 16, new List<int> { 3 }, new EntryTypeA(), new MoveTypeA(), new LeaveTypeA(), SpawnType.TypeA);
-
-        //NewSpawn_WithRecord(3, 17, new List<int> { 2 }, new EntryTypeA(), new MoveTypeA(), new LeaveTypeA(), SpawnType.TypeA);
-        yield return new WaitForSeconds(0.5f);
-
-    }
     
-    IEnumerator SpawnGroup_CT_A() // 3
-    {
-        //NewSpawn_WithRecord(0, 6, new List<int> { 0 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        //NewSpawn_WithRecord(0, 7, new List<int> { 0 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        //NewSpawn_WithRecord(0, 8, new List<int> { 2 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        yield return new WaitForSeconds(0.5f);
-
-    }
-    
-    IEnumerator SpawnGroup_LT_RB_A() // 4
-    {
-        //NewSpawn_WithRecord(0, 1, new List<int> { 0 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        //yield return new WaitForSeconds(0.5f);
-
-        //NewSpawn_WithRecord(0, 1, new List<int> { 2 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        //yield return new WaitForSeconds(0.5f);
-
-        //NewSpawn_WithRecord(0, 1, new List<int> { 0 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        yield return new WaitForSeconds(0.5f);
-
-    }
-
-    IEnumerator SpawnGroup_RB_LT_A() // 5
-    {
-        //NewSpawn_WithRecord(0, 0, new List<int> { 0 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        //yield return new WaitForSeconds(0.5f);
-
-        //NewSpawn_WithRecord(0, 0, new List<int> { 2 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        //yield return new WaitForSeconds(0.5f);
-
-        //NewSpawn_WithRecord(0, 0, new List<int> { 0 }, new EntryTypeA(), new MoveTypeD(), new LeaveTypeA(), SpawnType.TypeA);
-        yield return new WaitForSeconds(0.5f);
-
-    }
 
     public void GameFinish()
     {
