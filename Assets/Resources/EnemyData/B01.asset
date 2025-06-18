@@ -24,7 +24,9 @@ MonoBehaviour:
     corrupted: 1
     corruptionMaxValue: 100
     paralyzeTime: 10
-    paralyzeMaxTime: 0
-    paralyzeAddTime: 0
-    paralyzeMaxCount: 0
+    paralyzeMaxTime: 2
+    paralyzeAddTime: 0.2
+    paralyzeMaxCount: 5
     paralyzeTimeStackMultiplier: 0
+    corruptionDecreaseTime: 0
+    corruptionDecreaseSpeed: 0

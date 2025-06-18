@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: diffusion_Top_L1_C2_TypeC
   m_EditorClassIdentifier: 
   data:
-    spawnPosition: {x: 24, y: 12, z: 7}
-    endPosition: {x: 24, y: 8, z: 7}
-    LeavePositon: {x: 24, y: 12, z: 10}
+    spawnPosition: {x: 24, y: 12, z: 2}
+    endPosition: {x: 24, y: 8, z: 2}
+    LeavePositon: {x: 24, y: 12, z: 7}
     curveHeight: -3
+    randomMoveRadius: 0
     pathNum: 0
     customPathNum: 79
     pointWaitTime: 0
