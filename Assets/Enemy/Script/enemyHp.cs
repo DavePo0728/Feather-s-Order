@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.Audio;
 public class EnemyHp : MonoBehaviour
 {
     [SerializeField]
@@ -71,6 +71,7 @@ public class EnemyHp : MonoBehaviour
     [SerializeField]
     Image corruptionImageLeft, corruptionImageRight;
 
+    [SerializeField] private AudioMixerGroup sfxGroup;
 
     private void Awake()
     {
@@ -100,6 +101,7 @@ public class EnemyHp : MonoBehaviour
         chainEffectParticle = chainEffectObject.GetComponent<ParticleSystem>();
         playerSlashAttack = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSlashAttack>();
         deathAudioClip = Resources.Load<AudioClip>("Sound/EnemyDeathSound");
+        audioSource.outputAudioMixerGroup = sfxGroup;
     }
     // Start is called before the first frame update
     void Start()

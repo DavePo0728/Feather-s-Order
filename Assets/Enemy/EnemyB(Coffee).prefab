@@ -119228,6 +119228,7 @@ MonoBehaviour:
   canvas: {fileID: 0}
   corruptionImageLeft: {fileID: 0}
   corruptionImageRight: {fileID: 0}
+  sfxGroup: {fileID: 8529532715631985236, guid: 60662cf2cb9cfd642af8a3cda9f26050, type: 2}
 --- !u!54 &6761567403057799714
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -119282,6 +119283,7 @@ MonoBehaviour:
   endPoint: {x: 0, y: 0, z: 0}
   leavePoint: {x: 0, y: 0, z: 0}
   curveHeight: 0
+  randomMoveRadius: 0
   stayTime: 10
   pointWaitTime: 0
   originPos: {x: 0, y: 0, z: 0}
@@ -119293,6 +119295,7 @@ MonoBehaviour:
   betweenPointWaitTime: []
   endPointWaitTime: []
   pointMoveTime: []
+  loopType: 0
   path: []
   moveB_PathList: []
   moveC_PathList: []
