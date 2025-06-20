@@ -48,32 +48,32 @@ public class CurvePathGenerator : MonoBehaviour
         debugLine.SetPositions(path);
 
     }
-    public void SetPosition(Vector3 target, Vector3 endPoint, float curveHeight,curveType curveType)
+    public void SetPosition(Vector3 target, Vector3 endPoint, float curveHeight)
     {
         curveStartPoint = target;
         curveEndPoint = GetLandingPosY(endPoint);
         Vector3 direction = Vector3.one*-1;
 
-		switch (curveType)
-        {
-            case curveType.Vertical:
-				direction = (Vector3.up ).normalized;
-				break;
-            case curveType.Horizontal:
-				 direction = ( Vector3.right).normalized;
-				break;
-            case curveType.VerticalAndHorizontal:
-				 direction = (Vector3.up + Vector3.right).normalized;
-				break;
-            default:
-                break;
-        }
-        if (direction == Vector3.one * -1)
-        {
-            Debug.LogError("錯誤方向");
-            return;
-        }
-        bezierControlPoint = (curveStartPoint + curveEndPoint) * 0.5f + (Vector3.right * curveHeight);
+		//switch (curveType)
+  //      {
+  //          case curveType.Vertical:
+		//		direction = (Vector3.up ).normalized;
+		//		break;
+  //          case curveType.Horizontal:
+		//		 direction = ( Vector3.right).normalized;
+		//		break;
+  //          case curveType.VerticalAndHorizontal:
+		//		 direction = (Vector3.up + Vector3.right).normalized;
+		//		break;
+  //          default:
+  //              break;
+  //      }
+  //      if (direction == Vector3.one * -1)
+  //      {
+  //          Debug.LogError("錯誤方向");
+  //          return;
+  //      }
+        bezierControlPoint = (curveStartPoint + curveEndPoint) * 0.5f + (Vector3.up * curveHeight);
     }
 
 	//(Vector3.up + Vector3.right).normalized

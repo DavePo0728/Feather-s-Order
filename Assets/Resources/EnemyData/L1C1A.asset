@@ -10,23 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 041b92316204044419b73e0c5e54944f, type: 3}
-  m_Name: L1C1
+  m_Name: L1C1A
   m_EditorClassIdentifier: 
   data:
-    enemy: {fileID: 7469029502725969291, guid: 394cf122450a9174d9ae510dba4142de, type: 3}
+    enemy: {fileID: 5113663619280529763, guid: aae89946b5f401c4e9c6882dde8c3ec7, type: 3}
     entryTime: 1
-    singleMoveTime: 2
+    singleMoveTime: 1
     leaveTime: 999
-    hp: 400
-    lifeTime: 999
+    hp: 5
+    lifeTime: 15
     haveShield: 0
-    shieldHp: 10
-    corrupted: 1
-    corruptionMaxValue: 100
-    paralyzeTime: 5
-    paralyzeMaxTime: 10
+    shieldHp: 0
+    corrupted: 0
+    corruptionMaxValue: 0
+    paralyzeTime: 1
+    paralyzeMaxTime: 2
     paralyzeAddTime: 0.2
     paralyzeMaxCount: 5
     paralyzeTimeStackMultiplier: 1
-    corruptionDecreaseTime: 5
-    corruptionDecreaseSpeed: 0.1
+    corruptionDecreaseTime: 0
+    corruptionDecreaseSpeed: 0
