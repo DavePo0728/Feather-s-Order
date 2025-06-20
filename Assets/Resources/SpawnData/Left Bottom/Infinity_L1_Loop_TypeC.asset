@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: Infinity_L1_Loop_TypeC
   m_EditorClassIdentifier: 
   data:
-    spawnPosition: {x: 0, y: 18, z: 0}
+    spawnPosition: {x: 0, y: 18, z: 1}
     endPosition: {x: 9, y: 20, z: 5}
     LeavePositon: {x: 47, y: 21, z: 7}
     curveHeight: -3
+    randomMoveRadius: 0
     pathNum: 0
     customPathNum: 59
     pointWaitTime: 0

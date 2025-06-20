@@ -13,6 +13,10 @@ MonoBehaviour:
   m_Name: wave1
   m_EditorClassIdentifier: 
   waveSequence:
+  - groupName: SpawnGroup_L1_Invisible1
+    repeatCount: 1
+    delayAfterGroup: 1
+    killAllEnemies: 1
   - groupName: EmptyWaveStart
     repeatCount: 1
     delayAfterGroup: 0
@@ -54,10 +58,6 @@ MonoBehaviour:
     delayAfterGroup: 1
     killAllEnemies: 1
   - groupName: SpawnGroup_L1_C2
-    repeatCount: 1
-    delayAfterGroup: 1
-    killAllEnemies: 1
-  - groupName: SpawnGroup_L1_Invisible1
     repeatCount: 1
     delayAfterGroup: 1
     killAllEnemies: 1
