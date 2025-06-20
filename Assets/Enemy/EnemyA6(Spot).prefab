@@ -16792,7 +16792,7 @@ Transform:
   - {fileID: 2314064399558126297}
   - {fileID: 6345452204938570168}
   - {fileID: 6185720077285706078}
-  - {fileID: 6562814659376682964}
+  - {fileID: 6915624304160090941}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3639412867207181669
@@ -28563,7 +28563,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 433498, guid: 25ed6fd58b5897c4a9c12c3e26164660, type: 3}
   m_PrefabInstance: {fileID: 6345452204938474722}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &6557940061930330608
+--- !u!1001 &6910928929837786393
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -28659,13 +28659,33 @@ PrefabInstance:
       propertyPath: InitialModule.startLifetime.scalar
       value: 0.6
       objectReference: {fileID: 0}
+    - target: {fileID: 198862391873483400, guid: b754cb6e007692245bcdfa629b37e171, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key1.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198862391873483400, guid: b754cb6e007692245bcdfa629b37e171, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key1.g
+      value: 0.09141752
+      objectReference: {fileID: 0}
+    - target: {fileID: 198862391873483400, guid: b754cb6e007692245bcdfa629b37e171, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.key1.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198862391873483400, guid: b754cb6e007692245bcdfa629b37e171, type: 3}
+      propertyPath: ColorModule.gradient.maxGradient.m_ColorSpace
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 199708145313222842, guid: b754cb6e007692245bcdfa629b37e171, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e5f40725c27ba6646846bd15e42bbf41, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b754cb6e007692245bcdfa629b37e171, type: 3}
---- !u!4 &6562814659376682964 stripped
+--- !u!4 &6915624304160090941 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4985825594347044, guid: b754cb6e007692245bcdfa629b37e171, type: 3}
-  m_PrefabInstance: {fileID: 6557940061930330608}
+  m_PrefabInstance: {fileID: 6910928929837786393}
   m_PrefabAsset: {fileID: 0}

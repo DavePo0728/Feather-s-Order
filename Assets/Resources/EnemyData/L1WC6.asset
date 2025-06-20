@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: L1WC6
   m_EditorClassIdentifier: 
   data:
-    enemy: {fileID: 7469029502725969291, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
+    enemy: {fileID: 7469029502725969291, guid: 394cf122450a9174d9ae510dba4142de, type: 3}
     entryTime: 2
     singleMoveTime: 0.5
     leaveTime: 2
@@ -24,7 +24,7 @@ MonoBehaviour:
     corrupted: 1
     corruptionMaxValue: 100
     paralyzeTime: 5
-    paralyzeMaxTime: 2
+    paralyzeMaxTime: 10
     paralyzeAddTime: 0.2
     paralyzeMaxCount: 5
     paralyzeTimeStackMultiplier: 1
