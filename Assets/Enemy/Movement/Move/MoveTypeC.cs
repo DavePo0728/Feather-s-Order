@@ -17,6 +17,7 @@ public class MoveTypeC : IMoveBehaviour
     [SerializeField]
     MoveStatus moveStatus;
     loopType loopType;
+    Vector3[] path;
     private enum MoveStatus
     {
         Start,
@@ -27,7 +28,7 @@ public class MoveTypeC : IMoveBehaviour
     {
         // 先取出等待時間，方便後面使用
         float waitTime = enemyMove.pointWaitTime;
-        Vector3[] path = enemyMove.moveC_PathList;
+        path = enemyMove.moveC_PathList;
         float moveDuration = enemyMove.moveTime;
         int loopStartIndex = enemyMove.loopStartIndex;
         int loopEndIndex = enemyMove.loopEndIndex;
@@ -386,6 +387,11 @@ public class MoveTypeC : IMoveBehaviour
     }
     public void OnDrawGizmos()
     {
-
+        Gizmos.color = Color.green;
+        if (path != null)
+            Gizmos.DrawCube(path[0], Vector3.one);
+        if (path != null)
+            Gizmos.color = Color.red;
+        Gizmos.DrawCube(path[path.Length-1], Vector3.one);
     }
 }
