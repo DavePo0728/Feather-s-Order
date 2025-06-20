@@ -285,8 +285,10 @@ public class EnemyShootingController : MonoBehaviour
         for (int i = 0; i < g.bulletAmount; i++)
         {
             float angle = i * (360 / g.bulletAmount);
-            float radian = (angle * Mathf.Deg2Rad) + 90f;
-            print(radian);
+            if (g.bulletAmount == 1)
+                angle = 90f; // 如果只有一顆子彈，則直接朝上發射
+            float radian = (angle * Mathf.Deg2Rad);
+            //print(radian);
             Vector3 direction = new Vector3(Mathf.Cos(radian), Mathf.Sin(radian), 0);
             ActiveMissile(g,shooter.transform.position, shooter.transform.rotation,direction);
         }
