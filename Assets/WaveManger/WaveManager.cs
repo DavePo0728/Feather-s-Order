@@ -614,6 +614,7 @@ public class WaveManager : MonoBehaviour
         enemyMove.paralyzeTimeStackMultiplier = enemyData.data.paralyzeTimeStackMultiplier;
         enemyHp.corruptionDecreaseTime = enemyData.data.corruptionDecreaseTime;
         enemyHp.corruptionDecreaseSpeed = enemyData.data.corruptionDecreaseSpeed;
+        enemyMove.curveType = spawnData.data.curveType;
         enemyMove.endPoint = endPoint;
         enemyMove.leavePoint = leavePoint;
         EnemyShootingController enemyShootingController = temp.transform.Find("Guns").GetComponent<EnemyShootingController>();

@@ -57,15 +57,25 @@ public class CurvePathGenerator : MonoBehaviour
 		switch (curveType)
         {
             case curveType.Vertical:
-				direction = (Vector3.up ).normalized;
+				direction = Vector3.up;
 				break;
+            case curveType.Negative_Vertical:
+                direction = Vector3.up * -1;
+                break;
             case curveType.Horizontal:
-				 direction = ( Vector3.right).normalized;
+				direction = Vector3.right;
 				break;
+            case curveType.Negative_Horizontal:
+                direction = Vector3.right * -1;
+                break;
             case curveType.VerticalAndHorizontal:
-				 direction = (Vector3.up + Vector3.right).normalized;
+				direction = (Vector3.up + Vector3.right).normalized;
 				break;
+            case curveType.Negative_VerticalAndHorizontal:
+                direction = (Vector3.up + Vector3.right).normalized * -1;
+                break;
             default:
+                Debug.LogError("未設定曲線類型");
                 break;
         }
         if (direction == Vector3.one * -1)
@@ -73,7 +83,8 @@ public class CurvePathGenerator : MonoBehaviour
             Debug.LogError("錯誤方向");
             return;
         }
-        bezierControlPoint = (curveStartPoint + curveEndPoint) * 0.5f + (Vector3.right * curveHeight);
+        Debug.Log($"CurveType: {curveType} direction: {direction}");
+        bezierControlPoint = (curveStartPoint + curveEndPoint) * 0.5f + (direction * curveHeight);
     }
 
 	//(Vector3.up + Vector3.right).normalized

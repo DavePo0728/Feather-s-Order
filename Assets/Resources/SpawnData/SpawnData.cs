@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 public enum curveType
 {
-	Vertical ,
-	Horizontal,
-	VerticalAndHorizontal
+	Vertical,
+    Negative_Vertical,
+    Horizontal,
+    Negative_Horizontal,
+    VerticalAndHorizontal,
+    Negative_VerticalAndHorizontal,
 }
 [CreateAssetMenu(fileName = "New SpawnData", menuName = "SpawnData/New SpawnData")]
 public class SpawnData : ScriptableObject

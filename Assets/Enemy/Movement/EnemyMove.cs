@@ -33,6 +33,7 @@ public class EnemyMove : MonoBehaviour
     public Vector3 leavePoint;
     public float curveHeight;
     public float randomMoveRadius; //隨機移動半徑
+    public curveType curveType; //曲線類型
     public float stayTime;
     public float pointWaitTime;
     public Vector3 originPos;
