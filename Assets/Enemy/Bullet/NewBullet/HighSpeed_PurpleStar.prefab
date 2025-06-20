@@ -14743,7 +14743,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1.4
+      scalar: 1
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -19375,21 +19375,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e8965f75753525429f3559258851527, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitEffect: {fileID: 0}
-  hitParticle: {fileID: 0}
-  bulletBody: {fileID: 0}
-  muzzleFlash: {fileID: 0}
-  BulletCollider: {fileID: 0}
   speed: 0
-  BulletlifeTime: 0
-  sphereRadius: 0
-  moveToward: 0
-  minSpread: 0
-  MaxSpread: 0
-  spreadSpeed: 0
-  homing: 0
-  homingTime: 0
-  fireWork: 0
+  lifeTime: 0
+  spreadDuration: 0
+  trackDuration: 0
+  maxRotationSpeed: 0
 --- !u!136 &-8702456717408517286
 CapsuleCollider:
   m_ObjectHideFlags: 0
