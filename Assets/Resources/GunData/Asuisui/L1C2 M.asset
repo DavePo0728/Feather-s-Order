@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: L1C2 M
   m_EditorClassIdentifier: 
   data:
-    patternType: 1
-    trackPlayer: 1
+    patternType: 6
+    trackPlayer: 0
     gunIndex: 1
-    rpm: 200
+    rpm: 300
     bulletType: 0
     MaxShootWave: 6
     bulletAmount: 1
@@ -28,7 +28,7 @@ MonoBehaviour:
     ringRadius: 0
     swingSpeed: 1
     swingAngle: 15
-    missilePrefab: {fileID: 0}
-    trackDuration: 0
-    maxRotationSpeed: 0
-    spreadDuration: 0
+    missilePrefab: {fileID: 7169194746986329639, guid: 8d67999f4fe3daa4980967b8c8fadc0b, type: 3}
+    trackDuration: 1.9
+    maxRotationSpeed: 270
+    spreadDuration: 0.1
