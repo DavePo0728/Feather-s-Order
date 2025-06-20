@@ -46,15 +46,43 @@ public class CurvePathGenerator : MonoBehaviour
         debugLine.endWidth = 1f;
         debugLine.material = lineMaterial;
         debugLine.SetPositions(path);
-        
+
     }
-    public void SetPosition(Vector3 target, Vector3 endPoint,float curveHeight)
+    public void SetPosition(Vector3 target, Vector3 endPoint, float curveHeight,curveType curveType)
     {
         curveStartPoint = target;
         curveEndPoint = GetLandingPosY(endPoint);
-        bezierControlPoint = (curveStartPoint + curveEndPoint) * 0.5f + (Vector3.up * curveHeight);
+        Vector3 direction = Vector3.one*-1;
+
+		switch (curveType)
+        {
+            case curveType.Vertical:
+				direction = (Vector3.up ).normalized;
+				break;
+            case curveType.Horizontal:
+				 direction = ( Vector3.right).normalized;
+				break;
+            case curveType.VerticalAndHorizontal:
+				 direction = (Vector3.up + Vector3.right).normalized;
+				break;
+            default:
+                break;
+        }
+        if (direction == Vector3.one * -1)
+        {
+            Debug.LogError("¿ù»~¤è¦V");
+            return;
+        }
+        bezierControlPoint = (curveStartPoint + curveEndPoint) * 0.5f + (Vector3.right * curveHeight);
     }
-    Vector3 GetLandingPosY(Vector3 endTransform)
+
+	//(Vector3.up + Vector3.right).normalized
+	//Vector3.right
+	//type
+	//1 vertical 
+	//2 horizontal
+	//3 vertical + horizontal
+	Vector3 GetLandingPosY(Vector3 endTransform)
     {
         Vector3 randomPosition = Random.insideUnitSphere * landingRadius + endTransform;
         randomPosition.y = endTransform.y;

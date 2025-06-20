@@ -1,6 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+public enum curveType
+{
+	Vertical ,
+	Horizontal,
+	VerticalAndHorizontal
+}
 [CreateAssetMenu(fileName = "New SpawnData", menuName = "SpawnData/New SpawnData")]
 public class SpawnData : ScriptableObject
 {
@@ -14,7 +20,8 @@ public class SpData
     public Vector3 endPosition;
     public Vector3 LeavePositon;
     public float curveHeight;
-    [Header("typeA")]
+	public curveType curveType;
+	[Header("typeA")]
     public float randomMoveRadius;
     [Header("typeB")]
     public int pathNum;
