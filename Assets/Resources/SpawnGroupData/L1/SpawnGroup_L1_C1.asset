@@ -23,6 +23,22 @@ MonoBehaviour:
     leaveType: 0
     delayTime: 0
     spawnType: 0
+  - enemyData: 27
+    spawnData: 93
+    gunData: {fileID: 11400000, guid: 182689edcaf40824686f91d8d55cc18f, type: 2}
+    entryType: 0
+    moveType: 0
+    leaveType: 0
+    delayTime: 0
+    spawnType: 0
+  - enemyData: 27
+    spawnData: 94
+    gunData: {fileID: 11400000, guid: 182689edcaf40824686f91d8d55cc18f, type: 2}
+    entryType: 0
+    moveType: 0
+    leaveType: 0
+    delayTime: 0
+    spawnType: 0
   - enemyData: 26
     spawnData: 48
     gunData: {fileID: 11400000, guid: 2b2e8678fd10ee047bc4a19231aaf55b, type: 2}
@@ -85,5 +101,5 @@ MonoBehaviour:
     entryType: 0
     moveType: 2
     leaveType: 0
-    delayTime: 0
+    delayTime: 1
     spawnType: 2
