@@ -17,6 +17,10 @@ MonoBehaviour:
     repeatCount: 1
     delayAfterGroup: 0
     killAllEnemies: 0
+  - groupName: SpawnGroup_L1_W7
+    repeatCount: 1
+    delayAfterGroup: 4
+    killAllEnemies: 1
   - groupName: SpawnGroup_L1_W1
     repeatCount: 1
     delayAfterGroup: 4
@@ -45,10 +49,6 @@ MonoBehaviour:
     repeatCount: 1
     delayAfterGroup: 0
     killAllEnemies: 0
-  - groupName: SpawnGroup_L1_W7
-    repeatCount: 1
-    delayAfterGroup: 4
-    killAllEnemies: 1
   - groupName: SpawnGroup_L1_W8
     repeatCount: 1
     delayAfterGroup: 1
