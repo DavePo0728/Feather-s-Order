@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: 04A3_LeftToRight_T4_Mid_TypeC 1
   m_EditorClassIdentifier: 
   data:
-    spawnPosition: {x: 8, y: 12, z: 2}
+    spawnPosition: {x: 8, y: 1, z: 2}
     endPosition: {x: 12, y: 12, z: 4}
     LeavePositon: {x: 45, y: 12, z: 7}
-    curveHeight: -50
-    curveType: 1
+    curveHeight: 25
+    curveType: 3
     randomMoveRadius: 0
     pathNum: 0
     customPathNum: 15
