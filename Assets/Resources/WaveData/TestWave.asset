@@ -15,9 +15,13 @@ MonoBehaviour:
   waveSequence:
   - groupName: EmptyWave
     repeatCount: 1
-    delayAfterGroup: 3
+    delayAfterGroup: 0
     killAllEnemies: 0
-  - groupName: TestWave
+  - groupName: SpawnGroup_L1_W6
+    repeatCount: 1
+    delayAfterGroup: 3
+    killAllEnemies: 1
+  - groupName: SpawnGroup_L1_W1
     repeatCount: 1
     delayAfterGroup: 3
     killAllEnemies: 1

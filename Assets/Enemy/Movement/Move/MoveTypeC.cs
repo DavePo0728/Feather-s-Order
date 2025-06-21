@@ -102,7 +102,7 @@ public class MoveTypeC : IMoveBehaviour
                 .OnStart(() =>
                 {
                     moveStatus = MoveStatus.Start;
-                    //Debug.Log($"[startSequence] 開始移動到節點 index = {currentNodeIndex}"+$"MoveStatus: {moveStatus}");
+                   // Debug.Log($"[startSequence] 開始移動到節點 index = {currentNodeIndex} Index Data: {path[currentNodeIndex]} MoveStatus: {moveStatus}");
                 })
                 );
                 
@@ -113,7 +113,9 @@ public class MoveTypeC : IMoveBehaviour
         {
             if(loopType == loopType.Yoyo)
             {
+                
                 startSequence.OnComplete(() => startBackSequence.Play());
+                
             }
             else
             {
@@ -189,7 +191,7 @@ public class MoveTypeC : IMoveBehaviour
                     .DOMove(path[i], moveDuration)
                     .SetEase(Ease.Linear)
 
-                    .OnComplete(() => { Debug.Log($"[startBackSequence] 已到達節點 index = {currentNodeIndex}"); })
+                    //.OnComplete(() => { Debug.Log($"[startBackSequence] 已到達節點 index = {currentNodeIndex}"); })
                     .OnStart(() =>
                     {
                         moveStatus = MoveStatus.Start;
@@ -214,6 +216,7 @@ public class MoveTypeC : IMoveBehaviour
         //
         if (loopTime > 0 || loopTime == -1)
         {
+            //Debug.Log($"[loopSequence] 循環次數: {loopTime}，循環類型: {loopType}");
             if (enemyMove.pointIndex.Count > 0)
             {
                 for (int i = loopStartIndex; i <= loopEndIndex; i++)
@@ -234,15 +237,15 @@ public class MoveTypeC : IMoveBehaviour
                         moveDuration = enemyMove.moveTime;
                         waitTime = enemyMove.pointWaitTime;
                     }
-                    Debug.Log($"moveTime:{moveDuration}");
                     // 1) Append 一段移動 tween
                     loopSequence.Append(enemyMove.transform
                         .DOMove(path[i], moveDuration)
                         .SetEase(Ease.Linear)
-                        .OnComplete(() => { Debug.Log($"[loopSequence] 已到達節點 index = {currentNodeIndex}"); })
+                        //.OnComplete(() => { Debug.Log($"[loopSequence] 已到達節點 index = {currentNodeIndex}"); })
                         .OnStart(() =>
                         {
                             moveStatus = MoveStatus.Loop;
+                            Debug.Log($"[loopSequence] 循環次數: {loopTime}，循環類型: {loopType}");
                             //Debug.Log($"[loopSequence] 開始移動到節點 index = {currentNodeIndex}" + $"MoveStatus: {moveStatus}");
                         })
                     );
@@ -285,6 +288,7 @@ public class MoveTypeC : IMoveBehaviour
                         .OnStart(() =>
                         {
                             moveStatus = MoveStatus.Loop;
+                            //Debug.Log($"[loopSequence] 循環次數: {loopTime}，循環類型: {loopType}");
                             //Debug.Log($"[loopSequence] 開始移動到節點 index = {currentNodeIndex}" + $"MoveStatus: {moveStatus}");
                         })
                     );
@@ -294,6 +298,9 @@ public class MoveTypeC : IMoveBehaviour
                 switch (loopType)
                 {
                     case loopType.Loop:
+                        if (loopTime == 0)
+                            return;
+                        //Debug.Log($"[loopSequence] 設定為 Loop 循環，循環次數: {loopTime}");
                         loopSequence.SetLoops(loopTime, LoopType.Restart);
                         break;
                     case loopType.Yoyo:
@@ -306,17 +313,17 @@ public class MoveTypeC : IMoveBehaviour
                 loopSequence.OnComplete(() => endSequence.Play());
             }
         }
-        for (int i = loopEndIndex; i <= path.Length - 1; i++)
+        for (int i = loopEndIndex+1; i <= path.Length - 1; i++)
         {
             int currentNodeIndex = i;
             // 1) Append 一段移動 tween
             endSequence.Append(enemyMove.transform
-                .DOMove(path[i], moveDuration)
+                .DOMove(path[currentNodeIndex], moveDuration)
                 .SetEase(Ease.Linear)
                 .OnStart(() =>
                 {
                     moveStatus = MoveStatus.End;
-                    //Debug.Log($"[endSequence] 開始移動到節點 index = {currentNodeIndex}" + $"MoveStatus: {moveStatus}");
+                    //Debug.Log($"[endSequence] 開始移動到節點 index = {currentNodeIndex} Index Data: {path[currentNodeIndex]} MoveStatus: {moveStatus}");
                 })
             );
             // 2) Append Interval 等待
@@ -384,14 +391,5 @@ public class MoveTypeC : IMoveBehaviour
             endSequence.Play();
             endPause = false;
         }
-    }
-    public void OnDrawGizmos()
-    {
-        Gizmos.color = Color.green;
-        if (path != null)
-            Gizmos.DrawCube(path[0], Vector3.one);
-        if (path != null)
-            Gizmos.color = Color.red;
-        Gizmos.DrawCube(path[path.Length-1], Vector3.one);
     }
 }
