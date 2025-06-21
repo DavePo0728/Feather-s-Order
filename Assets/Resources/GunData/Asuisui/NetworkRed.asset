@@ -10,25 +10,25 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a1d36a8fb6caf1640a57d3e453e56159, type: 3}
-  m_Name: HomingMissile_L1C1W3A
+  m_Name: NetworkRed
   m_EditorClassIdentifier: 
   data:
-    patternType: 6
+    patternType: 0
     trackPlayer: 0
     gunIndex: 1
-    rpm: 300
-    bulletType: 1
-    MaxShootWave: 1
+    rpm: 50
+    bulletType: 0
+    MaxShootWave: 7
     bulletAmount: 1
     spreadAngle: 0
     shooterRotation: 0
-    spinSpeed: 5
-    bulletsPerArm: 5
-    crossSpacing: 5
+    spinSpeed: 0
+    bulletsPerArm: 0
+    crossSpacing: 0
     ringRadius: 0
     swingSpeed: 0
     swingAngle: 0
-    missilePrefab: {fileID: 7169194746986329639, guid: 8d67999f4fe3daa4980967b8c8fadc0b, type: 3}
-    trackDuration: 1.95
-    maxRotationSpeed: 270
-    spreadDuration: 0.1
+    missilePrefab: {fileID: 0}
+    trackDuration: 0
+    maxRotationSpeed: 0
+    spreadDuration: 0

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 020630e1ead07b64c808f9917b65c821, type: 3}
+  m_Name: L1C1Network
+  m_EditorClassIdentifier: 
+  gunDatas:
+  - Data: {fileID: 11400000, guid: 9ef056543e5190e4ea4fe02b9c214b3b, type: 2}
+    delayTime: 0
+    IsAdditonalAttack: 0
+    addtionalGunData: []
+  - Data: {fileID: 11400000, guid: abeb6981465cc824ab8c929c9cc7510e, type: 2}
+    delayTime: 1
+    IsAdditonalAttack: 1
+    addtionalGunData:
+    - additionalData: {fileID: 11400000, guid: d6c01bf1fb05c2c4998bcaa3b20d41ae, type: 2}
+      additionalDelayTime: 4
