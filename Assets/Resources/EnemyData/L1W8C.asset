@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 041b92316204044419b73e0c5e54944f, type: 3}
+  m_Name: L1W8C
+  m_EditorClassIdentifier: 
+  data:
+    enemy: {fileID: 5113663619280529763, guid: ac1299d10f39a504f85b40368e9f355e, type: 3}
+    entryTime: 1
+    singleMoveTime: 1
+    leaveTime: 1
+    hp: 25
+    lifeTime: 9999
+    haveShield: 0
+    shieldHp: 0
+    corrupted: 0
+    corruptionMaxValue: 0
+    paralyzeTime: 1
+    paralyzeMaxTime: 2
+    paralyzeAddTime: 0.2
+    paralyzeMaxCount: 5
+    paralyzeTimeStackMultiplier: 1
+    corruptionDecreaseTime: 5
+    corruptionDecreaseSpeed: 0.1

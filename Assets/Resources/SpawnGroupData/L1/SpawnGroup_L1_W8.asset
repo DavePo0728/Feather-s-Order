@@ -15,11 +15,59 @@ MonoBehaviour:
   spawnDataList: {fileID: 11400000, guid: cca16164670e772499695ce72801d513, type: 2}
   customPathDataList: {fileID: 11400000, guid: 005ab34dbeab2e944af123f4e064833d, type: 2}
   spawnGroupDataList:
-  - enemyData: 20
-    spawnData: 63
+  - enemyData: 30
+    spawnData: 102
     gunData: {fileID: 11400000, guid: 2b2e8678fd10ee047bc4a19231aaf55b, type: 2}
     entryType: 0
     moveType: 2
     leaveType: 0
-    delayTime: 0
+    delayTime: 1
+    spawnType: 2
+  - enemyData: 31
+    spawnData: 102
+    gunData: {fileID: 11400000, guid: 2b2e8678fd10ee047bc4a19231aaf55b, type: 2}
+    entryType: 0
+    moveType: 2
+    leaveType: 0
+    delayTime: 1
+    spawnType: 2
+  - enemyData: 31
+    spawnData: 102
+    gunData: {fileID: 11400000, guid: 2b2e8678fd10ee047bc4a19231aaf55b, type: 2}
+    entryType: 0
+    moveType: 2
+    leaveType: 0
+    delayTime: 1
+    spawnType: 2
+  - enemyData: 31
+    spawnData: 102
+    gunData: {fileID: 11400000, guid: 2b2e8678fd10ee047bc4a19231aaf55b, type: 2}
+    entryType: 0
+    moveType: 2
+    leaveType: 0
+    delayTime: 1
+    spawnType: 2
+  - enemyData: 31
+    spawnData: 102
+    gunData: {fileID: 11400000, guid: 2b2e8678fd10ee047bc4a19231aaf55b, type: 2}
+    entryType: 0
+    moveType: 2
+    leaveType: 0
+    delayTime: 1
+    spawnType: 2
+  - enemyData: 31
+    spawnData: 102
+    gunData: {fileID: 11400000, guid: 2b2e8678fd10ee047bc4a19231aaf55b, type: 2}
+    entryType: 0
+    moveType: 2
+    leaveType: 0
+    delayTime: 1
+    spawnType: 2
+  - enemyData: 31
+    spawnData: 102
+    gunData: {fileID: 11400000, guid: 2b2e8678fd10ee047bc4a19231aaf55b, type: 2}
+    entryType: 0
+    moveType: 2
+    leaveType: 0
+    delayTime: 1
     spawnType: 2

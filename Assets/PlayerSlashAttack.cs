@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class PlayerSlashAttack : MonoBehaviour
@@ -51,7 +52,12 @@ public class PlayerSlashAttack : MonoBehaviour
     public DynamicBone clothDB;
     public GameObject sword;
     bool IsReturnAnimation = false;
-
+	[Header("Shader Effect")]
+	public Material ScreenWaveShader;
+    [Header("Dash Effect Time")]
+    public float dashEffectDuration = 0.5f; // 動畫總時間（秒）
+	[Header("Dasheffect")]
+	public GameObject Dasheffect;
     private void Awake()
     {
         aimDetect = GameObject.Find("AimDetectCollider").GetComponent<AimDetect>();
@@ -246,7 +252,9 @@ public class PlayerSlashAttack : MonoBehaviour
 
     void DashToEnemy()
     {
-        slashState = SlashState.Dashing;
+        TriggerDashEffect();
+
+		slashState = SlashState.Dashing;
         shieldEffect.SetActive(false);
         shieldEffectBIG.SetActive(false);
         playerRigidbody.velocity = Vector3.zero;
@@ -256,7 +264,7 @@ public class PlayerSlashAttack : MonoBehaviour
             {
                 slashTarget = target.transform.Find("DashPoint").position;
                 Vector3 lastTargetPos = slashTarget;
-                GetComponent<AfterimageController>().StartDash();
+                //GetComponent<AfterimageController>().StartDash();
                 tweener = playerRigidbody.DOMove(slashTarget, 0.5f).OnComplete(() =>
                 {
                     slashState = SlashState.Arrived;
@@ -284,7 +292,9 @@ public class PlayerSlashAttack : MonoBehaviour
 
     void DashToShieldEnemy()
     {
-        slashState = SlashState.Dashing;
+        TriggerDashEffect();
+
+		slashState = SlashState.Dashing;
         shieldEffect.SetActive(false);
         shieldEffectBIG.SetActive(false);
         playerRigidbody.velocity = Vector3.zero;
@@ -294,7 +304,7 @@ public class PlayerSlashAttack : MonoBehaviour
             {
                 slashTarget = target.transform.Find("DashPoint").position;
                 Vector3 lastTargetPos = slashTarget;
-                GetComponent<AfterimageController>().StartDash();
+                //GetComponent<AfterimageController>().StartDash();
                 tweener = playerRigidbody.DOMove(slashTarget, 0.5f).OnUpdate(() =>
                 {
                     if ((slashTarget - lastTargetPos).sqrMagnitude > 0.01f)
@@ -455,9 +465,50 @@ public class PlayerSlashAttack : MonoBehaviour
         //Debug.Log("搖桿震動關閉");
         Gamepad.current?.SetMotorSpeeds(0, 0);
     }
-	void OnDisable()
+    void OnDisable()
+    {
+        //Debug.Log("搖桿震動關閉");
+        Gamepad.current?.SetMotorSpeeds(0, 0);
+    }
+	/// 這個方法用於觸發屏幕波動效果
+	public void TriggerDashEffect()
+    {
+        Debug.Log("觸發屏幕波動效果");
+		StartCoroutine(PlayDashShaderEffect());
+       
+    }
+
+    /// 播放屏幕波動效果的協程
+    private IEnumerator PlayDashShaderEffect()
 	{
-		//Debug.Log("搖桿震動關閉");
-		Gamepad.current?.SetMotorSpeeds(0, 0);
+		float timeElapsed = 0f;
+		float duration = dashEffectDuration;
+        Dasheffect.SetActive(true);
+
+		Dasheffect.transform.position = transform.position + new Vector3(0f,0.3f,2f);
+		while (timeElapsed < duration)
+		{
+			float t = timeElapsed / duration;
+
+			float fractionValue = Mathf.Lerp(0f, 1f, t);
+			float sizeValue = Mathf.Lerp(0f, 0.2f, t);
+
+			ScreenWaveShader.SetFloat("_FractionTime", fractionValue);
+			ScreenWaveShader.SetFloat("_Size", sizeValue);
+
+			timeElapsed += Time.deltaTime;
+			yield return null;
+		}
+
+		// 確保最終值為結束狀態
+		ScreenWaveShader.SetFloat("_FractionTime", 1f);
+		ScreenWaveShader.SetFloat("_Size", 0.2f);
+
+		// 下一幀後重置回 0（讓畫面有一格保留完整效果）
+		yield return null;
+
+		ScreenWaveShader.SetFloat("_FractionTime", 0f);
+        ScreenWaveShader.SetFloat("_Size", 0f);
+		Dasheffect.SetActive(false);
 	}
 }
