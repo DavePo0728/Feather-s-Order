@@ -28,6 +28,7 @@ public class PlayerShooting : MonoBehaviour
 
     public void GetShootInput(InputAction.CallbackContext context)
     {
+        
         if (context.performed)
         {
             StartShooting();
@@ -39,14 +40,16 @@ public class PlayerShooting : MonoBehaviour
     }
     public void StartShooting()
     {
-        shooting = true;
+        Debug.Log("StartShooting");
+		shooting = true;
         gunPoint1Img.enabled = true;
         gunPoint2Img.enabled = true;
         
     }
     public void StopShooting()
     {
-        shooting = false;
+        Debug.Log("StopShooting");
+		shooting = false;
         gunPoint1Img.enabled = false;
         gunPoint2Img.enabled = false;
         gunSound.Stop();
