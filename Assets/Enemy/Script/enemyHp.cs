@@ -29,7 +29,7 @@ public class EnemyHp : MonoBehaviour
     float corruptionDecreaseTimer; // ¦ÃÂ©«ì´_­p®É¾¹
     public float corruptionDecreaseSpeed; // ¦ÃÂ©«ì´_¶q
     [SerializeField]
-    GameObject corruptionCleanseObject,chainEffectObject;
+    GameObject corruptionCleanseObject,chainEffectObject,UnboxExplosion, ChainEffect_broken;
     ParticleSystem corruptionCleanseParticle, chainEffectParticle;
     PlayerSlashAttack playerSlashAttack;
     [Header("Shield Data")]
@@ -98,8 +98,9 @@ public class EnemyHp : MonoBehaviour
         corruptionCleanseObject = transform.Find("CorruptionCleanse").gameObject;
         corruptionCleanseParticle =corruptionCleanseObject.GetComponent<ParticleSystem>();
         chainEffectObject = transform.Find("ChainEffect").gameObject;
-        chainEffectParticle = chainEffectObject.GetComponent<ParticleSystem>();
-        playerSlashAttack = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSlashAttack>();
+		ChainEffect_broken = transform.Find("ChainEffect_broken").gameObject;
+        chainEffectParticle = transform.Find("ChainEffect").gameObject.GetComponent<ParticleSystem>();
+        UnboxExplosion = transform.Find("UnboxExplosion").gameObject;
         deathAudioClip = Resources.Load<AudioClip>("Sound/EnemyDeathSound");
         audioSource.outputAudioMixerGroup = sfxGroup;
     }
@@ -401,7 +402,9 @@ public class EnemyHp : MonoBehaviour
                 corruption = false;
                 corruptionCleanseObject.SetActive(true);
                 chainEffectObject.SetActive(true);
-                chainEffectParticle.Play();
+				UnboxExplosion.SetActive(true);
+
+				chainEffectParticle.Play();
                 corruptionCleanseParticle.Play();
                 corruptEffect.SetActive(false);
                 enemyMove.Paralyze();
@@ -420,7 +423,9 @@ public class EnemyHp : MonoBehaviour
         playerSlashAttack.ForceFallBack();
         corruptionCleanseObject.SetActive(false);
         chainEffectObject.SetActive(false);
-        corruptEffect.SetActive(true);
+		UnboxExplosion.SetActive(false);
+		ChainEffect_broken.SetActive(true);
+		corruptEffect.SetActive(true);
     }
     void UpdateCorruptionUI()
     {

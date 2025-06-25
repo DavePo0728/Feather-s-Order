@@ -12,9 +12,111 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dece9da6cbe88f949aa276027b130f15, type: 3}
   m_Name: LeftToNetworkMid01_TypeC_PathData
   m_EditorClassIdentifier: 
-  pathX: 18000000180000001800000018000000
-  pathY: 10000000130000001600000013000000
-  pathZ: 05000000050000000500000005000000
+  pathX: 15000000180000001b0000001c0000001b00000018000000150000001400000014000000180000001e000000220000001f00000018000000110000000e00000011000000180000001f000000220000001f00000018000000110000000e00000011000000180000001f000000220000001e000000180000001400000014000000
+  pathY: 0f000000100000000f0000000c0000000900000008000000090000000c0000001000000013000000120000000c0000000500000002000000050000000c0000001300000016000000130000000c0000000500000002000000050000000c0000001300000016000000130000000c0000000600000005000000080000000c000000
+  pathZ: 0500000005000000050000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000050000000500000005000000
   loopTime: -1
   loopStartIndex: 0
-  loopEndIndex: 3
+  loopEndIndex: 31
+  loopType: 0
+  moveTimeValues:
+  - endPointIndex: 0
+    moveTime: 1
+    pointWaitTime: 0
+    endpointWaitTime: 0
+  - endPointIndex: 8
+    moveTime: 1
+    pointWaitTime: 0
+    endpointWaitTime: 0
+  - endPointIndex: 9
+    moveTime: 0.25
+    pointWaitTime: 0
+    endpointWaitTime: 0
+  - endPointIndex: 10
+    moveTime: 0.25
+    pointWaitTime: 0
+    endpointWaitTime: 0
+  - endPointIndex: 11
+    moveTime: 0.25
+    pointWaitTime: 0
+    endpointWaitTime: 0
+  - endPointIndex: 12
+    moveTime: 0.25
+    pointWaitTime: 0
+    endpointWaitTime: 0
+  - endPointIndex: 13
+    moveTime: 0.25
+    pointWaitTime: 0
+    endpointWaitTime: 0
+  - endPointIndex: 14
+    moveTime: 0.25
+    pointWaitTime: 0
+    endpointWaitTime: 0
+  - endPointIndex: 15
+    moveTime: 0.25
+    pointWaitTime: 0
+    endpointWaitTime: 0
+  - endPointIndex: 16
+    moveTime: 0.25
+    pointWaitTime: 0
+    endpointWaitTime: 0
+  - endPointIndex: 17
+    moveTime: 0.25
+    pointWaitTime: 0
+    endpointWaitTime: 0
+  - endPointIndex: 18
+    moveTime: 0.25
+    pointWaitTime: 0
+    endpointWaitTime: 0
+  - endPointIndex: 19
+    moveTime: 0.25
+    pointWaitTime: 0
+    endpointWaitTime: 0
+  - endPointIndex: 20
+    moveTime: 0.25
+    pointWaitTime: 0
+    endpointWaitTime: 0
+  - endPointIndex: 21
+    moveTime: 0.25
+    pointWaitTime: 0
+    endpointWaitTime: 0
+  - endPointIndex: 22
+    moveTime: 0.25
+    pointWaitTime: 0
+    endpointWaitTime: 0
+  - endPointIndex: 23
+    moveTime: 0.25
+    pointWaitTime: 0
+    endpointWaitTime: 0
+  - endPointIndex: 24
+    moveTime: 0.25
+    pointWaitTime: 0
+    endpointWaitTime: 0
+  - endPointIndex: 25
+    moveTime: 0.25
+    pointWaitTime: 0
+    endpointWaitTime: 0
+  - endPointIndex: 26
+    moveTime: 0.25
+    pointWaitTime: 0
+    endpointWaitTime: 0
+  - endPointIndex: 27
+    moveTime: 0.25
+    pointWaitTime: 0
+    endpointWaitTime: 0
+  - endPointIndex: 28
+    moveTime: 0.25
+    pointWaitTime: 0
+    endpointWaitTime: 0
+  - endPointIndex: 29
+    moveTime: 0.25
+    pointWaitTime: 0
+    endpointWaitTime: 0
+  - endPointIndex: 30
+    moveTime: 0.25
+    pointWaitTime: 0
+    endpointWaitTime: 0
+  - endPointIndex: 31
+    moveTime: 0.25
+    pointWaitTime: 0
+    endpointWaitTime: 0

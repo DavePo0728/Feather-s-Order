@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: LeftToNetworkMid07_TypeC_BBB
   m_EditorClassIdentifier: 
   data:
-    spawnPosition: {x: 0, y: 18, z: 0}
-    endPosition: {x: 24, y: 15, z: 5}
-    LeavePositon: {x: 21, y: 23, z: 7}
+    spawnPosition: {x: 24, y: 23, z: 0}
+    endPosition: {x: 26, y: 19, z: 5}
+    LeavePositon: {x: 31, y: 23, z: 7}
     curveHeight: -3
+    curveType: 0
+    randomMoveRadius: 0
     pathNum: 0
     customPathNum: 47
     pointWaitTime: 0
