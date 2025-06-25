@@ -72,7 +72,7 @@ public class PlayerSlashAttack : MonoBehaviour
 
     public void GetSlashInput(InputAction.CallbackContext context)
     {
-        if (context.performed && slashState == SlashState.Idle && playerAim.isLocked)
+        if (context.started && slashState == SlashState.Idle && playerAim.isLocked)
         {
             if (playerAim.CheckLockedEnemy())
             {
