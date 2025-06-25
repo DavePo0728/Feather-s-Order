@@ -75,6 +75,7 @@ public class EnemyHp : MonoBehaviour
 
     private void Awake()
     {
+        playerSlashAttack = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSlashAttack>();
         enemyMove = gameObject.GetComponent<EnemyMove>();
         canvas = transform.Find("StatusCanvas").GetComponent<Canvas>();
         audioSource = GetComponent<AudioSource>();
