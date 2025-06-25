@@ -14,12 +14,12 @@ public class MoveTypeA : IMoveBehaviour
     {
         waitTime = enemyMove.pointWaitTime;
         randomMoveRadius = enemyMove.randomMoveRadius;
-        Debug.Log($"MovingRadius: {randomMoveRadius}");
+        //Debug.Log($"MovingRadius: {randomMoveRadius}");
         if (enemyMove.gameObject != null)
         {
             _nextPos = CurvePathGenerator.pathInstance.GetLandingPosZ(enemyMove.originPos, randomMoveRadius);
-            Debug.Log("EnemyName: "+enemyMove.name+" NextPos: " + _nextPos);
-            onMoveA = enemyMove.transform.DOMove(_nextPos, enemyMove.moveTime).SetEase(Ease.Linear).SetDelay(waitTime).OnPause(() => { tweenPlaying = false; }).OnPlay(() => { tweenPlaying = true; Debug.Log("MoveTypeAPlay"); });
+            //Debug.Log("EnemyName: "+enemyMove.name+" NextPos: " + _nextPos);
+            onMoveA = enemyMove.transform.DOMove(_nextPos, enemyMove.moveTime).SetEase(Ease.Linear).SetDelay(waitTime).OnPause(() => { tweenPlaying = false; }).OnPlay(() => { tweenPlaying = true;});
             if(!tweenPlaying)
             onMoveA.Play();
             onMoveA.OnComplete(() => { tweenPlaying = false; Move(enemyMove); /*Debug.Log("TweenComplete");*/ });

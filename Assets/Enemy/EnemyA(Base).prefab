@@ -16786,16 +16786,16 @@ MonoBehaviour:
   corrupted: 0
   corruption: 0
   currentCorruptionValue: 0
-  maxCorruptionValue: 100
+  maxCorruptionValue: 0
   corruptionDecreaseTime: 0
   corruptionDecreaseSpeed: 0
   corruptionCleanseObject: {fileID: 0}
   chainEffectObject: {fileID: 0}
   shieldEffect: {fileID: 0}
   shieldExplosionEffect: {fileID: 0}
-  haveshield: 1
+  haveshield: 0
   currentShieldHp: 0
-  maxShieldHp: 10
+  maxShieldHp: 0
   DeathExplosion: {fileID: 0}
   shieldHitAudioClip: {fileID: 0}
   shieldBreakAudioClip: {fileID: 0}
@@ -16845,6 +16845,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cd254f68e1e7454eb298a5a6627ef8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveName: 
   entryTime: 0
   moveTime: 0
   leaveTime: 0
@@ -16861,6 +16862,7 @@ MonoBehaviour:
   leavePoint: {x: 0, y: 0, z: 0}
   curveHeight: 0
   randomMoveRadius: 0
+  curveType: 0
   stayTime: 4
   pointWaitTime: 0
   originPos: {x: 0, y: 0, z: 0}
@@ -17565,7 +17567,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5830263055534267372
 Transform:
   m_ObjectHideFlags: 0
@@ -17805,7 +17807,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 1
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -22857,7 +22859,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 1
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 1
   m_UseSpriteMesh: 0

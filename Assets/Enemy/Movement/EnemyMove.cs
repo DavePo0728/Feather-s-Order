@@ -18,8 +18,7 @@ public class EnemyMove : MonoBehaviour
     public float leaveTime;
     public float lifeTime;
     bool paralyzing = false;   //是否癱瘓中
-    [SerializeField]
-    float currentParalyzeTime = 0;  //目前癱瘓時間
+    public float currentParalyzeTime = 0;  //目前癱瘓時間
     public float initialParalyzeTime;   //初始癱瘓時間
     public float maxParalyzeTime;   //最大癱瘓時間
     public int paralyzeMaxCount;    //最大癱瘓次數
@@ -94,9 +93,11 @@ public class EnemyMove : MonoBehaviour
         {
             moveTime = DebugMoveTime;
             originPos = transform.position;
+            randomMoveRadius = 5;
             moveBehavior = new MoveTypeA();
             moveBehavior.Move(this);
             isMove = true;
+            moveName = moveBehavior.ToString();
         }
     }
     void FixedUpdate()
@@ -119,6 +120,7 @@ public class EnemyMove : MonoBehaviour
         {
             if (gun.activeSelf == false)
                 gun.SetActive(true);
+            Debug.Log("Gun Active: " + gun.activeSelf);
         }
         originPos = transform.position;
         //Debug.Log(moveBehavior.ToString());
@@ -229,7 +231,7 @@ public class EnemyMove : MonoBehaviour
     }
     void OnDrawGizmos()
     {
-        if (isMove)
+        if (isMove&&moveBehavior == new MoveTypeC())
         {
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(originPos, randomMoveRadius);

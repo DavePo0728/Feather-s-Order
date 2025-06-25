@@ -4214,13 +4214,53 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5339721675714717020, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
+      propertyPath: debug
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6806084062278553910, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
+      propertyPath: maxParalyzeTime
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 6806084062278553910, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
+      propertyPath: paralyzeMaxCount
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6806084062278553910, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
+      propertyPath: initialParalyzeTime
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7469029502725969291, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
       propertyPath: m_Name
       value: EnemyB(new)
       objectReference: {fileID: 0}
     - target: {fileID: 7469029502725969291, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8641771722476299812, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
+      propertyPath: corrupted
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8641771722476299812, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
+      propertyPath: haveshield
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8641771722476299812, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
+      propertyPath: maxShieldHp
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8641771722476299812, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
+      propertyPath: maxCorruptionValue
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8641771722476299812, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
+      propertyPath: corruptionDecreaseTime
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8641771722476299812, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
+      propertyPath: corruptionDecreaseSpeed
+      value: 0.02
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -56190,18 +56230,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5113663619280529763, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
       propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5953248887307944697, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
-      propertyPath: corrupted
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5953248887307944697, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
-      propertyPath: haveshield
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5953248887307944697, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
-      propertyPath: maxShieldHp
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -250973,22 +251001,6 @@ MonoBehaviour:
     m_ActionId: d28b3ae9-d317-4845-ad60-e41a49389238
     m_ActionName: GameScene1/Aim[/DualSenseGamepadHID/rightStick]
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PlayerHP, Assembly-CSharp
-        m_MethodName: GetHealInput
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 62b32e9a-e408-4d4a-a26f-a93cb4308d6d
-    m_ActionName: GameScene1/HeartUse[/DualSenseGamepadHID/dpad/left]
-  - m_PersistentCalls:
       m_Calls: []
     m_ActionId: b56891c4-0ec8-4ea5-9389-45a58115138d
     m_ActionName: StartScene/StartGame
@@ -279284,7 +279296,7 @@ MonoBehaviour:
   DashAudioSource: {fileID: 5705954686936406822}
   dashForce: 3
   moveHspeed: 60
-  moveVspeed: 15
+  moveVspeed: 30
   maxVelocity: 60
   moveHspeedMultiplier: 0
   moveVspeedMultiplier: 0
@@ -306645,7 +306657,7 @@ MonoBehaviour:
   customPathDataList: {fileID: 11400000, guid: 005ab34dbeab2e944af123f4e064833d, type: 2}
   waveText: {fileID: 1863720563}
   tutorialImage: {fileID: 0}
-  debug: 0
+  debug: 1
   enemyDataList: {fileID: 11400000, guid: ea9fd51ecabf28f488513454d6693a43, type: 2}
   spawnDataList: {fileID: 11400000, guid: cca16164670e772499695ce72801d513, type: 2}
   spawnNormalGroupList: {fileID: 11400000, guid: a80600eba4e6a1540a1b741a0787c31e, type: 2}

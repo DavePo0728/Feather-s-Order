@@ -105,7 +105,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "MeleeDash",
+                    "name": "SlashAttack",
                     "type": "Button",
                     "id": "ad0ca4af-7b3c-4c19-820c-1902f3331aa1",
                     "expectedControlType": "",
@@ -283,7 +283,7 @@
                     "name": "",
                     "id": "839f27fc-2713-46d2-b379-31429ce92889",
                     "path": "<Gamepad>/rightTrigger",
-                    "interactions": "",
+                    "interactions": "Hold(duration=0.5,pressPoint=1)",
                     "processors": "",
                     "groups": "",
                     "action": "Slash",
@@ -396,7 +396,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "MeleeDash",
+                    "action": "SlashAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

@@ -28,7 +28,7 @@ public class PlayerShooting : MonoBehaviour
 
     public void GetShootInput(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed&&playerSlashAttack.slashState == PlayerSlashAttack.SlashState.Idle)
         {
             StartShooting();
         }

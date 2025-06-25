@@ -29,7 +29,7 @@ public class EnemyShootingController : MonoBehaviour
     int addtionalCount;
     [SerializeField]
     private int currentModeIndex = 0;
-    public bool IsAttackLooping;
+    public bool IsAttackLooping =false;
     public GunDataList gunDataList;
 
     private void Awake()
@@ -37,7 +37,7 @@ public class EnemyShootingController : MonoBehaviour
         shooter = transform.GetChild(0).gameObject;
         spinShooter = transform.Find("4-waySpinGun").gameObject;
         fourWayGunSpin = spinShooter.GetComponent<FourWayGunSpin>();
-        for (int i=0; i < transform.childCount; i++)
+        for (int i = 0; i < transform.childCount; i++)
         {
             shooterList.Add(transform.GetChild(i).gameObject);
         }
@@ -46,9 +46,6 @@ public class EnemyShootingController : MonoBehaviour
             spinShooterList.Add(spinShooter.transform.GetChild(i).gameObject);
         }
         addtionalCount = 0;
-    }
-    private void Start()
-    {
         if (debug)
         {
             gunDataList = Resources.Load<GunDataList>("GunData/GunPattern/TestGunDataList");
@@ -80,8 +77,10 @@ public class EnemyShootingController : MonoBehaviour
                 modes.Add(gd.data);
             }
         }
-        IsAttackLooping = true;
-        StartAttacking();
+    }
+    private void Start()
+    {
+
     }
     private void OnEnable()
     {
@@ -113,6 +112,7 @@ public class EnemyShootingController : MonoBehaviour
     /// <param name="useAllAtOnce">true=同時啟動所有模式；false=單模式輪流</param>
     public void StartAttacking()
     {
+        IsAttackLooping = true;
         StartCoroutine(AttackRotate());
     }
     IEnumerator TriggerAllMode()
@@ -138,21 +138,29 @@ public class EnemyShootingController : MonoBehaviour
     {
         while (IsAttackLooping)
         {
-            if (gunDataList.gunDatas[currentModeIndex].IsAdditonalAttack)
+            if (gunDataList != null) 
             {
-                Invoke("FireExtraMode", gunDataList.gunDatas[currentModeIndex].addtionalGunData[addtionalCount].additionalDelayTime);
+                if (gunDataList.gunDatas[currentModeIndex].IsAdditonalAttack)
+                {
+                    Invoke("FireExtraMode", gunDataList.gunDatas[currentModeIndex].addtionalGunData[addtionalCount].additionalDelayTime);
+                }
+                var mode = modes[currentModeIndex];
+                //Debug.Log(mode.patternType);
+                yield return StartCoroutine(HandleMode(mode));
+                currentModeIndex = (currentModeIndex + 1) % modes.Count;
+                yield return new WaitForSeconds(gunDataList.gunDatas[currentModeIndex].delayTime);
             }
-            var mode = modes[currentModeIndex];
-            //Debug.Log(mode.patternType);
-            yield return StartCoroutine(HandleMode(mode));
-            currentModeIndex = (currentModeIndex + 1) % modes.Count;
-            yield return new WaitForSeconds(gunDataList.gunDatas[currentModeIndex].delayTime);
+            else
+            {
+                Debug.LogError("GunDataList is null, cannot start attack loop.");
+                yield break;
+            }
         }
     }
 
     public void StopAttacking()
     {
-        IsAttackLooping = false;
+        //IsAttackLooping = false;
         StopCoroutine(AttackRotate());
     }
     // 根據 SubGunData 執行一個「波」的射擊

@@ -119,10 +119,17 @@ public class EnemyHp : MonoBehaviour
             corruptEffect.SetActive(false);
             currentCorruptionValue = 0;
         }
-        corruptionDamageModifier = 0.5f;
+        //corruptionDamageModifier = 0.5f;
         currentHp = maxHp;
         UpdateUI();
-        UpdateCorruptionUI();
+        if (corrupted)
+        {
+            UpdateCorruptionUI();
+        }
+        else
+        {
+            InitializeCorruptionUI();
+        }
 
         if (haveshield)
         {
@@ -142,7 +149,7 @@ public class EnemyHp : MonoBehaviour
     void Update()
     {
         corruptionDecreaseTimer += Time.deltaTime; // 增加計時器
-        if (corruptionDecreaseTimer > corruptionDecreaseTime)
+        if (corruption&&corruptionDecreaseTimer > corruptionDecreaseTime)
         {
             if(currentCorruptionValue > 0)
             {
@@ -150,8 +157,17 @@ public class EnemyHp : MonoBehaviour
                 UpdateCorruptionUI();
             }
         }
+        if (corruption == false)
+        {
+            UpdateParalazeUI(); // 更新UI顯示的麻痺時間
+        }
     }
-
+    public void UpdateParalazeUI()
+    {
+        float ratio = Mathf.Clamp01( enemyMove.currentParalyzeTime/ enemyMove.initialParalyzeTime);
+        corruptionImageLeft.fillAmount = ratio;
+        corruptionImageRight.fillAmount = ratio;
+    }
     public void ShootHurt(float damage)
     {
         if (haveshield)     //打到盾無效
@@ -315,6 +331,7 @@ public class EnemyHp : MonoBehaviour
         if (other.tag == "PlayerBullet")
         {
             ShootHurt(1);
+            if(corrupted)
             CleanseCorruption(0.25f);
             
         }
@@ -410,6 +427,11 @@ public class EnemyHp : MonoBehaviour
         float CorruptionAmount = currentCorruptionValue / maxCorruptionValue;
         corruptionImageLeft.fillAmount = CorruptionAmount;
         corruptionImageRight.fillAmount = CorruptionAmount;
+    }
+    void InitializeCorruptionUI()
+    {
+        corruptionImageLeft.fillAmount = 0f;
+        corruptionImageRight.fillAmount = 0f;
     }
     void UpdateUI()
     {
