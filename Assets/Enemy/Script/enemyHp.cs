@@ -28,8 +28,11 @@ public class EnemyHp : MonoBehaviour
     float corruptionDecreaseTimer; // 污穢恢復計時器
     public float corruptionDecreaseSpeed; // 污穢恢復量
     [SerializeField]
-    GameObject corruptionCleanseObject,chainEffectObject,UnboxExplosion, ChainEffect_broken;
-    ParticleSystem corruptionCleanseParticle, chainEffectParticle;
+    GameObject corruptionCleanseObject, chainEffectObject, UnboxExplosion, ChainEffect_broken;
+
+    ParticleSystem[] ChainEffectGroup = new ParticleSystem[9];
+
+	ParticleSystem corruptionCleanseParticle, chainEffectParticle;
     PlayerSlashAttack playerSlashAttack;
     [Header("Shield Data")]
     [SerializeField]
@@ -99,8 +102,17 @@ public class EnemyHp : MonoBehaviour
         corruptionCleanseObject = transform.Find("CorruptionCleanse").gameObject;
         corruptionCleanseParticle =corruptionCleanseObject.GetComponent<ParticleSystem>();
         chainEffectObject = transform.Find("ChainEffect").gameObject;
-		ChainEffect_broken = transform.Find("ChainEffect_broken").gameObject;
-        chainEffectParticle = transform.Find("ChainEffect").gameObject.GetComponent<ParticleSystem>();
+        ChainEffect_broken = transform.Find("ChainEffect_brokenNew").gameObject;
+        ChainEffectGroup[0] = chainEffectObject.transform.Find("Ring1").GetComponent<ParticleSystem>();
+        ChainEffectGroup[1] = chainEffectObject.transform.Find("Ring2").GetComponent<ParticleSystem>();
+		ChainEffectGroup[2] = chainEffectObject.transform.Find("Ring3").GetComponent<ParticleSystem>();
+		ChainEffectGroup[3] = ChainEffect_broken.transform.Find("brokenRing1").GetComponent<ParticleSystem>();
+		ChainEffectGroup[4] = ChainEffect_broken.transform.Find("brokenRing2").GetComponent<ParticleSystem>();
+		ChainEffectGroup[5] = ChainEffect_broken.transform.Find("brokenRing3").GetComponent<ParticleSystem>();
+		ChainEffectGroup[6] = ChainEffect_broken.transform.Find("Sparks_broken").GetComponent<ParticleSystem>();
+		ChainEffectGroup[7] = ChainEffect_broken.transform.Find("CenterSpark_broken").GetComponent<ParticleSystem>();
+		ChainEffectGroup[8] = ChainEffect_broken.transform.Find("Glow_broken").GetComponent<ParticleSystem>();
+		chainEffectParticle = transform.Find("ChainEffect").gameObject.GetComponent<ParticleSystem>();
         UnboxExplosion = transform.Find("UnboxExplosion").gameObject;
         deathAudioClip = Resources.Load<AudioClip>("Sound/EnemyDeathSound");
         audioSource.outputAudioMixerGroup = sfxGroup;
@@ -476,6 +488,30 @@ public class EnemyHp : MonoBehaviour
             audioSource.pitch = Random.Range(0.95f, 1.05f); // 在 AudioSource 上調音高
             audioSource.PlayOneShot(SlashHITClip); // 播放 Clip
             audioSource.pitch = 1f; // 播放後重置回正常，避免後面別的聲音也受影響
+        }
+    }
+    public void ChainEffectContrl(int mod)
+    {
+        switch (mod)
+        {
+			case 1: // 關閉連鎖特效
+                ChainEffectGroup[0].Stop();
+				ChainEffectGroup[3].Play();
+				break;
+			case 2: // 關閉連鎖特效並播放破碎特效
+				ChainEffectGroup[1].Stop();
+				ChainEffectGroup[4].Play();
+				break;
+            case 3:
+				ChainEffectGroup[2].Stop();
+                ChainEffectGroup[5].Play();
+                ChainEffectGroup[6].Play();
+                ChainEffectGroup[7].Play();
+				ChainEffectGroup[8].Play();
+
+				break;
+			default:
+                break;
         }
     }
 }
