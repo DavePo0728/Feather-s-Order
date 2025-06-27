@@ -75,6 +75,7 @@ public class EnemyHp : MonoBehaviour
 
     private void Awake()
     {
+        corruptionDamageModifier = 0.5f; // ¦ÃÂ©¶Ë®`­¿²v
         playerSlashAttack = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSlashAttack>();
         enemyMove = gameObject.GetComponent<EnemyMove>();
         canvas = transform.Find("StatusCanvas").GetComponent<Canvas>();
@@ -188,7 +189,7 @@ public class EnemyHp : MonoBehaviour
                 PlayhitimpactAudio();
                 currentHp -= damage * corruptionDamageModifier;
                 UpdateUI();
-                //Debug.Log("Source :" + gameObject.name + " " + "CorruptionDamage:"+ damage * corruptionDamageModifier);
+                Debug.Log("Source :" + gameObject.name + " " + "CorruptionDamage:"+ damage * corruptionDamageModifier);
                 if (currentHp <= 0)
                 {
                     DeathEffect();
@@ -335,7 +336,6 @@ public class EnemyHp : MonoBehaviour
             {
                 if (corrupted)
                 {
-
                     CleanseCorruption(0.25f);
                 }
             } 
