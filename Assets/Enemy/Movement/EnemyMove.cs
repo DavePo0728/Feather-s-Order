@@ -45,9 +45,11 @@ public class EnemyMove : MonoBehaviour
     public List<float> endPointWaitTime;
     public List<float> pointMoveTime; //每個點的移動時間
     public loopType loopType; //循環類型
-
-    //[HideInInspector]
-    public Vector3[] path;
+	bool calledAtHalf = false; //是否已經呼叫過一次癱瘓時間減半的事件
+	bool calledAtThreeFourth = false; //是否已經呼叫過一次癱瘓時間減四分之三的事件
+	private float maxcurrentParalyzeTime = 0; //最大癱瘓時間
+	//[HideInInspector]
+	public Vector3[] path;
     public Vector3[] moveB_PathList;
     public Vector3[] moveC_PathList;
     [SerializeField]
@@ -104,12 +106,33 @@ public class EnemyMove : MonoBehaviour
     {
         if (paralyzing)
         {
-            currentParalyzeTime -= Time.deltaTime;
-            if (currentParalyzeTime < 0)
+			//maxcurrentParalyzeTime
+			currentParalyzeTime -= Time.deltaTime;
+
+            Debug.Log(maxcurrentParalyzeTime +"_"+ maxcurrentParalyzeTime);
+			// 呼叫一次：小於 max - 1/2
+			if (!calledAtHalf && currentParalyzeTime < (maxcurrentParalyzeTime - (maxcurrentParalyzeTime * 0.5f)))
+			{
+				calledAtHalf = true;
+                
+				enemyHp.ChainEffectContrl(1);
+			}
+
+			// 呼叫一次：小於 max - 3/4
+			if (!calledAtThreeFourth&& currentParalyzeTime < (maxcurrentParalyzeTime - (maxcurrentParalyzeTime * 0.25f)))
+			{
+				calledAtThreeFourth = true;
+				enemyHp.ChainEffectContrl(2);
+			}
+
+			if (currentParalyzeTime < 0)
             {
-                recoverParalyze();
+				enemyHp.ChainEffectContrl(3);
+				recoverParalyze();
                 paralyzing = false;
-                currentParalyzeTime = 0;
+				calledAtHalf = false;
+				calledAtThreeFourth = false;
+				currentParalyzeTime = 0;
                 currentParalyzeCount = 0;
             }
         }
@@ -134,9 +157,12 @@ public class EnemyMove : MonoBehaviour
             currentParalyzeCount++;
             if (paralyzing == false)
             {
-                paralyzing = true;
+				
+				paralyzing = true;
                 currentParalyzeTime = initialParalyzeTime;
-                if (gun != null)
+                maxcurrentParalyzeTime = currentParalyzeTime;
+
+				if (gun != null)
                 {
                     if (gun.activeSelf == true)
                         gun.SetActive(false);

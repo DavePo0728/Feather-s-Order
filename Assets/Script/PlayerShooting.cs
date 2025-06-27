@@ -39,7 +39,7 @@ public class PlayerShooting : MonoBehaviour
     }
     public void StartShooting()
     {
-        Debug.Log("StartShooting");
+        //Debug.Log("StartShooting");
 		shooting = true;
         gunPoint1Img.enabled = true;
         gunPoint2Img.enabled = true;
@@ -47,7 +47,7 @@ public class PlayerShooting : MonoBehaviour
     }
     public void StopShooting()
     {
-        Debug.Log("StopShooting");
+        //Debug.Log("StopShooting");
 		shooting = false;
         gunPoint1Img.enabled = false;
         gunPoint2Img.enabled = false;
