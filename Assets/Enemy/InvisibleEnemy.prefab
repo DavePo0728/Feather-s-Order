@@ -16881,6 +16881,7 @@ MonoBehaviour:
   canvas: {fileID: 0}
   corruptionImageLeft: {fileID: 0}
   corruptionImageRight: {fileID: 0}
+  sfxGroup: {fileID: 0}
 --- !u!54 &48920970644535995
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -16920,6 +16921,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cd254f68e1e7454eb298a5a6627ef8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveName: 
   entryTime: 0
   moveTime: 0
   leaveTime: 0
@@ -16936,6 +16938,7 @@ MonoBehaviour:
   leavePoint: {x: 0, y: 0, z: 0}
   curveHeight: 0
   randomMoveRadius: 0
+  curveType: 0
   stayTime: 4
   pointWaitTime: 0
   originPos: {x: 0, y: 0, z: 0}
@@ -17562,7 +17565,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5830263055534267372
 Transform:
   m_ObjectHideFlags: 0

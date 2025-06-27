@@ -16788,7 +16788,7 @@ MonoBehaviour:
   corrupted: 0
   corruption: 0
   currentCorruptionValue: 0
-  maxCorruptionValue: 100
+  maxCorruptionValue: 0
   corruptionDecreaseTime: 0
   corruptionDecreaseSpeed: 0
   corruptionCleanseObject: {fileID: 0}
@@ -16797,9 +16797,9 @@ MonoBehaviour:
   ChainEffect_broken: {fileID: 0}
   shieldEffect: {fileID: 0}
   shieldExplosionEffect: {fileID: 0}
-  haveshield: 1
+  haveshield: 0
   currentShieldHp: 0
-  maxShieldHp: 10
+  maxShieldHp: 0
   DeathExplosion: {fileID: 0}
   shieldHitAudioClip: {fileID: 0}
   shieldBreakAudioClip: {fileID: 0}
@@ -17571,7 +17571,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5830263055534267372
 Transform:
   m_ObjectHideFlags: 0
@@ -17811,7 +17811,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 1
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -22863,7 +22863,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 1
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 1
   m_UseSpriteMesh: 0
