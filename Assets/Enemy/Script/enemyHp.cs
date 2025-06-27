@@ -331,10 +331,11 @@ public class EnemyHp : MonoBehaviour
         if (other.tag == "PlayerBullet")
         {
             ShootHurt(1);
-            if (corrupted)
+            if (haveshield == false && currentShieldHp <= 0)
             {
-                if (haveshield == false && currentShieldHp <= 0)
+                if (corrupted)
                 {
+
                     CleanseCorruption(0.25f);
                 }
             } 
