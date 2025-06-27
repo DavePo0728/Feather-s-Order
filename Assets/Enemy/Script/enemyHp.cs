@@ -13,8 +13,7 @@ public class EnemyHp : MonoBehaviour
     float currentHp;
 
     [Header("Corrupt Data")]
-    [SerializeField]
-    GameObject corruptEffect;
+    //GameObject corruptEffect;
     [SerializeField]
     GameObject corruptionExplosionEffect;
     public bool corrupted;
@@ -82,7 +81,7 @@ public class EnemyHp : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         shieldEffect = transform.Find("MagicShieldBlue").gameObject;
         shieldExplosionEffect = transform.Find("TargetHitExplosion").gameObject;
-        corruptEffect = transform.Find("CorruptionEffect").gameObject;
+        //corruptEffect = transform.Find("CorruptionEffect").gameObject;
         slashHitEffectYellowObject = transform.Find("SwordHitMagicYellow").gameObject;
         slashHitEffectRedObject = transform.Find("SwordHitRedCritical").gameObject;
         slashHitEffectYellow = slashHitEffectYellowObject.GetComponent<ParticleSystem>();
@@ -113,13 +112,13 @@ public class EnemyHp : MonoBehaviour
 		if (corrupted)
         {
             corruption = true;
-            corruptEffect.SetActive(true);
+            //corruptEffect.SetActive(true);
             currentCorruptionValue = 0;
         }
         else 
         {
             corruption = false;
-            corruptEffect.SetActive(false);
+            //corruptEffect.SetActive(false);
             currentCorruptionValue = 0;
         }
         //corruptionDamageModifier = 0.5f;
@@ -410,7 +409,7 @@ public class EnemyHp : MonoBehaviour
 
 				chainEffectParticle.Play();
                 corruptionCleanseParticle.Play();
-                corruptEffect.SetActive(false);
+                //corruptEffect.SetActive(false);
                 enemyMove.Paralyze();
             }
         }
@@ -429,7 +428,7 @@ public class EnemyHp : MonoBehaviour
         chainEffectObject.SetActive(false);
 		UnboxExplosion.SetActive(false);
 		ChainEffect_broken.SetActive(true);
-		corruptEffect.SetActive(true);
+		//corruptEffect.SetActive(true);
     }
     void UpdateCorruptionUI()
     {
