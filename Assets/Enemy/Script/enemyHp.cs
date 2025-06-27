@@ -316,7 +316,7 @@ public class EnemyHp : MonoBehaviour
     {
         if ((other.tag=="PlayerMissile"))
         {
-            if (currentShieldHp <= 0)
+            if (haveshield && currentShieldHp <= 0)
             {
                 if (corrupted)
                 {
@@ -333,13 +333,17 @@ public class EnemyHp : MonoBehaviour
         if (other.tag == "PlayerBullet")
         {
             ShootHurt(1);
-            if(corrupted)
-            CleanseCorruption(0.25f);
-            
+            if (corrupted)
+            {
+                if (haveshield&&currentShieldHp <= 0)
+                {
+                    CleanseCorruption(0.25f);
+                }
+            } 
         }
         if (other.tag == "ChargeBullet")
         {
-            if(currentShieldHp <= 0)
+            if(haveshield && currentShieldHp <= 0)
             {
                 if (corrupted)
                 {
