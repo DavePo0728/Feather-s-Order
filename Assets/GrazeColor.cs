@@ -82,11 +82,11 @@ public class GrazeColor : MonoBehaviour
 
 	private IEnumerator GrazeAndResetRoutine()
 	{
-		StartCoroutine(Transition(Body, besaColor, grazeColor, 0f, RimStrengthBody));
+		StartCoroutine(Transition(Body, besaColor, grazeColor, 0.4f, RimStrengthBody));
 		StartCoroutine(Transition(Wing, besaColor, grazeColor, 0f, RimStrengthWing, true, Color.white, Color.black));
 		StartCoroutine(Transition(Dress, besaColor, grazeColor, 0f, RimStrengthDress));
-		StartCoroutine(Transition(Hair, besaColor, grazeColor, 0f, RimStrengthHair));
-		StartCoroutine(Transition(Leg, besaColor, grazeColor, 0f, RimStrengthBody));
+		StartCoroutine(Transition(Hair, besaColor, grazeColor, 0.4f, RimStrengthHair));
+		StartCoroutine(Transition(Leg, besaColor, grazeColor, 0.4f, RimStrengthBody));
 		yield return new WaitForSeconds(transitionDuration);
 
 		ResetColor();
@@ -94,11 +94,11 @@ public class GrazeColor : MonoBehaviour
 
 	public void ResetColor()
 	{
-		StartCoroutine(Transition(Body, grazeColor, besaColor, RimStrengthBody, 0f));
+		StartCoroutine(Transition(Body, grazeColor, besaColor, RimStrengthBody, 0.4f));
 		StartCoroutine(Transition(Wing, grazeColor, besaColor, RimStrengthWing, 0f, true, Color.black, Color.white));
 		StartCoroutine(Transition(Dress, grazeColor, besaColor, RimStrengthDress, 0f));
-		StartCoroutine(Transition(Hair, grazeColor, besaColor, RimStrengthHair, 0f));
-		StartCoroutine(Transition(Leg, grazeColor, besaColor, RimStrengthBody, 0f));
+		StartCoroutine(Transition(Hair, grazeColor, besaColor, RimStrengthHair, 0.4f));
+		StartCoroutine(Transition(Leg, grazeColor, besaColor, RimStrengthBody, 0.4f));
 	}
 }
 
