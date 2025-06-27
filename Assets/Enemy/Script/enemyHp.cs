@@ -222,7 +222,6 @@ public class EnemyHp : MonoBehaviour
             }
         }
     }
-
     public void ShieldHurt(float damage) //只有近攻會觸發這個
     {
         if (haveshield)
@@ -281,7 +280,6 @@ public class EnemyHp : MonoBehaviour
             }
         }   
     }
-
     public void DeathEffect()/// 死亡特效
     {
 		EES.FadeOut();
@@ -480,5 +478,4 @@ public class EnemyHp : MonoBehaviour
             audioSource.pitch = 1f; // 播放後重置回正常，避免後面別的聲音也受影響
         }
     }
-
 }
