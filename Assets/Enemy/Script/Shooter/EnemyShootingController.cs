@@ -85,18 +85,18 @@ public class EnemyShootingController : MonoBehaviour
     private void OnEnable()
     {
         StartAttacking();
-        Debug.Log("EnemyShootingController enabled, starting attack loop.");
+        //Debug.Log("EnemyShootingController enabled, starting attack loop.");
     }
     private void OnDisable()
     {
         StopAttacking();
-        Debug.Log("EnemyShootingController disabled, stopping attack loop.");
+        //Debug.Log("EnemyShootingController disabled, stopping attack loop.");
     }
     public void FireExtraMode()
     {
         var extra = gunDataList.gunDatas[currentModeIndex].addtionalGunData[addtionalCount].additionalData.data;
         StartCoroutine(HandleMode(extra));
-        Debug.Log(addtionalCount);
+        //Debug.Log(addtionalCount);
         if(addtionalCount< gunDataList.gunDatas[currentModeIndex].addtionalGunData.Count-1)
         {
             addtionalCount++;

@@ -72,6 +72,7 @@ public class MoveTypeC : IMoveBehaviour
                 .OnStart(() =>
                 {
                     moveStatus = MoveStatus.Start;
+                    startPause = false;
                     //Debug.Log($"[startSequence] 開始移動到節點 index = {currentNodeIndex}" + $"MoveStatus: {moveStatus}");
                 })
                 );
@@ -102,6 +103,7 @@ public class MoveTypeC : IMoveBehaviour
                 .OnStart(() =>
                 {
                     moveStatus = MoveStatus.Start;
+                    startPause = false;
                    // Debug.Log($"[startSequence] 開始移動到節點 index = {currentNodeIndex} Index Data: {path[currentNodeIndex]} MoveStatus: {moveStatus}");
                 })
                 );
@@ -169,6 +171,7 @@ public class MoveTypeC : IMoveBehaviour
                     .OnStart(() =>
                     {
                         moveStatus = MoveStatus.Start;
+                        startPause = false;
                         //Debug.Log($"[startBackSequence] 開始移動到節點 index = {currentNodeIndex}" + $"MoveStatus: {moveStatus}");
                     })
                     );
@@ -195,6 +198,7 @@ public class MoveTypeC : IMoveBehaviour
                     .OnStart(() =>
                     {
                         moveStatus = MoveStatus.Start;
+                        startPause = false;
                         //Debug.Log($"[startBackSequence] 開始移動到節點 index = {currentNodeIndex}" + $"MoveStatus: {moveStatus}");
                     })
                     );
@@ -245,7 +249,8 @@ public class MoveTypeC : IMoveBehaviour
                         .OnStart(() =>
                         {
                             moveStatus = MoveStatus.Loop;
-                            Debug.Log($"[loopSequence] 循環次數: {loopTime}，循環類型: {loopType}");
+                            loopPause = false;
+                            //Debug.Log($"[loopSequence] 循環次數: {loopTime}，循環類型: {loopType}");
                             //Debug.Log($"[loopSequence] 開始移動到節點 index = {currentNodeIndex}" + $"MoveStatus: {moveStatus}");
                         })
                     );
@@ -288,6 +293,7 @@ public class MoveTypeC : IMoveBehaviour
                         .OnStart(() =>
                         {
                             moveStatus = MoveStatus.Loop;
+                            loopPause = false;
                             //Debug.Log($"[loopSequence] 循環次數: {loopTime}，循環類型: {loopType}");
                             //Debug.Log($"[loopSequence] 開始移動到節點 index = {currentNodeIndex}" + $"MoveStatus: {moveStatus}");
                         })
@@ -313,6 +319,9 @@ public class MoveTypeC : IMoveBehaviour
                 loopSequence.OnComplete(() => endSequence.Play());
             }
         }
+        //
+        // end Sequence
+        //
         for (int i = loopEndIndex+1; i <= path.Length - 1; i++)
         {
             int currentNodeIndex = i;
@@ -323,6 +332,7 @@ public class MoveTypeC : IMoveBehaviour
                 .OnStart(() =>
                 {
                     moveStatus = MoveStatus.End;
+                    endPause = false;
                     //Debug.Log($"[endSequence] 開始移動到節點 index = {currentNodeIndex} Index Data: {path[currentNodeIndex]} MoveStatus: {moveStatus}");
                 })
             );
@@ -337,13 +347,15 @@ public class MoveTypeC : IMoveBehaviour
     }
     public bool CheckMoveStatus()
     {
-        if (startSequence.IsPlaying()||loopSequence.IsPlaying()||endSequence.IsPlaying())
+        if (/*startPause||loopPause||endPause||*/startSequence.IsPlaying()|| loopSequence.IsPlaying()|| endSequence.IsPlaying())
         {
-            return false;
+            Debug.Log($"MoveTypeC: MoveStatus is playing. Current status: {loopSequence.IsPlaying()}");
+            return true;
         }
         else
         {
-            return true;
+            Debug.Log($"MoveTypeC: MoveStatus is not playing. Current status: {loopSequence.IsPlaying()}");
+            return false;
         }
     }
     public void StopMove()
@@ -361,16 +373,20 @@ public class MoveTypeC : IMoveBehaviour
         {
             startSequence.Pause();
             startPause = true;
+            return;
         }
         if (loopSequence.IsPlaying())
         {
+            Debug.Log($"MoveTypeC: LoopSequence is paused.");
             loopSequence.Pause();
             loopPause = true;
+            return;
         }
         if (endSequence.IsPlaying())
         {
             endSequence.Pause();
             endPause = true;
+            return;
         }
 
     }
@@ -380,16 +396,19 @@ public class MoveTypeC : IMoveBehaviour
         {
             startSequence.Play();
             startPause = false;
+            return;
         }
         if (loopPause)
         {
             loopSequence.Play();
             loopPause = false;
+            return;
         }
         if (endPause)
         {
             endSequence.Play();
             endPause = false;
+            return;
         }
     }
 }

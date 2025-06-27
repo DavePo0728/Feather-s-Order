@@ -83,7 +83,7 @@ public class CurvePathGenerator : MonoBehaviour
             Debug.LogError("¿ù»~¤è¦V");
             return;
         }
-        Debug.Log($"CurveType: {curveType} direction: {direction}");
+        //Debug.Log($"CurveType: {curveType} direction: {direction}");
         bezierControlPoint = (curveStartPoint + curveEndPoint) * 0.5f + (direction * curveHeight);
     }
 

@@ -200,7 +200,7 @@ public class EnemyHp : MonoBehaviour
                 PlayhitimpactAudio();
                 currentHp -= damage * corruptionDamageModifier;
                 UpdateUI();
-                Debug.Log("Source :" + gameObject.name + " " + "CorruptionDamage:"+ damage * corruptionDamageModifier);
+                //Debug.Log("Source :" + gameObject.name + " " + "CorruptionDamage:"+ damage * corruptionDamageModifier);
                 if (currentHp <= 0)
                 {
                     DeathEffect();
@@ -424,10 +424,6 @@ public class EnemyHp : MonoBehaviour
                 //corruptEffect.SetActive(false);
                 enemyMove.Paralyze();
             }
-        }
-        else
-        {
-            enemyMove.Paralyze();
         }
     }
     public void CorruptionRecover()
