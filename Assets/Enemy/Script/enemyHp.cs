@@ -389,12 +389,13 @@ public class EnemyHp : MonoBehaviour
         }
         else if (hitCounter >= 3)
         {
-            slashHitEffectRedObject.SetActive(true);
+            Debug.Log("Source :" + gameObject.name + " " + "SlashHit");
+			slashHitEffectRedObject.SetActive(true);
             slashHitEffectRed.Play();
             hitCounter = 0;
             ShieldHurt(damage);
             Invoke("SetSlashDetectBool", 0.3f);
-
+            
             PlaySlashHitAudio(); // <<<<< 新增！播放近戰打擊音效
         }
     }

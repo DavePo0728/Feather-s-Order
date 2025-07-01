@@ -52,8 +52,10 @@ public class PlayerHP : MonoBehaviour
     GameObject currentFlashingBackground;
 
     public bool ExtraLife = true; // 是否有額外生命
+    [Header("子彈命中特效")]
+    public GameObject MisairuHit;
 
-    private void Awake()
+	private void Awake()
     {
         
         hurtAudioSource = GetComponent<AudioSource>();
@@ -129,15 +131,28 @@ public class PlayerHP : MonoBehaviour
     {
         if (other.tag == "EnemyBullet")
         {
-            if (!isMuteki)
+           
+			if (!isMuteki)
                 getHit(10);
         }
+        if (other.tag == "Misairu")
+        {
+            Transform MisairuHitPos = other.transform;
+			Instantiate(MisairuHit, MisairuHitPos.position, transform.rotation);
+
+			if (!isMuteki)
+				getHit(10);
+
+		}
         if (other.tag == "Block")
         {
-            if (!isMuteki)
+
+			if (!isMuteki)
                 getHit(5);
         }
-    }
+		
+
+	}
 
     private void UpdateHpUI()
     {

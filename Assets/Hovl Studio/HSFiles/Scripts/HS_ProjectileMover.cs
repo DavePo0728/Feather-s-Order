@@ -13,7 +13,7 @@ public class HS_ProjectileMover : MonoBehaviour
     [SerializeField] protected GameObject flash;
     [SerializeField] protected Rigidbody rb;
     [SerializeField] protected Collider col;
-    [SerializeField] protected Light lightSource;
+    [SerializeField] protected Light lightSourse;
     [SerializeField] protected GameObject[] Detached;
     [SerializeField] protected ParticleSystem projectilePS;
     private bool startChecker = false;
@@ -33,20 +33,20 @@ public class HS_ProjectileMover : MonoBehaviour
                 flash.transform.parent = null;
             }
         }
-        if (notDestroy)
-            StartCoroutine(DisableTimer(5));
-        else
-            Destroy(gameObject, 5);
+        //if (notDestroy)
+        //    StartCoroutine(DisableTimer(5));
+        //else
+        //    Destroy(gameObject, 5);
         startChecker = true;
     }
 
-    protected virtual IEnumerator DisableTimer(float time)
-    {
-        yield return new WaitForSeconds(time);
-        if(gameObject.activeSelf)
-            gameObject.SetActive(false);
-        yield break;
-    }
+    //protected virtual IEnumerator DisableTimer(float time)
+    //{
+    //    yield return new WaitForSeconds(time);
+    //    if(gameObject.activeSelf)
+    //        gameObject.SetActive(false);
+    //    yield break;
+    //}
 
     protected virtual void OnEnable()
     {
@@ -56,8 +56,8 @@ public class HS_ProjectileMover : MonoBehaviour
             {
                 flash.transform.parent = null;
             }
-            if (lightSource != null)
-                lightSource.enabled = true;
+            if (lightSourse != null)
+                lightSourse.enabled = true;
             col.enabled = true;
             rb.constraints = RigidbodyConstraints.None;
         }
@@ -77,8 +77,8 @@ public class HS_ProjectileMover : MonoBehaviour
         //Lock all axes movement and rotation
         rb.constraints = RigidbodyConstraints.FreezeAll;
         //speed = 0;
-        if (lightSource != null)
-            lightSource.enabled = false;
+        if (lightSourse != null)
+            lightSourse.enabled = false;
         col.enabled = false;
         projectilePS.Stop();
         projectilePS.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
@@ -107,16 +107,16 @@ public class HS_ProjectileMover : MonoBehaviour
                 detachedPS.Stop();
             }
         }
-        if (notDestroy)
-            StartCoroutine(DisableTimer(hitPS.main.duration));
-        else
-        {
-            if (hitPS != null)
-            {
-                Destroy(gameObject, hitPS.main.duration);
-            }
-            else
-                Destroy(gameObject, 1);
-        }
+        //if (notDestroy)
+        //    StartCoroutine(DisableTimer(hitPS.main.duration));
+        //else
+        //{
+        //    if (hitPS != null)
+        //    {
+        //        Destroy(gameObject, hitPS.main.duration);
+        //    }
+        //    else
+        //        Destroy(gameObject, 1);
+        //}
     }
 }

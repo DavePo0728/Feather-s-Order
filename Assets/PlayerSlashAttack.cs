@@ -472,9 +472,10 @@ public class PlayerSlashAttack : MonoBehaviour
 			float fractionValue = Mathf.Lerp(0f, 1f, t);
 			float sizeValue = Mathf.Lerp(0f, 0.2f, t);
 
+
 			ScreenWaveShader.SetFloat("_FractionTime", fractionValue);
 			ScreenWaveShader.SetFloat("_Size", sizeValue);
-
+			ScreenWaveShader.SetFloat("_Size", sizeValue);
 			timeElapsed += Time.deltaTime;
 			yield return null;
 		}
