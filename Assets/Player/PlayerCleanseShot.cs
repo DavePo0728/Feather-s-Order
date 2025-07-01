@@ -21,7 +21,10 @@ public class PlayerCleanseShot : MonoBehaviour
     BulletGraze bulletGraze;
     public float shootCost;
 
-    private void Awake()
+    public GameObject YellowGlow;
+
+    public ChargeAudioPlayer ChargeAudioPlayer;
+	private void Awake()
     {
         canShoot = false;
         chargeTimer = 0;
@@ -53,7 +56,9 @@ public class PlayerCleanseShot : MonoBehaviour
                 startCharge = true;
                 chargeEffect.speed = 1 / maxChargeTime;
                 chargeEffect.SetTrigger("Charge");
-            }
+				ChargeAudioPlayer.Play();
+
+			}
         }
         if (context.canceled)
         {
@@ -61,7 +66,9 @@ public class PlayerCleanseShot : MonoBehaviour
             {
                 chargeEffect.SetTrigger("Return");
                 startCharge = false;
-            }
+                ChargeAudioPlayer.Stop();
+
+			}
             if (canShoot == true)
             {
                 shoot();
@@ -74,7 +81,9 @@ public class PlayerCleanseShot : MonoBehaviour
     }
     public void shoot()
 	{
-        bulletGraze.UpdateGrazeEnergyOutside(shootCost);
+        YellowGlow.GetComponent<ParticleSystem>().Play();
+
+		bulletGraze.UpdateGrazeEnergyOutside(shootCost);
         Instantiate(cleanseBullet, transform.position, transform.rotation);
 		canShoot = false;
 	}
