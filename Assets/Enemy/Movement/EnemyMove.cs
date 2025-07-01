@@ -109,7 +109,7 @@ public class EnemyMove : MonoBehaviour
 			//maxcurrentParalyzeTime
 			currentParalyzeTime -= Time.deltaTime;
 
-            Debug.Log(maxcurrentParalyzeTime +"_"+ maxcurrentParalyzeTime);
+            //Debug.Log(maxcurrentParalyzeTime +"_"+ maxcurrentParalyzeTime);
 			// 呼叫一次：小於 max - 1/2
 			if (!calledAtHalf && currentParalyzeTime < (maxcurrentParalyzeTime - (maxcurrentParalyzeTime * 0.5f)))
 			{
