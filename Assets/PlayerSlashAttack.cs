@@ -37,7 +37,7 @@ public class PlayerSlashAttack : MonoBehaviour
 
     bool dashCounting = false;
     int hitCounter;
-    float SlashTimer;
+    float slashTimer;
     float slashCD = 0.2f;
     [SerializeField]
     float maxTime;
@@ -78,7 +78,7 @@ public class PlayerSlashAttack : MonoBehaviour
 
     public void GetSlashInput(InputAction.CallbackContext context)
     {
-        if (context.started && slashState == SlashState.Idle && playerAim.isLocked)
+        if (context.performed && slashState == SlashState.Idle && playerAim.isLocked)
         {
             if (playerAim.CheckLockedEnemy())
             {
@@ -138,14 +138,14 @@ public class PlayerSlashAttack : MonoBehaviour
 
     public void GetSlashAttackInput(InputAction.CallbackContext context)
     {
-        if (context.performed && slashState == SlashState.Attacking && SlashTimer >= slashCD)
+        if (context.performed && slashState == SlashState.Attacking && slashTimer >= slashCD)
         {
             if (hitCounter < 3)
             {
                 //print(hitCounter);
 
                 slashCD = 0.2f;
-                Invoke("TriggerSlash", 0.1f);
+                TriggerSlash();
                 switch (hitCounter)
                 {
                     case 0:
@@ -175,7 +175,7 @@ public class PlayerSlashAttack : MonoBehaviour
                         break;
                 }
                 hitCounter++;
-                SlashTimer = 0;
+                slashTimer = 0;
                 attackTimer = 0;
 
                 //print(hitCounter);
@@ -188,7 +188,7 @@ public class PlayerSlashAttack : MonoBehaviour
                 Invoke("TriggerSlash4", 0.3f);
                 playerAnimator.SetBool("OnAttack", true);
                 slashCD = 0.5f;
-                SlashTimer = 0;
+                slashTimer = 0;
                 attackTimer = 0f;
                 hitCounter = 0;
             }
@@ -204,25 +204,6 @@ public class PlayerSlashAttack : MonoBehaviour
         Invoke("InactiveCollider", 0.1f);
         flashImage.SetActive(true);
         Invoke("InactiveFlashImage", 0.01f);
-        //    switch (hitCounter)
-        //    {
-        //        case 0:
-        //            slashEffectYellowObject.transform.localScale = new Vector3(2.72f, -2.72f, 2.72f);
-        //            print(hitCounter);
-        //            break;
-        //        case 1:
-        //            slashEffectYellowObject.transform.localScale = new Vector3(2.72f, -2.72f, 2.72f);
-        //print(hitCounter);
-        //break;
-        //        case 2:
-        //            slashEffectYellowObject.transform.localScale = new Vector3(2.72f, 2.72f, 2.72f);
-        //print(hitCounter);
-        //break;
-        //        case 3:
-        //            slashEffectYellowObject.transform.localScale = new Vector3(2.72f, -2.72f, 2.72f);
-        //print(hitCounter);
-        //break;
-        //    }
         slashEffectRedObject.SetActive(true);
         slashEffectRed.Play();
 
@@ -246,8 +227,6 @@ public class PlayerSlashAttack : MonoBehaviour
         Time.timeScale = 0.1f;
         Invoke("TimeScaleNormal", 0.01f);
         Invoke("DelayDetect", 0.05f);
-        SetAttack();
-
     }
 
     void DashToEnemy()
@@ -277,6 +256,7 @@ public class PlayerSlashAttack : MonoBehaviour
                     IsReturnAnimation = false;
                     playerAnimator.SetBool("OnAttack", true);
                     attackTimer = 0;
+                    SetAttack();
                 });
             }
             if (tweener != null)
@@ -343,7 +323,6 @@ public class PlayerSlashAttack : MonoBehaviour
     void SetAttack()
     {
         slashState = SlashState.Attacking;
-
     }
     void DashGap()
     {
@@ -354,7 +333,7 @@ public class PlayerSlashAttack : MonoBehaviour
     {
         if (isCounting)
         {
-            SlashTimer += Time.deltaTime;
+            slashTimer += Time.deltaTime;
             attackTimer += Time.deltaTime;
             if (attackTimer >= 0.5f)
             {
@@ -443,7 +422,7 @@ public class PlayerSlashAttack : MonoBehaviour
     {
         isCounting = false;
         attackTimer = 0f;
-        SlashTimer = 0f;
+        slashTimer = 0f;
     }
     void Vibrate(float low, float high, float duration)
     {
