@@ -17,6 +17,7 @@ public class PlayerBulletMove : MonoBehaviour
     Collider bulletCollider;
     ParticleSystem hitEffect;
     EnemyBulletData bulletData;
+    bool DisTooClose = false;
 
     // Start is called before the first frame update
     private void Awake()
@@ -26,19 +27,18 @@ public class PlayerBulletMove : MonoBehaviour
         hitEffectObject = transform.GetChild(1).gameObject;
         hitEffect = hitEffectObject.GetComponent<ParticleSystem>();
         bulletData = Resources.Load<EnemyBulletData>("BulletData/PlayerBullet");
+        
     }
     void Start()
     {
-        
+                        Debug.Log(speed);
     }
     private void OnEnable()
     {
         StartCoroutine(CountDownInactive());
-        if (lockedEnemy != null)
-            transform.LookAt(lockedEnemy.transform);
         bulletCollider.enabled = true;
         speed = bulletData.speed;
-
+        DisTooClose = false;
     }
     private void OnDisable()
     {
@@ -47,19 +47,21 @@ public class PlayerBulletMove : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        //bulletRigidbody.velocity = new Vector3(0, 0, speed);
         if (lockedEnemy != null)
         {
-            if(Vector3.Distance(transform.position, lockedEnemy.transform.position) < 0.1f)
+            Debug.Log(speed);
+            if (Vector3.Distance(transform.position, lockedEnemy.transform.position) < 5f)
             {
-                transform.Translate(Vector3.forward * speed);
+                lockedEnemy = null;
+                transform.eulerAngles =Vector3.zero;
+                this.gameObject.SetActive(false);
+                return;
             }
             else
             {
                 transform.LookAt(lockedEnemy.transform);
                 transform.Translate(Vector3.forward * speed);
             }
-
         }
         else
         {

@@ -7,6 +7,7 @@ public class EnemyHp : MonoBehaviour
 {
     [SerializeField]
     EnemyMove enemyMove;
+    AimDetect aimDetect;
     [SerializeField]
     public float maxHp;
     [SerializeField]
@@ -74,9 +75,11 @@ public class EnemyHp : MonoBehaviour
     Image corruptionImageLeft, corruptionImageRight;
 
     [SerializeField] private AudioMixerGroup sfxGroup;
-
+    Collider enemyCollider;
     private void Awake()
     {
+        enemyCollider = GetComponent<Collider>();
+        aimDetect = GameObject.Find("AimDetectCollider").GetComponent<AimDetect>();
         corruptionDamageModifier = 0.5f; // 污穢傷害倍率
         playerSlashAttack = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSlashAttack>();
         enemyMove = gameObject.GetComponent<EnemyMove>();
@@ -295,9 +298,13 @@ public class EnemyHp : MonoBehaviour
     public void DeathEffect()/// 死亡特效
     {
 		EES.PlayDeathAnimation(); // 播放死亡動畫
-                                  //EES.FadeOut();
+        
+        if (aimDetect != null)
+        {
+            aimDetect.ManualOnTriggerExit(enemyCollider); // 從瞄準系統中移除敵人
+        }
         transform.Find("StatusCanvas").gameObject.SetActive(false); // 隱藏UI
-        GetComponent<BoxCollider>().enabled = false; // 禁用碰撞器，避免後續碰撞影響
+        enemyCollider.enabled = false; // 禁用碰撞器，避免後續碰撞影響
 		GameObject sfxPlayer = new GameObject("DeathSFX");
         sfxPlayer.transform.position = transform.position;
 
