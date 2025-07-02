@@ -106,38 +106,42 @@ public class EnemyMove : MonoBehaviour
     {
         if (paralyzing)
         {
-			//maxcurrentParalyzeTime
-			currentParalyzeTime -= Time.deltaTime;
+            //maxcurrentParalyzeTime
+            currentParalyzeTime -= Time.deltaTime;
 
             //Debug.Log(maxcurrentParalyzeTime +"_"+ maxcurrentParalyzeTime);
-			// 呼叫一次：小於 max - 1/2
-			if (!calledAtHalf && currentParalyzeTime < (maxcurrentParalyzeTime - (maxcurrentParalyzeTime * 0.5f)))
-			{
-				calledAtHalf = true;
-                
-				enemyHp.ChainEffectContrl(1);
-			}
-
-			// 呼叫一次：小於 max - 3/4
-			if (!calledAtThreeFourth&& currentParalyzeTime < (maxcurrentParalyzeTime - (maxcurrentParalyzeTime * 0.25f)))
-			{
-				calledAtThreeFourth = true;
-				enemyHp.ChainEffectContrl(2);
-			}
-
-			if (currentParalyzeTime < 0)
+            // 呼叫一次：小於 max - 1/2
+            if (!calledAtHalf && currentParalyzeTime < (maxcurrentParalyzeTime - (maxcurrentParalyzeTime * 0.5f)))
             {
-				enemyHp.ChainEffectContrl(3);
-				recoverParalyze();
+                calledAtHalf = true;
+
+                enemyHp.ChainEffectContrl(1);
+            }
+
+            // 呼叫一次：小於 max - 3/4
+            if (!calledAtThreeFourth && currentParalyzeTime < (maxcurrentParalyzeTime - (maxcurrentParalyzeTime * 0.25f)))
+            {
+                calledAtThreeFourth = true;
+                enemyHp.ChainEffectContrl(2);
+            }
+
+            if (currentParalyzeTime < 0)
+            {
+                enemyHp.ChainEffectContrl(3);
+                recoverParalyze();
                 paralyzing = false;
-				calledAtHalf = false;
-				calledAtThreeFourth = false;
-				currentParalyzeTime = 0;
+                calledAtHalf = false;
+                calledAtThreeFourth = false;
+                currentParalyzeTime = 0;
                 currentParalyzeCount = 0;
             }
         }
     }
-    public void CallMove()
+	public void DoStop()
+	{
+		moveBehavior.StopMove();
+	}
+	public void CallMove()
     {
         if (gun != null)
         {

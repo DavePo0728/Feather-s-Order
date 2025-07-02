@@ -48,6 +48,17 @@ public class AimDetect : MonoBehaviour
             }
         }
     }
+    public void ManualOnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Enemy"))
+        {
+            enemiesInRange.Remove(other.gameObject);
+            if (other.gameObject == playerAim.lockedEnemy)
+            {
+                UpdateClosestEnemy();
+            }
+        }
+    }
     private void UpdateClosestEnemy()
     {
         if (enemiesInRange.Count == 0)

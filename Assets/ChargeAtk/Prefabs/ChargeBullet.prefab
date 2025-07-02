@@ -4807,6 +4807,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5007065497046974322}
   - component: {fileID: 5586180816765228569}
+  - component: {fileID: 7989923671598933702}
   m_Layer: 6
   m_Name: ChargeBulletC
   m_TagString: ChargeBullet
@@ -4850,6 +4851,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 10.000002, y: 4, z: 9.999991}
   m_Center: {x: 0, y: -0.13866425, z: 0}
+--- !u!114 &7989923671598933702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4197704220273726441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5c7301aafcd5b2418cd876d3ef8c869, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4350843714503639795
 GameObject:
   m_ObjectHideFlags: 0
@@ -9846,7 +9859,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 8936235092408934056, guid: 60662cf2cb9cfd642af8a3cda9f26050, type: 2}
   m_audioClip: {fileID: 8300000, guid: 0b9af3f535764d7449da72d590bf7547, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.5
+  m_Volume: 0.127
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -9940,6 +9953,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6049773751138662643}
   - component: {fileID: 5995401629503606020}
+  - component: {fileID: 2092002587007499398}
   m_Layer: 6
   m_Name: ChargeBulletC
   m_TagString: ChargeBullet
@@ -9983,6 +9997,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 10.000002, y: 4, z: 9.999991}
   m_Center: {x: 0, y: -0.13866425, z: 0}
+--- !u!114 &2092002587007499398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7515132884101795793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5c7301aafcd5b2418cd876d3ef8c869, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8095313685353432909
 GameObject:
   m_ObjectHideFlags: 0
