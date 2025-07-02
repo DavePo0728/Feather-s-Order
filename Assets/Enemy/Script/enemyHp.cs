@@ -104,7 +104,7 @@ public class EnemyHp : MonoBehaviour
         shieldBreakAudioClip = Resources.Load<AudioClip>("Sound/ShieldBreakSound");
         hitimpactAudioClip = Resources.Load<AudioClip>("Sound/HitImpactSound");
 		hitXAudioClip = Resources.Load<AudioClip>("Sound/X_slash_hit");
-		hitMisairuAudioClip = Resources.Load<AudioClip>("Sound/HitImpactSound");
+		hitMisairuAudioClip = Resources.Load<AudioClip>("Sound/missile_hit");
         SlashHITClip = Resources.Load<AudioClip>("Sound/slashHit");
         corruptionImageLeft = canvas.transform.Find("StatusUI").Find("CorruptionBG").Find("CorruptionBarLeft").GetComponent<Image>();
         corruptionImageRight = canvas.transform.Find("StatusUI").Find("CorruptionBG").Find("CorruptionBarRight").GetComponent<Image>();
@@ -508,7 +508,6 @@ public class EnemyHp : MonoBehaviour
 		if (audioSource != null && hitXAudioClip != null)
 		{
 			audioSource.PlayOneShot(hitXAudioClip);
-			lastXHitTime = Time.time;
 			Debug.Log("Play hit X audio");
 		}
 	}
@@ -525,7 +524,7 @@ public class EnemyHp : MonoBehaviour
 	{
 		if (audioSource != null && hitimpactAudioClip != null)
         {
-            audioSource.PlayOneShot(hitimpactAudioClip);
+            audioSource.PlayOneShot(hitMisairuAudioClip);
 			// 播放導彈擊中敵人聲
 		}
 	}
