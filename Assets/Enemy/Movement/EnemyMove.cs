@@ -137,9 +137,15 @@ public class EnemyMove : MonoBehaviour
             }
         }
     }
-	public void DoStop()
+    public void DoStop()
+    {
+        moveBehavior.StopMove();
+
+    }
+	public void DoStopA()
 	{
-		moveBehavior.StopMove();
+		leaveBehavior.StopLeave();
+
 	}
 	public void CallMove()
     {
