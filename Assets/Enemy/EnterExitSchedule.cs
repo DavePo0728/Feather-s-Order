@@ -160,7 +160,7 @@ public class EnterExitSchedule : MonoBehaviour
 			}
 
 			t1 += Time.deltaTime;
-			Debug.Log(t1+ "_"+gameObject.name);
+			//Debug.Log(t1+ "_"+gameObject.name);
 			yield return null;
 		}
 

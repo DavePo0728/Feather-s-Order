@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,13 +20,13 @@ public class EnemyHp : MonoBehaviour
     [SerializeField]
     bool corruption;
     public bool corruption_P => corruption;
-    float corruptionDamageModifier;// ¦ÃÂ©¶Ë®`­¿²v
+    float corruptionDamageModifier;// æ±¡ç©¢å‚·å®³å€ç‡
     [SerializeField]
-    float currentCorruptionValue;// ·í«e¦ÃÂ©­È
-    public float maxCorruptionValue;// ¦ÃÂ©­È¤W­­
-    public float corruptionDecreaseTime; // ¦ÃÂ©«ì´_®É¶¡
-    float corruptionDecreaseTimer; // ¦ÃÂ©«ì´_­p®É¾¹
-    public float corruptionDecreaseSpeed; // ¦ÃÂ©«ì´_¶q
+    float currentCorruptionValue;// ç•¶å‰æ±¡ç©¢å€¼
+    public float maxCorruptionValue;// æ±¡ç©¢å€¼ä¸Šé™
+    public float corruptionDecreaseTime; // æ±¡ç©¢æ¢å¾©æ™‚é–“
+    float corruptionDecreaseTimer; // æ±¡ç©¢æ¢å¾©è¨ˆæ™‚å™¨
+    public float corruptionDecreaseSpeed; // æ±¡ç©¢æ¢å¾©é‡
     [SerializeField]
     GameObject corruptionCleanseObject, chainEffectObject, UnboxExplosion, ChainEffect_broken;
 
@@ -56,14 +56,18 @@ public class EnemyHp : MonoBehaviour
 
     [Header("Audio")]
     [SerializeField]
-    AudioClip shieldHitAudioClip; // À»¤¤¬Ş­µ®Ä
+    AudioClip shieldHitAudioClip; // æ“Šä¸­ç›¾éŸ³æ•ˆ
     [SerializeField]
-    AudioClip shieldBreakAudioClip; // ¯}¬Ş­µ®Ä
+    AudioClip shieldBreakAudioClip; // ç ´ç›¾éŸ³æ•ˆ
     [SerializeField]
-    AudioClip hitimpactAudioClip; // À»¤¤¼Ä¤HÁn
-    AudioSource audioSource;
-    [SerializeField] AudioClip deathAudioClip; // ¼Ä¤H¦º¤`­µ®Ä
-    [SerializeField] AudioClip SlashHITClip; // ¼Ä¤Hªñ¾Ô¨üÀ»­µ®Ä
+    AudioClip hitimpactAudioClip; // æ“Šä¸­æ•µäººè²
+    [SerializeField]
+    AudioClip hitXAudioClip; // Xå½ˆæ“Šä¸­æ•µäººè²
+	[SerializeField]
+	AudioClip hitMisairuAudioClip; // å°å½ˆæ“Šä¸­æ•µäººè²
+	AudioSource audioSource;
+    [SerializeField] AudioClip deathAudioClip; // æ•µäººæ­»äº¡éŸ³æ•ˆ
+    [SerializeField] AudioClip SlashHITClip; // æ•µäººè¿‘æˆ°å—æ“ŠéŸ³æ•ˆ
 
     [Header("UI")]
     [SerializeField]
@@ -75,9 +79,12 @@ public class EnemyHp : MonoBehaviour
 
     [SerializeField] private AudioMixerGroup sfxGroup;
 
-    private void Awake()
+	private float XhitAudioCD = 0.05f;
+	private float lastXHitTime = -Mathf.Infinity;
+	private bool hasPlayedXHitThisFrame = false;
+	private void Awake()
     {
-        corruptionDamageModifier = 0.5f; // ¦ÃÂ©¶Ë®`­¿²v
+        corruptionDamageModifier = 0.5f; // æ±¡ç©¢å‚·å®³å€ç‡
         playerSlashAttack = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSlashAttack>();
         enemyMove = gameObject.GetComponent<EnemyMove>();
         canvas = transform.Find("StatusCanvas").GetComponent<Canvas>();
@@ -96,6 +103,8 @@ public class EnemyHp : MonoBehaviour
         shieldHitAudioClip = Resources.Load<AudioClip>("Sound/ShieldHitSound");
         shieldBreakAudioClip = Resources.Load<AudioClip>("Sound/ShieldBreakSound");
         hitimpactAudioClip = Resources.Load<AudioClip>("Sound/HitImpactSound");
+		hitXAudioClip = Resources.Load<AudioClip>("Sound/X_slash_hit");
+		hitMisairuAudioClip = Resources.Load<AudioClip>("Sound/HitImpactSound");
         SlashHITClip = Resources.Load<AudioClip>("Sound/slashHit");
         corruptionImageLeft = canvas.transform.Find("StatusUI").Find("CorruptionBG").Find("CorruptionBarLeft").GetComponent<Image>();
         corruptionImageRight = canvas.transform.Find("StatusUI").Find("CorruptionBG").Find("CorruptionBarRight").GetComponent<Image>();
@@ -156,13 +165,14 @@ public class EnemyHp : MonoBehaviour
             shieldEffect.SetActive(false);
             currentShieldHp = 0;
         }
-        canvas.gameObject.SetActive(false); // ¥ıÁôÂÃUI
+        canvas.gameObject.SetActive(false); // å…ˆéš±è—UI
     }
 
     // Update is called once per frame
     void Update()
     {
-        corruptionDecreaseTimer += Time.deltaTime; // ¼W¥[­p®É¾¹
+		
+		corruptionDecreaseTimer += Time.deltaTime; // å¢åŠ è¨ˆæ™‚å™¨
         if (corruption&&corruptionDecreaseTimer > corruptionDecreaseTime)
         {
             if(currentCorruptionValue > 0)
@@ -173,7 +183,7 @@ public class EnemyHp : MonoBehaviour
         }
         if (corruption == false)
         {
-            UpdateParalazeUI(); // §ó·sUIÅã¥Üªº³Â·ô®É¶¡
+            UpdateParalazeUI(); // æ›´æ–°UIé¡¯ç¤ºçš„éº»ç—ºæ™‚é–“
         }
     }
     public void UpdateParalazeUI()
@@ -182,23 +192,39 @@ public class EnemyHp : MonoBehaviour
         corruptionImageLeft.fillAmount = ratio;
         corruptionImageRight.fillAmount = ratio;
     }
-    public void ShootHurt(float damage)
+    public void ShootHurt(float damage ,int BulletType)
     {
-        if (haveshield)     //¥´¨ì¬ŞµL®Ä
+        if (haveshield)     //æ‰“åˆ°ç›¾ç„¡æ•ˆ
         {
             PlayShieldHitSound();
             //Debug.Log("Source :"+gameObject.name+" "+"ShieldBlock");
-            //¼½©è®ø¯S®Ä
+            //æ’­æŠµæ¶ˆç‰¹æ•ˆ
             return;
         }
-        if (corrupted)      //¦pªG¦³¦ÃÂ©
+        else
+        {
+			switch (BulletType)
+			{
+				case 0: // æ™®é€šå­å½ˆ
+					PlayhitNormalAudio();
+					break;
+				case 1: // Xå­å½ˆ
+					//PlayhitXAudio();
+					break;
+				case 2: // è¿½è¹¤å­å½ˆ
+					PlayhitMisairuAudio();
+					break;
+				default:
+					break;
+			}
+		}
+        if (corrupted)      //å¦‚æœæœ‰æ±¡ç©¢
         {
             if (canvas.gameObject.activeSelf == false)
-                canvas.gameObject.SetActive(true); // Åã¥ÜUI
-            if (corruption == true)      //¦pªG¦ÃÂ©¥¼³Q¸Ñ°£
+                canvas.gameObject.SetActive(true); // é¡¯ç¤ºUI
+            if (corruption == true)      //å¦‚æœæ±¡ç©¢æœªè¢«è§£é™¤
             {
-                PlayhitimpactAudio();
-                currentHp -= damage * corruptionDamageModifier;
+				currentHp -= damage * corruptionDamageModifier;
                 UpdateUI();
                 //Debug.Log("Source :" + gameObject.name + " " + "CorruptionDamage:"+ damage * corruptionDamageModifier);
                 if (currentHp <= 0)
@@ -207,10 +233,10 @@ public class EnemyHp : MonoBehaviour
                     scoreManager.AddScore();
                 }
             }
-            else       //¦pªG¦ÃÂ©³Q¸Ñ°£
+            else       //å¦‚æœæ±¡ç©¢è¢«è§£é™¤
             {
-                PlayhitimpactAudio();
-                currentHp -= damage;
+
+				currentHp -= damage;
                 UpdateUI();
                 if (currentHp <= 0)
                 {
@@ -220,11 +246,12 @@ public class EnemyHp : MonoBehaviour
             }
             
         }
-        else       //¨S¦³¦ÃÂ©
+        else       //æ²’æœ‰æ±¡ç©¢
         {
             if (canvas.gameObject.activeSelf == false)
-                canvas.gameObject.SetActive(true); // Åã¥ÜUI
-            PlayhitimpactAudio();
+                canvas.gameObject.SetActive(true); // é¡¯ç¤ºUI
+
+
             currentHp -= damage;
             UpdateUI();
             if (currentHp <= 0)
@@ -234,7 +261,7 @@ public class EnemyHp : MonoBehaviour
             }
         }
     }
-    public void ShieldHurt(float damage) //¥u¦³ªñ§ğ·|Ä²µo³o­Ó
+    public void ShieldHurt(float damage) //åªæœ‰è¿‘æ”»æœƒè§¸ç™¼é€™å€‹
     {
         if (haveshield)
         {
@@ -257,10 +284,10 @@ public class EnemyHp : MonoBehaviour
             if (corrupted)
             {
                 if (canvas.gameObject.activeSelf == false)
-                    canvas.gameObject.SetActive(true); // Åã¥ÜUI
+                    canvas.gameObject.SetActive(true); // é¡¯ç¤ºUI
                 if (corruption == false)
                 {
-                    PlayhitimpactAudio();
+                    PlayhitNormalAudio();
                     currentHp -= damage;
                     UpdateUI();
                     //Debug.Log("Source :" + gameObject.name + " " + "CorruptionClean");
@@ -271,14 +298,13 @@ public class EnemyHp : MonoBehaviour
                         PlayerHP playerHP = GameObject.FindGameObjectWithTag("HPCollider").GetComponent<PlayerHP>();
                         playerHP.Heal(10);
                     }
-
                 }
             }
             else
             {
                 if (canvas.gameObject.activeSelf == false)
-                    canvas.gameObject.SetActive(true); // Åã¥ÜUI
-                PlayhitimpactAudio();
+                    canvas.gameObject.SetActive(true); // é¡¯ç¤ºUI
+                PlayhitNormalAudio();
                 currentHp -= damage;
                 UpdateUI();
                 //Debug.Log("Source :" + gameObject.name + " " + "NoCSorruption");
@@ -292,37 +318,28 @@ public class EnemyHp : MonoBehaviour
             }
         }   
     }
-    public void DeathEffect()/// ¦º¤`¯S®Ä
+    public void DeathEffect()/// æ­»äº¡ç‰¹æ•ˆ
     {
-		EES.PlayDeathAnimation(); // ¼½©ñ¦º¤`°Êµe
-                                  //EES.FadeOut();
-        transform.Find("StatusCanvas").gameObject.SetActive(false); // ÁôÂÃUI
-        GetComponent<BoxCollider>().enabled = false; // ¸T¥Î¸I¼²¾¹¡AÁ×§K«áÄò¸I¼²¼vÅT
+		EES.PlayDeathAnimation(); // æ’­æ”¾æ­»äº¡å‹•ç•«
+        GetComponent<EnemyMove>().DOStop();
+		transform.Find("StatusCanvas").gameObject.SetActive(false); // éš±è—UI
+        GetComponent<BoxCollider>().enabled = false; // ç¦ç”¨ç¢°æ’å™¨ï¼Œé¿å…å¾ŒçºŒç¢°æ’å½±éŸ¿
 		GameObject sfxPlayer = new GameObject("DeathSFX");
         sfxPlayer.transform.position = transform.position;
-
         AudioSource sfxAudio = sfxPlayer.AddComponent<AudioSource>();
         sfxAudio.clip = deathAudioClip;
-
-        //  ­µ¶q±±¨î¡]§A¥i¥H³o¸Ì½Õ¾ã­µ¶q¤j¤p¡^
+        //  éŸ³é‡æ§åˆ¶ï¼ˆä½ å¯ä»¥é€™è£¡èª¿æ•´éŸ³é‡å¤§å°ï¼‰
         sfxAudio.volume = 0.8f;
-
-        //  ªÅ¶¡·P¡GÅıÁn­µ®Ú¾Ú¶ZÂ÷»·ªñ°I´î
-        sfxAudio.spatialBlend = 1f;       // 3D ­µ®Ä
-        sfxAudio.minDistance = 50f;        // ¦b³o¶ZÂ÷¤ºÁn­µ¤£ÅÜ
-        sfxAudio.maxDistance = 300f;       // ¶W¹L³o¶ZÂ÷Án­µ³Ì¤p
-
-        //  ²V­µ¸s²Õ¡]¥i¿ï¡A¦pªG§A¥Î Audio Mixer¡^
+        //  ç©ºé–“æ„Ÿï¼šè®“è²éŸ³æ ¹æ“šè·é›¢é è¿‘è¡°æ¸›
+        sfxAudio.spatialBlend = 1f;       // 3D éŸ³æ•ˆ
+        sfxAudio.minDistance = 50f;        // åœ¨é€™è·é›¢å…§è²éŸ³ä¸è®Š
+        sfxAudio.maxDistance = 300f;       // è¶…éé€™è·é›¢è²éŸ³æœ€å°
+        //  æ··éŸ³ç¾¤çµ„ï¼ˆå¯é¸ï¼Œå¦‚æœä½ ç”¨ Audio Mixerï¼‰
         // sfxAudio.outputAudioMixerGroup = yourEnemySFXGroup;
-
         sfxAudio.Play();
-
         Destroy(sfxPlayer, deathAudioClip.length);
-
         GameObject effect = Instantiate(DeathExplosion, transform.position, Quaternion.identity);
         Destroy(effect, 1.5f);
-       
-		
     }
 
     private void OnTriggerEnter(Collider other)
@@ -335,17 +352,17 @@ public class EnemyHp : MonoBehaviour
                 {
                     PlayerMissileMove playerMissileMove = other.GetComponent<PlayerMissileMove>();
                     CleanseCorruption(playerMissileMove.corruptionDamage);
-                    ShootHurt(5);
+                    ShootHurt(5, 2);
                 }
                 else
                 {
-                    ShootHurt(5);
+                    ShootHurt(5, 2);
                 }
             }
         }
         if (other.tag == "PlayerBullet")
         {
-            ShootHurt(1);
+            ShootHurt(1, 0);
             if (haveshield == false && currentShieldHp <= 0)
             {
                 if (corrupted)
@@ -360,14 +377,18 @@ public class EnemyHp : MonoBehaviour
             {
                 if (corrupted)
                 {
+					
+					CleanseCorruption(10);
 
-                    CleanseCorruption(10);
-                    ShootHurt(20);
-                }
+                    ShootHurt(20, 1);
+					hasPlayedXHitThisFrame = true;
+				}
                 else
                 {
-                    ShootHurt(20);
-                }
+					
+					ShootHurt(20, 1);
+					hasPlayedXHitThisFrame = true;
+				}
             }
 
             //Debug.Log("hit");
@@ -388,7 +409,7 @@ public class EnemyHp : MonoBehaviour
             ShieldHurt(damage);
             Invoke("SetSlashDetectBool", 0.2f);
 
-            PlaySlashHitAudio(); // <<<<< ·s¼W¡I¼½©ñªñ¾Ô¥´À»­µ®Ä
+            PlaySlashHitAudio(); // <<<<< æ–°å¢ï¼æ’­æ”¾è¿‘æˆ°æ‰“æ“ŠéŸ³æ•ˆ
         }
         else if (hitCounter >= 3)
         {
@@ -399,7 +420,7 @@ public class EnemyHp : MonoBehaviour
             ShieldHurt(damage);
             Invoke("SetSlashDetectBool", 0.3f);
             
-            PlaySlashHitAudio(); // <<<<< ·s¼W¡I¼½©ñªñ¾Ô¥´À»­µ®Ä
+            PlaySlashHitAudio(); // <<<<< æ–°å¢ï¼æ’­æ”¾è¿‘æˆ°æ‰“æ“ŠéŸ³æ•ˆ
         }
     }
     void SetSlashDetectBool()
@@ -408,7 +429,7 @@ public class EnemyHp : MonoBehaviour
     }
     void CleanseCorruption(float corruptionDamage)
     {
-        corruptionDecreaseTimer = 0; // ­«¸m¦ÃÂ©«ì´_­p®É¾¹
+        corruptionDecreaseTimer = 0; // é‡ç½®æ±¡ç©¢æ¢å¾©è¨ˆæ™‚å™¨
         if (currentCorruptionValue < maxCorruptionValue)
         {
             currentCorruptionValue += corruptionDamage;
@@ -474,31 +495,58 @@ public class EnemyHp : MonoBehaviour
         }
     }
 
-    private void PlayhitimpactAudio()
+    private void PlayhitNormalAudio()
     {
         if (audioSource != null && hitimpactAudioClip != null)
         {
             audioSource.PlayOneShot(hitimpactAudioClip);
-        }
-    }
-    private void PlaySlashHitAudio()
+			// æ’­æ”¾æ™®é€šæ“Šä¸­æ•µäººè²
+		}
+	}
+	public void PlayhitXAudio()
+	{
+		if (audioSource != null && hitXAudioClip != null)
+		{
+			audioSource.PlayOneShot(hitXAudioClip);
+			lastXHitTime = Time.time;
+			Debug.Log("Play hit X audio");
+		}
+	}
+	//    private void PlayhitXAudio()
+	//{
+	//    if (audioSource != null && hitimpactAudioClip != null)
+	//    {
+	//        audioSource.PlayOneShot(hitXAudioClip);
+	//		// æ’­æ”¾ X å½ˆæ“Šä¸­æ•µäººè²
+	//        Debug.Log("Play hit X audio");
+	//		}
+	//}
+	private void PlayhitMisairuAudio()
+	{
+		if (audioSource != null && hitimpactAudioClip != null)
+        {
+            audioSource.PlayOneShot(hitimpactAudioClip);
+			// æ’­æ”¾å°å½ˆæ“Šä¸­æ•µäººè²
+		}
+	}
+	private void PlaySlashHitAudio()
     {
         if (audioSource != null && SlashHITClip != null)
         {
-            audioSource.pitch = Random.Range(0.95f, 1.05f); // ¦b AudioSource ¤W½Õ­µ°ª
-            audioSource.PlayOneShot(SlashHITClip); // ¼½©ñ Clip
-            audioSource.pitch = 1f; // ¼½©ñ«á­«¸m¦^¥¿±`¡AÁ×§K«á­±§OªºÁn­µ¤]¨ü¼vÅT
+            audioSource.pitch = Random.Range(0.95f, 1.05f); // åœ¨ AudioSource ä¸Šèª¿éŸ³é«˜
+            audioSource.PlayOneShot(SlashHITClip); // æ’­æ”¾ Clip
+            audioSource.pitch = 1f; // æ’­æ”¾å¾Œé‡ç½®å›æ­£å¸¸ï¼Œé¿å…å¾Œé¢åˆ¥çš„è²éŸ³ä¹Ÿå—å½±éŸ¿
         }
     }
     public void ChainEffectContrl(int mod)
     {
         switch (mod)
         {
-			case 1: // Ãö³¬³sÂê¯S®Ä
+			case 1: // é—œé–‰é€£é–ç‰¹æ•ˆ
                 ChainEffectGroup[0].Stop();
 				ChainEffectGroup[3].Play();
 				break;
-			case 2: // Ãö³¬³sÂê¯S®Ä¨Ã¼½©ñ¯}¸H¯S®Ä
+			case 2: // é—œé–‰é€£é–ç‰¹æ•ˆä¸¦æ’­æ”¾ç ´ç¢ç‰¹æ•ˆ
 				ChainEffectGroup[1].Stop();
 				ChainEffectGroup[4].Play();
 				break;
