@@ -16785,7 +16785,6 @@ MonoBehaviour:
   enemyMove: {fileID: 0}
   maxHp: 9999
   currentHp: 0
-  corruptEffect: {fileID: 0}
   corruptionExplosionEffect: {fileID: 0}
   corrupted: 0
   corruption: 0
@@ -16806,6 +16805,8 @@ MonoBehaviour:
   shieldHitAudioClip: {fileID: 0}
   shieldBreakAudioClip: {fileID: 0}
   hitimpactAudioClip: {fileID: 0}
+  hitXAudioClip: {fileID: 0}
+  hitMisairuAudioClip: {fileID: 0}
   deathAudioClip: {fileID: 0}
   SlashHITClip: {fileID: 7999512561291649746}
   canvas: {fileID: 0}
