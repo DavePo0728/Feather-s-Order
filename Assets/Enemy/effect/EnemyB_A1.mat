@@ -20,26 +20,26 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shader Graphs_DISSOLVE 1
+  m_Name: EnemyB_A1
   m_Shader: {fileID: -6465566751694194690, guid: ac4da982d88dc3b42a6d753c8833839b, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords: []
-  m_InvalidKeywords:
-  - _ALPHAPREMULTIPLY_ON
-  - _SURFACE_TYPE_TRANSPARENT
+  m_ValidKeywords:
+  - _ALPHATEST_ON
+  m_InvalidKeywords: []
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
+  m_CustomRenderQueue: 2000
+  stringTagMap:
+    RenderType: TransparentCutout
   disabledShaderPasses: []
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
     - _Texture2D:
-        m_Texture: {fileID: 2800000, guid: 68e2175435f15f146983c5b62d667f3f, type: 3}
+        m_Texture: {fileID: 2800000, guid: 38461fe2d37afcd47b0a5421c4c3e564, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -57,26 +57,27 @@ Material:
     m_Ints: []
     m_Floats:
     - _AlphaClip: 1
-    - _AlphaToMask: 0
+    - _AlphaToMask: 1
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _CastShadows: 1
     - _Cull: 2
-    - _DstBlend: 10
+    - _DstBlend: 0
     - _Dtime: 0
     - _EdgeValue: 0.02
     - _FloatColor: 0
     - _NoiseSize: 30
-    - _QueueControl: 0
+    - _QueueControl: 1
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _SrcBlend: 1
-    - _Surface: 1
+    - _Surface: 0
     - _WorkflowMode: 1
     - _ZTest: 4
-    - _ZWrite: 0
+    - _ZWrite: 1
     - _ZWriteControl: 0
     m_Colors:
     - _Color: {r: 8.219702, g: 7.777377, b: 0.8176667, a: 0}
+    - _ColorTexture: {r: 1, g: 1, b: 1, a: 0}
     - _blackC: {r: 0.11320752, g: 0.11320752, b: 0.11320752, a: 0}
   m_BuildTextureStacks: []

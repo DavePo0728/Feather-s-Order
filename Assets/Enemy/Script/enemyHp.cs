@@ -294,7 +294,10 @@ public class EnemyHp : MonoBehaviour
     }
     public void DeathEffect()/// 死亡特效
     {
-		EES.FadeOut();
+		EES.PlayDeathAnimation(); // 播放死亡動畫
+                                  //EES.FadeOut();
+        transform.Find("StatusCanvas").gameObject.SetActive(false); // 隱藏UI
+        GetComponent<BoxCollider>().enabled = false; // 禁用碰撞器，避免後續碰撞影響
 		GameObject sfxPlayer = new GameObject("DeathSFX");
         sfxPlayer.transform.position = transform.position;
 
@@ -318,8 +321,8 @@ public class EnemyHp : MonoBehaviour
 
         GameObject effect = Instantiate(DeathExplosion, transform.position, Quaternion.identity);
         Destroy(effect, 1.5f);
-
-        Destroy(gameObject); // 本體照常清除
+       
+		
     }
 
     private void OnTriggerEnter(Collider other)
