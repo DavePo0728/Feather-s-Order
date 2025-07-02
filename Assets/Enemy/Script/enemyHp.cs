@@ -330,9 +330,11 @@ public class EnemyHp : MonoBehaviour
             aimDetect.ManualOnTriggerExit(enemyCollider); 
         }
         EES.PlayDeathAnimation(); 
-        transform.Find("StatusCanvas").gameObject.SetActive(false); 
+        transform.Find("StatusCanvas").gameObject.SetActive(false);
         enemyMove.DoStop(); // 停止移動
-        enemyCollider.enabled = false; 
+        enemyMove.DoStopA();
+
+		enemyCollider.enabled = false; 
 		EES.PlayDeathAnimation(); // 播放死亡動畫
 		transform.Find("StatusCanvas").gameObject.SetActive(false); // 隱藏UI
 		GameObject sfxPlayer = new GameObject("DeathSFX");

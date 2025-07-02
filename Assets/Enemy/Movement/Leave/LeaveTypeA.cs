@@ -31,9 +31,10 @@ public class LeaveTypeA : ILeaveBehaviour
     {
         if (leaveTweener != null )
         {
-            if(leaveTweener.IsPlaying())
-                leaveTweener.Kill();
-        }
+			leaveTweener.Kill();
+			//if(leaveTweener.IsPlaying())
+
+		}
     }
     public void ParalyzePause()
     {
