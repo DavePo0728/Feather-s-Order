@@ -86,13 +86,10 @@ public class EnemyHp : MonoBehaviour
 	private bool hasPlayedXHitThisFrame = false;
 	private void Awake()
     {
-<<<<<<< HEAD
         enemyCollider = GetComponent<Collider>();
         aimDetect = GameObject.Find("AimDetectCollider").GetComponent<AimDetect>();
         corruptionDamageModifier = 0.5f; // ��©�ˮ`���v
-=======
         corruptionDamageModifier = 0.5f; // 污穢傷害倍率
->>>>>>> origin/Asuisui
         playerSlashAttack = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerSlashAttack>();
         enemyMove = gameObject.GetComponent<EnemyMove>();
         canvas = transform.Find("StatusCanvas").GetComponent<Canvas>();
@@ -328,20 +325,16 @@ public class EnemyHp : MonoBehaviour
     }
     public void DeathEffect()/// 死亡特效
     {
-<<<<<<< HEAD
         if (aimDetect != null)
         {
-            aimDetect.ManualOnTriggerExit(enemyCollider); // �q�˷Ǩt�Τ������ĤH
+            aimDetect.ManualOnTriggerExit(enemyCollider); 
         }
-        EES.PlayDeathAnimation(); // ���񦺤`�ʵe
-        transform.Find("StatusCanvas").gameObject.SetActive(false); // ����UI
-        enemyCollider.enabled = false; // �T�θI�����A�קK����I���v�T
-=======
+        EES.PlayDeathAnimation(); 
+        transform.Find("StatusCanvas").gameObject.SetActive(false); 
+        enemyMove.DoStop(); // 停止移動
+        enemyCollider.enabled = false; 
 		EES.PlayDeathAnimation(); // 播放死亡動畫
-        GetComponent<EnemyMove>().DOStop();
 		transform.Find("StatusCanvas").gameObject.SetActive(false); // 隱藏UI
-        GetComponent<BoxCollider>().enabled = false; // 禁用碰撞器，避免後續碰撞影響
->>>>>>> origin/Asuisui
 		GameObject sfxPlayer = new GameObject("DeathSFX");
         sfxPlayer.transform.position = transform.position;
         AudioSource sfxAudio = sfxPlayer.AddComponent<AudioSource>();
