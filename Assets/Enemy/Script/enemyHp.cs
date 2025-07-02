@@ -67,7 +67,7 @@ public class EnemyHp : MonoBehaviour
     AudioClip hitXAudioClip; // X彈擊中敵人聲
 	[SerializeField]
 	AudioClip hitMisairuAudioClip; // 導彈擊中敵人聲
-	AudioSource audioSource;
+	public AudioSource audioSource;
     [SerializeField] AudioClip deathAudioClip; // 敵人死亡音效
     [SerializeField] AudioClip SlashHITClip; // 敵人近戰受擊音效
 
@@ -94,7 +94,7 @@ public class EnemyHp : MonoBehaviour
         enemyMove = gameObject.GetComponent<EnemyMove>();
         canvas = transform.Find("StatusCanvas").GetComponent<Canvas>();
         audioSource = GetComponent<AudioSource>();
-        shieldEffect = transform.Find("MagicShieldBlue").gameObject;
+		shieldEffect = transform.Find("MagicShieldBlue").gameObject;
         shieldExplosionEffect = transform.Find("TargetHitExplosion").gameObject;
         //corruptEffect = transform.Find("CorruptionEffect").gameObject;
         slashHitEffectYellowObject = transform.Find("SwordHitMagicYellow").gameObject;
@@ -333,6 +333,7 @@ public class EnemyHp : MonoBehaviour
         transform.Find("StatusCanvas").gameObject.SetActive(false);
         enemyMove.DoStop(); // 停止移動
         enemyMove.DoStopA();
+        enemyMove.gun.SetActive(false); // 停止射擊
 
 		enemyCollider.enabled = false; 
 		EES.PlayDeathAnimation(); // 播放死亡動畫

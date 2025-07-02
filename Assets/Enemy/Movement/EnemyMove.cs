@@ -57,7 +57,7 @@ public class EnemyMove : MonoBehaviour
     [SerializeField]
     float DebugMoveTime;
     [SerializeField]
-    GameObject gun;
+    public GameObject gun;
     public bool isMove =false;
     EnemyData testData;
 

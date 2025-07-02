@@ -128,7 +128,7 @@ public class EnterExitSchedule : MonoBehaviour
 
 	public void PlayDeathAnimation()
 	{
-		PlayCustomFadeAnimation(0.15f, 1f); // 第一段 0.3 秒，第二段 0.5 秒
+		PlayCustomFadeAnimation(0.15f, 0.5f); // 第一段 0.3 秒，第二段 0.5 秒
 	}
 
 	public void PlayCustomFadeAnimation(float fadeDuration1, float fadeDuration2)
