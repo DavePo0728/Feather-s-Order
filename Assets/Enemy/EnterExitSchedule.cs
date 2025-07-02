@@ -1,7 +1,8 @@
 using UnityEngine;
 using System.Collections;
 
-using ASP; // 確保這是你 ASP 的命名空間
+using ASP;
+using System.Collections.Generic; // 確保這是你 ASP 的命名空間
 
 public class EnterExitSchedule : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class EnterExitSchedule : MonoBehaviour
 	public GameObject blueSG;
 	public bool haveRedS = false;
 	public GameObject RedS;
+	public List<SkinnedMeshRenderer> renderer = new List<SkinnedMeshRenderer>();
 	private void Awake()
 	{
 		aspPanel = GetComponent<ASPCharacterPanel>();
@@ -32,13 +34,13 @@ public class EnterExitSchedule : MonoBehaviour
 	}
 	public void FadeIn()
 	{
-		StartFade(1f, 0f,0f,75f,1f,0f, FadeInTime); 
+		StartFade(1f, 0f, 0f, 75f, 1f, 0f, FadeInTime);
 	}
 
 	public void FadeOut()
 	{
 		Bgshader.SetActive(false);
-		StartFade(0f, 1f,75f,0f,0f,1f, FadeOutTime); 
+		StartFade(0f, 1f, 75f, 0f, 0f, 1f, FadeOutTime);
 	}
 
 	private void StartFade(float from, float to, float start2, float end2, float start3, float end3, float duration)
@@ -48,7 +50,7 @@ public class EnterExitSchedule : MonoBehaviour
 			StopCoroutine(fadeCoroutine);
 		}
 		fadeCoroutine = StartCoroutine(FadeDithering(from, to, start2, end2, start3, end3, duration));
-		
+
 	}
 
 	private IEnumerator FadeDithering(float start1, float end1, float start2, float end2, float start3, float end3, float duration)
@@ -99,7 +101,7 @@ public class EnterExitSchedule : MonoBehaviour
 
 			timeElapsed += Time.deltaTime;
 
-			if (!FadeIn && t >= duration*0.8f)
+			if (!FadeIn && t >= duration * 0.8f)
 			{
 				FadeIn = true;
 				Bgshader.SetActive(true);
@@ -123,6 +125,87 @@ public class EnterExitSchedule : MonoBehaviour
 			redMaterial.SetFloat("_alpha", end3);
 		}
 	}
+
+	public void PlayDeathAnimation()
+	{
+		PlayCustomFadeAnimation(0.15f, 1f); // 第一段 0.3 秒，第二段 0.5 秒
+	}
+
+	public void PlayCustomFadeAnimation(float fadeDuration1, float fadeDuration2)
+	{
+		if (fadeCoroutine != null)
+		{
+			StopCoroutine(fadeCoroutine);
+		}
+		fadeCoroutine = StartCoroutine(CustomFadeRoutine(fadeDuration1, fadeDuration2));
+	}
+
+	private IEnumerator CustomFadeRoutine(float fadeDuration1, float fadeDuration2)
+	{
+		// --- 第一段：Dithering + _FloatColor ---
+		float t1 = 0f;
+		while (t1 < fadeDuration1)
+		{
+			
+			float lerp1 = t1 / fadeDuration1;
+
+			aspPanel.SetDitheringValueToAllMaterials(lerp1);
+
+			foreach (var r in renderer)
+			{
+				if (r.materials.Length > 1)
+				{
+					r.materials[1].SetFloat("_FloatColor", lerp1);
+				}
+			}
+
+			t1 += Time.deltaTime;
+			Debug.Log(t1+ "_"+gameObject.name);
+			yield return null;
+		}
+
+		// 確保第一段到最終值
+		aspPanel.SetDitheringValueToAllMaterials(1f);
+		foreach (var r in renderer)
+		{
+			if (r.materials.Length > 1)
+			{
+				r.materials[1].SetFloat("_FloatColor", 1f);
+			}
+		}
+
+		// --- 第二段：_Dtime ---
+		float t2 = 0f;
+		while (t2 < fadeDuration2)
+		{
+			float lerp2 = t2 / fadeDuration2;
+
+			foreach (var r in renderer)
+			{
+				if (r.materials.Length > 1)
+				{
+					r.materials[1].SetFloat("_Dtime", lerp2);
+				}
+			}
+
+			t2 += Time.deltaTime;
+			yield return null;
+		}
+
+		// 確保第二段到最終值
+		foreach (var r in renderer)
+		{
+			if (r.materials.Length > 1)
+			{
+				r.materials[1].SetFloat("_Dtime", 1f);
+			}
+		}
+
+		Debug.Log("PlayDeathAnimation called");
+		Destroy(gameObject);
+	}
+
+
 
 }
 
