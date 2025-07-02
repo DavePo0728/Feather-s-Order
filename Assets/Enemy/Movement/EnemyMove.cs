@@ -143,7 +143,7 @@ public class EnemyMove : MonoBehaviour
         {
             if (gun.activeSelf == false)
                 gun.SetActive(true);
-            Debug.Log("Gun Active: " + gun.activeSelf);
+            //Debug.Log("Gun Active: " + gun.activeSelf);
         }
         originPos = transform.position;
         //Debug.Log(moveBehavior.ToString());
@@ -167,15 +167,15 @@ public class EnemyMove : MonoBehaviour
                     if (gun.activeSelf == true)
                         gun.SetActive(false);
                 }
-                if (entryBehavior != null && entryBehavior.CheckEntryStatus())
+                if (entryBehavior != null)
                 {
                     entryBehavior.ParalyzePause();
                 }
-                if (moveBehavior != null && moveBehavior.CheckMoveStatus())
+                if (moveBehavior != null)
                 {
                     moveBehavior.ParalyzePause();
                 }
-                if (leaveBehavior != null && leaveBehavior.CheckLeaveStatus())
+                if (leaveBehavior != null)
                 {
                     leaveBehavior.ParalyzePause();
                 }
@@ -202,16 +202,16 @@ public class EnemyMove : MonoBehaviour
             if (gun.activeSelf == false)
                 gun.SetActive(true);
         }
-        if (entryBehavior != null && entryBehavior.CheckEntryStatus() == false)
+        if (entryBehavior != null)
         {
             entryBehavior.ParalyzeRecover();
         }
-        if (moveBehavior != null && moveBehavior.CheckMoveStatus() == false)
+        if (moveBehavior != null)
         {
             //Debug.Log("MoveBehaviorRecover");
             moveBehavior.ParalyzeRecover();
         }
-        if (leaveBehavior != null && leaveBehavior.CheckLeaveStatus() == false)
+        if (leaveBehavior != null)
         {
             leaveBehavior.ParalyzeRecover();
         }

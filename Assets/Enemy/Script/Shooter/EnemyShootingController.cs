@@ -96,7 +96,7 @@ public class EnemyShootingController : MonoBehaviour
     {
         var extra = gunDataList.gunDatas[currentModeIndex].addtionalGunData[addtionalCount].additionalData.data;
         StartCoroutine(HandleMode(extra));
-        Debug.Log(addtionalCount);
+        //Debug.Log(addtionalCount);
         if(addtionalCount< gunDataList.gunDatas[currentModeIndex].addtionalGunData.Count-1)
         {
             addtionalCount++;

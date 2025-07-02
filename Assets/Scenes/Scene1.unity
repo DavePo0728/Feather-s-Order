@@ -4467,6 +4467,14 @@ PrefabInstance:
       propertyPath: initialParalyzeTime
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 6871939464608767996, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6871939464608767996, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 733b9a58009b30845ba7a59d9e6c9308, type: 2}
     - target: {fileID: 7469029502725969291, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
       propertyPath: m_Name
       value: EnemyB(new)

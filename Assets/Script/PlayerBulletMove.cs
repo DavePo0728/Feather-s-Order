@@ -50,9 +50,16 @@ public class PlayerBulletMove : MonoBehaviour
         //bulletRigidbody.velocity = new Vector3(0, 0, speed);
         if (lockedEnemy != null)
         {
-            transform.LookAt(lockedEnemy.transform);
-            //Debug.Log(transform.rotation);
-            transform.Translate(Vector3.forward * speed);
+            if(Vector3.Distance(transform.position, lockedEnemy.transform.position) < 0.1f)
+            {
+                transform.Translate(Vector3.forward * speed);
+            }
+            else
+            {
+                transform.LookAt(lockedEnemy.transform);
+                transform.Translate(Vector3.forward * speed);
+            }
+
         }
         else
         {

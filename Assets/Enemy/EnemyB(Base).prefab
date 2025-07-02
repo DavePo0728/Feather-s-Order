@@ -116,6 +116,7 @@ SkinnedMeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: fdf9d9e125ef90c43810a7670ce433fd, type: 2}
+  - {fileID: 2100000, guid: 733b9a58009b30845ba7a59d9e6c9308, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -452,6 +453,7 @@ SkinnedMeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: fdf9d9e125ef90c43810a7670ce433fd, type: 2}
+  - {fileID: 2100000, guid: 733b9a58009b30845ba7a59d9e6c9308, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -564,7 +566,7 @@ SkinnedMeshRenderer:
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
-  m_LightProbeUsage: 1
+  m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 3
   m_RayTraceProcedural: 0
@@ -572,6 +574,7 @@ SkinnedMeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: fdf9d9e125ef90c43810a7670ce433fd, type: 2}
+  - {fileID: 2100000, guid: 733b9a58009b30845ba7a59d9e6c9308, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -11680,6 +11683,7 @@ SkinnedMeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: fdf9d9e125ef90c43810a7670ce433fd, type: 2}
+  - {fileID: 2100000, guid: 733b9a58009b30845ba7a59d9e6c9308, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -56666,7 +56670,6 @@ GameObject:
   - component: {fileID: 8641771722476299812}
   - component: {fileID: 6761567403057799714}
   - component: {fileID: 6806084062278553910}
-  - component: {fileID: 9137181306585716035}
   - component: {fileID: 4072529314359012074}
   - component: {fileID: 3971681285132368699}
   - component: {fileID: -1926070246695378643}
@@ -56871,102 +56874,6 @@ MonoBehaviour:
   DebugMoveTime: 0
   gun: {fileID: 0}
   isMove: 0
---- !u!82 &9137181306585716035
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7469029502725969291}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 10
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0.0027777778
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!82 &4072529314359012074
 AudioSource:
   m_ObjectHideFlags: 0
@@ -57082,6 +56989,13 @@ MonoBehaviour:
   blueSG: {fileID: 2177924151770044355}
   haveRedS: 1
   RedS: {fileID: 2638053577609432457}
+  renderer:
+  - {fileID: 6871939464608767996}
+  - {fileID: 8345702633897426706}
+  - {fileID: 294719713109269750}
+  - {fileID: 1286664152480620138}
+  - {fileID: 5209424696580198139}
+  - {fileID: 5526600397087355339}
 --- !u!82 &-1926070246695378643
 AudioSource:
   m_ObjectHideFlags: 0
@@ -57584,6 +57498,7 @@ SkinnedMeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: fdf9d9e125ef90c43810a7670ce433fd, type: 2}
+  - {fileID: 2100000, guid: 733b9a58009b30845ba7a59d9e6c9308, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -57704,6 +57619,7 @@ SkinnedMeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: fdf9d9e125ef90c43810a7670ce433fd, type: 2}
+  - {fileID: 2100000, guid: 733b9a58009b30845ba7a59d9e6c9308, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
