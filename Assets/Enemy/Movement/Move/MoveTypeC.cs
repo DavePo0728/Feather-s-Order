@@ -360,11 +360,11 @@ public class MoveTypeC : IMoveBehaviour
     }
     public void StopMove()
     {
-        if (startSequence.IsPlaying())
+        if (startSequence.IsActive())
             startSequence.Kill();
-        if (loopSequence.IsPlaying())
+        if(loopSequence.IsActive())
             loopSequence.Kill();
-        if (endSequence.IsPlaying())
+        if (endSequence.IsActive())
             endSequence.Kill();
     }
     public void ParalyzePause()
