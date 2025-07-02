@@ -8,6 +8,7 @@ public class EnemyHp : MonoBehaviour
     [SerializeField]
     EnemyMove enemyMove;
     AimDetect aimDetect;
+    Collider enemyCollider;
     [SerializeField]
     public float maxHp;
     [SerializeField]
@@ -75,7 +76,7 @@ public class EnemyHp : MonoBehaviour
     Image corruptionImageLeft, corruptionImageRight;
 
     [SerializeField] private AudioMixerGroup sfxGroup;
-    Collider enemyCollider;
+
     private void Awake()
     {
         enemyCollider = GetComponent<Collider>();
@@ -297,12 +298,11 @@ public class EnemyHp : MonoBehaviour
     }
     public void DeathEffect()/// 死亡特效
     {
-		EES.PlayDeathAnimation(); // 播放死亡動畫
-        
         if (aimDetect != null)
         {
             aimDetect.ManualOnTriggerExit(enemyCollider); // 從瞄準系統中移除敵人
         }
+        EES.PlayDeathAnimation(); // 播放死亡動畫
         transform.Find("StatusCanvas").gameObject.SetActive(false); // 隱藏UI
         enemyCollider.enabled = false; // 禁用碰撞器，避免後續碰撞影響
 		GameObject sfxPlayer = new GameObject("DeathSFX");
