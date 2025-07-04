@@ -13,9 +13,7 @@ MonoBehaviour:
   m_Name: TrackCrossShooterBlack L1W1_01
   m_EditorClassIdentifier: 
   gunDatas:
-  - Data: {fileID: 11400000, guid: 46f453da60297a640bbcc5c522460f1b, type: 2}
+  - Data: {fileID: 11400000, guid: 5a9880e9204e1824eb586a435f2a78ca, type: 2}
     delayTime: 1
-    IsAdditonalAttack: 1
-    addtionalGunData:
-    - additionalData: {fileID: 11400000, guid: 5a9880e9204e1824eb586a435f2a78ca, type: 2}
-      additionalDelayTime: 0
+    IsAdditonalAttack: 0
+    addtionalGunData: []

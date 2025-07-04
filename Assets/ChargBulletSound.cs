@@ -8,14 +8,10 @@ public class ChargBulletSound : MonoBehaviour
 	private List<Collider> enemyHits = new List<Collider>();
 	private void OnTriggerEnter(Collider other)
 	{
-		if (hasHit) return;
-
 		if (other.CompareTag("Enemy"))
 		{
 			Debug.Log("Hit enemy: " + other.name);
 			enemyHits.Add(other);
-
-			hasHit = true; // 先暫時阻擋重複觸發
 
 			// 延遲一點點時間再處理
 			CancelInvoke(nameof(HandleHit));

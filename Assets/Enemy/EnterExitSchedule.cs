@@ -128,7 +128,7 @@ public class EnterExitSchedule : MonoBehaviour
 
 	public void PlayDeathAnimation()
 	{
-		PlayCustomFadeAnimation(0.15f, 1f); // 第一段 0.3 秒，第二段 0.5 秒
+		PlayCustomFadeAnimation(0.15f, 0.5f); // 第一段 0.3 秒，第二段 0.5 秒
 	}
 
 	public void PlayCustomFadeAnimation(float fadeDuration1, float fadeDuration2)
@@ -173,7 +173,12 @@ public class EnterExitSchedule : MonoBehaviour
 				r.materials[1].SetFloat("_FloatColor", 1f);
 			}
 		}
-
+		
+		if (renderer.Count ==0)
+		{
+			Debug.LogWarning("Death Effect List is Null");
+		}
+		Bgshader.SetActive(false);
 		// --- 第二段：_Dtime ---
 		float t2 = 0f;
 		while (t2 < fadeDuration2)
@@ -201,7 +206,7 @@ public class EnterExitSchedule : MonoBehaviour
 			}
 		}
 
-		Debug.Log("PlayDeathAnimation called");
+		//Debug.Log("PlayDeathAnimation called");
 		Destroy(gameObject);
 	}
 

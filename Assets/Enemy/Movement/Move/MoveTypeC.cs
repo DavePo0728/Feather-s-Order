@@ -93,7 +93,7 @@ public class MoveTypeC : IMoveBehaviour
             }
             else
             {
-                Debug.Log($"[start sequence] 沒有變速");
+                //Debug.Log($"[start sequence] 沒有變速");
                 moveDuration = enemyMove.moveTime;
                 waitTime = enemyMove.pointWaitTime;
                 startSequence.Append(enemyMove.transform

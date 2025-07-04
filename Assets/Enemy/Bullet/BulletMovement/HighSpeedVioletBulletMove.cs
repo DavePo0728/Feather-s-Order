@@ -18,7 +18,8 @@ public class HighSpeedVioletBulletMove : MonoBehaviour
     [SerializeField]
     public float maxRotationSpeed;
     EnemyBulletData enemyBulletData;
-    private void Awake()
+    
+	private void Awake()
     {
         enemyBulletData = Resources.Load<EnemyBulletData>("BulletData/VioletBullet");
         speed = enemyBulletData.speed;

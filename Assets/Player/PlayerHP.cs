@@ -131,7 +131,8 @@ public class PlayerHP : MonoBehaviour
     {
         if (other.tag == "EnemyBullet")
         {
-           
+           Debug.Log("Player Hit by Enemy Bullet");
+
 			if (!isMuteki)
                 getHit(10);
         }

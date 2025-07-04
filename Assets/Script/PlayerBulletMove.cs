@@ -49,8 +49,8 @@ public class PlayerBulletMove : MonoBehaviour
     {
         if (lockedEnemy != null)
         {
-            Debug.Log(speed);
-            if (Vector3.Distance(transform.position, lockedEnemy.transform.position) < 5f)
+            //Debug.Log(speed);
+            if (Vector3.Distance(transform.position, lockedEnemy.transform.position) < 10f)
             {
                 lockedEnemy = null;
                 transform.eulerAngles =Vector3.zero;

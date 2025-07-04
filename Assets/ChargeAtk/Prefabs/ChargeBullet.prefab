@@ -4809,7 +4809,7 @@ GameObject:
   - component: {fileID: 5586180816765228569}
   - component: {fileID: 7989923671598933702}
   m_Layer: 6
-  m_Name: ChargeBulletC
+  m_Name: ChargeBulletClast
   m_TagString: ChargeBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4849,8 +4849,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 10.000002, y: 4, z: 9.999991}
-  m_Center: {x: 0, y: -0.13866425, z: 0}
+  m_Size: {x: 9.695266, y: 4, z: 9.999991}
+  m_Center: {x: 0.15236647, y: -0.13866425, z: 1.2118631e-10}
 --- !u!114 &7989923671598933702
 MonoBehaviour:
   m_ObjectHideFlags: 0
