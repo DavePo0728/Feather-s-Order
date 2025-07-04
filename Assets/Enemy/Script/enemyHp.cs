@@ -81,9 +81,8 @@ public class EnemyHp : MonoBehaviour
 
     [SerializeField] private AudioMixerGroup sfxGroup;
 
-	private float XhitAudioCD = 0.05f;
-	private float lastXHitTime = -Mathf.Infinity;
-	private bool hasPlayedXHitThisFrame = false;
+	private float hitXAudioCooldown = 0.05f; // 冷卻時間（秒）
+	private float lastHitXAudioTime = -Mathf.Infinity; // 上次播放時間
 	private void Awake()
     {
         enemyCollider = GetComponent<Collider>();
@@ -217,7 +216,7 @@ public class EnemyHp : MonoBehaviour
 					//PlayhitXAudio();
 					break;
 				case 2: // 追蹤子彈
-					PlayhitMisairuAudio();
+					//PlayhitMisairuAudio();
 					break;
 				default:
 					break;
@@ -343,7 +342,7 @@ public class EnemyHp : MonoBehaviour
         AudioSource sfxAudio = sfxPlayer.AddComponent<AudioSource>();
         sfxAudio.clip = deathAudioClip;
         //  音量控制（你可以這裡調整音量大小）
-        sfxAudio.volume = 0.8f;
+        sfxAudio.volume = 1f;
         //  空間感：讓聲音根據距離遠近衰減
         sfxAudio.spatialBlend = 1f;       // 3D 音效
         sfxAudio.minDistance = 50f;        // 在這距離內聲音不變
@@ -351,6 +350,8 @@ public class EnemyHp : MonoBehaviour
         //  混音群組（可選，如果你用 Audio Mixer）
         // sfxAudio.outputAudioMixerGroup = yourEnemySFXGroup;
         sfxAudio.Play();
+        
+
         Destroy(sfxPlayer, deathAudioClip.length);
         GameObject effect = Instantiate(DeathExplosion, transform.position, Quaternion.identity);
         Destroy(effect, 1.5f);
@@ -395,13 +396,13 @@ public class EnemyHp : MonoBehaviour
 					CleanseCorruption(10);
 
                     ShootHurt(20, 1);
-					hasPlayedXHitThisFrame = true;
+
 				}
                 else
                 {
 					
 					ShootHurt(20, 1);
-					hasPlayedXHitThisFrame = true;
+
 				}
             }
 
@@ -514,34 +515,42 @@ public class EnemyHp : MonoBehaviour
         if (audioSource != null && hitimpactAudioClip != null)
         {
             audioSource.PlayOneShot(hitimpactAudioClip);
+            // 播放普通擊中敵人聲
+        }
+    }
+	private void PlayhitDeathlAudio()
+	{
+		if (audioSource != null && hitimpactAudioClip != null)
+		{
+			audioSource.PlayOneShot(deathAudioClip);
 			// 播放普通擊中敵人聲
 		}
 	}
 	public void PlayhitXAudio()
 	{
+		if (Time.time - lastHitXAudioTime < hitXAudioCooldown)
+		{
+			//Debug.Log("hit X audio on cooldown");
+			return;
+		}
+
 		if (audioSource != null && hitXAudioClip != null)
 		{
 			audioSource.PlayOneShot(hitXAudioClip);
-			Debug.Log("Play hit X audio");
+			//Debug.Log("Play hit X audio");
+			lastHitXAudioTime = Time.time;
 		}
 	}
-	//    private void PlayhitXAudio()
-	//{
-	//    if (audioSource != null && hitimpactAudioClip != null)
-	//    {
-	//        audioSource.PlayOneShot(hitXAudioClip);
-	//		// 播放 X 彈擊中敵人聲
-	//        Debug.Log("Play hit X audio");
-	//		}
-	//}
-	private void PlayhitMisairuAudio()
+	public void PlayhitMisairuAudio(float AudioVolume)
 	{
 		if (audioSource != null && hitimpactAudioClip != null)
         {
-            audioSource.PlayOneShot(hitMisairuAudioClip);
-			// 播放導彈擊中敵人聲
-		}
-	}
+            audioSource.PlayOneShot(hitMisairuAudioClip, AudioVolume);
+            // 播放導彈擊中敵人聲
+            //Debug.Log("Play hit Misairu audio" +"+音量:" + AudioVolume);
+            
+        }
+    }
 	private void PlaySlashHitAudio()
     {
         if (audioSource != null && SlashHITClip != null)

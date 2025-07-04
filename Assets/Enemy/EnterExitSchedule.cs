@@ -173,7 +173,12 @@ public class EnterExitSchedule : MonoBehaviour
 				r.materials[1].SetFloat("_FloatColor", 1f);
 			}
 		}
-
+		
+		if (renderer.Count ==0)
+		{
+			Debug.LogWarning("Death Effect List is Null");
+		}
+		Bgshader.SetActive(false);
 		// --- ²Ä¤G¬q¡G_Dtime ---
 		float t2 = 0f;
 		while (t2 < fadeDuration2)
@@ -201,7 +206,7 @@ public class EnterExitSchedule : MonoBehaviour
 			}
 		}
 
-		Debug.Log("PlayDeathAnimation called");
+		//Debug.Log("PlayDeathAnimation called");
 		Destroy(gameObject);
 	}
 

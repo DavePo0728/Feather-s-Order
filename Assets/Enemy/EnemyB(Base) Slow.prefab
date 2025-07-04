@@ -56986,11 +56986,17 @@ MonoBehaviour:
   Bgshader: {fileID: 3346496267803938455}
   FadeInTime: 1
   FadeOutTime: 0.5
-  haveblueS: 1
+  haveblueS: 0
   blueSG: {fileID: 2177924151770044355}
-  haveRedS: 1
+  haveRedS: 0
   RedS: {fileID: 2638053577609432457}
-  renderer: []
+  renderer:
+  - {fileID: 6871939464608767996}
+  - {fileID: 8345702633897426706}
+  - {fileID: 294719713109269750}
+  - {fileID: 1286664152480620138}
+  - {fileID: 5209424696580198139}
+  - {fileID: 5526600397087355339}
 --- !u!1 &7483161516308823998
 GameObject:
   m_ObjectHideFlags: 0

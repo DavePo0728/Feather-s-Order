@@ -188,7 +188,7 @@ public class BlackBulletMove : BulletBase
             moveToPlayer = false;
             bulletBody.SetActive(false);
             hitEffect.gameObject.SetActive(true);
-            BulletCollider.enabled = false;
+            //BulletCollider.enabled = false; //¾É­P¿ù»~¸I¼²
             hitParticle.Play();
         }
     }

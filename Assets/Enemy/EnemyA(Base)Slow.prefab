@@ -17004,7 +17004,12 @@ MonoBehaviour:
   blueSG: {fileID: 0}
   haveRedS: 0
   RedS: {fileID: 0}
-  renderer: []
+  renderer:
+  - {fileID: 8093032238026797588}
+  - {fileID: 8967332602161035031}
+  - {fileID: 2676979326897004342}
+  - {fileID: 1616620855488804310}
+  - {fileID: 913665947522677152}
 --- !u!1 &5268054280095392628
 GameObject:
   m_ObjectHideFlags: 0
