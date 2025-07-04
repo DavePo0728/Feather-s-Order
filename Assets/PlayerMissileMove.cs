@@ -60,7 +60,8 @@ public class PlayerMissileMove : MonoBehaviour
 
 			float result = 1f / BulletCount;
 			float rounded = (float)Math.Round(result, 3);  // 四捨五入到小數點後3位
-			Debug.Log("Hit enemy: " + other.name);
+			rounded = Mathf.Max(rounded, 0.3f);
+			Debug.Log("Hit enemy: " + rounded + "BulletCount:	" + BulletCount);
 			other.GetComponent<EnemyHp>().PlayhitMisairuAudio(rounded);
 
 			Destroy(this.gameObject);
