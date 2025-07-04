@@ -25,14 +25,16 @@ public class TrackShooting : MonoBehaviour
     }
     public BulletType bulletType;
     // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         timeBetweenShots = 1 / (rpm / 60.0f);
         canShoot = true;
+        AimPlayer();
     }
     void OnEnable()
     {
+        
         if (canShoot == false)
             canShoot = true;
     }
