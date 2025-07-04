@@ -38,15 +38,13 @@ public class HighSpeedVioletBulletMove : MonoBehaviour
     {
         // 持續向前移動
         transform.Translate(Vector3.forward * speed);
-
+        if (transform.position.z < lockedPlayer.transform.position.z)
+        {
+            isTracking = false; // 如果子彈位置在玩家後面，停止追蹤
+        }
         // 延遲後開始追蹤敵人
         if (isTracking && lockedPlayer != null)
         {
-            //if (speed < MaxSpeed)
-            //{
-            //    speed += 0.1f;
-            //}
-            //Debug.Log("Missile Speed: " + speed);
             Vector3 targetDirection = (lockedPlayer.transform.position - transform.position).normalized;
             Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, maxRotationSpeed * Time.deltaTime);
