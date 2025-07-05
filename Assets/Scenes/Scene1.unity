@@ -145292,7 +145292,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canGraze: 0
   grazeCD: 0.05
-  maxGrazeEnergy: 100
+  maxGrazeEnergy: 1000
   currentGrazeEnergy: 0
   grazeEnergyGain: 5
   maxGrazeGapTime: 0.5
@@ -145303,6 +145303,7 @@ MonoBehaviour:
   fakeDelay: 0.3
   fakeSpeed: 0.5
   grazeColor: {fileID: 585214341}
+  grazeBufferDuration: 0.025
 --- !u!4 &2597694417859325145
 Transform:
   m_ObjectHideFlags: 0
