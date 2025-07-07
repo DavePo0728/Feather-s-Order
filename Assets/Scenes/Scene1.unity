@@ -75876,7 +75876,7 @@ GameObject:
   - component: {fileID: 6280281506674533966}
   - component: {fileID: 6133371338862009755}
   m_Layer: 5
-  m_Name: Image_3
+  m_Name: AimUIFrame_TopLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -145292,7 +145292,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canGraze: 0
   grazeCD: 0.05
-  maxGrazeEnergy: 100
+  maxGrazeEnergy: 1000
   currentGrazeEnergy: 0
   grazeEnergyGain: 5
   maxGrazeGapTime: 0.5
@@ -145303,6 +145303,7 @@ MonoBehaviour:
   fakeDelay: 0.3
   fakeSpeed: 0.5
   grazeColor: {fileID: 585214341}
+  grazeBufferDuration: 0.025
 --- !u!4 &2597694417859325145
 Transform:
   m_ObjectHideFlags: 0
@@ -182100,7 +182101,7 @@ GameObject:
   - component: {fileID: 2969568840728303230}
   - component: {fileID: 2793949320914552638}
   m_Layer: 5
-  m_Name: Image_1
+  m_Name: AimUIFrame_BotRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -237160,7 +237161,7 @@ GameObject:
   - component: {fileID: 6440410643477636275}
   - component: {fileID: 936726020093692927}
   m_Layer: 5
-  m_Name: Image_2
+  m_Name: AimUIFrame_TopRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -282750,7 +282751,7 @@ GameObject:
   - component: {fileID: 5776197965143095860}
   - component: {fileID: 3451536568471883424}
   m_Layer: 5
-  m_Name: Image
+  m_Name: AimUIFrame_BotLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -301546,6 +301547,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6242838b4d7d5f4e877ebce50738d20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cornerOffset: {x: 800, y: 300}
   shootCost: 10
   bulletGraze: {fileID: 2597641707307501749}
   missileCoillder: {fileID: 0}
@@ -301553,6 +301555,10 @@ MonoBehaviour:
   missile: {fileID: 3812506742602249460, guid: f2de3becabb255d4ab2ad2e63cb1045b, type: 3}
   lockImage: {fileID: 8947196269137945551, guid: bf40fa2b14f23354aaf9e15612c60b54, type: 3}
   canvas: {fileID: 8915398511747944212}
+  aimUIBotLeft: {fileID: 0}
+  aimUITopLeft: {fileID: 0}
+  aimUIBotRight: {fileID: 0}
+  aimUITopRight: {fileID: 0}
   maxChargeTime: 2
   chargeAimCollider: {fileID: 4827920042978555669}
   maxScaleX: 150
@@ -308066,7 +308072,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 95d4bcd011822854d9d340c4c7db27f0, type: 2}
   - {fileID: 11400000, guid: 4c3fa0d638bddb24fb253d28a4f7b4b4, type: 2}
   - {fileID: 11400000, guid: 868e573f992a9c240a366ad0a0edf2f1, type: 2}
-  currentWaveController: {fileID: 11400000, guid: ed869e6ef062ba449a2af2829dfe0455, type: 2}
+  currentWaveController: {fileID: 11400000, guid: b4dbe4d6718771d4aae204ee77f3f238, type: 2}
   scenesManager: {fileID: 1950844339}
   tutorialMode: 0
   inputActions: {fileID: -944628639613478452, guid: 6315d56ce0b2b034b859a84c624f7c72, type: 3}

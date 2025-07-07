@@ -37,6 +37,9 @@ public class BulletGraze : MonoBehaviour
 
     public GrazeColor grazeColor;
 
+    private int grazebbb = 0;
+	[SerializeField] float grazeBufferDuration = 0.025f; // 緩衝時間，允許短時間連續判定
+    Coroutine GrazeCoroutine;
 	private void Awake()
     {
         grazeSound = GetComponent<AudioSource>();
@@ -86,9 +89,9 @@ public class BulletGraze : MonoBehaviour
                 grazeEffect.SetActive(true);
                 if (!grazeEffectParticle.isPlaying)
                     grazeEffectParticle.Play();
-				grazeColor.ApplyGrazeEffect();
+                grazeColor.ApplyGrazeEffect();
 
-				Vibrate(0.1f, 0.1f, 0.05f);
+                Vibrate(0.1f, 0.1f, 0.05f);
                 grazeSound.PlayOneShot(grazeClip);
 
                 if (shieldFlashEffect != null)
@@ -107,8 +110,12 @@ public class BulletGraze : MonoBehaviour
                 UpdateGrazeUI(); // 真實值直接更新，不觸發虛血動畫
             }
         }
+        if (other.CompareTag("BulletGrazeCollider"))
+        {
+            grazebbb++;
+			GrazeCoroutine =  StartCoroutine(GrazeBufferWindow());
+		}
     }
-
     void Vibrate(float lowFrequency, float highFrequency, float duration)
     {
         if (Gamepad.current != null)
@@ -170,4 +177,33 @@ public class BulletGraze : MonoBehaviour
         yield return new WaitForSeconds(grazeCD);
         canGraze = true;
     }
+	IEnumerator GrazeBufferWindow()
+	{
+	
+		float timer = 0f;
+
+        while (timer < grazeBufferDuration)
+        {
+            // 在這段時間內持續執行的邏輯
+            if (canGraze)
+            {
+				StopCoroutine(GrazeCoroutine);
+			}
+
+            if (grazebbb >=10)
+            {
+				currentGrazeEnergy += grazeEnergyGain * 5;
+                currentGrazeEnergy = Mathf.Min(currentGrazeEnergy, maxGrazeEnergy);
+				UpdateGrazeUI(); // 一次性更新
+                StopCoroutine(GrazeCoroutine);
+				
+                Debug.Log("Graze Energy Boosted: " + grazebbb);
+				grazebbb = 0;
+			}
+            timer += Time.deltaTime;
+            yield return null; // 等待下一幀
+        }
+        StopCoroutine(GrazeCoroutine);
+        grazebbb = 0;
+	}
 }

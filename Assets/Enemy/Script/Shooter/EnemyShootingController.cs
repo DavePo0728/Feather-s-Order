@@ -5,6 +5,7 @@ using UnityEditor;
 using System.Linq;
 using System.Drawing;
 using System.Reflection;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class EnemyShootingController : MonoBehaviour
 {
@@ -92,19 +93,15 @@ public class EnemyShootingController : MonoBehaviour
         StopAttacking();
         //Debug.Log("EnemyShootingController disabled, stopping attack loop.");
     }
-    public void FireExtraMode()
+    public IEnumerator FireExtraMode()
     {
-        var extra = gunDataList.gunDatas[currentModeIndex].addtionalGunData[addtionalCount].additionalData.data;
-        StartCoroutine(HandleMode(extra));
-        //Debug.Log(addtionalCount);
-        if(addtionalCount< gunDataList.gunDatas[currentModeIndex].addtionalGunData.Count-1)
+        foreach (var additionalGun in gunDataList.gunDatas[currentModeIndex].addtionalGunData)
         {
-            addtionalCount++;
+            yield return new WaitForSeconds(additionalGun.additionalDelayTime);
+            StartCoroutine(HandleMode(additionalGun.additionalData.data));
         }
-        if(addtionalCount> gunDataList.gunDatas[currentModeIndex].addtionalGunData.Count)
-        {
-            addtionalCount = 0;
-        }
+        //var extra = gunDataList.gunDatas[currentModeIndex].addtionalGunData[addtionalCount].additionalData.data;
+
     }
     /// <summary>
     /// 開始攻擊
@@ -142,7 +139,7 @@ public class EnemyShootingController : MonoBehaviour
             {
                 if (gunDataList.gunDatas[currentModeIndex].IsAdditonalAttack)
                 {
-                    Invoke("FireExtraMode", gunDataList.gunDatas[currentModeIndex].addtionalGunData[addtionalCount].additionalDelayTime);
+                    StartCoroutine(FireExtraMode());
                 }
                 var mode = modes[currentModeIndex];
                 //Debug.Log(mode.patternType);
@@ -258,39 +255,30 @@ public class EnemyShootingController : MonoBehaviour
         // 3. 一次生成一顆子彈（如果要一次多顆，就把下方這行放到 for 迴圈裡）
         ActiveBullet(shooter.transform.position, rot, g.bulletType);
     }
-    public void CrossSpin(SubGunData g)
-    {
-        // 1. 算出當前旋轉角度
-        float angle = Time.time * g.spinSpeed;
-        Quaternion rotZ = Quaternion.AngleAxis(angle, Vector3.forward); // 繞 Z 軸
+	public void CrossSpin(SubGunData g)
+	{
+		int count = Mathf.Max(1, g.bulletAmount);
 
-        // 2. 定義本地十字基準方向（右、上、左、下）
-        Vector3[] baseDirs = new Vector3[] {
-        Vector3.right,
-        Vector3.up,
-        Vector3.left,
-        Vector3.down
-    };
+		// 當前動態旋轉角度 + 手動偏移角度
+		float angleOffset = Time.time * g.spinSpeed + g.initialAngleOffset;
 
-        // 3. 每條臂上依 bulletsPerArm 排列子彈
-        for (int i = 0; i < baseDirs.Length; i++)
-        {
-            // 旋轉後的方向向量
-            Vector3 dir = rotZ * baseDirs[i];
+		for (int i = 0; i < count; i++)
+		{
+			// 總角度 = 每顆子彈的角度 + 整體偏移
+			float angleDeg = i * (360f / count) + angleOffset;
+			float angleRad = angleDeg * Mathf.Deg2Rad;
 
-            for (int j = 1; j <= g.bulletsPerArm; j++)
-            {
-                // 排列位置 = 火點 + dir * spacing * j
-                Vector3 spawnPos = shooter.transform.position + dir * (g.crossSpacing * j);
+			// 在 XY 平面上偏移位置
+			Vector3 localOffset = new Vector3(Mathf.Cos(angleRad), Mathf.Sin(angleRad), 0) * g.ringRadius;
+			Vector3 spawnPos = shooter.transform.position + localOffset;
 
-                // 子彈朝向 -Z
-                Quaternion spawnRot = Quaternion.LookRotation(Vector3.back, Vector3.up);
+			// 子彈朝圓心外方向
+			Quaternion spawnRot = Quaternion.LookRotation(Vector3.back, localOffset.normalized);
 
-                ActiveBullet(spawnPos, spawnRot, g.bulletType);
-            }
-        }
-    }
-    private void HomingMissile(SubGunData g)
+			ActiveBullet(spawnPos, spawnRot, g.bulletType);
+		}
+	}
+	private void HomingMissile(SubGunData g)
     {
         for (int i = 0; i < g.bulletAmount; i++)
         {
