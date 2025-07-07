@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbc2ec931fe6c5f468160c04b38f041f, type: 3}
-  m_Name: L1W7_AGo_Right02_TypeC
+  m_Name: L1Boss_TypeC
   m_EditorClassIdentifier: 
   data:
-    spawnPosition: {x: 24, y: 13, z: 1}
-    endPosition: {x: 24, y: 13, z: 4}
+    spawnPosition: {x: 24, y: 1, z: 1}
+    endPosition: {x: 24, y: 7, z: 2}
     LeavePositon: {x: 24, y: 13, z: 6}
     curveHeight: 90
     curveType: 0
