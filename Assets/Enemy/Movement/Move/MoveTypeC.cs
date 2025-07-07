@@ -76,24 +76,20 @@ public class MoveTypeC : IMoveBehaviour
                     //Debug.Log($"[startSequence] 開始移動到節點 index = {currentNodeIndex}" + $"MoveStatus: {moveStatus}");
                 })
                 );
-                //if (loopType == loopType.Yoyo)
-                //{
-                //    //startSequence
-                //    Debug.Log($"[startSequence] 設定為 Yoyo 循環");
-                //}
                 // 2) Append Interval 等待
                 if (i == enemyMove.pointIndex[startPointCount - 1])
                 {
-                    startBackSequence.AppendInterval(endPointWaitTime);
+                    startSequence.AppendInterval(endPointWaitTime);
+                    Debug.Log($"[start sequence] 已到達變速節點 index = {currentNodeIndex}，等待時間: {endPointWaitTime}秒，下一個變速節點索引: {startPointCount}");
                 }
                 else
                 {
-                    startBackSequence.AppendInterval(waitTime);
+                    startSequence.AppendInterval(waitTime);
                 }
             }
             else
             {
-                //Debug.Log($"[start sequence] 沒有變速");
+                Debug.Log($"[start sequence] 沒有變速");
                 moveDuration = enemyMove.moveTime;
                 waitTime = enemyMove.pointWaitTime;
                 startSequence.Append(enemyMove.transform

@@ -5,6 +5,7 @@ using UnityEditor;
 using System.Linq;
 using System.Drawing;
 using System.Reflection;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class EnemyShootingController : MonoBehaviour
 {
@@ -92,19 +93,15 @@ public class EnemyShootingController : MonoBehaviour
         StopAttacking();
         //Debug.Log("EnemyShootingController disabled, stopping attack loop.");
     }
-    public void FireExtraMode()
+    public IEnumerator FireExtraMode()
     {
-        var extra = gunDataList.gunDatas[currentModeIndex].addtionalGunData[addtionalCount].additionalData.data;
-        StartCoroutine(HandleMode(extra));
-        //Debug.Log(addtionalCount);
-        if(addtionalCount< gunDataList.gunDatas[currentModeIndex].addtionalGunData.Count-1)
+        foreach (var additionalGun in gunDataList.gunDatas[currentModeIndex].addtionalGunData)
         {
-            addtionalCount++;
+            yield return new WaitForSeconds(additionalGun.additionalDelayTime);
+            StartCoroutine(HandleMode(additionalGun.additionalData.data));
         }
-        if(addtionalCount> gunDataList.gunDatas[currentModeIndex].addtionalGunData.Count)
-        {
-            addtionalCount = 0;
-        }
+        //var extra = gunDataList.gunDatas[currentModeIndex].addtionalGunData[addtionalCount].additionalData.data;
+
     }
     /// <summary>
     /// 開始攻擊
@@ -142,7 +139,7 @@ public class EnemyShootingController : MonoBehaviour
             {
                 if (gunDataList.gunDatas[currentModeIndex].IsAdditonalAttack)
                 {
-                    Invoke("FireExtraMode", gunDataList.gunDatas[currentModeIndex].addtionalGunData[addtionalCount].additionalDelayTime);
+                    StartCoroutine(FireExtraMode());
                 }
                 var mode = modes[currentModeIndex];
                 //Debug.Log(mode.patternType);

@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 
 public class MissileShooter : MonoBehaviour
 {
+    [Tooltip("最大偏移量")]
+    public Vector2 cornerOffset;
     [SerializeField]
     float shootCost;
     bool canShoot;
@@ -21,6 +23,11 @@ public class MissileShooter : MonoBehaviour
     float chargeTimer;
     [SerializeField]
     GameObject lockImage, canvas;
+    [SerializeField] RectTransform aimUIBotLeft;
+    [SerializeField] RectTransform aimUITopLeft;
+    [SerializeField] RectTransform aimUIBotRight;
+    [SerializeField] RectTransform aimUITopRight;
+    Vector2 aimUIBotLeftPos, aimUITopLeftPos, aimUIBotRightPos, aimUITopRightPos;
     [SerializeField]
     float maxChargeTime;
     [SerializeField]
@@ -39,19 +46,25 @@ public class MissileShooter : MonoBehaviour
     [SerializeField] AudioClip missileFireSFX;
     [SerializeField] [Range(0f, 1.5f)] float missileFireVolume = 1.0f;
     [SerializeField] Vector2 pitchRange = new Vector2(0.9f, 1.1f); // 隨機音高範圍
-    // Start is called before the first frame update
-
     private HashSet<GameObject> alreadyPlayedLockSFX = new HashSet<GameObject>();
     private void Awake()
     {
         startScaleX = false; 
         startScaleY =false;
         missileCoillder = GetComponent<Collider>();
+        aimUIBotLeft = GameObject.Find("AimUIFrame_BotLeft").GetComponent<RectTransform>();
+        aimUITopLeft = GameObject.Find("AimUIFrame_TopLeft").GetComponent<RectTransform>();
+        aimUIBotRight = GameObject.Find("AimUIFrame_BotRight").GetComponent<RectTransform>();
+        aimUITopRight = GameObject.Find("AimUIFrame_TopRight").GetComponent<RectTransform>();
     }
     void Start()
     {
         scaleX = chargeAimCollider.transform.DOScaleX(maxScaleX, maxChargeTime).OnStart(() => startScaleX = true).OnRewind(() => startScaleX = false).OnComplete(()=> startScaleX =false).SetEase(Ease.Linear).SetAutoKill(false);
         scaleY = chargeAimCollider.transform.DOScaleY(maxScaleY, maxChargeTime).OnStart(() => startScaleY = true).OnRewind(() => startScaleY = false).OnComplete(() => startScaleX = false).SetEase(Ease.Linear).SetAutoKill(false);
+        aimUIBotLeftPos = aimUIBotLeft.anchoredPosition;
+        aimUITopLeftPos = aimUITopLeft.anchoredPosition;
+        aimUIBotRightPos = aimUIBotRight.anchoredPosition;
+        aimUITopRightPos = aimUITopRight.anchoredPosition;
     }
     public void GetMissileShootInput(InputAction.CallbackContext context)
     {
@@ -97,6 +110,8 @@ public class MissileShooter : MonoBehaviour
             if (startScaleX == false)
             {
                 scaleX.Play();
+                SpreadOut();
+
                 //Debug.Log("playX");
             }
 
@@ -113,6 +128,7 @@ public class MissileShooter : MonoBehaviour
             {
                 //Debug.Log("CallXPaused");
                 scaleX.Rewind();
+                SpreadIn();
                 //chargeAimCollider.transform.localScale = Vector3.one;
             }
 
@@ -120,7 +136,23 @@ public class MissileShooter : MonoBehaviour
             {
                 scaleY.Rewind();
             }
+            
         }
+    }
+    private void SpreadOut()
+    {
+        aimUITopLeft.DOAnchorPos(new Vector2(-cornerOffset.x, +cornerOffset.y), maxChargeTime).Play();
+        aimUITopRight.DOAnchorPos(new Vector2(+cornerOffset.x, +cornerOffset.y), maxChargeTime).Play();
+        aimUIBotLeft.DOAnchorPos(new Vector2(-cornerOffset.x, -cornerOffset.y), maxChargeTime).Play();
+        aimUIBotRight.DOAnchorPos(new Vector2(+cornerOffset.x, -cornerOffset.y), maxChargeTime).Play();
+    }
+
+    private void SpreadIn()
+    {
+        aimUITopLeft.DOAnchorPos(aimUITopLeftPos, 0.1f).Play();
+        aimUITopRight.DOAnchorPos(aimUITopRightPos, 0.1f).Play();
+        aimUIBotLeft.DOAnchorPos(aimUIBotLeftPos, 0.1f).Play();
+        aimUIBotRight.DOAnchorPos(aimUIBotRightPos, 0.1f).Play();
     }
     void ShootMissile(int missileAmount)
     {
