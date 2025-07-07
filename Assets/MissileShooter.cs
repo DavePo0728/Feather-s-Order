@@ -163,7 +163,8 @@ public class MissileShooter : MonoBehaviour
             Vector3 direction = new Vector3(Mathf.Cos(radian), Mathf.Sin(radian), 0);
             GameObject temp = Instantiate(missile, transform.position, Quaternion.identity);
             PlayerMissileMove playerMissileMove = temp.GetComponent<PlayerMissileMove>();
-            playerMissileMove.Initialize(direction, lockedEnemies[i]);
+            playerMissileMove.BulletCount = missileAmount;
+			playerMissileMove.Initialize(direction, lockedEnemies[i]);
         }
         // 撥放音效（每發對應一個延遲）
         StartCoroutine(PlayMissileSFXSequentially(missileAmount));

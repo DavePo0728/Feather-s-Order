@@ -26,7 +26,8 @@ public class SubGunData
     public float spinSpeed;
     public float bulletsPerArm;
     public float crossSpacing;
-    [Header("ring")]
+	public float initialAngleOffset = 0f;
+	[Header("ring")]
     public float ringRadius;
     [Header("FanSwing")]
     public float swingSpeed;

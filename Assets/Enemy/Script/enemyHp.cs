@@ -82,7 +82,9 @@ public class EnemyHp : MonoBehaviour
     [SerializeField] private AudioMixerGroup sfxGroup;
 
 	private float hitXAudioCooldown = 0.05f; // 冷卻時間（秒）
-	private float lastHitXAudioTime = -Mathf.Infinity; // 上次播放時間
+    private float lastHitXAudioTime = -Mathf.Infinity; // 上次播放時間
+
+	public GameObject MisairuHit; // 導彈擊中敵人特效
 	private void Awake()
     {
         enemyCollider = GetComponent<Collider>();
@@ -129,7 +131,8 @@ public class EnemyHp : MonoBehaviour
         UnboxExplosion = transform.Find("UnboxExplosion").gameObject;
         deathAudioClip = Resources.Load<AudioClip>("Sound/EnemyDeathSound");
         audioSource.outputAudioMixerGroup = sfxGroup;
-    }
+
+	}
     // Start is called before the first frame update
     void Start()
     {
@@ -373,7 +376,9 @@ public class EnemyHp : MonoBehaviour
                 {
                     ShootHurt(5, 2);
                 }
-            }
+				Transform MisairuHitPos = other.transform;
+				Instantiate(MisairuHit, MisairuHitPos.position, transform.rotation);
+			}
         }
         if (other.tag == "PlayerBullet")
         {
@@ -547,7 +552,7 @@ public class EnemyHp : MonoBehaviour
         {
             audioSource.PlayOneShot(hitMisairuAudioClip, AudioVolume);
             // 播放導彈擊中敵人聲
-            //Debug.Log("Play hit Misairu audio" +"+音量:" + AudioVolume);
+            Debug.Log("Play hit Misairu audio" +"+音量:" + AudioVolume);
             
         }
     }

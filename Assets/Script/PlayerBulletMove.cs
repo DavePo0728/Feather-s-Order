@@ -31,7 +31,7 @@ public class PlayerBulletMove : MonoBehaviour
     }
     void Start()
     {
-                        Debug.Log(speed);
+                        //Debug.Log(speed);
     }
     private void OnEnable()
     {
