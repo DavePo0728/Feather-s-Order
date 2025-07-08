@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Arrows1
   m_EditorClassIdentifier: 
   data:
-    patternType: 0
+    patternType: 5
     trackPlayer: 0
     gunIndex: 1
     rpm: 100
@@ -22,9 +22,10 @@ MonoBehaviour:
     bulletAmount: 1
     spreadAngle: 0
     shooterRotation: 0
-    spinSpeed: 5
-    bulletsPerArm: 5
-    crossSpacing: 5
+    spinSpeed: 0
+    bulletsPerArm: 0
+    crossSpacing: 0
+    initialAngleOffset: 0
     ringRadius: 0
     swingSpeed: 0
     swingAngle: 0
