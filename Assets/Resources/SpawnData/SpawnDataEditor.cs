@@ -1,12 +1,12 @@
 #if UNITY_EDITOR
 using UnityEditor;
-#endif
+
 using UnityEngine;
 using System.IO;
 using System.Collections.Generic;
 using System;
 using Tayx.Graphy.Utils.NumString;
-using UnityEditorInternal.VR;
+
 
 public enum SpawnEditDataType
 {
@@ -546,3 +546,4 @@ public class SpawnDataEditor : MonoBehaviour
 	}
 
 }
+#endif

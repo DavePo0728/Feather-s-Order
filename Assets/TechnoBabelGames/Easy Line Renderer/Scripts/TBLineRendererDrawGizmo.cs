@@ -1,5 +1,6 @@
-using UnityEditor;
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
 
 namespace TechnoBabelGames
 {
@@ -27,3 +28,4 @@ namespace TechnoBabelGames
         }
     }
 }
+#endif

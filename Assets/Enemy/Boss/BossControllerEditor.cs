@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
 
 [CustomEditor(typeof(BossController), true)]
@@ -196,3 +197,4 @@ public class BossControllerEditor : Editor
 		serializedObject.ApplyModifiedProperties();
 	}
 }
+#endif

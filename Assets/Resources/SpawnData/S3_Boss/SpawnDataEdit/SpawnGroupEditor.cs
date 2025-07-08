@@ -1,5 +1,7 @@
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEditorInternal;
+
 using UnityEngine;
 using System.Collections.Generic;
 
@@ -233,3 +235,4 @@ public class SpawnGroupEditor : Editor
 		Handles.EndGUI();
 	}
 }
+#endif
