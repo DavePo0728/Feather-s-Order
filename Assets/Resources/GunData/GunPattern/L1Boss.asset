@@ -13,7 +13,85 @@ MonoBehaviour:
   m_Name: L1Boss
   m_EditorClassIdentifier: 
   gunDatas:
-  - Data: {fileID: 11400000, guid: 9d6e66795c0d2634e86d946c6eccd325, type: 2}
-    delayTime: 1
-    IsAdditonalAttack: 0
+  - Data: {fileID: 11400000, guid: 87392a7796ddd1c4ca77ce2a49a70f60, type: 2}
+    delayTime: 0
+    IsAdditonalAttack: 1
     addtionalGunData: []
+  - Data: {fileID: 11400000, guid: 8acecb96464dae14fa7b51a64b82e096, type: 2}
+    delayTime: 0.5
+    IsAdditonalAttack: 1
+    addtionalGunData:
+    - additionalData: {fileID: 11400000, guid: b09e7c6206c19db4b8480031a96f0100, type: 2}
+      additionalDelayTime: 0
+  - Data: {fileID: 11400000, guid: 19d841a40f836cc43a627f75afa61daa, type: 2}
+    delayTime: 0
+    IsAdditonalAttack: 1
+    addtionalGunData:
+    - additionalData: {fileID: 11400000, guid: c5bcdce9213dcc244b0b474cd4ac54c8, type: 2}
+      additionalDelayTime: 0
+  - Data: {fileID: 11400000, guid: 8acecb96464dae14fa7b51a64b82e096, type: 2}
+    delayTime: 0
+    IsAdditonalAttack: 1
+    addtionalGunData:
+    - additionalData: {fileID: 11400000, guid: b09e7c6206c19db4b8480031a96f0100, type: 2}
+      additionalDelayTime: 0
+  - Data: {fileID: 11400000, guid: 4b34a785a1b490f4a8eceff9aa6b3309, type: 2}
+    delayTime: 1
+    IsAdditonalAttack: 1
+    addtionalGunData:
+    - additionalData: {fileID: 11400000, guid: d5c2edfc917ab3d4b8b6cab7894d5d27, type: 2}
+      additionalDelayTime: 0
+  - Data: {fileID: 11400000, guid: a47632f06d92abe43a99f25536f11d7a, type: 2}
+    delayTime: 0
+    IsAdditonalAttack: 1
+    addtionalGunData:
+    - additionalData: {fileID: 11400000, guid: 1bc0a138a69aa704aa4a5b23acc949af, type: 2}
+      additionalDelayTime: 0
+  - Data: {fileID: 11400000, guid: 4b34a785a1b490f4a8eceff9aa6b3309, type: 2}
+    delayTime: 0
+    IsAdditonalAttack: 1
+    addtionalGunData:
+    - additionalData: {fileID: 11400000, guid: d5c2edfc917ab3d4b8b6cab7894d5d27, type: 2}
+      additionalDelayTime: 0
+  - Data: {fileID: 11400000, guid: 8aaca33f1dfe7e240a7bcb22c29e51eb, type: 2}
+    delayTime: 1
+    IsAdditonalAttack: 1
+    addtionalGunData:
+    - additionalData: {fileID: 11400000, guid: b234d55f454155f41b2da0eaa05d1f5e, type: 2}
+      additionalDelayTime: 0
+    - additionalData: {fileID: 11400000, guid: 5a024db6151ad354995ba02c30ff5e66, type: 2}
+      additionalDelayTime: 0
+    - additionalData: {fileID: 11400000, guid: 4fdc172060b73214ba18285280f36901, type: 2}
+      additionalDelayTime: 0
+  - Data: {fileID: 11400000, guid: aa21420795c696a4da01abb55532766a, type: 2}
+    delayTime: 0.2
+    IsAdditonalAttack: 1
+    addtionalGunData:
+    - additionalData: {fileID: 11400000, guid: 0e880cdd4468f5e408eaaaa48afccf82, type: 2}
+      additionalDelayTime: 0.1
+    - additionalData: {fileID: 11400000, guid: 098ba304a7a8441478ce00a909f502f7, type: 2}
+      additionalDelayTime: 0.1
+  - Data: {fileID: 11400000, guid: ad80d9ad22955fd448f325f05f271a28, type: 2}
+    delayTime: 2
+    IsAdditonalAttack: 1
+    addtionalGunData:
+    - additionalData: {fileID: 11400000, guid: dca6ceeb540dc1f4796d3cdc0576f636, type: 2}
+      additionalDelayTime: 0.1
+  - Data: {fileID: 11400000, guid: 8aaca33f1dfe7e240a7bcb22c29e51eb, type: 2}
+    delayTime: 1
+    IsAdditonalAttack: 1
+    addtionalGunData:
+    - additionalData: {fileID: 11400000, guid: b234d55f454155f41b2da0eaa05d1f5e, type: 2}
+      additionalDelayTime: 0
+    - additionalData: {fileID: 11400000, guid: 5a024db6151ad354995ba02c30ff5e66, type: 2}
+      additionalDelayTime: 0
+    - additionalData: {fileID: 11400000, guid: 4fdc172060b73214ba18285280f36901, type: 2}
+      additionalDelayTime: 0
+  - Data: {fileID: 11400000, guid: aa21420795c696a4da01abb55532766a, type: 2}
+    delayTime: 0.2
+    IsAdditonalAttack: 1
+    addtionalGunData:
+    - additionalData: {fileID: 11400000, guid: 0e880cdd4468f5e408eaaaa48afccf82, type: 2}
+      additionalDelayTime: 0.1
+    - additionalData: {fileID: 11400000, guid: 098ba304a7a8441478ce00a909f502f7, type: 2}
+      additionalDelayTime: 0.1
