@@ -95,3 +95,13 @@ MonoBehaviour:
       additionalDelayTime: 0.1
     - additionalData: {fileID: 11400000, guid: 098ba304a7a8441478ce00a909f502f7, type: 2}
       additionalDelayTime: 0.1
+  - Data: {fileID: 11400000, guid: ed49c17bd2afbab4e8ee06b2adf39264, type: 2}
+    delayTime: 0.2
+    IsAdditonalAttack: 1
+    addtionalGunData:
+    - additionalData: {fileID: 11400000, guid: 2a9d1750c1c6aa442a3a7de5c90cdb79, type: 2}
+      additionalDelayTime: 0
+  - Data: {fileID: 11400000, guid: bc9dc113e951e76468c1425c99da6c25, type: 2}
+    delayTime: 0
+    IsAdditonalAttack: 1
+    addtionalGunData: []

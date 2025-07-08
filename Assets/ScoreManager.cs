@@ -23,7 +23,7 @@ public class ScoreManager : MonoBehaviour
     void FixedUpdate()
     {
         timer += Time.deltaTime;
-        timerTxt.text =  string.Format("{0:F1}", timer);
+        timerTxt.text =  string.Format("{0:F2}", timer);
     }
     public void AddScore()
     {
