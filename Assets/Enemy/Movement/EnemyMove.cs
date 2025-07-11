@@ -1,8 +1,6 @@
-using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using PathCreation;
 using System;
 
 public class EnemyMove : MonoBehaviour
@@ -108,26 +106,28 @@ public class EnemyMove : MonoBehaviour
         {
             //maxcurrentParalyzeTime
             currentParalyzeTime -= Time.deltaTime;
-
-            //Debug.Log(maxcurrentParalyzeTime +"_"+ maxcurrentParalyzeTime);
-            // 呼叫一次：小於 max - 1/2
-            if (!calledAtHalf && currentParalyzeTime < (maxcurrentParalyzeTime - (maxcurrentParalyzeTime * 0.5f)))
+			Debug.Log("maxcurrentParalyzeTime: " + maxcurrentParalyzeTime);
+			//Debug.Log(maxcurrentParalyzeTime +"_"+ maxcurrentParalyzeTime);
+			// 呼叫一次：小於 max - 1/2
+			if (!calledAtHalf && currentParalyzeTime < (maxcurrentParalyzeTime - (maxcurrentParalyzeTime * 0.5f)))
             {
                 calledAtHalf = true;
-
-                enemyHp.ChainEffectContrl(1);
+				Debug.Log("currentParalyzeTime: " + currentParalyzeTime);
+				enemyHp.ChainEffectContrl(1);
             }
 
             // 呼叫一次：小於 max - 3/4
-            if (!calledAtThreeFourth && currentParalyzeTime < (maxcurrentParalyzeTime - (maxcurrentParalyzeTime * 0.25f)))
+            if (!calledAtThreeFourth && currentParalyzeTime < (maxcurrentParalyzeTime - (maxcurrentParalyzeTime * 0.75f)))
             {
-                calledAtThreeFourth = true;
+				Debug.Log("currentParalyzeTime: " + currentParalyzeTime);
+				calledAtThreeFourth = true;
                 enemyHp.ChainEffectContrl(2);
             }
 
             if (currentParalyzeTime < 0)
             {
-                enemyHp.ChainEffectContrl(3);
+                Debug.Log("currentParalyzeTime: " + currentParalyzeTime);
+				enemyHp.ChainEffectContrl(3);
                 recoverParalyze();
                 paralyzing = false;
                 calledAtHalf = false;

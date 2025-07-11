@@ -15,8 +15,12 @@ MonoBehaviour:
   pathX: 1d0000001a00000018000000
   pathY: 030000000300000005000000
   pathZ: 030000000400000005000000
-  loopTime: 0
+  loopTime: 1
   loopStartIndex: 0
-  loopEndIndex: 0
+  loopEndIndex: 3
   loopType: 0
-  moveTimeValues: []
+  moveTimeValues:
+  - endPointIndex: 0
+    moveTime: 1
+    pointWaitTime: 0
+    endpointWaitTime: 999

@@ -142,6 +142,13 @@ public class EnterExitSchedule : MonoBehaviour
 
 	private IEnumerator CustomFadeRoutine(float fadeDuration1, float fadeDuration2)
 	{
+		foreach (var r in renderer)
+		{
+			if (r.materials.Length > 1)
+			{
+				r.materials[1].SetFloat("_Alpha_Clip", 0f);
+			}
+		}
 		// --- ²Ä¤@¬q¡GDithering + _FloatColor ---
 		float t1 = 0f;
 		while (t1 < fadeDuration1)

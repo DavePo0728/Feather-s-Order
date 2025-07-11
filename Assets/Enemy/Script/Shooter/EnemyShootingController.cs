@@ -264,16 +264,16 @@ public class EnemyShootingController : MonoBehaviour
 
 		for (int i = 0; i < count; i++)
 		{
-			// 總角度 = 每顆子彈的角度 + 整體偏移
 			float angleDeg = i * (360f / count) + angleOffset;
 			float angleRad = angleDeg * Mathf.Deg2Rad;
 
-			// 在 XY 平面上偏移位置
-			Vector3 localOffset = new Vector3(Mathf.Cos(angleRad), Mathf.Sin(angleRad), 0) * g.ringRadius;
-			Vector3 spawnPos = shooter.transform.position + localOffset;
+			// 在 XY 平面上偏移位置（使用 shooter 的 local 方向來決定圓形平面）
+			Vector3 localOffset = new Vector3(Mathf.Cos(angleRad), Mathf.Sin(angleRad), 0f) * g.ringRadius;
+			Vector3 worldOffset = shooter.transform.TransformDirection(localOffset);
+			Vector3 spawnPos = shooter.transform.position + worldOffset;
 
-			// 子彈朝圓心外方向
-			Quaternion spawnRot = Quaternion.LookRotation(Vector3.back, localOffset.normalized);
+			// 所有子彈的旋轉都一樣 = 跟 shooter 相同方向
+			Quaternion spawnRot = shooter.transform.rotation;
 
 			ActiveBullet(spawnPos, spawnRot, g.bulletType);
 		}
@@ -377,17 +377,23 @@ public class EnemyShootingController : MonoBehaviour
                 StartCoroutine(ShotGun(gunData));
                 break;
             case ShootingPatternType.FourWay:
-                shooter = shooterList[0];
-                if (shooter != null)
-                {
-                    if (shooter.activeSelf == false)
-                    {
-                        shooter.SetActive(true);
-                    }
-                }
-                CrossSpin(gunData);
-                break;
-            case ShootingPatternType.FanSwing:
+				if (gunData.trackPlayer)
+				{
+					shooter = shooterList[1]; // 對應會轉向玩家的發射點
+				}
+				else
+				{
+					shooter = shooterList[0]; // 不追蹤玩家的固定方向發射器
+				}
+
+				if (shooter != null && shooter.activeSelf == false)
+				{
+					shooter.SetActive(true);
+				}
+
+				CrossSpin(gunData);
+				break;
+			case ShootingPatternType.FanSwing:
                 if (gunData.trackPlayer)
                 {
                     shooter = shooterList[1];

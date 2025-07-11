@@ -13,6 +13,12 @@ MonoBehaviour:
   m_Name: L1W7C
   m_EditorClassIdentifier: 
   gunDatas:
+  - Data: {fileID: 11400000, guid: 3168a09cc895b6442a3ec3651f1f74ff, type: 2}
+    delayTime: 1
+    IsAdditonalAttack: 1
+    addtionalGunData:
+    - additionalData: {fileID: 11400000, guid: 5c1950d467bdc944789bda8dbe00f089, type: 2}
+      additionalDelayTime: 0
   - Data: {fileID: 11400000, guid: 671ee69dad97f0f4f9fe8ccbcaceeaa8, type: 2}
     delayTime: 1
     IsAdditonalAttack: 1

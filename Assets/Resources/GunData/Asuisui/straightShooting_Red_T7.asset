@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data:
     patternType: 2
-    trackPlayer: 0
+    trackPlayer: 1
     gunIndex: 1
     rpm: 150
     bulletType: 0
@@ -25,6 +25,7 @@ MonoBehaviour:
     spinSpeed: 0
     bulletsPerArm: 0
     crossSpacing: 0
+    initialAngleOffset: 0
     ringRadius: 0
     swingSpeed: 0
     swingAngle: 0

@@ -3,11 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class MissileShooter : MonoBehaviour
 {
     [Tooltip("³Ì¤j°¾²¾¶q")]
     public Vector2 cornerOffset;
+    public float lineOffset,lineOrigin;
     [SerializeField]
     float shootCost;
     bool canShoot;
@@ -27,6 +29,8 @@ public class MissileShooter : MonoBehaviour
     [SerializeField] RectTransform aimUITopLeft;
     [SerializeField] RectTransform aimUIBotRight;
     [SerializeField] RectTransform aimUITopRight;
+    [SerializeField] RectTransform aimUILineLeft;
+    [SerializeField] RectTransform aimUILineRight;
     Vector2 aimUIBotLeftPos, aimUITopLeftPos, aimUIBotRightPos, aimUITopRightPos;
     [SerializeField]
     float maxChargeTime;
@@ -56,11 +60,13 @@ public class MissileShooter : MonoBehaviour
         aimUITopLeft = GameObject.Find("AimUIFrame_TopLeft").GetComponent<RectTransform>();
         aimUIBotRight = GameObject.Find("AimUIFrame_BotRight").GetComponent<RectTransform>();
         aimUITopRight = GameObject.Find("AimUIFrame_TopRight").GetComponent<RectTransform>();
+        aimUILineLeft = GameObject.Find("AimUILine_Left").GetComponent<RectTransform>();
+        aimUILineRight = GameObject.Find("AimUILine_Right").GetComponent<RectTransform>();
     }
     void Start()
     {
-        scaleX = chargeAimCollider.transform.DOScaleX(maxScaleX, maxChargeTime).OnStart(() => startScaleX = true).OnRewind(() => startScaleX = false).OnComplete(()=> startScaleX =false).SetEase(Ease.Linear).SetAutoKill(false);
-        scaleY = chargeAimCollider.transform.DOScaleY(maxScaleY, maxChargeTime).OnStart(() => startScaleY = true).OnRewind(() => startScaleY = false).OnComplete(() => startScaleX = false).SetEase(Ease.Linear).SetAutoKill(false);
+        scaleX = chargeAimCollider.transform.DOScaleX(maxScaleX, maxChargeTime).OnStart(() => startScaleX = true).OnRewind(() => startScaleX = false).OnComplete(()=> startScaleX =false).SetAutoKill(false);
+        scaleY = chargeAimCollider.transform.DOScaleY(maxScaleY, maxChargeTime).OnStart(() => startScaleY = true).OnRewind(() => startScaleY = false).OnComplete(() => startScaleX = false).SetAutoKill(false);
         aimUIBotLeftPos = aimUIBotLeft.anchoredPosition;
         aimUITopLeftPos = aimUITopLeft.anchoredPosition;
         aimUIBotRightPos = aimUIBotRight.anchoredPosition;
@@ -141,10 +147,16 @@ public class MissileShooter : MonoBehaviour
     }
     private void SpreadOut()
     {
-        aimUITopLeft.DOAnchorPos(new Vector2(-cornerOffset.x, +cornerOffset.y), maxChargeTime).Play();
-        aimUITopRight.DOAnchorPos(new Vector2(+cornerOffset.x, +cornerOffset.y), maxChargeTime).Play();
-        aimUIBotLeft.DOAnchorPos(new Vector2(-cornerOffset.x, -cornerOffset.y), maxChargeTime).Play();
-        aimUIBotRight.DOAnchorPos(new Vector2(+cornerOffset.x, -cornerOffset.y), maxChargeTime).Play();
+        aimUITopLeft.DOAnchorPos(new Vector2(-cornerOffset.x, cornerOffset.y), 0.5f).SetEase(Ease.OutBack).Play();
+        aimUITopRight.DOAnchorPos(new Vector2(cornerOffset.x, cornerOffset.y), 0.5f).SetEase(Ease.OutBack).Play();
+        aimUIBotLeft.DOAnchorPos(new Vector2(-cornerOffset.x, -cornerOffset.y), 0.5f).SetEase(Ease.OutBack).Play();
+        aimUIBotRight.DOAnchorPos(new Vector2(cornerOffset.x, -cornerOffset.y), 0.5f).SetEase(Ease.OutBack).Play();
+        aimUILineLeft.DOScaleX(1, 0.5f).SetEase(Ease.OutBack).Play();
+        aimUILineLeft.DOScaleY(1, 0.5f).SetEase(Ease.OutBack).Play();
+        aimUILineRight.DOScaleX(1, 0.5f).SetEase(Ease.OutBack).Play();
+        aimUILineRight.DOScaleY(1, 0.5f).SetEase(Ease.OutBack).Play();
+        aimUILineLeft.DOAnchorPosX(-lineOffset, 0.5f).SetEase(Ease.OutBack).Play();
+        aimUILineRight.DOAnchorPosX(lineOffset, 0.5f).SetEase(Ease.OutBack).Play();
     }
 
     private void SpreadIn()
@@ -153,6 +165,12 @@ public class MissileShooter : MonoBehaviour
         aimUITopRight.DOAnchorPos(aimUITopRightPos, 0.1f).Play();
         aimUIBotLeft.DOAnchorPos(aimUIBotLeftPos, 0.1f).Play();
         aimUIBotRight.DOAnchorPos(aimUIBotRightPos, 0.1f).Play();
+        aimUILineLeft.DOScaleX(0, 0.1f).Play();
+        aimUILineLeft.DOScaleY(0, 0.1f).Play();
+        aimUILineRight.DOScaleX(0, 0.1f).Play();
+        aimUILineRight.DOScaleY(0, 0.1f).Play();
+        aimUILineLeft.DOAnchorPosX(-lineOrigin, 0.1f).Play();
+        aimUILineRight.DOAnchorPosX(lineOrigin, 0.1f).Play();
     }
     void ShootMissile(int missileAmount)
     {

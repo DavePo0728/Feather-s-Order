@@ -1,10 +1,9 @@
-﻿using PathCreationEditor;
-using System;
+﻿using System;
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEditorInternal;
-using UnityEditorInternal.VR;
+
 using UnityEngine;
-using static UnityEngine.Random;
 
 [CustomEditor(typeof(SpawnDataEditor))]
 public class SpawnDataEditorEditor : Editor
@@ -527,3 +526,4 @@ public class SpawnDataEditorEditor : Editor
 		};
 	}
 }
+#endif
