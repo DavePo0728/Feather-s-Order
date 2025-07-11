@@ -10,14 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 020630e1ead07b64c808f9917b65c821, type: 3}
-  m_Name: T5ShooterBlack
+  m_Name: T6Missile
   m_EditorClassIdentifier: 
   gunDatas:
-  - Data: {fileID: 11400000, guid: 1aa89dc94a15efe49b57883a1519d9ac, type: 2}
-    delayTime: 1.5
-    IsAdditonalAttack: 0
-    addtionalGunData: []
-  - Data: {fileID: 11400000, guid: a325d3bb76517c249b5dca0e6f7e2178, type: 2}
-    delayTime: 1.5
+  - Data: {fileID: 11400000, guid: aba91608f43075b47bdab7608b9083e6, type: 2}
+    delayTime: 2
     IsAdditonalAttack: 0
     addtionalGunData: []

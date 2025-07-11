@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: New Tutorial Wave Sequence
   m_EditorClassIdentifier: 
   tutorialSteps:
+  - tutorialImage: {fileID: 21300000, guid: 96522ad6a26f5b346b48ad12c3e7d98d, type: 3}
+    waveGroupName: TutorialWave7_slash
+    specialTutorial: 0
   - tutorialImage: {fileID: 21300000, guid: 62d5a5c289bc19245ad54c51171ade15, type: 3}
     waveGroupName: EmptyWave
     specialTutorial: 0
@@ -37,6 +40,3 @@ MonoBehaviour:
   - tutorialImage: {fileID: 21300000, guid: e1ea800e2efe6aa4c926b5654b20627e, type: 3}
     waveGroupName: TutorialWave6_missile
     specialTutorial: 1
-  - tutorialImage: {fileID: 21300000, guid: 96522ad6a26f5b346b48ad12c3e7d98d, type: 3}
-    waveGroupName: TutorialWave7_slash
-    specialTutorial: 0

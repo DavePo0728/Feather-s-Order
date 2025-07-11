@@ -16,7 +16,9 @@ MonoBehaviour:
     spawnPosition: {x: 0, y: 14, z: 1}
     endPosition: {x: 19, y: 14, z: 2}
     LeavePositon: {x: 47, y: 14, z: 7}
-    curveHeight: -3
+    curveHeight: 30
+    curveType: 0
+    randomMoveRadius: 0
     pathNum: 0
     customPathNum: 22
     pointWaitTime: 0

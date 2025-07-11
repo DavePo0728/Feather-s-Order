@@ -30755,6 +30755,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Box Volume
       objectReference: {fileID: 0}
+    - target: {fileID: 7435909983744936538, guid: b517cff1ef9678649a0965e3a425d6fd, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
