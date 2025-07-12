@@ -20,6 +20,8 @@ MonoBehaviour:
   - Data: {fileID: 11400000, guid: abeb6981465cc824ab8c929c9cc7510e, type: 2}
     delayTime: 1
     IsAdditonalAttack: 1
-    addtionalGunData:
-    - additionalData: {fileID: 11400000, guid: d6c01bf1fb05c2c4998bcaa3b20d41ae, type: 2}
-      additionalDelayTime: 4
+    addtionalGunData: []
+  - Data: {fileID: 11400000, guid: d6c01bf1fb05c2c4998bcaa3b20d41ae, type: 2}
+    delayTime: 0
+    IsAdditonalAttack: 1
+    addtionalGunData: []

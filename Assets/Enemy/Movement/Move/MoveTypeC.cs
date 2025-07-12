@@ -48,7 +48,7 @@ public class MoveTypeC : IMoveBehaviour
             int currentNodeIndex = i;
             if (enemyMove.pointIndex.Count > 0)
             {
-                Debug.Log($"[start sequence] 有變速");
+                //Debug.Log($"[start sequence] 有變速");
                 if (currentNodeIndex >= loopStartIndex && currentNodeIndex <= loopEndIndex)
                 {
                     if (currentNodeIndex == enemyMove.pointIndex[startPointCount])
@@ -80,7 +80,7 @@ public class MoveTypeC : IMoveBehaviour
                 if (i == enemyMove.pointIndex[startPointCount - 1])
                 {
                     startSequence.AppendInterval(endPointWaitTime);
-                    Debug.Log($"[start sequence] 已到達變速節點 index = {currentNodeIndex}，等待時間: {endPointWaitTime}秒，下一個變速節點索引: {startPointCount}");
+                    //Debug.Log($"[start sequence] 已到達變速節點 index = {currentNodeIndex}，等待時間: {endPointWaitTime}秒，下一個變速節點索引: {startPointCount}");
                 }
                 else
                 {

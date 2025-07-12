@@ -12,7 +12,8 @@ public class SubGunData
     public ShootingPatternType patternType;
     [Header("Gun Data")]
     public bool trackPlayer;
-    [HideInInspector]
+    public bool WarningLight;
+	[HideInInspector]
     public int gunIndex;
     public float rpm;
     public BulletType bulletType;
