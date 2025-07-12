@@ -182,7 +182,8 @@ public class BulletPool : MonoBehaviour
     }
     public void ClearAllBullet()
     {
-        for (int i = 0; i < blackBulletAmountToPool; i++)
+        Debug.Log("ClearAllBullet");
+		for (int i = 0; i < blackBulletAmountToPool; i++)
         {
             if(blackBulletPool[i].activeInHierarchy)
             {
