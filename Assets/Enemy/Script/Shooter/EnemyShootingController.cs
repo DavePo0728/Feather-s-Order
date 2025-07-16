@@ -144,6 +144,16 @@ public class EnemyShootingController : MonoBehaviour
 
         for (int i = 0; i < gunDataList.gunDatas.Length; i++)
         {
+            int nextIndex = (currentModeIndex + 1) % gunDataList.gunDatas.Length;
+            bool isFirstGun = currentModeIndex == 0;
+
+            // ⬇️ 判斷是否要呼叫 TryScheduleNextGunWarning()
+            //Debug.Log(gunDataList.gunDatas[nextIndex].Data.data.WarningLight);
+            if (gunDataList.gunDatas[nextIndex].Data.data.WarningLight ||
+                (isFirstGun && gunDataList.gunDatas[currentModeIndex].Data.data.WarningLight))
+            {
+                TryScheduleNextGunWarning();
+            }
             currentModeIndex = i;
             var data = gunDataList.gunDatas[i];
 
