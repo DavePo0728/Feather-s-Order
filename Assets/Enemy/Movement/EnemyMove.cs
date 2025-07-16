@@ -56,6 +56,8 @@ public class EnemyMove : MonoBehaviour
     float DebugMoveTime;
     [SerializeField]
     public GameObject gun;
+    EnemyShootingController enemyShootingController;
+    public float startAttackPoint; 
     public bool isMove =false;
     EnemyData testData;
 
@@ -72,6 +74,7 @@ public class EnemyMove : MonoBehaviour
     {
         enemyHp = GetComponent<EnemyHp>();
         gun = transform.Find("Guns").gameObject;
+        enemyShootingController = gun.GetComponent<EnemyShootingController>();
         if (entryTime+moveTime+leaveTime>lifeTime)
         {
             Debug.LogError("you are idoit sandwich!!!!");
@@ -99,6 +102,10 @@ public class EnemyMove : MonoBehaviour
             isMove = true;
             moveName = moveBehavior.ToString();
         }
+    }
+    public void ActiveAttack()
+    {
+        enemyShootingController.StartAttacking();
     }
     void FixedUpdate()
     {

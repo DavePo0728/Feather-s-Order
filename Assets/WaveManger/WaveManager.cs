@@ -617,6 +617,7 @@ public class WaveManager : MonoBehaviour
         enemyMove.curveType = spawnData.data.curveType;
         enemyMove.endPoint = endPoint;
         enemyMove.leavePoint = leavePoint;
+        enemyMove.startAttackPoint = spawnData.data.startAttackPoint;
         EnemyShootingController enemyShootingController = temp.transform.Find("Guns").GetComponent<EnemyShootingController>();
         if (enemyShootingController == null)
         {
