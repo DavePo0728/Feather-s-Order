@@ -50,7 +50,7 @@ public class MoveTypeC : IMoveBehaviour
             int currentNodeIndex = i;
             if (enemyMove.pointIndex.Count > 0)
             {
-                Debug.Log($"[start sequence] 有變速");
+                //Debug.Log($"[start sequence] 有變速");
                 if (currentNodeIndex >= loopStartIndex && currentNodeIndex <= loopEndIndex)
                 {
                     if (currentNodeIndex == enemyMove.pointIndex[startPointCount])

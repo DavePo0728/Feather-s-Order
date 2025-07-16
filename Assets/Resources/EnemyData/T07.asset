@@ -15,7 +15,7 @@ MonoBehaviour:
   data:
     enemy: {fileID: 7469029502725969291, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
     entryTime: 2
-    singleMoveTime: 2
+    singleMoveTime: 1
     leaveTime: 999
     hp: 400
     lifeTime: 999
@@ -23,10 +23,10 @@ MonoBehaviour:
     shieldHp: 0
     corrupted: 1
     corruptionMaxValue: 100
-    paralyzeTime: 10
-    paralyzeMaxTime: 0
-    paralyzeAddTime: 0
-    paralyzeMaxCount: 0
-    paralyzeTimeStackMultiplier: 0
-    corruptionDecreaseTime: 0
-    corruptionDecreaseSpeed: 0
+    paralyzeTime: 5
+    paralyzeMaxTime: 2
+    paralyzeAddTime: 0.2
+    paralyzeMaxCount: 5
+    paralyzeTimeStackMultiplier: 1
+    corruptionDecreaseTime: 5
+    corruptionDecreaseSpeed: 0.1

@@ -15,6 +15,7 @@ MonoBehaviour:
   data:
     patternType: 6
     trackPlayer: 0
+    WarningLight: 1
     gunIndex: 1
     rpm: 300
     bulletType: 1
@@ -25,6 +26,7 @@ MonoBehaviour:
     spinSpeed: 5
     bulletsPerArm: 5
     crossSpacing: 5
+    initialAngleOffset: 0
     ringRadius: 0
     swingSpeed: 0
     swingAngle: 0

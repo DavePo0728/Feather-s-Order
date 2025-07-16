@@ -197,7 +197,7 @@ public class BulletGraze : MonoBehaviour
 				UpdateGrazeUI(); // 一次性更新
                 StopCoroutine(GrazeCoroutine);
 				
-                Debug.Log("Graze Energy Boosted: " + grazebbb);
+                //Debug.Log("Graze Energy Boosted: " + grazebbb);
 				grazebbb = 0;
 			}
             timer += Time.deltaTime;

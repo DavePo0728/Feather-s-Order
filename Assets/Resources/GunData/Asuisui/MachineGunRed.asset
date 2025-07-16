@@ -18,13 +18,14 @@ MonoBehaviour:
     gunIndex: 1
     rpm: 150
     bulletType: 0
-    MaxShootWave: 1
+    MaxShootWave: 5
     bulletAmount: 1
     spreadAngle: 0
     shooterRotation: 0
     spinSpeed: 0
     bulletsPerArm: 0
     crossSpacing: 0
+    initialAngleOffset: 0
     ringRadius: 0
     swingSpeed: 0
     swingAngle: 0

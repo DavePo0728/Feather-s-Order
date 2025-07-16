@@ -31,12 +31,15 @@ public class EnemyShootingController : MonoBehaviour
     private int currentModeIndex = 0;
     public bool IsAttackLooping =false;
     public GunDataList gunDataList;
+    private Coroutine warningRoutine;
+    GameObject RedGlowEnemy ;
 
-    private void Awake()
+	private void Awake()
     {
         shooter = transform.GetChild(0).gameObject;
         spinShooter = transform.Find("4-waySpinGun").gameObject;
-        fourWayGunSpin = spinShooter.GetComponent<FourWayGunSpin>();
+		
+		fourWayGunSpin = spinShooter.GetComponent<FourWayGunSpin>();
         for (int i = 0; i < transform.childCount; i++)
         {
             shooterList.Add(transform.GetChild(i).gameObject);
@@ -77,7 +80,8 @@ public class EnemyShootingController : MonoBehaviour
                 modes.Add(gd.data);
             }
         }
-    }
+		RedGlowEnemy = transform.parent.transform.Find("RedGlowEnemy").gameObject;
+	}
     private void Start()
     {
 
@@ -437,7 +441,7 @@ public class EnemyShootingController : MonoBehaviour
     }
     public void ActiveMissile(SubGunData g,Vector3 pos, Quaternion rot,Vector3 direction)
     {
-        Debug.Log("ActiveMissile");
+        //Debug.Log("ActiveMissile");
         GameObject purple = Instantiate(g.missilePrefab, pos, rot);
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         HighSpeedVioletBulletMove purpleBulletMove = purple.GetComponent<HighSpeedVioletBulletMove>();
@@ -495,4 +499,52 @@ public class EnemyShootingController : MonoBehaviour
                 break;
         }
     }
+	private void TryScheduleNextGunWarning()
+	{
+		if (gunDataList == null || gunDataList.gunDatas.Length == 0) return;
+
+		int nextIndex = (currentModeIndex + 1) % gunDataList.gunDatas.Length;
+		SubGunData nextData = gunDataList.gunDatas[nextIndex].Data.data;
+		SubGunData currentData = gunDataList.gunDatas[currentModeIndex].Data.data; // ⬅️ 用目前這一把計算時間
+
+		if (!nextData.WarningLight) return;
+
+		float advanceWarningTime = 0.5f;
+		float currentGunTime = (60f / currentData.rpm) * currentData.MaxShootWave;
+		float delay = currentGunTime - advanceWarningTime;
+
+		if (warningRoutine != null)
+		{
+			StopCoroutine(warningRoutine);
+			warningRoutine = null;
+		}
+
+		Debug.Log($"⚠️ 嘗試排程下一把槍的警告：{nextData.patternType} 模式，延遲 {delay} 秒");
+
+		if (delay > 0f)
+		{
+			warningRoutine = StartCoroutine(PlayNextGunWarningAfterDelay(delay, nextData));
+		}
+		else
+		{
+            PlayWeaponChangeWarning(nextData);
+		}
+	}
+	private IEnumerator PlayNextGunWarningAfterDelay(float delay, SubGunData nextGunData)
+	{
+		yield return new WaitForSeconds(delay);
+        PlayWeaponChangeWarning(nextGunData);
+		//Debug.Log($"⚠️ 警告：PlayNextGunWarningAfterDelay");
+	}
+
+    private void PlayWeaponChangeWarning(SubGunData g)
+    {
+        RedGlowEnemy.GetComponent<ParticleSystem>().Play();
+		RedGlowEnemy.GetComponent<AudioSource>().Play();
+		Debug.Log($"⚠️ 警告：即將切換至 {g.patternType} 模式");
+
+		//yield return new WaitForSeconds(0.5f);
+
+		//RedGlowEnemy.SetActive(false);
+	}
 }

@@ -19,12 +19,13 @@ MonoBehaviour:
     rpm: 300
     bulletType: 1
     MaxShootWave: 3
-    bulletAmount: 3
+    bulletAmount: 1
     spreadAngle: 0
     shooterRotation: 0
     spinSpeed: 0
     bulletsPerArm: 0
     crossSpacing: 0
+    initialAngleOffset: 0
     ringRadius: 0
     swingSpeed: 0
     swingAngle: 0

@@ -13,10 +13,6 @@ MonoBehaviour:
   m_Name: wave1
   m_EditorClassIdentifier: 
   waveSequence:
-  - groupName: SpawnGroup_L1_W6
-    repeatCount: 1
-    delayAfterGroup: 1
-    killAllEnemies: 1
   - groupName: EmptyWaveStart
     repeatCount: 1
     delayAfterGroup: 0
@@ -41,23 +37,27 @@ MonoBehaviour:
     repeatCount: 1
     delayAfterGroup: 0
     killAllEnemies: 0
+  - groupName: SpawnGroup_L1_W6
+    repeatCount: 1
+    delayAfterGroup: 1
+    killAllEnemies: 1
   - groupName: SpawnGroup_L1_W7
     repeatCount: 1
     delayAfterGroup: 4
     killAllEnemies: 1
+  - groupName: EmptyWave1
+    repeatCount: 1
+    delayAfterGroup: 0
+    killAllEnemies: 0
   - groupName: SpawnGroup_L1_C2
     repeatCount: 1
     delayAfterGroup: 1
     killAllEnemies: 1
   - groupName: EmptyWave1
     repeatCount: 1
-    delayAfterGroup: 0
-    killAllEnemies: 0
-  - groupName: SpawnGroup_L1_Invisible1
-    repeatCount: 1
     delayAfterGroup: 1
     killAllEnemies: 1
-  - groupName: EmptyWave
+  - groupName: SpawnGroup_L1_Invisible1
     repeatCount: 1
     delayAfterGroup: 1
     killAllEnemies: 1

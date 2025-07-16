@@ -53,9 +53,12 @@ public class PlayerBulletMove : MonoBehaviour
             if (Vector3.Distance(transform.position, lockedEnemy.transform.position) < 10f)
             {
                 lockedEnemy = null;
-                transform.eulerAngles =Vector3.zero;
-                this.gameObject.SetActive(false);
-                return;
+                transform.eulerAngles = Vector3.zero;
+                transform.GetChild(0).transform.GetChild(0).GetComponent<ParticleSystem>().Stop();
+				//this.gameObject.SetActive(false);
+
+				Debug.Log("PlayerBullet Deactive2");
+				return;
             }
             else
             {
@@ -85,15 +88,18 @@ public class PlayerBulletMove : MonoBehaviour
         //    this.gameObject.SetActive(false);
         //}
         this.gameObject.SetActive(false);
-    }
+        
+	}
     IEnumerator HitEffectOn()
     {
         speed = 0;
         bulletCollider.enabled = false;
         hitEffectObject.SetActive(true);
         hitEffect.Play();
-        yield return new WaitForSeconds(0.5f);
-        gameObject.SetActive(false);
+		//Debug.Log("PlayerBullet Deactive1");
+		yield return new WaitForSeconds(0.5f);
+		//Debug.Log("PlayerBullet Deactive");
+		gameObject.SetActive(false);
         hitEffectObject.SetActive(false);
     }
     public void SetLockedEnemy(GameObject enemy)
