@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEditor;
 using System.Linq;
 using System.Drawing;
 using System.Reflection;
@@ -89,7 +88,7 @@ public class EnemyShootingController : MonoBehaviour
     }
     private void OnEnable()
     {
-        StartAttacking();
+        //StartAttacking();
         //Debug.Log("EnemyShootingController enabled, starting attack loop.");
     }
     private void OnDisable()
@@ -137,38 +136,39 @@ public class EnemyShootingController : MonoBehaviour
     // 一種模式打完一波之後再換下一種，循環往復
     private IEnumerator AttackRotate()
     {
-        while (IsAttackLooping)
+        if (gunDataList == null)
         {
-            if (gunDataList != null)
-            {
-				// ⬇️ 取得「下一把槍」的 index
-				int nextIndex = (currentModeIndex + 1) % gunDataList.gunDatas.Length;
-				bool isFirstGun = currentModeIndex == 0;
-
-                // ⬇️ 判斷是否要呼叫 TryScheduleNextGunWarning()
-                //Debug.Log(gunDataList.gunDatas[nextIndex].Data.data.WarningLight);
-				if (gunDataList.gunDatas[nextIndex].Data.data.WarningLight ||
-					(isFirstGun && gunDataList.gunDatas[currentModeIndex].Data.data.WarningLight))
-				{
-					TryScheduleNextGunWarning();
-				}
-				if (gunDataList.gunDatas[currentModeIndex].IsAdditonalAttack)
-                {
-                    StartCoroutine(FireExtraMode());
-                }
-
-                var mode = modes[currentModeIndex];
-                //Debug.Log(mode.patternType);
-                yield return StartCoroutine(HandleMode(mode));
-                currentModeIndex = (currentModeIndex + 1) % modes.Count;
-                yield return new WaitForSeconds(gunDataList.gunDatas[currentModeIndex].delayTime);
-            }
-            else
-            {
-                Debug.LogError("GunDataList is null, cannot start attack loop.");
-                yield break;
-            }
+            Debug.LogError("GunDataList is null, cannot start attack loop.");
+            yield break;
         }
+
+        for (int i = 0; i < gunDataList.gunDatas.Length; i++)
+        {
+            int nextIndex = (currentModeIndex + 1) % gunDataList.gunDatas.Length;
+            bool isFirstGun = currentModeIndex == 0;
+
+            // ⬇️ 判斷是否要呼叫 TryScheduleNextGunWarning()
+            //Debug.Log(gunDataList.gunDatas[nextIndex].Data.data.WarningLight);
+            if (gunDataList.gunDatas[nextIndex].Data.data.WarningLight ||
+                (isFirstGun && gunDataList.gunDatas[currentModeIndex].Data.data.WarningLight))
+            {
+                TryScheduleNextGunWarning();
+            }
+            currentModeIndex = i;
+            var data = gunDataList.gunDatas[i];
+
+            if (data.IsAdditonalAttack)
+            {
+                yield return StartCoroutine(FireExtraMode());
+            }
+
+            var mode = modes[currentModeIndex];
+            yield return StartCoroutine(HandleMode(mode));
+
+            yield return new WaitForSeconds(data.delayTime);
+        }
+
+        IsAttackLooping = false;
     }
 
     public void StopAttacking()

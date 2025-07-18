@@ -14,6 +14,7 @@ public class MoveTypeC : IMoveBehaviour
     int loopPointCount = 0;
     float endPointWaitTime;
     bool startPause = false,loopPause=false,endPause=false;
+    float StartAttackpoint;
     [SerializeField]
     MoveStatus moveStatus;
     loopType loopType;
@@ -34,6 +35,7 @@ public class MoveTypeC : IMoveBehaviour
         int loopEndIndex = enemyMove.loopEndIndex;
         int loopTime = enemyMove.loopTime;
         loopType = enemyMove.loopType;
+        StartAttackpoint = enemyMove.startAttackPoint;
 
         // 如果沒有路徑或物件不存在就直接離場
         if (path == null || path.Length == 0 || enemyMove.gameObject == null)
@@ -67,8 +69,9 @@ public class MoveTypeC : IMoveBehaviour
                 // 1) Append 一段移動 tween
                 startSequence.Append(enemyMove.transform
                 .DOMove(path[i], moveDuration)
-                .SetEase(Ease.Linear)
-                //.OnComplete(() => { Debug.Log($"[startSequence] 已到達節點 index = {currentNodeIndex}"); })
+                .OnStepComplete(() => {
+                    if (currentNodeIndex == StartAttackpoint) {enemyMove.ActiveAttack(); Debug.Log($"[startSequence] 已到達節點 index = {currentNodeIndex} StartAttack"); }
+                   /* Debug.Log($"[startSequence] 已到達節點 index = {currentNodeIndex}");*/})
                 .OnStart(() =>
                 {
                     moveStatus = MoveStatus.Start;
@@ -95,7 +98,9 @@ public class MoveTypeC : IMoveBehaviour
                 startSequence.Append(enemyMove.transform
                 .DOMove(path[i], moveDuration)
                 .SetEase(Ease.Linear)
-                //.OnComplete(() => { Debug.Log($"[startSequence] 已到達節點 index = {currentNodeIndex}"); })
+                .OnStepComplete(() => {
+                    if (currentNodeIndex == StartAttackpoint) { enemyMove.ActiveAttack(); Debug.Log($"[startSequence] 已到達節點 index = {currentNodeIndex} StartAttack"); }
+                    Debug.Log($"[startSequence] 已到達節點 index = {currentNodeIndex}"); })
                 .OnStart(() =>
                 {
                     moveStatus = MoveStatus.Start;
@@ -237,11 +242,16 @@ public class MoveTypeC : IMoveBehaviour
                         moveDuration = enemyMove.moveTime;
                         waitTime = enemyMove.pointWaitTime;
                     }
+
                     // 1) Append 一段移動 tween
                     loopSequence.Append(enemyMove.transform
                         .DOMove(path[i], moveDuration)
                         .SetEase(Ease.Linear)
-                        //.OnComplete(() => { Debug.Log($"[loopSequence] 已到達節點 index = {currentNodeIndex}"); })
+                        .OnStepComplete(() =>
+                        {
+                            if (currentNodeIndex == StartAttackpoint) { enemyMove.ActiveAttack(); Debug.Log($"[startSequence] 已到達節點 index = {currentNodeIndex} StartAttack"); }
+                            //Debug.Log($"[loopSequence] 已到達節點 index = {currentNodeIndex}");
+                        })
                         .OnStart(() =>
                         {
                             moveStatus = MoveStatus.Loop;
@@ -284,8 +294,10 @@ public class MoveTypeC : IMoveBehaviour
                     // 1) Append 一段移動 tween
                     loopSequence.Append(enemyMove.transform
                         .DOMove(path[i], moveDuration)
-                        .SetEase(Ease.Linear)
-                        //.OnComplete(() => { Debug.Log($"[loopSequence] 已到達節點 index = {currentNodeIndex}"); })
+                        .OnStepComplete(() => {
+                            if (currentNodeIndex == StartAttackpoint) { enemyMove.ActiveAttack(); Debug.Log($"[startSequence] 已到達節點 index = {currentNodeIndex} StartAttack"); }
+                            Debug.Log($"[loopSequence] 已到達節點 index = {currentNodeIndex}");
+                        })
                         .OnStart(() =>
                         {
                             moveStatus = MoveStatus.Loop;

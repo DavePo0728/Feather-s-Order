@@ -31,4 +31,5 @@ public class SpData
     [Header("typeC")]
     public int customPathNum;
     public float pointWaitTime;
+    public float startAttackPoint;
 }
