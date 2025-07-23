@@ -429,7 +429,7 @@ public class EnemyHp : MonoBehaviour
             ShieldHurt(damage);
             Invoke("SetSlashDetectBool", 0.2f);
 
-            PlaySlashHitAudio(); // <<<<< 新增！播放近戰打擊音效
+            //PlaySlashHitAudio(); // <<<<< 新增！播放近戰打擊音效
         }
         else if (hitCounter >= 3)
         {
@@ -440,7 +440,7 @@ public class EnemyHp : MonoBehaviour
             ShieldHurt(damage);
             Invoke("SetSlashDetectBool", 0.3f);
             
-            PlaySlashHitAudio(); // <<<<< 新增！播放近戰打擊音效
+            //PlaySlashHitAudio(); // <<<<< 新增！播放近戰打擊音效
         }
     }
     void SetSlashDetectBool()

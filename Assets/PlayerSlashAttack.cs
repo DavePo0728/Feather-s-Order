@@ -30,7 +30,7 @@ public class PlayerSlashAttack : MonoBehaviour
     ParticleSystemRenderer slashEffectYellowR, slashEffectRedR;
 
     AudioSource slashAudio;
-    AudioClip slashClip;
+	[SerializeField] AudioClip slashClip1, slashClip2, slashClip3, slashClip4;
     [SerializeField] CinemachineImpulseSource impulseSource;
     [SerializeField] CinemachineFollowZoom followZoom;
     [SerializeField] GameObject flashImage;
@@ -72,7 +72,10 @@ public class PlayerSlashAttack : MonoBehaviour
         slashEffectYellowR = slashEffectYellowObject.GetComponent<ParticleSystemRenderer>();
         slashEffectRed = slashEffectRedObject.GetComponent<ParticleSystem>();
         slashAudio = slashEffectYellowObject.GetComponent<AudioSource>();
-        slashClip = Resources.Load<AudioClip>("Sound/Slash01");
+        //slashClip1 = Resources.Load<AudioClip>("Sound/slash_v2_01");
+        //slashClip2 = Resources.Load<AudioClip>("Sound/slash_v2_02");
+        //slashClip3 = Resources.Load<AudioClip>("Sound/slash_v2_03");
+        //slashClip4 = Resources.Load<AudioClip>("Sound/slash_v2_04");
         hitCounter = 0;
     }
 
@@ -145,7 +148,7 @@ public class PlayerSlashAttack : MonoBehaviour
                 //print(hitCounter);
 
                 slashCD = 0.2f;
-                TriggerSlash();
+                TriggerSlash(hitCounter);
                 switch (hitCounter)
                 {
                     case 0:
@@ -161,7 +164,6 @@ public class PlayerSlashAttack : MonoBehaviour
                         playerAnimator.Play("S2");
                         slashEffectYellowR.flip = new Vector3(0, 1, 0);
                         slashEffectYellowR.transform.localRotation = Quaternion.Euler(61f, 141f, 305f);
-
 
                         playerAnimator.SetBool("OnAttack", true);
                         break;
@@ -199,7 +201,8 @@ public class PlayerSlashAttack : MonoBehaviour
     {
         clothDB.enabled = false;
         Vibrate(0.5f, 0.5f, 0.05f);
-        slashAudio.Play();
+		slashAudio.clip = slashClip4;
+		slashAudio.Play();
         slashCollider.enabled = true;
         Invoke("InactiveCollider", 0.1f);
         flashImage.SetActive(true);
@@ -213,15 +216,33 @@ public class PlayerSlashAttack : MonoBehaviour
         Invoke("DelayDetect", 0.05f);
     }
 
-    public void TriggerSlash()
+    public void TriggerSlash(int hitCounter)
     {
+
         Vibrate(0.1f, 0.1f, 0.05f);
-        slashAudio.Play();
+		slashEffectYellowObject.SetActive(true);
+		switch (hitCounter)
+        {
+            case 0:
+                slashAudio.clip = slashClip1;
+				slashAudio.Play();
+				break;
+			case 1:
+                slashAudio.clip = slashClip2;
+				slashAudio.Play();
+				break;
+			case 2:
+				slashAudio.clip = slashClip3;
+                slashAudio.Play();
+				break;
+			default:
+                break;
+        }
         slashCollider.enabled = true;
         Invoke("InactiveCollider", 0.1f);
         flashImage.SetActive(true);
         Invoke("InactiveFlashImage", 0.02f);
-        slashEffectYellowObject.SetActive(true);
+        
         slashEffectYellow.Play();
         Shake(0.5f);
         Time.timeScale = 0.1f;
@@ -250,7 +271,7 @@ public class PlayerSlashAttack : MonoBehaviour
                     playerRigidbody.velocity = Vector3.zero;
                     isCounting = true;
                     followZoom.m_Width = 0;
-                    TriggerSlash();
+                    TriggerSlash(2);
                     slashEffectYellowR.flip = new Vector3(0, 0, 0);
                     slashEffectYellowR.transform.localRotation = Quaternion.Euler(280f, 180f, 191f);
                     IsReturnAnimation = false;
@@ -306,7 +327,7 @@ public class PlayerSlashAttack : MonoBehaviour
                     shieldEffect.SetActive(false);
                     shieldEffectBIG.SetActive(false);
 
-                    TriggerSlash();
+                    TriggerSlash(2);
                     Invoke("ReturnAnimation", 0.5f);
                 });
             }

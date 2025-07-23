@@ -51,7 +51,9 @@ public class MissileShooter : MonoBehaviour
     [SerializeField] [Range(0f, 1.5f)] float missileFireVolume = 1.0f;
     [SerializeField] Vector2 pitchRange = new Vector2(0.9f, 1.1f); // 隨機音高範圍
     private HashSet<GameObject> alreadyPlayedLockSFX = new HashSet<GameObject>();
-    private void Awake()
+	[SerializeField] AudioSource spreadOut;
+	bool hasPlayedSpreadSFX = false;
+	private void Awake()
     {
         startScaleX = false; 
         startScaleY =false;
@@ -145,23 +147,31 @@ public class MissileShooter : MonoBehaviour
             
         }
     }
-    private void SpreadOut()
-    {
-        aimUITopLeft.DOAnchorPos(new Vector2(-cornerOffset.x, cornerOffset.y), 0.5f).SetEase(Ease.OutBack).Play();
-        aimUITopRight.DOAnchorPos(new Vector2(cornerOffset.x, cornerOffset.y), 0.5f).SetEase(Ease.OutBack).Play();
-        aimUIBotLeft.DOAnchorPos(new Vector2(-cornerOffset.x, -cornerOffset.y), 0.5f).SetEase(Ease.OutBack).Play();
-        aimUIBotRight.DOAnchorPos(new Vector2(cornerOffset.x, -cornerOffset.y), 0.5f).SetEase(Ease.OutBack).Play();
-        aimUILineLeft.DOScaleX(1, 0.5f).SetEase(Ease.OutBack).Play();
-        aimUILineLeft.DOScaleY(1, 0.5f).SetEase(Ease.OutBack).Play();
-        aimUILineRight.DOScaleX(1, 0.5f).SetEase(Ease.OutBack).Play();
-        aimUILineRight.DOScaleY(1, 0.5f).SetEase(Ease.OutBack).Play();
-        aimUILineLeft.DOAnchorPosX(-lineOffset, 0.5f).SetEase(Ease.OutBack).Play();
-        aimUILineRight.DOAnchorPosX(lineOffset, 0.5f).SetEase(Ease.OutBack).Play();
-    }
+	private void SpreadOut()
+	{
+		// 撥放展開音效
+		if (spreadOut != null && hasPlayedSpreadSFX ==false)
+		{
+			spreadOut.Play();
+            hasPlayedSpreadSFX = true;
+		}
 
-    private void SpreadIn()
+		aimUITopLeft.DOAnchorPos(new Vector2(-cornerOffset.x, cornerOffset.y), 0.5f).SetEase(Ease.OutBack).Play();
+		aimUITopRight.DOAnchorPos(new Vector2(cornerOffset.x, cornerOffset.y), 0.5f).SetEase(Ease.OutBack).Play();
+		aimUIBotLeft.DOAnchorPos(new Vector2(-cornerOffset.x, -cornerOffset.y), 0.5f).SetEase(Ease.OutBack).Play();
+		aimUIBotRight.DOAnchorPos(new Vector2(cornerOffset.x, -cornerOffset.y), 0.5f).SetEase(Ease.OutBack).Play();
+		aimUILineLeft.DOScaleX(1, 0.5f).SetEase(Ease.OutBack).Play();
+		aimUILineLeft.DOScaleY(1, 0.5f).SetEase(Ease.OutBack).Play();
+		aimUILineRight.DOScaleX(1, 0.5f).SetEase(Ease.OutBack).Play();
+		aimUILineRight.DOScaleY(1, 0.5f).SetEase(Ease.OutBack).Play();
+		aimUILineLeft.DOAnchorPosX(-lineOffset, 0.5f).SetEase(Ease.OutBack).Play();
+		aimUILineRight.DOAnchorPosX(lineOffset, 0.5f).SetEase(Ease.OutBack).Play();
+	}
+
+	private void SpreadIn()
     {
-        aimUITopLeft.DOAnchorPos(aimUITopLeftPos, 0.1f).Play();
+		hasPlayedSpreadSFX = false;
+		aimUITopLeft.DOAnchorPos(aimUITopLeftPos, 0.1f).Play();
         aimUITopRight.DOAnchorPos(aimUITopRightPos, 0.1f).Play();
         aimUIBotLeft.DOAnchorPos(aimUIBotLeftPos, 0.1f).Play();
         aimUIBotRight.DOAnchorPos(aimUIBotRightPos, 0.1f).Play();

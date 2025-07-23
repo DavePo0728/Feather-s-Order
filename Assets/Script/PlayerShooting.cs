@@ -12,7 +12,9 @@ public class PlayerShooting : MonoBehaviour
     GunShoot gunPoint1, gunPoint2;
     [SerializeField]
     SpriteRenderer gunPoint1Img, gunPoint2Img;
-    private float timeBetweenShots;
+	[SerializeField]
+	MeshRenderer gunPoint1MeshRenderer, gunPoint2MeshRenderer;
+	private float timeBetweenShots;
     private float timeSinceLastShot = 0.0f;
     [SerializeField]
     AudioSource gunSound;
@@ -42,16 +44,20 @@ public class PlayerShooting : MonoBehaviour
         //Debug.Log("StartShooting");
 		shooting = true;
         gunPoint1Img.enabled = true;
-        gunPoint2Img.enabled = true;
-        
-    }
+		gunPoint2Img.enabled = true;
+		StartCoroutine(AnimateRangeUp(gunPoint1MeshRenderer.material, 0.2f));
+		StartCoroutine(AnimateRangeUp(gunPoint2MeshRenderer.material, 0.2f));
+	}
     public void StopShooting()
     {
         //Debug.Log("StopShooting");
 		shooting = false;
         gunPoint1Img.enabled = false;
-        gunPoint2Img.enabled = false;
-        gunSound.Stop();
+
+		gunPoint2Img.enabled = false;
+		StartCoroutine(AnimateRangeDown(gunPoint1MeshRenderer.material, 0.2f));
+		StartCoroutine(AnimateRangeDown(gunPoint2MeshRenderer.material, 0.2f));
+		gunSound.Stop();
     }
     void FixedUpdate()
     {
@@ -61,8 +67,8 @@ public class PlayerShooting : MonoBehaviour
         {
             if (playerSlashAttack != null)
             {
-                if (playerSlashAttack.slashState == PlayerSlashAttack.SlashState.Dashing 
-                    || playerSlashAttack.slashState == PlayerSlashAttack.SlashState.Arrived 
+                if (playerSlashAttack.slashState == PlayerSlashAttack.SlashState.Dashing
+                    || playerSlashAttack.slashState == PlayerSlashAttack.SlashState.Arrived
                     || playerSlashAttack.slashState == PlayerSlashAttack.SlashState.Attacking)
                 {
                     //Debug.Log("StopShooting");
@@ -76,4 +82,33 @@ public class PlayerShooting : MonoBehaviour
             timeSinceLastShot = 0.0f;
         }
     }
+	// <summary>
+	/// 在指定的時間內將材質的「_Range」屬性從 0 動畫化為 1。
+	public IEnumerator AnimateRangeDown(Material material, float duration)
+	{
+       
+		float elapsed = 0f;
+		while (elapsed < duration)
+		{
+			float value = Mathf.Lerp(0f, 1f, elapsed / duration);
+			material.SetFloat("_Range", value);
+			elapsed += Time.deltaTime;
+			yield return null;
+		}
+		material.SetFloat("_Range", 1f); // 確保最後設為1
+	}
+	// <summary>
+	///在指定的時間內將材質的「_Range」屬性從 1 動畫化為 0。
+	public IEnumerator AnimateRangeUp(Material material, float duration)
+	{
+		float elapsed = 0f;
+		while (elapsed < duration)
+		{
+			float value = Mathf.Lerp(1f, 0f, elapsed / duration);
+			material.SetFloat("_Range", value);
+			elapsed += Time.deltaTime;
+			yield return null;
+		}
+		material.SetFloat("_Range", 0f); // 確保最後設為0
+	}
 }
