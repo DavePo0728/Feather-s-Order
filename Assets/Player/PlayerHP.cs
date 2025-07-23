@@ -194,6 +194,7 @@ public class PlayerHP : MonoBehaviour
     }
     public void FirstDeath()
     {
+        scenesManager.isGameOver = true;
         gameOverUI.SetActive(true);
         StopVibration();    
         Time.timeScale = 0;

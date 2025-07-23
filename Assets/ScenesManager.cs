@@ -19,6 +19,7 @@ public class ScenesManager : MonoBehaviour
     Image gameClearImage, backImage;
     public bool isGameClear = false;
     public bool isGameOver = false;
+    public bool isSecondLife = true;
     bool isPause = false;
     [SerializeField]
     private GameObject pauseImageObject;
@@ -165,13 +166,15 @@ public class ScenesManager : MonoBehaviour
     }
     public void GetReloadInput(InputAction.CallbackContext context)
     {
-        if (context.performed && isGameOver == true)
+        if (context.performed && isGameOver && isSecondLife)
+        {
+            isSecondLife = false;
+            isGameOver = false;
+            playerHP.SecondLife();
+        }
+        else if(context.performed && isGameOver && isSecondLife==false)
         {
             ReloadScene();
-        }
-        else if (context.performed && isGameOver == false)
-        {
-            playerHP.SecondLife();
         }
     }
     public void BackTotitle(InputAction.CallbackContext context)

@@ -107,6 +107,10 @@ public class EnemyMove : MonoBehaviour
     {
         enemyShootingController.StartAttacking();
     }
+    public void ActiveAttackRoatate()
+    {
+        enemyShootingController.StartAttackRotate();
+    }
     void FixedUpdate()
     {
         if (paralyzing)

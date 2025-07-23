@@ -13,12 +13,8 @@ MonoBehaviour:
   m_Name: L1Boss
   m_EditorClassIdentifier: 
   gunDatas:
-  - Data: {fileID: 11400000, guid: 87392a7796ddd1c4ca77ce2a49a70f60, type: 2}
-    delayTime: 0
-    IsAdditonalAttack: 1
-    addtionalGunData: []
   - Data: {fileID: 11400000, guid: 8acecb96464dae14fa7b51a64b82e096, type: 2}
-    delayTime: 0.5
+    delayTime: 0
     IsAdditonalAttack: 1
     addtionalGunData:
     - additionalData: {fileID: 11400000, guid: b09e7c6206c19db4b8480031a96f0100, type: 2}
@@ -58,11 +54,11 @@ MonoBehaviour:
     IsAdditonalAttack: 1
     addtionalGunData:
     - additionalData: {fileID: 11400000, guid: b234d55f454155f41b2da0eaa05d1f5e, type: 2}
-      additionalDelayTime: 0
+      additionalDelayTime: 0.1
     - additionalData: {fileID: 11400000, guid: 5a024db6151ad354995ba02c30ff5e66, type: 2}
-      additionalDelayTime: 0
+      additionalDelayTime: 0.2
     - additionalData: {fileID: 11400000, guid: 4fdc172060b73214ba18285280f36901, type: 2}
-      additionalDelayTime: 0
+      additionalDelayTime: 0.3
   - Data: {fileID: 11400000, guid: aa21420795c696a4da01abb55532766a, type: 2}
     delayTime: 0.2
     IsAdditonalAttack: 1

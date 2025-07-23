@@ -9,11 +9,17 @@ public class MoveTypeA : IMoveBehaviour
     public Tweener onMoveA;
     float waitTime;
     bool tweenPlaying=false;
-    public float randomMoveRadius; 
+    public float randomMoveRadius;
+    bool startAttack = false;
     public void Move(EnemyMove enemyMove)
     {
         waitTime = enemyMove.pointWaitTime;
         randomMoveRadius = enemyMove.randomMoveRadius;
+        if (startAttack ==false)
+        {
+            startAttack = true;
+            enemyMove.ActiveAttackRoatate();
+        }
         //Debug.Log($"MovingRadius: {randomMoveRadius}");
         if (enemyMove.gameObject != null)
         {

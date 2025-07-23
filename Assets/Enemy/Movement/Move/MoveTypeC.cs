@@ -69,6 +69,7 @@ public class MoveTypeC : IMoveBehaviour
                 // 1) Append 一段移動 tween
                 startSequence.Append(enemyMove.transform
                 .DOMove(path[i], moveDuration)
+                .SetEase(Ease.Linear)
                 .OnStepComplete(() => {
                     if (currentNodeIndex == StartAttackpoint) {enemyMove.ActiveAttack(); Debug.Log($"[startSequence] 已到達節點 index = {currentNodeIndex} StartAttack"); }
                    /* Debug.Log($"[startSequence] 已到達節點 index = {currentNodeIndex}");*/})

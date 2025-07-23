@@ -96,21 +96,39 @@ public class EnemyShootingController : MonoBehaviour
         StopAttacking();
         //Debug.Log("EnemyShootingController disabled, stopping attack loop.");
     }
-    public IEnumerator FireExtraMode()
+    public void FireExtraMode()
     {
-        foreach (var additionalGun in gunDataList.gunDatas[currentModeIndex].addtionalGunData)
-        {
-            yield return new WaitForSeconds(additionalGun.additionalDelayTime);
-            StartCoroutine(HandleMode(additionalGun.additionalData.data));
-        }
-        //var extra = gunDataList.gunDatas[currentModeIndex].addtionalGunData[addtionalCount].additionalData.data;
+        var additionalList = gunDataList
+            .gunDatas[currentModeIndex]
+            .addtionalGunData;
 
+        // 為每筆額外資料分別開一個小 Coroutine
+        foreach (var additional in additionalList)
+        {
+            StartCoroutine(FireExtraDelayed(additional));
+        }
+    }
+
+    /// <summary>
+    /// 真正做延遲並啟動 HandleMode 的協程
+    /// </summary>
+    private IEnumerator FireExtraDelayed(AddtionalGunData additional)
+    {
+        // 等待各自的 delayTime
+        yield return new WaitForSeconds(additional.additionalDelayTime);
+        // 非阻塞式啟動主模式協程
+        StartCoroutine(HandleMode(additional.additionalData.data));
     }
     /// <summary>
     /// 開始攻擊
     /// </summary>
     /// <param name="useAllAtOnce">true=同時啟動所有模式；false=單模式輪流</param>
     public void StartAttacking()
+    {
+        IsAttackLooping = true;
+        StartCoroutine(AttackSingleWave());
+    }
+    public void StartAttackRotate()
     {
         IsAttackLooping = true;
         StartCoroutine(AttackRotate());
@@ -134,7 +152,7 @@ public class EnemyShootingController : MonoBehaviour
     }
 
     // 一種模式打完一波之後再換下一種，循環往復
-    private IEnumerator AttackRotate()
+    private IEnumerator AttackSingleWave()
     {
         if (gunDataList == null)
         {
@@ -148,9 +166,8 @@ public class EnemyShootingController : MonoBehaviour
             bool isFirstGun = currentModeIndex == 0;
 
             // ⬇️ 判斷是否要呼叫 TryScheduleNextGunWarning()
-            //Debug.Log(gunDataList.gunDatas[nextIndex].Data.data.WarningLight);
             if (gunDataList.gunDatas[nextIndex].Data.data.WarningLight ||
-                (isFirstGun && gunDataList.gunDatas[currentModeIndex].Data.data.WarningLight))
+               (isFirstGun && gunDataList.gunDatas[currentModeIndex].Data.data.WarningLight))
             {
                 TryScheduleNextGunWarning();
             }
@@ -159,22 +176,29 @@ public class EnemyShootingController : MonoBehaviour
 
             if (data.IsAdditonalAttack)
             {
-                yield return StartCoroutine(FireExtraMode());
+                FireExtraMode();
             }
-
             var mode = modes[currentModeIndex];
             yield return StartCoroutine(HandleMode(mode));
-
             yield return new WaitForSeconds(data.delayTime);
         }
-
         IsAttackLooping = false;
+    }
+    private IEnumerator AttackRotate()
+    {
+        while (true)
+        {
+            var mode = modes[currentModeIndex];
+            yield return StartCoroutine(HandleMode(mode));
+            currentModeIndex = (currentModeIndex + 1) % modes.Count;
+            Debug.Log($"Current Mode Index: {currentModeIndex}, Mode: {mode.patternType}");
+        }
     }
 
     public void StopAttacking()
     {
         //IsAttackLooping = false;
-        StopCoroutine(AttackRotate());
+        StopCoroutine(AttackSingleWave());
     }
     // 根據 SubGunData 執行一個「波」的射擊
     private IEnumerator HandleMode(SubGunData gunData)
