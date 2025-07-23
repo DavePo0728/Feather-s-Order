@@ -11,11 +11,13 @@ public class GunShoot : MonoBehaviour
     [SerializeField]
     GameObject EmptyAimObject;
     PlayerBulletMove bulletMove;
-    // Start is called before the first frame update
-    void Start()
+	[SerializeField]
+	ParticleSystem Flash;
+	// Start is called before the first frame update
+	void Start()
     {
-        
-    }
+        Debug.Log(gameObject.name);
+	}
 
     // Update is called once per frame
     void Update()
@@ -35,7 +37,8 @@ public class GunShoot : MonoBehaviour
         GameObject bullet = BulletPool.poolInstance.GetPlayerPooledObject();
         if (bullet != null)
         {
-            bullet.transform.position = transform.position;
+			transform.GetChild(1).GetComponent<ParticleSystem>().Play();
+			bullet.transform.position = transform.position;
             bullet.transform.rotation = transform.rotation;
             if (playerAim._lockedEnemy != null&& !playerAim._lockedEnemy.CompareTag("AimPoint"))
             {

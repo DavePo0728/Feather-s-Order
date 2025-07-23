@@ -95470,7 +95470,6 @@ MonoBehaviour:
   enemyMove: {fileID: 0}
   maxHp: 9999
   currentHp: 0
-  corruptEffect: {fileID: 0}
   corruptionExplosionEffect: {fileID: 0}
   corrupted: 1
   corruption: 0
@@ -95491,12 +95490,16 @@ MonoBehaviour:
   shieldHitAudioClip: {fileID: 0}
   shieldBreakAudioClip: {fileID: 0}
   hitimpactAudioClip: {fileID: 0}
+  hitXAudioClip: {fileID: 0}
+  hitMisairuAudioClip: {fileID: 0}
+  audioSource: {fileID: 0}
   deathAudioClip: {fileID: 0}
   SlashHITClip: {fileID: 4072529314359012074}
   canvas: {fileID: 0}
   corruptionImageLeft: {fileID: 0}
   corruptionImageRight: {fileID: 0}
   sfxGroup: {fileID: 0}
+  MisairuHit: {fileID: 0}
 --- !u!54 &6761567403057799714
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -95572,6 +95575,7 @@ MonoBehaviour:
   isDebug: 0
   DebugMoveTime: 0
   gun: {fileID: 0}
+  startAttackPoint: 0
   isMove: 0
 --- !u!82 &9137181306585716035
 AudioSource:
@@ -95784,6 +95788,7 @@ MonoBehaviour:
   blueSG: {fileID: 2177924151770044355}
   haveRedS: 0
   RedS: {fileID: 2638053577609432457}
+  renderer: []
 --- !u!1 &7483161516308823998
 GameObject:
   m_ObjectHideFlags: 0
@@ -101732,15 +101737,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2237290272208001804, guid: 0f969926798b28d4ca4c024027d89c60, type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 20
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 2237290272208001804, guid: 0f969926798b28d4ca4c024027d89c60, type: 3}
       propertyPath: InitialModule.startSizeY.scalar
-      value: 20
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 2237290272208001804, guid: 0f969926798b28d4ca4c024027d89c60, type: 3}
       propertyPath: InitialModule.startSizeZ.scalar
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2960452075410754339, guid: 0f969926798b28d4ca4c024027d89c60, type: 3}
       propertyPath: m_Name
@@ -101748,7 +101753,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2960452075410754339, guid: 0f969926798b28d4ca4c024027d89c60, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3293665130750635205, guid: 0f969926798b28d4ca4c024027d89c60, type: 3}
       propertyPath: m_LocalScale.x
@@ -101804,15 +101809,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3434095548017466516, guid: 0f969926798b28d4ca4c024027d89c60, type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 20
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 3434095548017466516, guid: 0f969926798b28d4ca4c024027d89c60, type: 3}
       propertyPath: InitialModule.startSizeY.scalar
-      value: 20
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 3434095548017466516, guid: 0f969926798b28d4ca4c024027d89c60, type: 3}
       propertyPath: InitialModule.startSizeZ.scalar
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3920356208468415327, guid: 0f969926798b28d4ca4c024027d89c60, type: 3}
       propertyPath: m_LocalScale.x
@@ -101828,15 +101833,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6221447754322357951, guid: 0f969926798b28d4ca4c024027d89c60, type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 20
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 6221447754322357951, guid: 0f969926798b28d4ca4c024027d89c60, type: 3}
       propertyPath: InitialModule.startSizeY.scalar
-      value: 20
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 6221447754322357951, guid: 0f969926798b28d4ca4c024027d89c60, type: 3}
       propertyPath: InitialModule.startSizeZ.scalar
-      value: 5
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6618721774577524410, guid: 0f969926798b28d4ca4c024027d89c60, type: 3}
       propertyPath: m_IsActive

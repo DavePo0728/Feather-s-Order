@@ -96,10 +96,10 @@ public class PlayerMove : MonoBehaviour
     {
         if (context.performed && playerSlashAttack.slashState == PlayerSlashAttack.SlashState.Idle)
         {
-            if (canDash/*&&currentEnergy>=20&&!isOutBurst*/)
+            if (canDash/*&&currentEnergy>=20&&!isOutBurst*/&& playerRigidbody.velocity.x != 0)
             {
-                StartCoroutine(OnDash());
-                DashAudioSource.Play();
+				StartCoroutine(OnDash());
+                
                 
 				//currentEnergy -= 20;
 				//UpdateUI();
@@ -259,21 +259,23 @@ public class PlayerMove : MonoBehaviour
     }
     IEnumerator OnDash()
     {
-        canDash = false;
+        
+        //Debug.Log(playerRigidbody.velocity.x);
+		canDash = false;
         isDashing = true;
         playerVCamFramingTransposer.m_SoftZoneWidth = 0.8f;
         playerVCamFramingTransposer.m_XDamping = 1.2f;
-        //leanAngle = 75f;
-        //if (playerRigidbody.velocity.x < -0.2f)
-        //{
-        //    transform.DORotate(new Vector3(0, 0, 40f), 0.05f);
-        //}
-        //else if (playerRigidbody.velocity.x > 0.2f)
-        //{
-        //    transform.DORotate(new Vector3(0, 0, -40f), 0.05f);
-        //}
-        
-        if (playerRigidbody.velocity.x != 0)
+		//leanAngle = 75f;
+		//if (playerRigidbody.velocity.x < -0.2f)
+		//{
+		//    transform.DORotate(new Vector3(0, 0, 40f), 0.05f);
+		//}
+		//else if (playerRigidbody.velocity.x > 0.2f)
+		//{
+		//    transform.DORotate(new Vector3(0, 0, -40f), 0.05f);
+		//}
+		DashAudioSource.Play();
+		if (playerRigidbody.velocity.x != 0)
         {
             playerRigidbody.AddForce(playerRigidbody.velocity * dashForce, ForceMode.Impulse);
             GetComponent<AfterimageController>().StartDash();

@@ -75,10 +75,10 @@ MonoBehaviour:
   speed: 50
   BulletlifeTime: 0
   sphereRadius: 0
-  spreadSpeed: 0
   minSpread: 0
   MaxSpread: 0
   homing: 0
+  grazeEffectPrefab: {fileID: 0}
 --- !u!1 &2876038816393742390
 GameObject:
   m_ObjectHideFlags: 0
