@@ -162,15 +162,11 @@ public class EnemyShootingController : MonoBehaviour
 
         for (int i = 0; i < gunDataList.gunDatas.Length; i++)
         {
-            int nextIndex = (currentModeIndex + 1) % gunDataList.gunDatas.Length;
-            bool isFirstGun = currentModeIndex == 0;
+           
 
             // ⬇️ 判斷是否要呼叫 TryScheduleNextGunWarning()
-            if (gunDataList.gunDatas[nextIndex].Data.data.WarningLight ||
-               (isFirstGun && gunDataList.gunDatas[currentModeIndex].Data.data.WarningLight))
-            {
-                TryScheduleNextGunWarning();
-            }
+            
+
             currentModeIndex = i;
             var data = gunDataList.gunDatas[i];
 
@@ -179,7 +175,14 @@ public class EnemyShootingController : MonoBehaviour
                 FireExtraMode();
             }
             var mode = modes[currentModeIndex];
-            yield return StartCoroutine(HandleMode(mode));
+			int nextIndex = (currentModeIndex + 1) % gunDataList.gunDatas.Length;
+			bool isFirstGun = currentModeIndex == 0;
+			if (gunDataList.gunDatas[nextIndex].Data.data.WarningLight ||
+			   (isFirstGun && gunDataList.gunDatas[currentModeIndex].Data.data.WarningLight))
+			{
+				TryScheduleNextGunWarning();
+			}
+			yield return StartCoroutine(HandleMode(mode));
             yield return new WaitForSeconds(data.delayTime);
         }
         IsAttackLooping = false;
