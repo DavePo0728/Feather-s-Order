@@ -127,11 +127,11 @@ public class RedBulletMove : BulletBase
             hitEffect.gameObject.SetActive(true);
             hitParticle.Play();
             BulletCollider.enabled = false;
-            Debug.Log("PlayerBullet Hit");
+            //Debug.Log("PlayerBullet Hit");
 		}
         if (other.tag == "ChargeBullet")
 		{
-            Debug.Log("ChargeBullet Hit");
+            //Debug.Log("ChargeBullet Hit");
 			speed = 0;
 			//other.gameObject.SetActive(false);
 			moveToPlayer = false;

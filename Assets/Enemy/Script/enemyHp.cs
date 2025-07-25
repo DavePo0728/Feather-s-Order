@@ -542,7 +542,7 @@ public class EnemyHp : MonoBehaviour
 		if (audioSource != null && hitXAudioClip != null)
 		{
 			audioSource.PlayOneShot(hitXAudioClip);
-			//Debug.Log("Play hit X audio");
+			Debug.Log("Play hit X audio");
 			lastHitXAudioTime = Time.time;
 		}
 	}

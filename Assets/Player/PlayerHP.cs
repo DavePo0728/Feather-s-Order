@@ -113,8 +113,10 @@ public class PlayerHP : MonoBehaviour
 
         shakeTimer = hurtShakeDuration;
         currentShakeStrength = hurtShakeStrength;
-
-        playerHp -= damage;
+        
+        Debug.Log("Player Hit by Enemy Bullet, Damage: " + damage);
+		playerHp -= damage;
+        
         UpdateHpUI();
         bulletGraze.UpdateGrazeEnergyOutside(10);
         StartCoroutine(MuTeKiTime(0.1f));
