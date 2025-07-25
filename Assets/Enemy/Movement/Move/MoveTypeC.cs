@@ -71,7 +71,7 @@ public class MoveTypeC : IMoveBehaviour
                 .DOMove(path[i], moveDuration)
                 .SetEase(Ease.Linear)
                 .OnStepComplete(() => {
-                    if (currentNodeIndex == StartAttackpoint) {enemyMove.ActiveAttack(); Debug.Log($"[startSequence] 已到達節點 index = {currentNodeIndex} StartAttack"); }
+                    if (currentNodeIndex == StartAttackpoint) {enemyMove.ActiveAttack(); /*Debug.Log($"[startSequence] 已到達節點 index = {currentNodeIndex} StartAttack");*/ }
                    /* Debug.Log($"[startSequence] 已到達節點 index = {currentNodeIndex}");*/})
                 .OnStart(() =>
                 {

@@ -6,16 +6,24 @@ public class ChargBulletSound : MonoBehaviour
 {
 	private bool hasHit = false;
 	private List<Collider> enemyHits = new List<Collider>();
+	public ChargBulletSound Brother;
+	public bool isHit = false;
 	private void OnTriggerEnter(Collider other)
 	{
 		if (other.CompareTag("Enemy"))
 		{
-			Debug.Log("Hit enemy: " + other.name);
+			if (Brother.isHit)
+			{
+				return;
+			}
+			//Debug.Log("Hit enemy: " + other.name);
 			enemyHits.Add(other);
-
+			
 			// 延遲一點點時間再處理
 			CancelInvoke(nameof(HandleHit));
+			//Debug.Log("Hit enemy: " + gameObject.name);
 			enemyHits[0].GetComponent<EnemyHp>().PlayhitXAudio();
+			isHit = true;
 		}
 	}
 

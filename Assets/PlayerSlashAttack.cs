@@ -56,9 +56,10 @@ public class PlayerSlashAttack : MonoBehaviour
 	public Material ScreenWaveShader;
     [Header("Dash Effect Time")]
     public float dashEffectDuration = 0.5f; // 動畫總時間（秒）
-	[Header("Dasheffect")]
-	public GameObject Dasheffect;
-    private void Awake()
+    [Header("Dasheffect")]
+    public GameObject Dasheffect;
+
+	private void Awake()
     {
         aimDetect = GameObject.Find("AimDetectCollider").GetComponent<AimDetect>();
         aimCollider = GameObject.Find("AimDetectCollider").GetComponent<Collider>();
@@ -269,6 +270,7 @@ public class PlayerSlashAttack : MonoBehaviour
                 .SetDelay(0.556f)
                 .OnComplete(() =>
                 {
+
                     slashState = SlashState.Arrived;
                     playerAnimator.SetBool("CloseEnemy",true);
                     playerRigidbody.velocity = Vector3.zero;
@@ -421,13 +423,13 @@ public class PlayerSlashAttack : MonoBehaviour
         if (tweener != null && (tweener.IsPlaying() || slashState == SlashState.Dashing))
         {
             tweener.Kill();
-            Debug.Log("3");
+            //Debug.Log("3");
             ReturnAnimation();
             return;
         }
         if (slashState == SlashState.Arrived || slashState == SlashState.Attacking)
         {
-            Debug.Log("4");
+            //Debug.Log("4");
             ReturnAnimation();
             return;
         }
@@ -437,7 +439,7 @@ public class PlayerSlashAttack : MonoBehaviour
     {
         if (!playerAim._lockedEnemy.CompareTag("Enemy"))
         {
-            Debug.Log("5");
+            //Debug.Log("5");
             ReturnAnimation();
         }
     }
@@ -480,7 +482,7 @@ public class PlayerSlashAttack : MonoBehaviour
 	/// 這個方法用於觸發屏幕波動效果
 	public void TriggerDashEffect()
     {
-        Debug.Log("觸發屏幕波動效果");
+        //Debug.Log("觸發屏幕波動效果");
 		StartCoroutine(PlayDashShaderEffect());
        
     }

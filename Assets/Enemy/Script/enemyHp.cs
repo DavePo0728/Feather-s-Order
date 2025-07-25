@@ -433,7 +433,7 @@ public class EnemyHp : MonoBehaviour
         }
         else if (hitCounter >= 3)
         {
-            Debug.Log("Source :" + gameObject.name + " " + "SlashHit");
+            //Debug.Log("Source :" + gameObject.name + " " + "SlashHit");
 			slashHitEffectRedObject.SetActive(true);
             slashHitEffectRed.Play();
             hitCounter = 0;

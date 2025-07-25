@@ -162,15 +162,11 @@ public class EnemyShootingController : MonoBehaviour
 
         for (int i = 0; i < gunDataList.gunDatas.Length; i++)
         {
-            int nextIndex = (currentModeIndex + 1) % gunDataList.gunDatas.Length;
-            bool isFirstGun = currentModeIndex == 0;
+           
 
             // ⬇️ 判斷是否要呼叫 TryScheduleNextGunWarning()
-            if (gunDataList.gunDatas[nextIndex].Data.data.WarningLight ||
-               (isFirstGun && gunDataList.gunDatas[currentModeIndex].Data.data.WarningLight))
-            {
-                TryScheduleNextGunWarning();
-            }
+            
+
             currentModeIndex = i;
             var data = gunDataList.gunDatas[i];
 
@@ -179,7 +175,14 @@ public class EnemyShootingController : MonoBehaviour
                 FireExtraMode();
             }
             var mode = modes[currentModeIndex];
-            yield return StartCoroutine(HandleMode(mode));
+			int nextIndex = (currentModeIndex + 1) % gunDataList.gunDatas.Length;
+			bool isFirstGun = currentModeIndex == 0;
+			if (gunDataList.gunDatas[nextIndex].Data.data.WarningLight ||
+			   (isFirstGun && gunDataList.gunDatas[currentModeIndex].Data.data.WarningLight))
+			{
+				TryScheduleNextGunWarning();
+			}
+			yield return StartCoroutine(HandleMode(mode));
             yield return new WaitForSeconds(data.delayTime);
         }
         IsAttackLooping = false;
@@ -544,24 +547,36 @@ public class EnemyShootingController : MonoBehaviour
 		if (!nextData.WarningLight) return;
 
 		float advanceWarningTime = 0.5f;
-		float currentGunTime = (60f / currentData.rpm) * currentData.MaxShootWave;
-		float delay = currentGunTime - advanceWarningTime;
+        float currentGunTime = (60f / currentData.rpm) * currentData.MaxShootWave;
+		currentGunTime = currentGunTime + gunDataList.gunDatas[currentModeIndex].delayTime; // ⬅️ 這裡用當前槍的射擊時間
 
-		if (warningRoutine != null)
+
+		float delay = currentGunTime - advanceWarningTime;
+        //if (currentGunTime - delay >= 0.35f)
+        //{
+        //    // 如果當前槍的射擊時間大於 2.5 秒，則延遲時間為當前槍的射擊時間減去 2.5 秒
+        //    Debug.Log($"大於0.35秒，延遲 {delay} 秒");
+        //    delay = currentGunTime - 0.35f;
+
+        //}
+        if (warningRoutine != null)
 		{
 			StopCoroutine(warningRoutine);
 			warningRoutine = null;
 		}
-
-		Debug.Log($"⚠️ 嘗試排程下一把槍的警告：{nextData.patternType} 模式，延遲 {delay} 秒");
+		//Debug.Log($"⚠️ 嘗試排程下一把槍的警告：{nextData.patternType} 模式，延遲 {delay} 秒，槍的射擊時間{currentGunTime}秒");
 
 		if (delay > 0f)
 		{
+			// 如果延遲時間大於 0，則使用協程來延遲播放警告
+            //Debug.Log($"⚠️ 警告：排程下一把槍的警告，延遲 {delay} 秒");
 			warningRoutine = StartCoroutine(PlayNextGunWarningAfterDelay(delay, nextData));
 		}
 		else
 		{
-            PlayWeaponChangeWarning(nextData);
+			// 如果延遲時間小於等於 0，則立即播放警告
+            //Debug.Log($"⚠️ 警告：立即播放下一把槍的警告：{nextData.patternType} 模式");
+			PlayWeaponChangeWarning(nextData);
 		}
 	}
 	private IEnumerator PlayNextGunWarningAfterDelay(float delay, SubGunData nextGunData)
