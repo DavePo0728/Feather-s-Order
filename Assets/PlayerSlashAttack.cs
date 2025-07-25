@@ -265,9 +265,12 @@ public class PlayerSlashAttack : MonoBehaviour
                 slashTarget = target.transform.Find("DashPoint").position;
                 Vector3 lastTargetPos = slashTarget;
                 //GetComponent<AfterimageController>().StartDash();
-                tweener = playerRigidbody.DOMove(slashTarget, 0.5f).OnComplete(() =>
+                tweener = playerRigidbody.DOMove(slashTarget, 0.5f)
+                .SetDelay(0.556f)
+                .OnComplete(() =>
                 {
                     slashState = SlashState.Arrived;
+                    playerAnimator.SetBool("CloseEnemy",true);
                     playerRigidbody.velocity = Vector3.zero;
                     isCounting = true;
                     followZoom.m_Width = 0;
@@ -306,7 +309,9 @@ public class PlayerSlashAttack : MonoBehaviour
                 slashTarget = target.transform.Find("DashPoint").position;
                 Vector3 lastTargetPos = slashTarget;
                 //GetComponent<AfterimageController>().StartDash();
-                tweener = playerRigidbody.DOMove(slashTarget, 0.5f).OnUpdate(() =>
+                tweener = playerRigidbody.DOMove(slashTarget, 0.5f)
+                .SetDelay(0.556f)
+                .OnUpdate(() =>
                 {
                     if ((slashTarget - lastTargetPos).sqrMagnitude > 0.01f)
                     {
@@ -317,16 +322,17 @@ public class PlayerSlashAttack : MonoBehaviour
                     {
                         tweener.Complete();
                     }
-                }).OnComplete(() =>
+                })
+                .OnComplete(() =>
                 {
                     slashState = SlashState.Arrived;
+                    playerAnimator.SetBool("CloseEnemy", true);
                     playerRigidbody.velocity = Vector3.zero;
                     playerVCam.m_Lens.FieldOfView = 15;
                     followZoom.m_Width = 0;
                     IsReturnAnimation = false;
                     shieldEffect.SetActive(false);
                     shieldEffectBIG.SetActive(false);
-
                     TriggerSlash(2);
                     Invoke("ReturnAnimation", 0.5f);
                 });
@@ -384,6 +390,7 @@ public class PlayerSlashAttack : MonoBehaviour
     {
         ResetTimer();
         slashState = SlashState.FallingBack;
+        playerAnimator.SetBool("CloseEnemy", false);
         hitCounter = 0;
         clothDB.enabled = true;
         playerAnimator.SetBool("OnAttack", false);
@@ -481,7 +488,8 @@ public class PlayerSlashAttack : MonoBehaviour
     /// 播放屏幕波動效果的協程
     private IEnumerator PlayDashShaderEffect()
 	{
-		float timeElapsed = 0f;
+        yield return new WaitForSeconds(0.5f);
+        float timeElapsed = 0f;
 		float duration = dashEffectDuration;
         Dasheffect.SetActive(true);
 
