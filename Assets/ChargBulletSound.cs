@@ -21,7 +21,7 @@ public class ChargBulletSound : MonoBehaviour
 			
 			// 延遲一點點時間再處理
 			CancelInvoke(nameof(HandleHit));
-			Debug.Log("Hit enemy: " + gameObject.name);
+			//Debug.Log("Hit enemy: " + gameObject.name);
 			enemyHits[0].GetComponent<EnemyHp>().PlayhitXAudio();
 			isHit = true;
 		}

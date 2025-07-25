@@ -114,7 +114,7 @@ public class PlayerHP : MonoBehaviour
         shakeTimer = hurtShakeDuration;
         currentShakeStrength = hurtShakeStrength;
         
-        Debug.Log("Player Hit by Enemy Bullet, Damage: " + damage);
+        //Debug.Log("Player Hit by Enemy Bullet, Damage: " + damage);
 		playerHp -= damage;
         
         UpdateHpUI();
@@ -145,7 +145,6 @@ public class PlayerHP : MonoBehaviour
 
 			if (!isMuteki)
 				getHit(10);
-
 		}
         if (other.tag == "Block")
         {

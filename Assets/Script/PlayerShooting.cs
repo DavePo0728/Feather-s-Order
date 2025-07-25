@@ -34,14 +34,15 @@ public class PlayerShooting : MonoBehaviour
         {
             StartShooting();
         }
-        if (context.canceled)
+        if (context.canceled && playerSlashAttack.slashState == PlayerSlashAttack.SlashState.Idle)
         {
             StopShooting();
         }
     }
     public void StartShooting()
     {
-        //Debug.Log("StartShooting");
+        //Debug.Log(playerSlashAttack.slashState);
+		//Debug.Log("StartShooting");
 		shooting = true;
         gunPoint1Img.enabled = true;
 		gunPoint2Img.enabled = true;
@@ -86,7 +87,7 @@ public class PlayerShooting : MonoBehaviour
 	/// 在指定的時間內將材質的「_Range」屬性從 0 動畫化為 1。
 	public IEnumerator AnimateRangeDown(Material material, float duration)
 	{
-       
+       //Debug.Log("AnimateRangeDown");
 		float elapsed = 0f;
 		while (elapsed < duration)
 		{
@@ -101,6 +102,7 @@ public class PlayerShooting : MonoBehaviour
 	///在指定的時間內將材質的「_Range」屬性從 1 動畫化為 0。
 	public IEnumerator AnimateRangeUp(Material material, float duration)
 	{
+        //Debug.Log("AnimateRangeUp");
 		float elapsed = 0f;
 		while (elapsed < duration)
 		{

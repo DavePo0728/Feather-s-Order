@@ -433,7 +433,7 @@ public class EnemyHp : MonoBehaviour
         }
         else if (hitCounter >= 3)
         {
-            Debug.Log("Source :" + gameObject.name + " " + "SlashHit");
+            //Debug.Log("Source :" + gameObject.name + " " + "SlashHit");
 			slashHitEffectRedObject.SetActive(true);
             slashHitEffectRed.Play();
             hitCounter = 0;
@@ -542,7 +542,7 @@ public class EnemyHp : MonoBehaviour
 		if (audioSource != null && hitXAudioClip != null)
 		{
 			audioSource.PlayOneShot(hitXAudioClip);
-			Debug.Log("Play hit X audio");
+			//Debug.Log("Play hit X audio");
 			lastHitXAudioTime = Time.time;
 		}
 	}
