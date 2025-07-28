@@ -155,8 +155,8 @@ public class EnemyMove : MonoBehaviour
     }
 	public void DoStopA()
 	{
-		leaveBehavior.StopLeave();
-
+        if(leaveBehavior != null)
+            leaveBehavior.StopLeave();
 	}
 	public void CallMove()
     {

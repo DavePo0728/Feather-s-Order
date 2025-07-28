@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
+using DG.Tweening;
 public class EnemyHp : MonoBehaviour
 {
     [SerializeField]
@@ -85,7 +86,8 @@ public class EnemyHp : MonoBehaviour
     private float lastHitXAudioTime = -Mathf.Infinity; // 上次播放時間
 
 	public GameObject MisairuHit; // 導彈擊中敵人特效
-	private void Awake()
+
+    private void Awake()
     {
         enemyCollider = GetComponent<Collider>();
         aimDetect = GameObject.Find("AimDetectCollider").GetComponent<AimDetect>();
@@ -132,7 +134,7 @@ public class EnemyHp : MonoBehaviour
         deathAudioClip = Resources.Load<AudioClip>("Sound/EnemyDeathSound");
         audioSource.outputAudioMixerGroup = sfxGroup;
 
-	}
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -327,6 +329,7 @@ public class EnemyHp : MonoBehaviour
     }
     public void DeathEffect()/// 死亡特效
     {
+        BulletTimeManager.instance.DoBulletTime(0.1f, 0.5f); // 開始子彈時間
         if (aimDetect != null)
         {
             aimDetect.ManualOnTriggerExit(enemyCollider); 
@@ -499,6 +502,7 @@ public class EnemyHp : MonoBehaviour
         float HpAmount = currentHp / maxHp;
         hpImage.fillAmount = HpAmount;
     }
+    
     private void PlayShieldHitSound()
     {
         if (audioSource != null && shieldHitAudioClip != null)
