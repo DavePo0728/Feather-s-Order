@@ -4,10 +4,18 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityEngine.Rendering;
+
+public enum ScenesNum
+{
+	StartScene,
+	BattleScene,
+}
 
 public class ScenesManager : MonoBehaviour
 {
-    PlayerHP playerHP;
+    public ScenesNum scenesNum = ScenesNum.BattleScene;
+	PlayerHP playerHP;
     [SerializeField]
     public GameObject LoadingPanel;
     public float fadeDuration;
@@ -23,6 +31,8 @@ public class ScenesManager : MonoBehaviour
     bool isPause = false;
     [SerializeField]
     private GameObject pauseImageObject;
+    [SerializeField] GainWAnimator GainV;
+
     public void GetPauseInput(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -44,7 +54,7 @@ public class ScenesManager : MonoBehaviour
     private void Awake()
     {
         Time.timeScale = 1;
-        LoadImage = LoadingPanel.GetComponent<Image>();
+        
         if (gameClearImageObject != null)
             gameClearImage = gameClearImageObject.GetComponent<Image>();
         if (gameClearImageObject != null)
@@ -52,11 +62,26 @@ public class ScenesManager : MonoBehaviour
         pauseImageObject = GameObject.Find("PauseImage");
         if (pauseImageObject != null)
             pauseImageObject.SetActive(false);
-        playerHP = GameObject.Find("Player").transform.Find("HPCollider").GetComponent<PlayerHP>();
+		
+
+		if (scenesNum == ScenesNum.StartScene)
+        {
+			LoadImage = LoadingPanel.GetComponent<Image>();
+		}
+		if (scenesNum == ScenesNum.BattleScene)
+		{
+			pauseImageObject = GameObject.Find("PauseImage");
+			playerHP = GameObject.Find("Player").transform.Find("HPCollider").GetComponent<PlayerHP>();
+		}
+
     }
     private void Start()
     {
-        FadeOut();
+        if (scenesNum == ScenesNum.StartScene)
+        {
+			FadeOut();
+		}
+        
         Invoke("DisablePanel", fadeDuration);
     }
     private void Update()
@@ -121,10 +146,22 @@ public class ScenesManager : MonoBehaviour
     }
     public void StartTeaching()
     {
-        FadeIn();
-        Invoke("LoadTeaching", fadeDuration);
+
+        if (GainV != null)
+        {
+            FadeIn();
+            GainV.StartAnimation();
+        }
+
+        
     }
-    public void LoadTeaching()
+
+    public void InvokeLoadTeaching()
+    {
+		Invoke("LoadTeaching", fadeDuration);
+	}
+
+	public void LoadTeaching()
     {
         SceneManager.LoadScene(1);
     }
