@@ -32,16 +32,16 @@ public class GainWAnimator : MonoBehaviour
 	IEnumerator AnimationAndLoadTeaching()
 	{
 		Vector4 baseGain = liftGammaGain.gain.value;
-
-		// 第一段：0 → targetW1
+		GetComponent<AudioSource>().Play(); // 播放音效
+											// 第一段：0 → targetW1
 		yield return AnimateW(baseGain, 0f, targetW1, duration1);
 		yield return new WaitForSeconds(delayBetween);
 
 		// 第二段：targetW1 → targetW2
 		yield return AnimateW(baseGain, targetW1, targetW2, duration2);
-		yield return new WaitForSeconds(delayBetween);
-
-		// 動畫結束後呼叫教學
+		yield return new WaitForSeconds(5f);
+		
+											// 動畫結束後呼叫教學
 		scenesManager.InvokeLoadTeaching();
 	}
 

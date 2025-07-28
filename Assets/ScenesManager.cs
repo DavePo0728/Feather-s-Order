@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using UnityEngine.Rendering;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.ResourceManagement.ResourceProviders;
 
 public enum ScenesNum
 {
@@ -33,6 +36,11 @@ public class ScenesManager : MonoBehaviour
     private GameObject pauseImageObject;
     [SerializeField] GainWAnimator GainV;
 
+	public Image loadingBar;
+	private AsyncOperationHandle<SceneInstance> sceneHandle;
+	private bool sceneLoaded = false;
+    private bool readyToActivate = false;
+    bool AniTrue = false;
     public void GetPauseInput(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -72,21 +80,41 @@ public class ScenesManager : MonoBehaviour
 		{
 			pauseImageObject = GameObject.Find("PauseImage");
 			playerHP = GameObject.Find("Player").transform.Find("HPCollider").GetComponent<PlayerHP>();
-		}
+        }
 
     }
     private void Start()
     {
         if (scenesNum == ScenesNum.StartScene)
         {
-			FadeOut();
-		}
-        
+            FadeOut();
+        }
+
         Invoke("DisablePanel", fadeDuration);
     }
-    private void Update()
+	IEnumerator ActivateScene()
+	{
+		if (!sceneHandle.IsDone || sceneHandle.Status != AsyncOperationStatus.Succeeded)
+		{
+			Debug.LogWarning("場景尚未完成加載，無法啟用！");
+			yield break;
+		}
+
+		yield return sceneHandle.Result.ActivateAsync();
+		Debug.Log("場景已啟用！");
+	}
+	private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.F9))
+
+		if (sceneLoaded && !readyToActivate && Input.anyKeyDown)
+		{
+			readyToActivate = true;
+			StartCoroutine(ActivateScene());
+		}
+
+
+
+		if (Input.GetKeyDown(KeyCode.F9))
         {
             FadeIn();
             Invoke("LoadTeaching", fadeDuration);
@@ -147,19 +175,59 @@ public class ScenesManager : MonoBehaviour
     public void StartTeaching()
     {
 
-        if (GainV != null)
+        if (GainV != null&& AniTrue == false)
         {
-            FadeIn();
+            AniTrue = true;
+			FadeIn();
             GainV.StartAnimation();
         }
 
         
     }
 
-    public void InvokeLoadTeaching()
-    {
-		Invoke("LoadTeaching", fadeDuration);
+	public void InvokeLoadTeaching()
+	{
+		StartCoroutine(LoadSceneAsync("Assets/Scenes/Scene1.unity")); // 建議使用 Address 名稱，不要用 Assets/Scenes/Scene1.unity
 	}
+	IEnumerator LoadSceneAsync(string sceneAddress)
+	{
+		sceneLoaded = false;
+		readyToActivate = false;
+
+		// 開始加載（不自動啟用）
+		sceneHandle = Addressables.LoadSceneAsync(sceneAddress, LoadSceneMode.Single, false);
+		yield return sceneHandle;
+
+		if (sceneHandle.Status != AsyncOperationStatus.Succeeded)
+		{
+			Debug.LogError("場景加載失敗！");
+			yield break;
+		}
+
+		float displayProgress = 0f;
+
+		// 顯示進度條直到 0.9
+		while (sceneHandle.PercentComplete < 0.9f)
+		{
+			float target = Mathf.Clamp01(sceneHandle.PercentComplete / 0.9f);
+			displayProgress = Mathf.MoveTowards(displayProgress, target, Time.deltaTime * 0.5f);
+			loadingBar.fillAmount = displayProgress;
+			yield return null;
+		}
+
+		// 補滿條
+		while (displayProgress < 1f)
+		{
+			displayProgress = Mathf.MoveTowards(displayProgress, 1f, Time.deltaTime * 0.5f);
+			loadingBar.fillAmount = displayProgress;
+			yield return null;
+		}
+
+		// 準備好接受按鍵轉場
+		Debug.Log("載入完成，請按任意鍵繼續...");
+		sceneLoaded = true;
+	}
+
 
 	public void LoadTeaching()
     {
