@@ -41,7 +41,8 @@ public class ScenesManager : MonoBehaviour
 	private bool sceneLoaded = false;
     private bool readyToActivate = false;
     bool AniTrue = false;
-    public void GetPauseInput(InputAction.CallbackContext context)
+    public LoadindAnim loadindAnim;
+	public void GetPauseInput(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
@@ -70,17 +71,22 @@ public class ScenesManager : MonoBehaviour
         pauseImageObject = GameObject.Find("PauseImage");
         if (pauseImageObject != null)
             pauseImageObject.SetActive(false);
-		
 
+		LoadingPanel = GameObject.Find("LoadingPanel");
 		if (scenesNum == ScenesNum.StartScene)
         {
 			LoadImage = LoadingPanel.GetComponent<Image>();
 		}
 		if (scenesNum == ScenesNum.BattleScene)
 		{
+			
 			pauseImageObject = GameObject.Find("PauseImage");
 			playerHP = GameObject.Find("Player").transform.Find("HPCollider").GetComponent<PlayerHP>();
         }
+        loadingBar = GameObject.Find("LoadingBar2").GetComponent<Image>();
+		loadindAnim = GameObject.Find("LoadC").GetComponent<LoadindAnim>();
+
+
 
     }
     private void Start()
@@ -90,7 +96,7 @@ public class ScenesManager : MonoBehaviour
             FadeOut();
         }
 
-        Invoke("DisablePanel", fadeDuration);
+        //Invoke("DisablePanel", fadeDuration);
     }
 	IEnumerator ActivateScene()
 	{
@@ -106,11 +112,6 @@ public class ScenesManager : MonoBehaviour
 	private void Update()
     {
 
-		if (sceneLoaded && !readyToActivate && Input.anyKeyDown)
-		{
-			readyToActivate = true;
-			StartCoroutine(ActivateScene());
-		}
 
 
 
@@ -174,17 +175,17 @@ public class ScenesManager : MonoBehaviour
     }
     public void StartTeaching()
     {
-
-        if (GainV != null&& AniTrue == false)
+		GameObject.Find("BlowingLeaves_1").GetComponent<ParticleSystem>().Stop();
+		loadindAnim.StartFadeOutMusic();
+		GameObject.Find("BlowingLeaves").GetComponent<ParticleSystem>().Stop();
+        loadindAnim.floatIn();
+		if (GainV != null&& AniTrue == false)
         {
             AniTrue = true;
 			FadeIn();
             GainV.StartAnimation();
         }
-
-        
     }
-
 	public void InvokeLoadTeaching()
 	{
 		StartCoroutine(LoadSceneAsync("Assets/Scenes/Scene1.unity")); // 建議使用 Address 名稱，不要用 Assets/Scenes/Scene1.unity
@@ -193,7 +194,7 @@ public class ScenesManager : MonoBehaviour
 	{
 		sceneLoaded = false;
 		readyToActivate = false;
-
+        
 		// 開始加載（不自動啟用）
 		sceneHandle = Addressables.LoadSceneAsync(sceneAddress, LoadSceneMode.Single, false);
 		yield return sceneHandle;
@@ -204,32 +205,59 @@ public class ScenesManager : MonoBehaviour
 			yield break;
 		}
 
+		// 第一段動畫：根據進度填充到 0.9
+		yield return AnimateLoadingBarTo90();
+        readyToActivate = true;
+
+
+		StartCoroutine(ActivateScene());
+		// 第二段動畫：純動畫從 0.9 填滿到 1
+		//yield return AnimateLoadingBarTo100();
+
+		//// 準備好接受按鍵轉場
+		//Debug.Log("載入完成，請按任意鍵繼續...");
+		//sceneLoaded = true;
+	}
+
+	IEnumerator AnimateLoadingBarTo90()
+	{
 		float displayProgress = 0f;
 
-		// 顯示進度條直到 0.9
 		while (sceneHandle.PercentComplete < 0.9f)
 		{
-			float target = Mathf.Clamp01(sceneHandle.PercentComplete / 0.9f);
+			float target = Mathf.Clamp01(sceneHandle.PercentComplete / 0.9f); // 轉為 0 ~ 1
 			displayProgress = Mathf.MoveTowards(displayProgress, target, Time.deltaTime * 0.5f);
 			loadingBar.fillAmount = displayProgress;
 			yield return null;
 		}
 
-		// 補滿條
-		while (displayProgress < 1f)
-		{
-			displayProgress = Mathf.MoveTowards(displayProgress, 1f, Time.deltaTime * 0.5f);
-			loadingBar.fillAmount = displayProgress;
-			yield return null;
-		}
+		// 確保最後停在 0.9
+		displayProgress = 0.9f;
+		loadingBar.fillAmount = displayProgress;
+	}
 
-		// 準備好接受按鍵轉場
+	public void EndLoading()
+	{
+		StartCoroutine(AnimateLoadingBarTo100());
+	}
+	IEnumerator AnimateLoadingBarTo100()
+	{
+		float displayProgress = 0.9f;
+
+        while (displayProgress < 1f)
+        {
+            displayProgress = Mathf.MoveTowards(displayProgress, 1f, Time.deltaTime * 0.5f);
+            loadingBar.fillAmount = displayProgress;
+            yield return null;
+        }
+        sceneLoaded = true;
+		loadindAnim.LoadOver = true;
+
 		Debug.Log("載入完成，請按任意鍵繼續...");
-		sceneLoaded = true;
 	}
 
 
-	public void LoadTeaching()
+    public void LoadTeaching()
     {
         SceneManager.LoadScene(1);
     }

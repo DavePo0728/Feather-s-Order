@@ -11,9 +11,10 @@ public class ScoreManager : MonoBehaviour
     TMP_Text scoreTxt, timerTxt;
     float score;
     float timer;
-
-    // Start is called before the first frame update
-    void Start()
+    
+    public bool GameStarted = false;
+	// Start is called before the first frame update
+	void Start()
     {
         score = 0;
         UpdateScore();
@@ -22,8 +23,12 @@ public class ScoreManager : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        timer += Time.deltaTime;
-        timerTxt.text =  string.Format("{0:F2}", timer);
+        if (LoadindAnim.instance.Gamestarted)
+        {
+			timer += Time.deltaTime;
+			timerTxt.text = string.Format("{0:F2}", timer);
+		}
+        
     }
     public void AddScore()
     {
