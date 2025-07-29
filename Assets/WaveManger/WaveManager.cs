@@ -34,33 +34,6 @@ public class WaveManager : MonoBehaviour
     //public GunDataList gunDataList;
     public SpawnGroupList spawnNormalGroupList;
     public SpawnEmptyGroupList spawnEmptyGroupList;
-    [Header("Recording")]
-    [SerializeField] 
-    private bool isRecording = false;
-    [SerializeField]
-    private RecordedWaveData currentRecording;
-    [SerializeField] 
-    private float recordStartTime;
-    [SerializeField] 
-    private string savePath = "Assets/WaveRecordings/";
-    [SerializeField] 
-    private RecordingWaveList recordedWaveDataList;
-    [Header("Debug UI")]
-    [SerializeField] 
-    private bool showDebugUI = true;
-    [SerializeField] 
-    private Vector2 debugUIPosition = new Vector2(10, 10);
-    [SerializeField] 
-    private Vector2 debugUISize = new Vector2(300, 200);
-    [SerializeField] 
-    private GUIStyle debugTextStyle;
-    [SerializeField] 
-    private bool autoStartRecording = false;
-    public List<RecordedWaveData> recordedWaves;
-    private int currentRecordingIndex = 0;
-
-    private Dictionary<string, System.Func<IEnumerator>> spawnGroupMap;
-    private Dictionary<string, RecordedWaveData> recordedWaveMap;
     private Dictionary<string, SpawnGroup> spawnGroupDictionary;
     private Dictionary<string, SpawnEmptyGroup> spawnEmptyGroupDictionary;
     [SerializeField]
@@ -120,324 +93,35 @@ public class WaveManager : MonoBehaviour
         tutorialImage.sprite = newSprite;
 
     }
-    IEnumerator PlayRecordedWave(RecordedWaveData data, float delay = 0f)
-    {
-        yield return new WaitForSeconds(delay);
-        float lastTime = 0f;
 
-        foreach (var record in data.spawnRecords)
-        {
-            float wait = record.timestamp - lastTime;
-            if (wait > 0) yield return new WaitForSeconds(wait);
-            lastTime = record.timestamp;
-
-            // 建立行為類別
-            IEntryBehaviour entry = System.Activator.CreateInstance(System.Type.GetType(record.entryTypeName)) as IEntryBehaviour;
-            IMoveBehaviour move = System.Activator.CreateInstance(System.Type.GetType(record.moveTypeName)) as IMoveBehaviour;
-            ILeaveBehaviour leave = System.Activator.CreateInstance(System.Type.GetType(record.leaveTypeName)) as ILeaveBehaviour;
-            SpawnType spawnType = record.spawnType;
-
-            if (entry == null || move == null || leave == null)
-            {
-                Debug.LogWarning("Replay failed: missing behaviour");
-                continue;
-            }
-
-            NewSpawn(enemyDatas[record.enemyIndex], spawnDatas[record.spawnDataIndex], record.gunData, entry, move, leave, spawnType);
-        }
-    }
-    private void OnGUI()
-    {
-        if (!showDebugUI) return;
-
-        debugTextStyle.normal.textColor = Color.white;
-
-        GUILayout.BeginArea(new Rect(debugUIPosition.x, debugUIPosition.y, debugUISize.x, debugUISize.y), GUI.skin.box);
-
-        GUILayout.Label("<b><size=16>🎛️ Wave Debug UI</size></b>", debugTextStyle);
-
-        if (recordedWaveDataList.recordingWaves.Count > 0)
-        {
-            GUILayout.Label($"當前錄製資料：<b>{currentRecording.name}</b>", debugTextStyle);
-
-            if (GUILayout.Button("🔁 切換錄製資料 (F4)"))
-            {
-                currentRecordingIndex = (currentRecordingIndex + 1) % recordedWaveDataList.recordingWaves.Count;
-                currentRecording = recordedWaveDataList.recordingWaves[currentRecordingIndex];
-                Debug.Log($"切換到錄製資料：{currentRecording.name}");
-            }
-
-            if (GUILayout.Button("▶️ 播放當前錄製 (F5)"))
-            {
-                ReplayRecording(currentRecording);
-                Debug.Log($"播放錄製資料：{currentRecording.name}");
-            }
-        }
-        else
-        {
-            GUILayout.Label("⚠️ 無錄製資料");
-        }
-
-        GUILayout.Space(10);
-        GUILayout.Label($"錄製狀態：<color={(isRecording ? "green" : "red")}><b>{(isRecording ? "錄製中" : "未錄製")}</b></color>", debugTextStyle);
-
-        GUILayout.EndArea();
-    }
-
-    public static class RecordingHelper
-    {
-        public static bool isRecording;
-        public static float recordStartTime;
-        public static void Start(RecordedWaveData data)
-        {
-            recordStartTime = Time.time;
-            isRecording = true;
-            data.spawnRecords.Clear();
-#if UNITY_EDITOR
-            UnityEditor.EditorUtility.SetDirty(data);
-            UnityEditor.AssetDatabase.SaveAssets();
-#endif
-            Debug.Log("Recording started.");
-        }
-
-        public static void Stop(RecordedWaveData data)
-        {
-            isRecording = false;
-#if UNITY_EDITOR
-            UnityEditor.EditorUtility.SetDirty(data);
-            UnityEditor.AssetDatabase.SaveAssets();
-#endif
-            Debug.Log("Recording saved.");
-        }
-
-        public static void Record(RecordedWaveData data, int enemyIndex, int spawnIndex, GunDataList gunData, IEntryBehaviour entry, IMoveBehaviour move, ILeaveBehaviour leave,SpawnType spawnType)
-        {
-            if (!isRecording || data == null) return;
-
-            var record = new RecordedWaveData.SpawnRecord
-            {
-                timestamp = Time.time - recordStartTime,
-                enemyIndex = enemyIndex,
-                spawnDataIndex = spawnIndex,
-                gunData = gunData,
-                entryTypeName = entry.GetType().Name,
-                moveTypeName = move.GetType().Name,
-                leaveTypeName = leave.GetType().Name,
-                spawnType = spawnType
-            };
-            data.spawnRecords.Add(record);
-        }
-
-        public static IEnumerator Replay(RecordedWaveData data, System.Action<int, int, GunDataList, IEntryBehaviour, IMoveBehaviour, ILeaveBehaviour,SpawnType> spawnAction)
-        {
-            if (data == null || data.spawnRecords == null || data.spawnRecords.Count == 0)
-            {
-                Debug.LogWarning("No records to replay");
-                yield break;
-            }
-
-            float lastTime = 0f;
-            foreach (var record in data.spawnRecords)
-            {
-                float waitTime = record.timestamp - lastTime;
-                if (waitTime > 0f)
-                    yield return new WaitForSeconds(waitTime);
-                lastTime = record.timestamp;
-
-                IEntryBehaviour entry = System.Activator.CreateInstance(System.Type.GetType(record.entryTypeName)) as IEntryBehaviour;
-                IMoveBehaviour move = System.Activator.CreateInstance(System.Type.GetType(record.moveTypeName)) as IMoveBehaviour;
-                ILeaveBehaviour leave = System.Activator.CreateInstance(System.Type.GetType(record.leaveTypeName)) as ILeaveBehaviour;
-                SpawnType spawnType = record.spawnType;
-
-                if (entry == null || move == null || leave == null)
-                {
-                    Debug.LogWarning("Replay failed: could not instantiate behaviours.");
-                    continue;
-                }
-
-                spawnAction(record.enemyIndex, record.spawnDataIndex, record.gunData, entry, move, leave,spawnType);
-            }
-        }
-    }
-    public void StartRecording(RecordedWaveData recording)
-    {
-        // 自動建立資料夾（如果不存在）
-        if (!System.IO.Directory.Exists(savePath))
-        {
-            System.IO.Directory.CreateDirectory(savePath);
-#if UNITY_EDITOR
-            UnityEditor.AssetDatabase.Refresh(); // 確保 Unity 看得到新資料夾
-#endif
-        }
-
-        currentRecording = recording;
-        currentRecording.spawnRecords.Clear();
-        recordStartTime = Time.time;
-        isRecording = true;
-        Debug.Log("Recording started.");
-    }
-
-    public void StopRecording()
-    {
-        isRecording = false;
-#if UNITY_EDITOR
-        UnityEditor.EditorUtility.SetDirty(currentRecording);
-        UnityEditor.AssetDatabase.SaveAssets();
-#endif
-        Debug.Log("Recording stopped and saved.");
-    }
-
-    public void NewSpawn_WithRecord(int enemyIndex, int spawnIndex, GunDataList gunDataList,
-    IEntryBehaviour entry, IMoveBehaviour move, ILeaveBehaviour leave,SpawnType spawnType)
+    public void NewSpawn(int enemyIndex, int spawnIndex, GunDataList gunDataList,
+    IEntryBehaviour entry, IMoveBehaviour move, ILeaveBehaviour leave, SpawnType spawnType)
     {
 
-        NewSpawn(enemyDatas[enemyIndex], spawnDatas[spawnIndex],gunDataList , entry, move, leave,spawnType);
-
-        if (!isRecording || currentRecording == null) return;
-
-        var record = new RecordedWaveData.SpawnRecord
-        {
-            timestamp = Time.time - recordStartTime,
-            enemyIndex = enemyIndex,
-            spawnDataIndex = spawnIndex,
-            gunData = gunDataList,
-            entryTypeName = entry.GetType().Name,
-            moveTypeName = move.GetType().Name,
-            leaveTypeName = leave.GetType().Name,
-            spawnType = spawnType
-        };
-
-        currentRecording.spawnRecords.Add(record);
-    }
-
-    public void ReplayRecording(RecordedWaveData data)
-    {
-        StartCoroutine(ReplayCoroutine(data));
-    }
-
-    private IEnumerator ReplayCoroutine(RecordedWaveData data)
-    {
-        float lastTimestamp = 0f;
-
-        foreach (var record in data.spawnRecords)
-        {
-            float waitTime = record.timestamp - lastTimestamp;
-            yield return new WaitForSeconds(waitTime);
-            lastTimestamp = record.timestamp;
-
-            IEntryBehaviour entry = System.Activator.CreateInstance(System.Type.GetType(record.entryTypeName)) as IEntryBehaviour;
-            IMoveBehaviour move = System.Activator.CreateInstance(System.Type.GetType(record.moveTypeName)) as IMoveBehaviour;
-            ILeaveBehaviour leave = System.Activator.CreateInstance(System.Type.GetType(record.leaveTypeName)) as ILeaveBehaviour;
-            SpawnType spawnType = record.spawnType;
-
-            if (entry == null || move == null || leave == null)
-            {
-                Debug.LogWarning($"[Replay] Failed to spawn. entry: {entry}, move: {move}, leave: {leave}");
-                continue;
-            }
-
-            Debug.Log($"[Replay] Spawn enemy at {record.timestamp:F2}s (waited {waitTime:F2}s)");
-
-            NewSpawn(enemyDatas[record.enemyIndex],spawnDatas[record.spawnDataIndex],record.gunData,entry, move, leave,spawnType);
-        }
-    }
-    public enum BulletType
-    {
-        Black,
-        Red,
-        Purple,
-        BlackRed,
+        NewSpawn(enemyDatas[enemyIndex], spawnDatas[spawnIndex], gunDataList, entry, move, leave, spawnType);
     }
     public IEnumerator GetWave(string key)
     {
         if (spawnGroupDictionary.TryGetValue(key, out var group))
         {
             waveText.text = key;
-            //Debug.Log($"[GetWave] SpawnGroup: {key}");
             yield return group.GenerateGroup(this);
             yield break;
         }
-        //// 若在 spawnGroupMap 裡，執行對應 Coroutine
-        //if (spawnGroupMap.TryGetValue(key, out var routine))
-        //{
-        //    waveText.text = key;
-        //    yield return routine();
-        //    yield break;
-        //}
         if(spawnEmptyGroupDictionary.TryGetValue(key, out var emptyGroup))
         {
             waveText.text = key;
-            //Debug.Log($"[GetWave] SpawnEmptyGroup: {key}");
             yield return emptyGroup.GenerateGroup(this);
             yield break;
         }
-        //若在 recordedWaveMap 裡，撥放錄製波次
-        if (recordedWaveMap.TryGetValue(key, out var data))
-        {
-            waveText.text = key;
-            Debug.Log($"[GetWave] RecordedWave: {key}");
-            yield return PlayRecordedWave(data);
-            yield break;
-        }
-
         Debug.LogWarning($"❌ 沒有找到名稱為 '{key}' 的波次資料！");
     }
     private void Awake()
     {
-        //spawnGroupMap = new Dictionary<string, System.Func<IEnumerator>>()
-        //{
-        //{ "R", SpawnGroup_R },
-        //{ "L", SpawnGroup_L },
-        //{ "BlackBullet", SpawnGroup_BlackBullet },
-        //{ "M_to_LB", SpawnGroup_M_to_LB },
-        //{ "CT_to_RB_red", SpawnGroup_CT_to_RB_red },
-        //{ "LB_to_RT", SpawnGroup_LB_to_RT },
-        //{ "LC_to_R", SpawnGroup_LC_to_R },
-        //{ "LT_RB", SpawnGroup_LT_RB },
-        //{ "RB_LT", SpawnGroup_RB_LT },
-        //{ "RC_to_LC", SpawnGroup_RC_to_LC },
-        //{ "R_A3", SpawnGroup_R_A3 },
-        //{ "L_RB_B", SpawnGroup_L_RB_B },
-        //{ "L_M_R_B2", SpawnGroup_L_M_R_B2 },
-        //{ "CT_A", SpawnGroup_CT_A },
-        //{ "LT_RB_A", SpawnGroup_LT_RB_A },
-        //{ "RB_LT_A", SpawnGroup_RB_LT_A },
-        //{"t1",TutorialWave1 },
-        //{"t2",TutorialWave2 },
-        //{"t3",TutorialWave3 },
-        //{"t4",TutorialWave4 },
-        //{"t5",TutorialWave5 },
-        //{"EmptyWaveDelay",EmptyWaveDelay },
-        //{"EmptyWave",EmptyWave },
-        //};
         spawnGroupDictionary = new Dictionary<string, SpawnGroup>();
-        recordedWaveMap = new Dictionary<string, RecordedWaveData>();
         spawnEmptyGroupDictionary = new Dictionary<string, SpawnEmptyGroup>();
         AddListToDictionary();
-        AddRecordListToDictionary();
         AddEmptyWaveListToDictionary();
-        //recordedWaveMap = new Dictionary<string, RecordedWaveData>()
-        //{
-        //    { "RecordWave0", recordedWaves[0] },
-        //    { "RecordWave1", recordedWaves[1] },
-        //    { "RecordWave2", recordedWaves[2] },
-        //    { "RecordWave3", recordedWaves[3] },
-        //};
-        //spawnGroupDictionary = new Dictionary<string, SpawnGroup>() //新的字典
-        //{
-        //    { "SpawnT1", spawnNormalGroupList.spawnGroupDatas[0] },
-        //    { "SpawnT2", spawnNormalGroupList.spawnGroupDatas[1] },
-        //    { "SpawnT3", spawnNormalGroupList.spawnGroupDatas[2] },
-        //    { "SpawnT4", spawnNormalGroupList.spawnGroupDatas[3] },
-        //    { "SpawnT5", spawnNormalGroupList.spawnGroupDatas[4] },
-        //    { "SpawnL2", spawnNormalGroupList.spawnGroupDatas[5] },
-        //    { "SpawnR1", spawnNormalGroupList.spawnGroupDatas[6] },
-        //    { "SpawnBlackBullet", spawnNormalGroupList.spawnGroupDatas[7] },
-        //    //{ "SpawnT9", spawnGroupList.spawnGroupDatas[8] },
-        //    //{ "SpawnT10", spawnGroupList.spawnGroupDatas[9] },
-        //    //{ "SpawnT11", spawnGroupList.spawnGroupDatas[10] },
-        //    //{ "SpawnT12", spawnGroupList.spawnGroupDatas[11] },
-        //};
         scenesManager = GameObject.Find("SceneManager").GetComponent<ScenesManager>();
         soundManager = GameObject.Find("SoundManager").GetComponent<SoundManager>();
         if (tutorialMode)
@@ -450,126 +134,13 @@ public class WaveManager : MonoBehaviour
             pressBAction.Enable();
         }
         pathList = Resources.Load<TypeBPathList>("PathData/TypeBPathData/TypeBPathList");
-        //customPathDataList = Resources.Load<CustomPathDataList>("PathData/TypeCPathList");
-        if (debugTextStyle == null)
-        {
-            debugTextStyle = new GUIStyle(GUI.skin.label);
-            debugTextStyle.richText = true;
-            debugTextStyle.fontSize = 14;
-        }
     }
     // Start is called before the first frame update
     void Start()
     {
-        isRecording = false; // 強制關閉錄製，避免 Inspector 影響
-
         if (!debug && currentWaveController != null)
         {
             StartCoroutine(currentWaveController.GenerateWave(this));
-        }
-
-        if (autoStartRecording && currentRecording != null)
-        {
-            StartRecording(currentRecording);
-        }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if(Input.GetKey(KeyCode.LeftShift)&&Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            StartCoroutine(GetWave("WaveRe_01"));
-        }
-        if(Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            StartCoroutine(spawnNormalGroupList.spawnGroupDatas[0].GenerateGroup(this));
-            //StartCoroutine(TestSpawn());
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            StartCoroutine(spawnNormalGroupList.spawnGroupDatas[1].GenerateGroup(this));
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            StartCoroutine(spawnNormalGroupList.spawnGroupDatas[2].GenerateGroup(this));
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            StartCoroutine(spawnNormalGroupList.spawnGroupDatas[3].GenerateGroup(this));
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            StartCoroutine(spawnNormalGroupList.spawnGroupDatas[4].GenerateGroup(this));
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha6))
-        {
-            StartCoroutine(spawnNormalGroupList.spawnGroupDatas[5].GenerateGroup(this));
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha7))
-        {
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha8))
-        {
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha9))
-        {
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha0))
-        {
-        }
-        if (Input.GetKeyDown(KeyCode.Keypad0))
-        {
-        }
-        if (Input.GetKeyDown(KeyCode.Keypad1))
-        {
-        }
-        if (Input.GetKeyDown(KeyCode.Keypad2))
-        {
-        }
-        //特殊陣行
-        if (Input.GetKeyDown(KeyCode.Keypad3))
-        {
-        }
-        if (Input.GetKeyDown(KeyCode.Keypad4))
-        {
-        }
-        if (Input.GetKeyDown(KeyCode.Keypad5))
-        {
-        }
-        // === 錄製控制 ===
-        if (Input.GetKeyDown(KeyCode.F1))
-        {
-            StartRecording(currentRecording);
-        }
-        if (Input.GetKeyDown(KeyCode.F2))
-        {
-            StopRecording();
-        }
-        if (Input.GetKeyDown(KeyCode.F3))
-        {
-            ReplayRecording(currentRecording);
-        }
-        if (Input.GetKeyDown(KeyCode.F6))
-        {
-            CreateNewRecordingAsset("NewWaveRecording"); // 可以自訂名稱
-        }
-        // === 切換錄製資料 ===
-        if (Input.GetKeyDown(KeyCode.F4))
-        {
-            if (recordedWaveDataList.recordingWaves.Count == 0) return;
-            currentRecordingIndex = (currentRecordingIndex + 1) % recordedWaveDataList.recordingWaves.Count;
-            currentRecording = recordedWaveDataList.recordingWaves[currentRecordingIndex];
-            Debug.Log($"切換到錄製資料：{currentRecording.name}");
-        }
-
-        if (Input.GetKeyDown(KeyCode.F5))
-        {
-            if (currentRecording != null)
-            {
-                ReplayRecording(currentRecording);
-                Debug.Log($"播放錄製資料：{currentRecording.name}");
-            }
         }
     }
     public void BGMFadeOut()
@@ -713,31 +284,6 @@ public class WaveManager : MonoBehaviour
         tutorialImage.sprite = show;
     }
 
-    public void CreateNewRecordingAsset(string fileName)
-    {
-#if UNITY_EDITOR
-        string fullPath = savePath + fileName + ".asset";
-
-        // 如果已經存在，就不再建立
-        var existing = AssetDatabase.LoadAssetAtPath<RecordedWaveData>(fullPath);
-        if (existing != null)
-        {
-            Debug.LogWarning($"Recording asset already exists: {fullPath}");
-            currentRecording = existing;
-            return;
-        }
-
-        var newRecording = ScriptableObject.CreateInstance<RecordedWaveData>();
-        AssetDatabase.CreateAsset(newRecording, fullPath);
-        AssetDatabase.SaveAssets();
-        AssetDatabase.Refresh();
-
-        Debug.Log($"Created new RecordedWaveData asset at: {fullPath}");
-        currentRecording = newRecording;
-#else
-    Debug.LogError("CreateNewRecordingAsset only works in the Unity Editor.");
-#endif
-    }
     public void AddEmptyWaveListToDictionary()
     {
         spawnEmptyGroupDictionary.Clear();
@@ -762,18 +308,6 @@ public class WaveManager : MonoBehaviour
                 return;
             }
             spawnGroupDictionary.Add(spawnNormalGroupList.spawnGroupDatas[i].name, spawnNormalGroupList.spawnGroupDatas[i]);
-        }
-    }public void AddRecordListToDictionary()
-    {
-        recordedWaveMap.Clear();
-        for (int i = 0; i < recordedWaveDataList.recordingWaves.Count; i++)
-        {
-            if (recordedWaveMap.ContainsKey(recordedWaveDataList.recordingWaves[i].name))
-            {
-                Debug.LogWarning($"Key '{recordedWaveDataList.recordingWaves[i].name}' already exists in the dictionary.");
-                return;
-            }
-            recordedWaveMap.Add(recordedWaveDataList.recordingWaves[i].name, recordedWaveDataList.recordingWaves[i]);
         }
     }
 }

@@ -190,7 +190,7 @@ public class PlayerSlashAttack : MonoBehaviour
                 playerAnimator.Play("S4");
                 Invoke("TriggerSlash4", 0.3f);
                 playerAnimator.SetBool("OnAttack", true);
-                slashCD = 0.5f;
+                slashCD = 0.7f;
                 slashTimer = 0;
                 attackTimer = 0f;
                 hitCounter = 0;
@@ -216,12 +216,26 @@ public class PlayerSlashAttack : MonoBehaviour
         Invoke("TimeScaleNormal", 0.02f);
         Invoke("DelayDetect", 0.05f);
     }
-
+    public void DashSlash()
+    {
+        Vibrate(0.1f, 0.1f, 0.05f);
+        slashEffectYellowObject.SetActive(true);
+        slashAudio.clip = slashClip3;
+        slashAudio.Play();
+        Invoke("PlaySlashEffectYellow", 0.5f);
+        Invoke("ActiveCollider", 0.5f);
+        flashImage.SetActive(true);
+        Invoke("InactiveFlashImage", 0.02f);
+        Shake(0.5f);
+        Time.timeScale = 0.1f;
+        Invoke("TimeScaleNormal", 0.01f);
+        Invoke("DelayDetect", 0.05f);
+        Invoke("SetAttack", 0.6f);
+    }
     public void TriggerSlash(int hitCounter)
     {
 
-        Vibrate(0.1f, 0.1f, 0.05f);
-		slashEffectYellowObject.SetActive(true);
+        
 		switch (hitCounter)
         {
             case 0:
@@ -239,18 +253,19 @@ public class PlayerSlashAttack : MonoBehaviour
 			default:
                 break;
         }
-        slashCollider.enabled = true;
-        Invoke("InactiveCollider", 0.1f);
+        Invoke("PlaySlashEffectYellow", 0.4f);
+        ActiveCollider();
         flashImage.SetActive(true);
         Invoke("InactiveFlashImage", 0.02f);
-        
-        slashEffectYellow.Play();
         Shake(0.5f);
         Time.timeScale = 0.1f;
         Invoke("TimeScaleNormal", 0.01f);
         Invoke("DelayDetect", 0.05f);
     }
-
+    void PlaySlashEffectYellow()
+    {
+        slashEffectYellow.Play();
+    }
     void DashToEnemy()
     {
         TriggerDashEffect();
@@ -276,13 +291,12 @@ public class PlayerSlashAttack : MonoBehaviour
                     playerRigidbody.velocity = Vector3.zero;
                     isCounting = true;
                     followZoom.m_Width = 0;
-                    TriggerSlash(2);
+                    DashSlash();
                     slashEffectYellowR.flip = new Vector3(0, 0, 0);
                     slashEffectYellowR.transform.localRotation = Quaternion.Euler(280f, 180f, 191f);
                     IsReturnAnimation = false;
                     playerAnimator.SetBool("OnAttack", true);
                     attackTimer = 0;
-                    SetAttack();
                 });
             }
             if (tweener != null)
@@ -335,7 +349,7 @@ public class PlayerSlashAttack : MonoBehaviour
                     IsReturnAnimation = false;
                     shieldEffect.SetActive(false);
                     shieldEffectBIG.SetActive(false);
-                    TriggerSlash(2);
+                    DashSlash();
                     Invoke("ReturnAnimation", 0.5f);
                 });
             }
@@ -446,6 +460,10 @@ public class PlayerSlashAttack : MonoBehaviour
 
     void InactiveFlashImage() => flashImage.SetActive(false);
     void TimeScaleNormal() => Time.timeScale = 1;
+    void ActiveCollider() { 
+        slashCollider.enabled = true;
+        Invoke("InactiveCollider", 0.1f);
+    }
     void InactiveCollider() => slashCollider.enabled = false;
     void Shake(float intensity) => impulseSource.GenerateImpulseWithForce(intensity);
     void ResetTimer()
