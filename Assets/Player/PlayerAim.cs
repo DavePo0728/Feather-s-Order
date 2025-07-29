@@ -106,6 +106,7 @@ public class PlayerAim : MonoBehaviour
                     }
                     else
                     {
+
                         audioSource.PlayOneShot(farLockSFX);
                     }
                 }

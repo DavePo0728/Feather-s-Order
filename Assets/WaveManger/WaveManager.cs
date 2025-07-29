@@ -138,12 +138,12 @@ public class WaveManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (!debug && currentWaveController != null)
-        {
-            StartCoroutine(currentWaveController.GenerateWave(this));
-        }
-    }
-    public void BGMFadeOut()
+		if (!debug && currentWaveController != null)
+		{
+			StartCoroutine(currentWaveController.GenerateWave(this));
+		}
+	}
+	public void BGMFadeOut()
     {
         soundManager.BGMFadeOut();
     }

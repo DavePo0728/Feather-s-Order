@@ -4,10 +4,21 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityEngine.Rendering;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
+using UnityEngine.ResourceManagement.ResourceProviders;
+
+public enum ScenesNum
+{
+	StartScene,
+	BattleScene,
+}
 
 public class ScenesManager : MonoBehaviour
 {
-    PlayerHP playerHP;
+    public ScenesNum scenesNum = ScenesNum.BattleScene;
+	PlayerHP playerHP;
     [SerializeField]
     public GameObject LoadingPanel;
     public float fadeDuration;
@@ -23,7 +34,15 @@ public class ScenesManager : MonoBehaviour
     bool isPause = false;
     [SerializeField]
     private GameObject pauseImageObject;
-    public void GetPauseInput(InputAction.CallbackContext context)
+    [SerializeField] GainWAnimator GainV;
+
+	public Image loadingBar;
+	private AsyncOperationHandle<SceneInstance> sceneHandle;
+	private bool sceneLoaded = false;
+    private bool readyToActivate = false;
+    bool AniTrue = false;
+    public LoadindAnim loadindAnim;
+	public void GetPauseInput(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
@@ -44,7 +63,7 @@ public class ScenesManager : MonoBehaviour
     private void Awake()
     {
         Time.timeScale = 1;
-        LoadImage = LoadingPanel.GetComponent<Image>();
+        
         if (gameClearImageObject != null)
             gameClearImage = gameClearImageObject.GetComponent<Image>();
         if (gameClearImageObject != null)
@@ -52,16 +71,51 @@ public class ScenesManager : MonoBehaviour
         pauseImageObject = GameObject.Find("PauseImage");
         if (pauseImageObject != null)
             pauseImageObject.SetActive(false);
-        playerHP = GameObject.Find("Player").transform.Find("HPCollider").GetComponent<PlayerHP>();
+
+		LoadingPanel = GameObject.Find("LoadingPanel");
+		if (scenesNum == ScenesNum.StartScene)
+        {
+			LoadImage = LoadingPanel.GetComponent<Image>();
+		}
+		if (scenesNum == ScenesNum.BattleScene)
+		{
+			
+			pauseImageObject = GameObject.Find("PauseImage");
+			playerHP = GameObject.Find("Player").transform.Find("HPCollider").GetComponent<PlayerHP>();
+        }
+        loadingBar = GameObject.Find("LoadingBar2").GetComponent<Image>();
+		loadindAnim = GameObject.Find("LoadC").GetComponent<LoadindAnim>();
+
+
+
     }
     private void Start()
     {
-        FadeOut();
-        Invoke("DisablePanel", fadeDuration);
+        if (scenesNum == ScenesNum.StartScene)
+        {
+            FadeOut();
+        }
+
+        //Invoke("DisablePanel", fadeDuration);
     }
-    private void Update()
+	IEnumerator ActivateScene()
+	{
+		if (!sceneHandle.IsDone || sceneHandle.Status != AsyncOperationStatus.Succeeded)
+		{
+			Debug.LogWarning("場景尚未完成加載，無法啟用！");
+			yield break;
+		}
+
+		yield return sceneHandle.Result.ActivateAsync();
+		Debug.Log("場景已啟用！");
+	}
+	private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.F9))
+
+
+
+
+		if (Input.GetKeyDown(KeyCode.F9))
         {
             FadeIn();
             Invoke("LoadTeaching", fadeDuration);
@@ -121,9 +175,88 @@ public class ScenesManager : MonoBehaviour
     }
     public void StartTeaching()
     {
-        FadeIn();
-        Invoke("LoadTeaching", fadeDuration);
+		GameObject.Find("BlowingLeaves_1").GetComponent<ParticleSystem>().Stop();
+		loadindAnim.StartFadeOutMusic();
+		GameObject.Find("BlowingLeaves").GetComponent<ParticleSystem>().Stop();
+        loadindAnim.floatIn();
+		if (GainV != null&& AniTrue == false)
+        {
+            AniTrue = true;
+			FadeIn();
+            GainV.StartAnimation();
+        }
     }
+	public void InvokeLoadTeaching()
+	{
+		StartCoroutine(LoadSceneAsync("Assets/Scenes/Scene1.unity")); // 建議使用 Address 名稱，不要用 Assets/Scenes/Scene1.unity
+	}
+	IEnumerator LoadSceneAsync(string sceneAddress)
+	{
+		sceneLoaded = false;
+		readyToActivate = false;
+        
+		// 開始加載（不自動啟用）
+		sceneHandle = Addressables.LoadSceneAsync(sceneAddress, LoadSceneMode.Single, false);
+		yield return sceneHandle;
+
+		if (sceneHandle.Status != AsyncOperationStatus.Succeeded)
+		{
+			Debug.LogError("場景加載失敗！");
+			yield break;
+		}
+
+		// 第一段動畫：根據進度填充到 0.9
+		yield return AnimateLoadingBarTo90();
+        readyToActivate = true;
+
+
+		StartCoroutine(ActivateScene());
+		// 第二段動畫：純動畫從 0.9 填滿到 1
+		//yield return AnimateLoadingBarTo100();
+
+		//// 準備好接受按鍵轉場
+		//Debug.Log("載入完成，請按任意鍵繼續...");
+		//sceneLoaded = true;
+	}
+
+	IEnumerator AnimateLoadingBarTo90()
+	{
+		float displayProgress = 0f;
+
+		while (sceneHandle.PercentComplete < 0.9f)
+		{
+			float target = Mathf.Clamp01(sceneHandle.PercentComplete / 0.9f); // 轉為 0 ~ 1
+			displayProgress = Mathf.MoveTowards(displayProgress, target, Time.deltaTime * 0.5f);
+			loadingBar.fillAmount = displayProgress;
+			yield return null;
+		}
+
+		// 確保最後停在 0.9
+		displayProgress = 0.9f;
+		loadingBar.fillAmount = displayProgress;
+	}
+
+	public void EndLoading()
+	{
+		StartCoroutine(AnimateLoadingBarTo100());
+	}
+	IEnumerator AnimateLoadingBarTo100()
+	{
+		float displayProgress = 0.9f;
+
+        while (displayProgress < 1f)
+        {
+            displayProgress = Mathf.MoveTowards(displayProgress, 1f, Time.deltaTime * 0.5f);
+            loadingBar.fillAmount = displayProgress;
+            yield return null;
+        }
+        sceneLoaded = true;
+		loadindAnim.LoadOver = true;
+
+		Debug.Log("載入完成，請按任意鍵繼續...");
+	}
+
+
     public void LoadTeaching()
     {
         SceneManager.LoadScene(1);

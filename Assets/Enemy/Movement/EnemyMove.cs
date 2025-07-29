@@ -173,7 +173,8 @@ public class EnemyMove : MonoBehaviour
     }
     public void Paralyze()
     {
-        if (currentParalyzeCount < paralyzeMaxCount)
+        Debug.Log("Paralyze Called: " + currentParalyzeCount + " / " + paralyzeMaxCount);
+		if (currentParalyzeCount < paralyzeMaxCount)
         {
             currentParalyzeCount++;
             if (paralyzing == false)
@@ -217,7 +218,8 @@ public class EnemyMove : MonoBehaviour
     }
     void recoverParalyze()
     {
-        enemyHp.CorruptionRecover();
+        Debug.Log("Recover Paralyze Called: " + currentParalyzeCount + " / " + paralyzeMaxCount);
+		enemyHp.CorruptionRecover();
         if (gun != null)
         {
             if (gun.activeSelf == false)

@@ -58,6 +58,7 @@ public class PlayerSlashAttack : MonoBehaviour
     public float dashEffectDuration = 0.5f; // 動畫總時間（秒）
     [Header("Dasheffect")]
     public GameObject Dasheffect;
+    public GameObject airflow;
 
 	private void Awake()
     {
@@ -104,7 +105,9 @@ public class PlayerSlashAttack : MonoBehaviour
 
                 if (enemyHp.haveshield)
                 {
-                    playerAnimator.SetTrigger("Dash");
+					airflow.gameObject.SetActive(false);
+
+					playerAnimator.SetTrigger("Dash");
                     sword.SetActive(true);
                     DashToShieldEnemy();
                     aimCollider.enabled = false;
@@ -118,7 +121,9 @@ public class PlayerSlashAttack : MonoBehaviour
                 if (enemyHp.corrupted && !enemyHp.corruption_P)
                 {
                     dashCounting = true;
-                    playerAnimator.SetTrigger("Dash");
+					airflow.gameObject.SetActive(false);
+
+					playerAnimator.SetTrigger("Dash");
                     sword.SetActive(true);
                     DashToEnemy();
                     aimCollider.enabled = false;
@@ -404,7 +409,9 @@ public class PlayerSlashAttack : MonoBehaviour
 
     void ReturnAnimation()
     {
-        ResetTimer();
+		airflow.gameObject.SetActive(true);
+
+		ResetTimer();
         slashState = SlashState.FallingBack;
         playerAnimator.SetBool("CloseEnemy", false);
         hitCounter = 0;
