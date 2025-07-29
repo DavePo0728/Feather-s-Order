@@ -135,15 +135,15 @@ public class WaveManager : MonoBehaviour
         }
         pathList = Resources.Load<TypeBPathList>("PathData/TypeBPathData/TypeBPathList");
     }
-    // Start is called before the first frame update
-    void Start()
+    public void StartGenerateWave()
     {
-		if (!debug && currentWaveController != null)
-		{
-			StartCoroutine(currentWaveController.GenerateWave(this));
-		}
-	}
-	public void BGMFadeOut()
+        if (!debug && currentWaveController != null)
+        {
+            StartCoroutine(currentWaveController.GenerateWave(this));
+        }
+    }
+
+    public void BGMFadeOut()
     {
         soundManager.BGMFadeOut();
     }
