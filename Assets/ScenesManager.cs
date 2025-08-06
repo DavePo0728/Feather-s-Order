@@ -252,7 +252,8 @@ public class ScenesManager : MonoBehaviour
         }
         sceneLoaded = true;
 		loadindAnim.LoadOver = true;
-
+		loadindAnim.Gamestarted = true;
+		loadindAnim.StartGame();
 		Debug.Log("載入完成，請按任意鍵繼續...");
 	}
 
