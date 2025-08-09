@@ -8,6 +8,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
+using static UnityEngine.Rendering.DebugUI;
 
 public class PlayerSlashAttack : MonoBehaviour
 {
@@ -51,6 +52,7 @@ public class PlayerSlashAttack : MonoBehaviour
     [SerializeField] Animator playerAnimator;
     public DynamicBone clothDB;
     public GameObject sword;
+    public MeshRenderer[] Sword_Shader = new MeshRenderer[3];
     bool IsReturnAnimation = false;
 	[Header("Shader Effect")]
 	public Material ScreenWaveShader;
@@ -108,8 +110,9 @@ public class PlayerSlashAttack : MonoBehaviour
 					airflow.gameObject.SetActive(false);
 
 					playerAnimator.SetTrigger("Dash");
-                    sword.SetActive(true);
-                    DashToShieldEnemy();
+                    //sword.SetActive(true);
+                    SwordAnimIn();
+					DashToShieldEnemy();
                     aimCollider.enabled = false;
                     aimDetect.ClearAimList();
                     playerAim.showLockUI = false;
@@ -124,8 +127,9 @@ public class PlayerSlashAttack : MonoBehaviour
 					airflow.gameObject.SetActive(false);
 
 					playerAnimator.SetTrigger("Dash");
-                    sword.SetActive(true);
-                    DashToEnemy();
+					//sword.SetActive(true);
+					SwordAnimIn();
+					DashToEnemy();
                     aimCollider.enabled = false;
                     aimDetect.ClearAimList();
                     playerAim.showLockUI = false;
@@ -422,8 +426,9 @@ public class PlayerSlashAttack : MonoBehaviour
             playerAnimator.Play("ReFly");
             IsReturnAnimation = true;
         }
-        sword.SetActive(false);
-        GetComponent<AfterimageController>().StartDash();
+        //sword.SetActive(false);
+		SwordAnimOut();
+		GetComponent<AfterimageController>().StartDash();
         playerMove.CalculateFallbackSpeed();
         followZoom.m_Width = 50;
     }
@@ -509,42 +514,86 @@ public class PlayerSlashAttack : MonoBehaviour
     {
         //Debug.Log("觸發屏幕波動效果");
 		StartCoroutine(PlayDashShaderEffect());
-       
+
     }
 
     /// 播放屏幕波動效果的協程
     private IEnumerator PlayDashShaderEffect()
-	{
+    {
         yield return new WaitForSeconds(0.5f);
         float timeElapsed = 0f;
-		float duration = dashEffectDuration;
+        float duration = dashEffectDuration;
         Dasheffect.SetActive(true);
 
-		Dasheffect.transform.position = transform.position + new Vector3(0f,0.3f,2f);
-		while (timeElapsed < duration)
+        Dasheffect.transform.position = transform.position + new Vector3(0f, 0.3f, 2f);
+        while (timeElapsed < duration)
+        {
+            float t = timeElapsed / duration;
+
+            float fractionValue = Mathf.Lerp(0f, 1f, t);
+            float sizeValue = Mathf.Lerp(0f, 0.2f, t);
+
+
+            ScreenWaveShader.SetFloat("_FractionTime", fractionValue);
+            ScreenWaveShader.SetFloat("_Size", sizeValue);
+            ScreenWaveShader.SetFloat("_Size", sizeValue);
+            timeElapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        // 確保最終值為結束狀態
+        ScreenWaveShader.SetFloat("_FractionTime", 1f);
+        ScreenWaveShader.SetFloat("_Size", 0.2f);
+
+        // 下一幀後重置回 0（讓畫面有一格保留完整效果）
+        yield return null;
+
+        ScreenWaveShader.SetFloat("_FractionTime", 0f);
+        ScreenWaveShader.SetFloat("_Size", 0f);
+        Dasheffect.SetActive(false);
+    }
+	public void SwordAnimIn()
+	{
+		StartCoroutine(SwordAnim(1f, 0f,0.5f));
+	}
+
+	public void SwordAnimOut()
+	{
+		StartCoroutine(SwordAnim(0f, 1f, 0.5f));
+	}
+
+	private IEnumerator SwordAnim(float startValue, float endValue,float animDuration)
+	{
+		float t = 0f;
+
+        List<Material> newmat = new List<Material>();
+
+		foreach (var item in Sword_Shader)
+        {
+            newmat.Add(item.material);
+
+		}
+		while (t < animDuration)
 		{
-			float t = timeElapsed / duration;
+			t += Time.deltaTime;
+			float progress = t / animDuration;
+			float value = Mathf.Lerp(startValue, endValue, progress);
 
-			float fractionValue = Mathf.Lerp(0f, 1f, t);
-			float sizeValue = Mathf.Lerp(0f, 0.2f, t);
+            foreach (var item in newmat)
+            {
+				item.SetFloat("_Dtime", value);
 
+			}
+            
 
-			ScreenWaveShader.SetFloat("_FractionTime", fractionValue);
-			ScreenWaveShader.SetFloat("_Size", sizeValue);
-			ScreenWaveShader.SetFloat("_Size", sizeValue);
-			timeElapsed += Time.deltaTime;
 			yield return null;
 		}
+		foreach (var item in newmat)
+		{
+			item.SetFloat("_Dtime", endValue);
+		}
 
-		// 確保最終值為結束狀態
-		ScreenWaveShader.SetFloat("_FractionTime", 1f);
-		ScreenWaveShader.SetFloat("_Size", 0.2f);
-
-		// 下一幀後重置回 0（讓畫面有一格保留完整效果）
-		yield return null;
-
-		ScreenWaveShader.SetFloat("_FractionTime", 0f);
-        ScreenWaveShader.SetFloat("_Size", 0f);
-		Dasheffect.SetActive(false);
 	}
+		// 最後確保數值完全到達目標
+		
 }
