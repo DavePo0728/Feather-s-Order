@@ -303,6 +303,7 @@ public class EnemyHp : MonoBehaviour
                     if (currentHp <= 0)
                     {
                         DeathEffect();
+                        BulletTimeManager.instance.DoBulletTime(0.1f, 0.5f);
                         scoreManager.AddScore();
                         PlayerHP playerHP = GameObject.FindGameObjectWithTag("HPCollider").GetComponent<PlayerHP>();
                         playerHP.Heal(10);
@@ -320,6 +321,7 @@ public class EnemyHp : MonoBehaviour
                 if (currentHp <= 0)
                 {
                     DeathEffect();
+                    BulletTimeManager.instance.DoBulletTime(0.1f, 0.5f);
                     scoreManager.AddScore();
                     PlayerHP playerHP = GameObject.FindGameObjectWithTag("HPCollider").GetComponent<PlayerHP>();
                     playerHP.Heal(10);
@@ -329,7 +331,6 @@ public class EnemyHp : MonoBehaviour
     }
     public void DeathEffect()/// 死亡特效
     {
-        BulletTimeManager.instance.DoBulletTime(0.1f, 0.5f); // 開始子彈時間
         if (aimDetect != null)
         {
             aimDetect.ManualOnTriggerExit(enemyCollider); 

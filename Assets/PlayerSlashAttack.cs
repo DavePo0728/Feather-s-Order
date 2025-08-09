@@ -45,7 +45,7 @@ public class PlayerSlashAttack : MonoBehaviour
     [SerializeField]
     float attackTimer = 0f;
     bool isCounting = false;
-    Tweener tweener;
+    Tweener brakeTweener,dashTweener;
     GameObject target;
     EnemyHp enemyHp;
 
@@ -125,7 +125,6 @@ public class PlayerSlashAttack : MonoBehaviour
                 {
                     dashCounting = true;
 					airflow.gameObject.SetActive(false);
-
 					playerAnimator.SetTrigger("Dash");
 					//sword.SetActive(true);
 					SwordAnimIn();
@@ -231,7 +230,7 @@ public class PlayerSlashAttack : MonoBehaviour
         slashEffectYellowObject.SetActive(true);
         slashAudio.clip = slashClip3;
         slashAudio.Play();
-        Invoke("PlaySlashEffectYellow", 0.5f);
+        Invoke("PlaySlashEffectYellow", 0.2f);
         Invoke("ActiveCollider", 0.5f);
         flashImage.SetActive(true);
         Invoke("InactiveFlashImage", 0.02f);
@@ -288,15 +287,13 @@ public class PlayerSlashAttack : MonoBehaviour
             if (target.CompareTag("Enemy"))
             {
                 slashTarget = target.transform.Find("DashPoint").position;
-                Vector3 lastTargetPos = slashTarget;
-                //GetComponent<AfterimageController>().StartDash();
-                tweener = playerRigidbody.DOMove(slashTarget, 0.5f)
-                .SetDelay(0.556f)
+                Vector3 brakePos = slashTarget + new Vector3(0, 0, -200f);
+                Vector3 lastTargetPos = brakePos;
+                brakeTweener = playerRigidbody.DOMove(slashTarget, 0.3f)
+                .SetEase(Ease.Linear)
                 .OnComplete(() =>
                 {
-
                     slashState = SlashState.Arrived;
-                    playerAnimator.SetBool("CloseEnemy",true);
                     playerRigidbody.velocity = Vector3.zero;
                     isCounting = true;
                     followZoom.m_Width = 0;
@@ -307,12 +304,27 @@ public class PlayerSlashAttack : MonoBehaviour
                     playerAnimator.SetBool("OnAttack", true);
                     attackTimer = 0;
                 });
-            }
-            if (tweener != null)
-            {
-                if (!tweener.IsPlaying())
+                //GetComponent<AfterimageController>().StartDash();
+                dashTweener = playerRigidbody.DOMove(brakePos, 0.2f)
+                .SetDelay(0.556f)
+                .SetEase(Ease.Linear)
+                .OnComplete(() =>
                 {
-                    tweener.Play();
+                    if (brakeTweener != null)
+                    {
+                        if (!brakeTweener.IsPlaying())
+                        {
+                            playerAnimator.Play("Dash 0");
+                            brakeTweener.Play();
+                        }
+                    }
+                });
+            }
+            if (dashTweener != null)
+            {
+                if (!dashTweener.IsPlaying())
+                {
+                    dashTweener.Play();
                     Invoke("DashGap", 0.9f);
                 }
             }
@@ -332,26 +344,14 @@ public class PlayerSlashAttack : MonoBehaviour
             if (target.CompareTag("Enemy"))
             {
                 slashTarget = target.transform.Find("DashPoint").position;
-                Vector3 lastTargetPos = slashTarget;
+                Vector3 brakePos = slashTarget + new Vector3(0, 0, -5f);
+                Vector3 lastTargetPos = brakePos;
                 //GetComponent<AfterimageController>().StartDash();
-                tweener = playerRigidbody.DOMove(slashTarget, 0.5f)
-                .SetDelay(0.556f)
-                .OnUpdate(() =>
-                {
-                    if ((slashTarget - lastTargetPos).sqrMagnitude > 0.01f)
-                    {
-                        lastTargetPos = slashTarget;
-                        tweener.ChangeEndValue(slashTarget, true);
-                    }
-                    if (Vector3.Distance(transform.position, slashTarget) <= 0.1f)
-                    {
-                        tweener.Complete();
-                    }
-                })
+                brakeTweener = playerRigidbody.DOMove(slashTarget, 0.1f)
+                .SetEase(Ease.Linear)
                 .OnComplete(() =>
                 {
                     slashState = SlashState.Arrived;
-                    playerAnimator.SetBool("CloseEnemy", true);
                     playerRigidbody.velocity = Vector3.zero;
                     playerVCam.m_Lens.FieldOfView = 15;
                     followZoom.m_Width = 0;
@@ -361,12 +361,38 @@ public class PlayerSlashAttack : MonoBehaviour
                     DashSlash();
                     Invoke("ReturnAnimation", 0.5f);
                 });
-            }
-            if (tweener != null)
-            {
-                if (!tweener.IsPlaying())
+                dashTweener = playerRigidbody.DOMove(brakePos, 0.4f)
+                .SetEase(Ease.Linear)
+                .SetDelay(0.556f)
+                .OnUpdate(() =>
                 {
-                    tweener.Play();
+                    if ((brakePos - lastTargetPos).sqrMagnitude > 0.01f)
+                    {
+                        lastTargetPos = brakePos;
+                        dashTweener.ChangeEndValue(brakePos, true);
+                    }
+                    if (Vector3.Distance(transform.position, brakePos) <= 0.1f)
+                    {
+                        dashTweener.Complete();
+                    }
+                })
+                .OnComplete(() =>
+                {
+                    if (brakeTweener != null)
+                    {
+                        if (!brakeTweener.IsPlaying())
+                        {
+                            playerAnimator.SetBool("CloseEnemy", true);
+                            brakeTweener.Play();
+                        }
+                    }
+                });
+            }
+            if (dashTweener != null)
+            {
+                if (!dashTweener.IsPlaying())
+                {
+                    dashTweener.Play();
                 }
             }
         }
@@ -446,9 +472,9 @@ public class PlayerSlashAttack : MonoBehaviour
 
     public void ForceFallBack()
     {
-        if (tweener != null && (tweener.IsPlaying() || slashState == SlashState.Dashing))
+        if (dashTweener != null && (dashTweener.IsPlaying() || slashState == SlashState.Dashing))
         {
-            tweener.Kill();
+            dashTweener.Kill();
             //Debug.Log("3");
             ReturnAnimation();
             return;
