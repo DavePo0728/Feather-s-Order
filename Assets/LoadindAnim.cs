@@ -82,6 +82,7 @@ public class LoadindAnim : MonoBehaviour
 	{
 		yield return new WaitForSeconds(1f); // ©µ¿ð1¬í
 		scenesManager.EndLoading();
+		
 	}
 
 	public void StartGame()
@@ -113,10 +114,10 @@ public class LoadindAnim : MonoBehaviour
 	}
 	private void Update()
 	{
-		if (Input.anyKeyDown && Gamestarted ==false && LoadOver)
-		{
-			Gamestarted = true;
-			StartGame();
-		}
+		//if (Input.anyKeyDown && Gamestarted ==false && LoadOver)
+		//{
+		//	Gamestarted = true;
+		//	StartGame();
+		//}
 	}
 }

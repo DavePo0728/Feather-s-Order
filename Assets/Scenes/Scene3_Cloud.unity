@@ -15396,6 +15396,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerAim: {fileID: 1422010896382607689}
   EmptyAimObject: {fileID: 302714030}
+  Flash: {fileID: 0}
 --- !u!114 &782093193893677186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46069,6 +46070,7 @@ MonoBehaviour:
   playerHP: {fileID: 8684701127095481269}
   scoreTxt: {fileID: 262192583298914518}
   timerTxt: {fileID: 7558705319349850883}
+  GameStarted: 0
 --- !u!108 &2078227963440467871
 Light:
   m_ObjectHideFlags: 0
@@ -65930,6 +65932,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c60f09f985fbadf48a0fb17287360b50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scenesNum: 1
   LoadingPanel: {fileID: 1261009980}
   fadeDuration: 1
   gameoverPanel: {fileID: 3833296099584231230}
@@ -65937,7 +65940,11 @@ MonoBehaviour:
   backImageObject: {fileID: 1455788553}
   isGameClear: 0
   isGameOver: 0
+  isSecondLife: 1
   pauseImageObject: {fileID: 0}
+  GainV: {fileID: 0}
+  loadingBar: {fileID: 0}
+  loadindAnim: {fileID: 0}
 --- !u!4 &2773199059866485515
 Transform:
   m_ObjectHideFlags: 0
@@ -115196,6 +115203,7 @@ MonoBehaviour:
   fakeDelay: 0.3
   fakeSpeed: 0.5
   grazeColor: {fileID: 1605068291}
+  grazeBufferDuration: 0.025
 --- !u!1 &4145576619363575164
 GameObject:
   m_ObjectHideFlags: 0
@@ -165289,6 +165297,8 @@ MonoBehaviour:
   maxChargeTime: 0.5
   bulletGraze: {fileID: 4138725178785709323}
   shootCost: 30
+  YellowGlow: {fileID: 0}
+  ChargeAudioPlayer: {fileID: 0}
 --- !u!224 &6379302282132243373
 RectTransform:
   m_ObjectHideFlags: 0
@@ -185842,6 +185852,8 @@ MonoBehaviour:
   gunPoint2: {fileID: 757259101078703954}
   gunPoint1Img: {fileID: 4237867184626327403}
   gunPoint2Img: {fileID: 8769877759104152724}
+  gunPoint1MeshRenderer: {fileID: 0}
+  gunPoint2MeshRenderer: {fileID: 0}
   gunSound: {fileID: 3886001963333024303}
 --- !u!114 &7204188175983110533
 MonoBehaviour:
@@ -200330,6 +200342,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerAim: {fileID: 1422010896382607689}
   EmptyAimObject: {fileID: 502984910}
+  Flash: {fileID: 0}
 --- !u!65 &7420448669577392405
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -220935,6 +220948,8 @@ MonoBehaviour:
   hurtShakeDuration: 0.3
   healShakeDuration: 0.15
   debug: 0
+  ExtraLife: 1
+  MisairuHit: {fileID: 0}
 --- !u!114 &8701323863778064276
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -221129,97 +221144,14 @@ MonoBehaviour:
   debug: 0
   enemyDataList: {fileID: 11400000, guid: ea9fd51ecabf28f488513454d6693a43, type: 2}
   spawnDataList: {fileID: 11400000, guid: 02c786a34ce55624c9369eefdc51c91c, type: 2}
-  spawnGroupList: {fileID: 11400000, guid: a80600eba4e6a1540a1b741a0787c31e, type: 2}
-  isRecording: 1
-  currentRecording: {fileID: 11400000, guid: 57f75dc42c6798b48b917401b9cbc920, type: 2}
-  recordStartTime: 0
-  savePath: Assets/WaveRecordings/
-  recordedWaveDataList:
-  - {fileID: 11400000, guid: 8c9dc73155b23224fb13a97d6fe4a66b, type: 2}
-  - {fileID: 11400000, guid: 95d4bcd011822854d9d340c4c7db27f0, type: 2}
-  - {fileID: 11400000, guid: 4c3fa0d638bddb24fb253d28a4f7b4b4, type: 2}
-  - {fileID: 11400000, guid: 868e573f992a9c240a366ad0a0edf2f1, type: 2}
-  showDebugUI: 1
-  debugUIPosition: {x: 10, y: 10}
-  debugUISize: {x: 300, y: 200}
-  debugTextStyle:
-    m_Name: 
-    m_Normal:
-      m_Background: {fileID: 0}
-      m_ScaledBackgrounds: []
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
-    m_Hover:
-      m_Background: {fileID: 0}
-      m_ScaledBackgrounds: []
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
-    m_Active:
-      m_Background: {fileID: 0}
-      m_ScaledBackgrounds: []
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
-    m_Focused:
-      m_Background: {fileID: 0}
-      m_ScaledBackgrounds: []
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
-    m_OnNormal:
-      m_Background: {fileID: 0}
-      m_ScaledBackgrounds: []
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
-    m_OnHover:
-      m_Background: {fileID: 0}
-      m_ScaledBackgrounds: []
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
-    m_OnActive:
-      m_Background: {fileID: 0}
-      m_ScaledBackgrounds: []
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
-    m_OnFocused:
-      m_Background: {fileID: 0}
-      m_ScaledBackgrounds: []
-      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
-    m_Border:
-      m_Left: 0
-      m_Right: 0
-      m_Top: 0
-      m_Bottom: 0
-    m_Margin:
-      m_Left: 0
-      m_Right: 0
-      m_Top: 0
-      m_Bottom: 0
-    m_Padding:
-      m_Left: 0
-      m_Right: 0
-      m_Top: 0
-      m_Bottom: 0
-    m_Overflow:
-      m_Left: 0
-      m_Right: 0
-      m_Top: 0
-      m_Bottom: 0
-    m_Font: {fileID: 0}
-    m_FontSize: 0
-    m_FontStyle: 0
-    m_Alignment: 0
-    m_WordWrap: 0
-    m_RichText: 1
-    m_TextClipping: 0
-    m_ImagePosition: 0
-    m_ContentOffset: {x: 0, y: 0}
-    m_FixedWidth: 0
-    m_FixedHeight: 0
-    m_StretchWidth: 1
-    m_StretchHeight: 0
-  autoStartRecording: 0
-  recordedWaves:
-  - {fileID: 11400000, guid: 8c9dc73155b23224fb13a97d6fe4a66b, type: 2}
-  - {fileID: 11400000, guid: 95d4bcd011822854d9d340c4c7db27f0, type: 2}
-  - {fileID: 11400000, guid: 4c3fa0d638bddb24fb253d28a4f7b4b4, type: 2}
-  - {fileID: 11400000, guid: 868e573f992a9c240a366ad0a0edf2f1, type: 2}
+  spawnNormalGroupList: {fileID: 0}
+  spawnEmptyGroupList: {fileID: 0}
   currentWaveController: {fileID: 11400000, guid: 5ae7ab090d1a3854c94a56a13575ad60, type: 2}
   scenesManager: {fileID: 0}
   tutorialMode: 0
   inputActions: {fileID: 0}
   preTutorialObject: {fileID: 0}
+  vector3PointGenerator: {fileID: 0}
 --- !u!1 &8823263089456624626
 GameObject:
   m_ObjectHideFlags: 0
@@ -221471,8 +221403,13 @@ MonoBehaviour:
   playerVCam: {fileID: 8701323863778064276}
   slashCollider: {fileID: 1331909955216957850}
   slashTarget: {x: 0, y: 0, z: 0}
+  shieldEffectBIG: {fileID: 0}
   slashEffectYellowObject: {fileID: 1592798371525937764}
   slashEffectRedObject: {fileID: 7870876867200866134}
+  slashClip1: {fileID: 0}
+  slashClip2: {fileID: 0}
+  slashClip3: {fileID: 0}
+  slashClip4: {fileID: 0}
   impulseSource: {fileID: 5369782154996467860}
   followZoom: {fileID: 5990586394193151328}
   flashImage: {fileID: 608729231062540201}
@@ -221481,6 +221418,10 @@ MonoBehaviour:
   playerAnimator: {fileID: 1184047253561602828}
   clothDB: {fileID: 2966962706586211368}
   sword: {fileID: 6039584491518235048}
+  ScreenWaveShader: {fileID: 0}
+  dashEffectDuration: 0.5
+  Dasheffect: {fileID: 0}
+  airflow: {fileID: 0}
 --- !u!114 &8983830111841143957
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -221646,6 +221587,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6242838b4d7d5f4e877ebce50738d20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cornerOffset: {x: 0, y: 0}
+  lineOffset: 0
+  lineOrigin: 0
   shootCost: 10
   bulletGraze: {fileID: 4138725178785709323}
   missileCoillder: {fileID: 0}
@@ -221653,6 +221597,12 @@ MonoBehaviour:
   missile: {fileID: 3812506742602249460, guid: f2de3becabb255d4ab2ad2e63cb1045b, type: 3}
   lockImage: {fileID: 8947196269137945551, guid: bf40fa2b14f23354aaf9e15612c60b54, type: 3}
   canvas: {fileID: 9051317650563271785}
+  aimUIBotLeft: {fileID: 0}
+  aimUITopLeft: {fileID: 0}
+  aimUIBotRight: {fileID: 0}
+  aimUITopRight: {fileID: 0}
+  aimUILineLeft: {fileID: 0}
+  aimUILineRight: {fileID: 0}
   maxChargeTime: 2
   chargeAimCollider: {fileID: 3636681526314913913}
   maxScaleX: 150
@@ -221664,6 +221614,7 @@ MonoBehaviour:
   missileFireSFX: {fileID: 0}
   missileFireVolume: 1
   pitchRange: {x: 0.9, y: 1.1}
+  spreadOut: {fileID: 0}
 --- !u!1 &9063044474010350922
 GameObject:
   m_ObjectHideFlags: 0
