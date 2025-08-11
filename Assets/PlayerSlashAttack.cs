@@ -53,6 +53,7 @@ public class PlayerSlashAttack : MonoBehaviour
     public DynamicBone clothDB;
     public GameObject sword;
     public MeshRenderer[] Sword_Shader = new MeshRenderer[3];
+    public ParticleSystem grow;
     bool IsReturnAnimation = false;
 	[Header("Shader Effect")]
 	public Material ScreenWaveShader;
@@ -580,12 +581,14 @@ public class PlayerSlashAttack : MonoBehaviour
     }
 	public void SwordAnimIn()
 	{
-		StartCoroutine(SwordAnim(1f, 0f,0.5f));
+        
+		StartCoroutine(SwordAnim(1f, 0f,0.3f));
 	}
 
 	public void SwordAnimOut()
 	{
-		StartCoroutine(SwordAnim(0f, 1f, 0.5f));
+
+		StartCoroutine(SwordAnim(0f, 1f, 0.3f));
 	}
 
 	private IEnumerator SwordAnim(float startValue, float endValue,float animDuration)
@@ -594,12 +597,20 @@ public class PlayerSlashAttack : MonoBehaviour
 
         List<Material> newmat = new List<Material>();
 
-		foreach (var item in Sword_Shader)
+        foreach (var item in Sword_Shader)
         {
             newmat.Add(item.material);
 
+        }
+        if (startValue == 1f)
+        {
+
+			yield return new WaitForSeconds(1.04f);
+			Debug.Log("SwordAnimIn");
+			grow.Play();
 		}
-		while (t < animDuration)
+
+        while (t < animDuration)
 		{
 			t += Time.deltaTime;
 			float progress = t / animDuration;
