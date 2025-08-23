@@ -25,13 +25,14 @@ public class PlayerSlashAttack : MonoBehaviour
     Vector3 PlayerOriginalPos;
     SlashDetect slashDetect;
     GameObject shieldEffect;
-	[SerializeField] GameObject shieldEffectBIG;
+    [SerializeField] GameObject shieldEffectBIG;
     [SerializeField] GameObject slashEffectYellowObject, slashEffectRedObject;
     ParticleSystem slashEffectYellow, slashEffectRed;
-    ParticleSystemRenderer slashEffectYellowR, slashEffectRedR;
+	[SerializeField] List<ParticleSystem> slashEffectList = new List<ParticleSystem>();
+	ParticleSystemRenderer slashEffectYellowR, slashEffectRedR;
 
     AudioSource slashAudio;
-	[SerializeField] AudioClip slashClip1, slashClip2, slashClip3, slashClip4;
+    [SerializeField] AudioClip slashClip1, slashClip2, slashClip3, slashClip4;
     [SerializeField] CinemachineImpulseSource impulseSource;
     [SerializeField] CinemachineFollowZoom followZoom;
     [SerializeField] GameObject flashImage;
@@ -45,7 +46,7 @@ public class PlayerSlashAttack : MonoBehaviour
     [SerializeField]
     float attackTimer = 0f;
     bool isCounting = false;
-    Tweener brakeTweener,dashTweener;
+    Tweener brakeTweener, dashTweener;
     GameObject target;
     EnemyHp enemyHp;
 
@@ -55,15 +56,16 @@ public class PlayerSlashAttack : MonoBehaviour
     public MeshRenderer[] Sword_Shader = new MeshRenderer[3];
     public ParticleSystem grow;
     bool IsReturnAnimation = false;
-	[Header("Shader Effect")]
-	public Material ScreenWaveShader;
+    [Header("Shader Effect")]
+    public Material ScreenWaveShader;
     [Header("Dash Effect Time")]
     public float dashEffectDuration = 0.5f; // 動畫總時間（秒）
     [Header("Dasheffect")]
     public GameObject Dasheffect;
     public GameObject airflow;
+    public AnimSpeedByCurve asbc;
 
-	private void Awake()
+    private void Awake()
     {
         aimDetect = GameObject.Find("AimDetectCollider").GetComponent<AimDetect>();
         aimCollider = GameObject.Find("AimDetectCollider").GetComponent<Collider>();
@@ -108,12 +110,12 @@ public class PlayerSlashAttack : MonoBehaviour
 
                 if (enemyHp.haveshield)
                 {
-					airflow.gameObject.SetActive(false);
+                    airflow.gameObject.SetActive(false);
 
-					playerAnimator.SetTrigger("Dash");
+                    playerAnimator.SetTrigger("Dash");
                     //sword.SetActive(true);
                     SwordAnimIn();
-					DashToShieldEnemy();
+                    DashToShieldEnemy();
                     aimCollider.enabled = false;
                     aimDetect.ClearAimList();
                     playerAim.showLockUI = false;
@@ -125,11 +127,11 @@ public class PlayerSlashAttack : MonoBehaviour
                 if (enemyHp.corrupted && !enemyHp.corruption_P)
                 {
                     dashCounting = true;
-					airflow.gameObject.SetActive(false);
-					playerAnimator.SetTrigger("Dash");
-					//sword.SetActive(true);
-					SwordAnimIn();
-					DashToEnemy();
+                    airflow.gameObject.SetActive(false);
+                    playerAnimator.SetTrigger("Dash");
+                    //sword.SetActive(true);
+                    SwordAnimIn();
+                    DashToEnemy();
                     aimCollider.enabled = false;
                     aimDetect.ClearAimList();
                     playerAim.showLockUI = false;
@@ -164,24 +166,24 @@ public class PlayerSlashAttack : MonoBehaviour
                     case 0:
                         //print("S1");
                         playerAnimator.Play("S1");
-                        slashEffectYellowR.flip = new Vector3(0, 0, 0);
-                        slashEffectYellowR.transform.localRotation = Quaternion.Euler(79f, 315f, 207f);
+						//SlashEffectFlip(180);
+						//slashEffectYellowR.transform.localRotation = Quaternion.Euler(292f, 195f, 104f);
 
                         playerAnimator.SetBool("OnAttack", true);
                         break;
                     case 1:
                         //print("S2");
                         playerAnimator.Play("S2");
-                        slashEffectYellowR.flip = new Vector3(0, 1, 0);
-                        slashEffectYellowR.transform.localRotation = Quaternion.Euler(61f, 141f, 305f);
+      //                  SlashEffectFlip(0);
+						//slashEffectYellowR.transform.localRotation = Quaternion.Euler(290f, 206f, 18f);
 
                         playerAnimator.SetBool("OnAttack", true);
                         break;
                     case 2:
                         //print("S3");
                         playerAnimator.Play("S3");
-                        slashEffectYellowR.flip = new Vector3(0, 0, 0);
-                        slashEffectYellowR.transform.localRotation = Quaternion.Euler(79f, 315f, 207f);
+						//SlashEffectFlip(180);
+						//slashEffectYellowR.transform.localRotation = Quaternion.Euler(294f, 215f, 68f);
 
                         playerAnimator.SetBool("OnAttack", true);
                         break;
@@ -209,16 +211,17 @@ public class PlayerSlashAttack : MonoBehaviour
 
     public void TriggerSlash4()
     {
-        clothDB.enabled = false;
+
+		clothDB.enabled = false;
         Vibrate(0.5f, 0.5f, 0.05f);
-		slashAudio.clip = slashClip4;
-		slashAudio.Play();
+        slashAudio.clip = slashClip4;
+        slashAudio.Play();
         slashCollider.enabled = true;
         Invoke("InactiveCollider", 0.1f);
         flashImage.SetActive(true);
         Invoke("InactiveFlashImage", 0.01f);
-        slashEffectRedObject.SetActive(true);
-        slashEffectRed.Play();
+        //slashEffectRedObject.SetActive(true);
+		PlaySlashEffect4();
 
         Shake(1.0f);
         Time.timeScale = 0.1f;
@@ -227,11 +230,14 @@ public class PlayerSlashAttack : MonoBehaviour
     }
     public void DashSlash()
     {
+        //Debug.Log("DashSlash");
+
         Vibrate(0.1f, 0.1f, 0.05f);
-        slashEffectYellowObject.SetActive(true);
+		SlashEffectFlip(180);
+		slashEffectYellowObject.SetActive(true);
         slashAudio.clip = slashClip3;
         slashAudio.Play();
-        Invoke("PlaySlashEffectYellow", 0.2f);
+        Invoke("PlaySlashEffect4", 0.2f);
         Invoke("ActiveCollider", 0.5f);
         flashImage.SetActive(true);
         Invoke("InactiveFlashImage", 0.02f);
@@ -244,25 +250,28 @@ public class PlayerSlashAttack : MonoBehaviour
     public void TriggerSlash(int hitCounter)
     {
 
-        
-		switch (hitCounter)
+
+        switch (hitCounter)
         {
             case 0:
-                slashAudio.clip = slashClip1;
-				slashAudio.Play();
-				break;
-			case 1:
-                slashAudio.clip = slashClip2;
-				slashAudio.Play();
-				break;
-			case 2:
+				Invoke("PlaySlashEffect1", 0.1f);
+				slashAudio.clip = slashClip1;
+                slashAudio.Play();
+                break;
+            case 1:
+				Invoke("PlaySlashEffect2", 0.1f);
+				slashAudio.clip = slashClip2;
+                slashAudio.Play();
+                break;
+            case 2:
+				Invoke("PlaySlashEffect3", 0.1f);
 				slashAudio.clip = slashClip3;
                 slashAudio.Play();
-				break;
-			default:
+                break;
+            default:
                 break;
         }
-        Invoke("PlaySlashEffectYellow", 0.4f);
+        
         ActiveCollider();
         flashImage.SetActive(true);
         Invoke("InactiveFlashImage", 0.02f);
@@ -275,11 +284,27 @@ public class PlayerSlashAttack : MonoBehaviour
     {
         slashEffectYellow.Play();
     }
-    void DashToEnemy()
+	void PlaySlashEffect1()
+	{
+        slashEffectList[0].Play();
+	}
+	void PlaySlashEffect2()
+	{
+		slashEffectList[1].Play();
+	}
+	void PlaySlashEffect3()
+	{
+		slashEffectList[2].Play();
+	}
+	void PlaySlashEffect4()
+	{
+		slashEffectList[3].Play();
+	}
+	void DashToEnemy()
     {
         TriggerDashEffect();
-
-		slashState = SlashState.Dashing;
+        asbc.PlayWithCurve();
+        slashState = SlashState.Dashing;
         shieldEffect.SetActive(false);
         shieldEffectBIG.SetActive(false);
         playerRigidbody.velocity = Vector3.zero;
@@ -300,7 +325,8 @@ public class PlayerSlashAttack : MonoBehaviour
                     followZoom.m_Width = 0;
                     DashSlash();
                     slashEffectYellowR.flip = new Vector3(0, 0, 0);
-                    slashEffectYellowR.transform.localRotation = Quaternion.Euler(280f, 180f, 191f);
+                    slashEffectYellowR.transform.localRotation = Quaternion.Euler(293f, 149f, 114f);
+
                     IsReturnAnimation = false;
                     playerAnimator.SetBool("OnAttack", true);
                     attackTimer = 0;
@@ -315,7 +341,9 @@ public class PlayerSlashAttack : MonoBehaviour
                     {
                         if (!brakeTweener.IsPlaying())
                         {
-                            playerAnimator.Play("Dash 0");
+                            //playerAnimator.Play("Dash 0");
+                            playerAnimator.SetBool("CloseEnemy", true);
+
                             brakeTweener.Play();
                         }
                     }
@@ -335,8 +363,8 @@ public class PlayerSlashAttack : MonoBehaviour
     void DashToShieldEnemy()
     {
         TriggerDashEffect();
-
-		slashState = SlashState.Dashing;
+        asbc.PlayWithCurve();
+        slashState = SlashState.Dashing;
         shieldEffect.SetActive(false);
         shieldEffectBIG.SetActive(false);
         playerRigidbody.velocity = Vector3.zero;
@@ -431,18 +459,18 @@ public class PlayerSlashAttack : MonoBehaviour
             //playerAnimator.SetTrigger("ReFly");
             playerAnimator.Play("ReFly");
         }
-		//Vibrate(0.5f, 0.5f, 0.05f);
-		//      if (Input.GetKey("g"))
-		//      {
-		//	
-		//}
-	}
+        //Vibrate(0.5f, 0.5f, 0.05f);
+        //      if (Input.GetKey("g"))
+        //      {
+        //	
+        //}
+    }
 
     void ReturnAnimation()
     {
-		airflow.gameObject.SetActive(true);
+        airflow.gameObject.SetActive(true);
 
-		ResetTimer();
+        ResetTimer();
         slashState = SlashState.FallingBack;
         playerAnimator.SetBool("CloseEnemy", false);
         hitCounter = 0;
@@ -454,8 +482,8 @@ public class PlayerSlashAttack : MonoBehaviour
             IsReturnAnimation = true;
         }
         //sword.SetActive(false);
-		SwordAnimOut();
-		GetComponent<AfterimageController>().StartDash();
+        SwordAnimOut();
+        GetComponent<AfterimageController>().StartDash();
         playerMove.CalculateFallbackSpeed();
         followZoom.m_Width = 50;
     }
@@ -499,7 +527,8 @@ public class PlayerSlashAttack : MonoBehaviour
 
     void InactiveFlashImage() => flashImage.SetActive(false);
     void TimeScaleNormal() => Time.timeScale = 1;
-    void ActiveCollider() { 
+    void ActiveCollider()
+    {
         slashCollider.enabled = true;
         Invoke("InactiveCollider", 0.1f);
     }
@@ -536,11 +565,11 @@ public class PlayerSlashAttack : MonoBehaviour
         //Debug.Log("搖桿震動關閉");
         Gamepad.current?.SetMotorSpeeds(0, 0);
     }
-	/// 這個方法用於觸發屏幕波動效果
-	public void TriggerDashEffect()
+    /// 這個方法用於觸發屏幕波動效果
+    public void TriggerDashEffect()
     {
         //Debug.Log("觸發屏幕波動效果");
-		StartCoroutine(PlayDashShaderEffect());
+        StartCoroutine(PlayDashShaderEffect());
 
     }
 
@@ -579,21 +608,21 @@ public class PlayerSlashAttack : MonoBehaviour
         ScreenWaveShader.SetFloat("_Size", 0f);
         Dasheffect.SetActive(false);
     }
-	public void SwordAnimIn()
-	{
-        
-		StartCoroutine(SwordAnim(1f, 0f,0.3f));
-	}
+    public void SwordAnimIn()
+    {
 
-	public void SwordAnimOut()
-	{
+        StartCoroutine(SwordAnim(1f, 0f, 0.3f));
+    }
 
-		StartCoroutine(SwordAnim(0f, 1f, 0.3f));
-	}
+    public void SwordAnimOut()
+    {
 
-	private IEnumerator SwordAnim(float startValue, float endValue,float animDuration)
-	{
-		float t = 0f;
+        StartCoroutine(SwordAnim(0f, 1f, 0.3f));
+    }
+
+    private IEnumerator SwordAnim(float startValue, float endValue, float animDuration)
+    {
+        float t = 0f;
 
         List<Material> newmat = new List<Material>();
 
@@ -605,32 +634,40 @@ public class PlayerSlashAttack : MonoBehaviour
         if (startValue == 1f)
         {
 
-			yield return new WaitForSeconds(1.04f);
-			Debug.Log("SwordAnimIn");
-			grow.Play();
-		}
+            yield return new WaitForSeconds(1.04f);
+            Debug.Log("SwordAnimIn");
+            grow.Play();
+        }
 
         while (t < animDuration)
-		{
-			t += Time.deltaTime;
-			float progress = t / animDuration;
-			float value = Mathf.Lerp(startValue, endValue, progress);
+        {
+            t += Time.deltaTime;
+            float progress = t / animDuration;
+            float value = Mathf.Lerp(startValue, endValue, progress);
 
             foreach (var item in newmat)
             {
-				item.SetFloat("_Dtime", value);
+                item.SetFloat("_Dtime", value);
 
-			}
-            
+            }
 
-			yield return null;
-		}
-		foreach (var item in newmat)
-		{
-			item.SetFloat("_Dtime", endValue);
-		}
+
+            yield return null;
+        }
+        foreach (var item in newmat)
+        {
+            item.SetFloat("_Dtime", endValue);
+        }
+
+    }
+	// 最後確保數值完全到達目標
+
+	private void SlashEffectFlip(float tagerRota)
+    {
+
+        slashEffectYellowR.transform.GetChild(0).localRotation = Quaternion.Euler(tagerRota, 0, 0);
+		slashEffectYellowR.transform.GetChild(1).localRotation = Quaternion.Euler(tagerRota, 0, 0);
+		slashEffectYellowR.transform.GetChild(2).localRotation = Quaternion.Euler(tagerRota, 0, 0);
 
 	}
-		// 最後確保數值完全到達目標
-		
 }
