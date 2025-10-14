@@ -236,6 +236,21 @@ public class PlayerSlashAttack : MonoBehaviour
         Invoke("DelayDetect", 0.05f);
         Invoke("SetAttack", 0.6f);
     }
+    public void DashShieldSlash()
+    {
+        Vibrate(0.1f, 0.1f, 0.05f);
+        slashEffectYellowObject.SetActive(true);
+        slashAudio.clip = slashClip3;
+        slashAudio.Play();
+        Invoke("PlaySlashEffectYellow", 0.2f);
+        Invoke("ActiveCollider", 0.5f);
+        flashImage.SetActive(true);
+        Invoke("InactiveFlashImage", 0.02f);
+        Shake(0.5f);
+        Time.timeScale = 0.1f;
+        Invoke("TimeScaleNormal", 0.01f);
+        Invoke("DelayDetect", 0.05f);
+    }
     public void TriggerSlash(int hitCounter)
     {
 
@@ -354,7 +369,7 @@ public class PlayerSlashAttack : MonoBehaviour
                     IsReturnAnimation = false;
                     shieldEffect.SetActive(false);
                     shieldEffectBIG.SetActive(false);
-                    DashSlash();
+                    DashShieldSlash();
                     Invoke("ReturnAnimation", 0.5f);
                 });
                 dashTweener = playerRigidbody.DOMove(brakePos, 0.4f)
@@ -426,11 +441,6 @@ public class PlayerSlashAttack : MonoBehaviour
             //playerAnimator.SetTrigger("ReFly");
             playerAnimator.Play("ReFly");
         }
-		//Vibrate(0.5f, 0.5f, 0.05f);
-		//      if (Input.GetKey("g"))
-		//      {
-		//	
-		//}
 	}
 
     void ReturnAnimation()
