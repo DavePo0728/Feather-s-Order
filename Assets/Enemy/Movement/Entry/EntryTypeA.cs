@@ -19,7 +19,7 @@ public class EntryTypeA : IEntryBehaviour
     {
         if (enterTweener !=null)
         {
-            if(enterTweener.IsPlaying())
+            if(enterTweener.active && enterTweener.IsPlaying())
             enterTweener.Kill();
         }
     }

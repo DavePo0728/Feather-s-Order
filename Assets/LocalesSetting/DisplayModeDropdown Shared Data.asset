@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: DisplayModeDropdown Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: DisplayModeDropdown
+  m_TableCollectionNameGuidString: fd7488f19f7946c49bced1278f07b09d
+  m_Entries:
+  - m_Id: 21743431680
+    m_Key: windowed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12910227456
+    m_Key: fullScreen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 24486506496
+    m_Key: BorderlessWindowed
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16462723051520
+    m_Key: disabled
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16465612926976
+    m_Key: perTexture
+    m_Metadata:
+      m_Items: []
+  - m_Id: 16468397944832
+    m_Key: forcedOn
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17912157073408
+    m_Key: low
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17914128396288
+    m_Key: medium
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17915869032448
+    m_Key: high
+    m_Metadata:
+      m_Items: []
+  - m_Id: 17933367668736
+    m_Key: custom
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 8242558808229675008
+  references:
+    version: 2
+    RefIds:
+    - rid: 8242558808229675008
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1758968755112

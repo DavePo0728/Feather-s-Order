@@ -58273,6 +58273,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LoadC
       objectReference: {fileID: 0}
+    - target: {fileID: 724671619917228287, guid: 2437309a5bdbedb4b9bbe91582287c92, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5445445428008749031, guid: 2437309a5bdbedb4b9bbe91582287c92, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -59180,7 +59184,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1863720562
 RectTransform:
   m_ObjectHideFlags: 0
@@ -60887,7 +60891,7 @@ MonoBehaviour:
   isGameClear: 0
   isGameOver: 0
   isSecondLife: 1
-  pauseImageObject: {fileID: 0}
+  pauseImageObject: {fileID: 1959325346}
   GainV: {fileID: 0}
   loadingBar: {fileID: 0}
   loadindAnim: {fileID: 0}
@@ -61140,7 +61144,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1959325347
 RectTransform:
   m_ObjectHideFlags: 0
@@ -63344,8 +63348,60 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5113663619280529763, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5531840777170294729, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
+      propertyPath: isDebug
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5531840777170294729, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
+      propertyPath: DebugMoveTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5531840777170294729, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
+      propertyPath: maxParalyzeTime
+      value: 999
+      objectReference: {fileID: 0}
+    - target: {fileID: 5531840777170294729, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
+      propertyPath: initialParalyzeTime
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5953248887307944697, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
+      propertyPath: corrupted
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5953248887307944697, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
+      propertyPath: haveshield
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5953248887307944697, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
+      propertyPath: maxShieldHp
+      value: 10000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5953248887307944697, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
+      propertyPath: maxCorruptionValue
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5953248887307944697, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
+      propertyPath: corruptionDecreaseTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5953248887307944697, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
+      propertyPath: corruptionDecreaseSpeed
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6866760043286478129, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7767554562661257742, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
+      propertyPath: debug
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7767554562661257742, guid: 6866be9dff70e4245b26095d3027b1a0, type: 3}
+      propertyPath: gunDataList
+      value: 
+      objectReference: {fileID: 11400000, guid: 882793a8883fc0c4a82215336c4bdacf, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -263376,7 +263432,15 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 9659d786-b6c7-49b2-b111-aea1d4eee842
     m_ActionName: GameScene/PressB[/XInputControllerWindows/buttonEast]
-  m_NeverAutoSwitchControlSchemes: 1
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 475a2eda-4888-49de-ae4c-652c4712891e
+    m_ActionName: StartScene/Cancel[/DualSenseGamepadHID/buttonEast,/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: beccb2d0-c2d9-4fea-90c1-b5ede3e6e5b4
+    m_ActionName: StartScene/Navigate[/DualSenseGamepadHID/dpad/down,/DualSenseGamepadHID/dpad/up,/DualSenseGamepadHID/dpad/left,/DualSenseGamepadHID/dpad/right]
+  m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: GameScene
   m_SplitScreenIndex: -1
@@ -318924,7 +318988,7 @@ MonoBehaviour:
   customPathDataList: {fileID: 11400000, guid: 005ab34dbeab2e944af123f4e064833d, type: 2}
   waveText: {fileID: 1863720563}
   tutorialImage: {fileID: 0}
-  debug: 0
+  debug: 1
   enemyDataList: {fileID: 11400000, guid: ea9fd51ecabf28f488513454d6693a43, type: 2}
   spawnDataList: {fileID: 11400000, guid: cca16164670e772499695ce72801d513, type: 2}
   spawnNormalGroupList: {fileID: 11400000, guid: a80600eba4e6a1540a1b741a0787c31e, type: 2}

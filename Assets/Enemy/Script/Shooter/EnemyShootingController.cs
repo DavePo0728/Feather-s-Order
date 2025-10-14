@@ -590,7 +590,7 @@ public class EnemyShootingController : MonoBehaviour
     {
         RedGlowEnemy.GetComponent<ParticleSystem>().Play();
 		RedGlowEnemy.GetComponent<AudioSource>().Play();
-		Debug.Log($"⚠️ 警告：即將切換至 {g.patternType} 模式");
+		//Debug.Log($"⚠️ 警告：即將切換至 {g.patternType} 模式");
 
 		//yield return new WaitForSeconds(0.5f);
 

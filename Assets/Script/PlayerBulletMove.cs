@@ -57,7 +57,7 @@ public class PlayerBulletMove : MonoBehaviour
                 transform.GetChild(0).transform.GetChild(0).GetComponent<ParticleSystem>().Stop();
 				//this.gameObject.SetActive(false);
 
-				Debug.Log("PlayerBullet Deactive2");
+				//Debug.Log("PlayerBullet Deactive2");
 				return;
             }
             else

@@ -17,12 +17,12 @@ MonoBehaviour:
     trackPlayer: 0
     WarningLight: 0
     gunIndex: 0
-    rpm: 0
-    bulletType: 0
-    MaxShootWave: 3
-    bulletAmount: 3
+    rpm: 100
+    bulletType: 1
+    MaxShootWave: 999
+    bulletAmount: 10
     spreadAngle: 30
-    shooterRotation: 45
+    shooterRotation: 0
     spinSpeed: 0
     bulletsPerArm: 0
     crossSpacing: 0

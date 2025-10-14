@@ -557,7 +557,7 @@ public class EnemyHp : MonoBehaviour
         {
             audioSource.PlayOneShot(hitMisairuAudioClip, AudioVolume);
             // 播放導彈擊中敵人聲
-            Debug.Log("Play hit Misairu audio" +"+音量:" + AudioVolume);
+            //Debug.Log("Play hit Misairu audio" +"+音量:" + AudioVolume);
             
         }
     }

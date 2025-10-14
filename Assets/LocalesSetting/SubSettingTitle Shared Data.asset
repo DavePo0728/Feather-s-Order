@@ -1,0 +1,144 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: SubSettingTitle Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: SubSettingTitle
+  m_TableCollectionNameGuidString: d07dd59e9cbc1b34abe2033d099f5783
+  m_Entries:
+  - m_Id: 26365554688
+    m_Key: Master Volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 307761410048
+    m_Key: BGM Volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 343807258624
+    m_Key: SFX Volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9068026687488
+    m_Key: DisplayMode
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9752625180672
+    m_Key: resolution
+    m_Metadata:
+      m_Items: []
+  - m_Id: 712437133373440
+    m_Key: V-sync
+    m_Metadata:
+      m_Items: []
+  - m_Id: 713011472003072
+    m_Key: refresh-rate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 713653632528384
+    m_Key: brightness
+    m_Metadata:
+      m_Items: []
+  - m_Id: 714970966945792
+    m_Key: anti-aliasing
+    m_Metadata:
+      m_Items: []
+  - m_Id: 715178773737472
+    m_Key: anisotropic
+    m_Metadata:
+      m_Items: []
+  - m_Id: 715219982774272
+    m_Key: graphics quality
+    m_Metadata:
+      m_Items: []
+  - m_Id: 719037906710528
+    m_Key: shoot/attack
+    m_Metadata:
+      m_Items: []
+  - m_Id: 721862766260224
+    m_Key: cross slash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 721922891608064
+    m_Key: dash
+    m_Metadata:
+      m_Items: []
+  - m_Id: 721926024753152
+    m_Key: light arrow
+    m_Metadata:
+      m_Items: []
+  - m_Id: 723134613450752
+    m_Key: switch attack
+    m_Metadata:
+      m_Items: []
+  - m_Id: 724017573163008
+    m_Key: invert Y
+    m_Metadata:
+      m_Items: []
+  - m_Id: 724219151413248
+    m_Key: slider sensitivity
+    m_Metadata:
+      m_Items: []
+  - m_Id: 731885923889152
+    m_Key: DeadZone
+    m_Metadata:
+      m_Items: []
+  - m_Id: 732290221240320
+    m_Key: reset binding
+    m_Metadata:
+      m_Items: []
+  - m_Id: 736558634397696
+    m_Key: keyboardUp
+    m_Metadata:
+      m_Items: []
+  - m_Id: 736616670982144
+    m_Key: keyboardDown
+    m_Metadata:
+      m_Items: []
+  - m_Id: 736619896401920
+    m_Key: keyboardLeft
+    m_Metadata:
+      m_Items: []
+  - m_Id: 736622148743168
+    m_Key: keyboardRight
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1052461779546112
+    m_Key: apply
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1058182793424896
+    m_Key: waitingAction
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1064968615260160
+    m_Key: confirm
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1073061076037632
+    m_Key: Yes
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1073064410509312
+    m_Key: No
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 8242558738984599556
+  references:
+    version: 2
+    RefIds:
+    - rid: 8242558738984599556
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1758708779260

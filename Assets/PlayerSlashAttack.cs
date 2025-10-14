@@ -79,8 +79,8 @@ public class PlayerSlashAttack : MonoBehaviour
         //slashClip3 = Resources.Load<AudioClip>("Sound/slash_v2_03");
         //slashClip4 = Resources.Load<AudioClip>("Sound/slash_v2_04");
         hitCounter = 0;
+        InitializeScreenWaveEffect();
     }
-
     public void GetSlashInput(InputAction.CallbackContext context)
     {
         if (context.performed && slashState == SlashState.Idle && playerAim.isLocked)
@@ -490,7 +490,26 @@ public class PlayerSlashAttack : MonoBehaviour
             ReturnAnimation();
         }
     }
-
+    public void NormalizePlayer()
+    {
+        slashState = SlashState.Idle;
+        playerRigidbody.velocity = Vector3.zero;
+        transform.position = new Vector3(2000f, 340f, 13f);
+        if(brakeTweener != null)
+        {
+            if (brakeTweener.active && brakeTweener.IsPlaying())
+            {
+                brakeTweener.Kill();
+            }
+        }
+        if (dashTweener != null)
+        {
+            if (dashTweener.active && dashTweener.IsPlaying())
+            {
+                dashTweener.Kill();
+            }
+        }
+    }
     void InactiveFlashImage() => flashImage.SetActive(false);
     void TimeScaleNormal() => Time.timeScale = 1;
     void ActiveCollider() { 
@@ -537,7 +556,11 @@ public class PlayerSlashAttack : MonoBehaviour
 		StartCoroutine(PlayDashShaderEffect());
        
     }
-
+    void InitializeScreenWaveEffect()
+    {
+        ScreenWaveShader.SetFloat("_FractionTime", 0f);
+        ScreenWaveShader.SetFloat("_Size", 0f);
+    }
     /// 播放屏幕波動效果的協程
     private IEnumerator PlayDashShaderEffect()
 	{

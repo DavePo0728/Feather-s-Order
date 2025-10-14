@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: SettingLocalizationTable_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: 243028f621a905f40bf3be3b842ec2d1, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 71504654336
+    m_Localized: Continue
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13899902644224
+    m_Localized: New Game
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14684199743488
+    m_Localized: Settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 18082752000000
+    m_Localized: End Game
+    m_Metadata:
+      m_Items: []
+  - m_Id: 6490490774122496
+    m_Localized: return to main menu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1091358089703424
+    m_Localized: Change the game language.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1092369852297216
+    m_Localized: Adjust master, BGM, and SFX volume.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1092622798188544
+    m_Localized: Adjust game display settings.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1092666909683712
+    m_Localized: Configure gamepad input settings.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1093513773215744
+    m_Localized: Configure keyboard input settings.
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []

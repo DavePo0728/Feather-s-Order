@@ -1,10 +1,8 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
-using UnityEngine.Rendering;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
@@ -19,6 +17,7 @@ public class ScenesManager : MonoBehaviour
 {
     public ScenesNum scenesNum = ScenesNum.BattleScene;
 	PlayerHP playerHP;
+    PlayerSlashAttack playerSlashAttack;
     [SerializeField]
     public GameObject LoadingPanel;
     public float fadeDuration;
@@ -69,8 +68,6 @@ public class ScenesManager : MonoBehaviour
         if (gameClearImageObject != null)
             backImage = backImageObject.GetComponent<Image>();
         pauseImageObject = GameObject.Find("PauseImage");
-        if (pauseImageObject != null)
-            pauseImageObject.SetActive(false);
 
 		LoadingPanel = GameObject.Find("LoadingPanel");
 		if (scenesNum == ScenesNum.StartScene)
@@ -82,7 +79,10 @@ public class ScenesManager : MonoBehaviour
 			
 			pauseImageObject = GameObject.Find("PauseImage");
 			playerHP = GameObject.Find("Player").transform.Find("HPCollider").GetComponent<PlayerHP>();
+            playerSlashAttack = GameObject.Find("Player").GetComponent<PlayerSlashAttack>();
         }
+        if (pauseImageObject != null)
+            pauseImageObject.SetActive(false);
         loadingBar = GameObject.Find("LoadingBar2").GetComponent<Image>();
 		loadindAnim = GameObject.Find("LoadC").GetComponent<LoadindAnim>();
 
@@ -257,7 +257,10 @@ public class ScenesManager : MonoBehaviour
 		Debug.Log("載入完成，請按任意鍵繼續...");
 	}
 
-
+    public void EndGame()
+    {
+        Application.Quit();
+    }
     public void LoadTeaching()
     {
         SceneManager.LoadScene(1);
@@ -305,6 +308,7 @@ public class ScenesManager : MonoBehaviour
             isSecondLife = false;
             isGameOver = false;
             playerHP.SecondLife();
+            playerSlashAttack.NormalizePlayer();
         }
         else if(context.performed && isGameOver && isSecondLife==false)
         {

@@ -178934,7 +178934,11 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 9659d786-b6c7-49b2-b111-aea1d4eee842
     m_ActionName: GameScene/PressB[/DualSenseGamepadHID/buttonEast]
-  m_NeverAutoSwitchControlSchemes: 1
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 475a2eda-4888-49de-ae4c-652c4712891e
+    m_ActionName: StartScene/Cancel[/DualSenseGamepadHID/buttonEast,/Keyboard/escape]
+  m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: GameScene
   m_SplitScreenIndex: -1
