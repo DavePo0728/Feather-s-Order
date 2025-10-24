@@ -41,6 +41,7 @@ public class PlayerSlashAttack : MonoBehaviour
     int hitCounter;
     float slashTimer;
     float slashCD = 0.2f;
+    bool isDashTriggered = false;
     [SerializeField]
     float maxTime;
     [SerializeField]
@@ -88,7 +89,7 @@ public class PlayerSlashAttack : MonoBehaviour
     }
     public void GetSlashInput(InputAction.CallbackContext context)
     {
-        if (context.performed && slashState == SlashState.Idle && playerAim.isLocked)
+        if (context.started && slashState == SlashState.Idle && playerAim.isLocked)
         {
             if (playerAim.CheckLockedEnemy())
             {
@@ -153,7 +154,7 @@ public class PlayerSlashAttack : MonoBehaviour
 
     public void GetSlashAttackInput(InputAction.CallbackContext context)
     {
-        if (context.performed && slashState == SlashState.Attacking && slashTimer >= slashCD)
+        if (context.started && slashState == SlashState.Attacking && slashTimer >= slashCD)
         {
             if (hitCounter < 3)
             {
@@ -208,7 +209,21 @@ public class PlayerSlashAttack : MonoBehaviour
             }
         }
     }
+    bool checkAnimationFinish()
+    {
+        // Get the current state info of the Animator
+        AnimatorStateInfo stateInfo = playerAnimator.GetCurrentAnimatorStateInfo(0);
 
+        // Check if the animation is playing and has finished
+        if (stateInfo.IsName("S4") && stateInfo.normalizedTime >= 1.0f)
+        {
+            return true; // Animation has finished
+        }
+        else
+        {
+            return false; // Animation is still playing
+        }
+    }
     public void TriggerSlash4()
     {
 
@@ -230,8 +245,7 @@ public class PlayerSlashAttack : MonoBehaviour
     }
     public void DashSlash()
     {
-        //Debug.Log("DashSlash");
-
+        isDashTriggered = true;
         Vibrate(0.1f, 0.1f, 0.05f);
 		SlashEffectFlip(180);
 		slashEffectYellowObject.SetActive(true);
@@ -245,7 +259,6 @@ public class PlayerSlashAttack : MonoBehaviour
         Time.timeScale = 0.1f;
         Invoke("TimeScaleNormal", 0.01f);
         Invoke("DelayDetect", 0.05f);
-        Invoke("SetAttack", 0.6f);
     }
     public void DashShieldSlash()
     {
@@ -442,9 +455,13 @@ public class PlayerSlashAttack : MonoBehaviour
         }
     }
 
-    void SetAttack()
+    public void SetAttack()
     {
-        slashState = SlashState.Attacking;
+        if (isDashTriggered)
+        {
+            slashState = SlashState.Attacking;
+            isDashTriggered = false;
+        }
     }
     void DashGap()
     {
@@ -474,7 +491,11 @@ public class PlayerSlashAttack : MonoBehaviour
             //playerAnimator.SetTrigger("ReFly");
             playerAnimator.Play("ReFly");
         }
-	}
+        if (slashState == SlashState.Arrived && checkAnimationFinish())
+        {
+            SetAttack();
+        }
+    }
 
     void ReturnAnimation()
     {

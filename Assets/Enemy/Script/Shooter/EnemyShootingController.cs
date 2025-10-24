@@ -82,13 +82,9 @@ public class EnemyShootingController : MonoBehaviour
         }
 		RedGlowEnemy = transform.parent.transform.Find("RedGlowEnemy").gameObject;
 	}
-    private void Start()
-    {
-
-    }
     private void OnEnable()
     {
-        //StartAttacking();
+        StartAttacking();
         //Debug.Log("EnemyShootingController enabled, starting attack loop.");
     }
     private void OnDisable()
@@ -122,7 +118,6 @@ public class EnemyShootingController : MonoBehaviour
     /// <summary>
     /// 開始攻擊
     /// </summary>
-    /// <param name="useAllAtOnce">true=同時啟動所有模式；false=單模式輪流</param>
     public void StartAttacking()
     {
         IsAttackLooping = true;
@@ -206,11 +201,14 @@ public class EnemyShootingController : MonoBehaviour
     // 根據 SubGunData 執行一個「波」的射擊
     private IEnumerator HandleMode(SubGunData gunData)
     {
-        float interval = 60f / gunData.rpm;  // 每顆子彈間隔
-        for (int wave = 0; wave < gunData.MaxShootWave; wave++)
+        if (gunData.rpm > 0)
         {
-            FireOnce(gunData);
-            yield return new WaitForSeconds(interval);
+            float interval = 60f / gunData.rpm;  // 每顆子彈間隔
+            for (int wave = 0; wave < gunData.MaxShootWave; wave++)
+            {
+                FireOnce(gunData);
+                yield return new WaitForSeconds(interval);
+            }
         }
     }
     // 散彈射擊
