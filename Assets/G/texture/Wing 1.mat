@@ -12,7 +12,6 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
-  - _EMISSION
   - _RIMLIGHTING_ON
   - _SPECULAR_LIGHTING_ON
   - _STYLE_STYLIZEPBR
@@ -156,13 +155,13 @@ Material:
     - _Dithering: 0
     - _DstBlend: 0
     - _DstBlendAlpha: 0
-    - _EmissionToggle: 1
+    - _EmissionToggle: 0
     - _EnableSSSRamp: 0
     - _EnvironmentReflections: 1
     - _FOVShiftX: 0
     - _FaceShadowMapPow: 0.2
     - _FaceShadowSmoothness: 0
-    - _FakeLightIntensity: 1
+    - _FakeLightIntensity: 0
     - _FlattenAdditionalLighting: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.59999996
@@ -185,7 +184,7 @@ Material:
     - _IsUsingRampOcclusionTexture: 0
     - _MatCapReflectionStrength: 1
     - _MatCapRollStabilize: 1
-    - _MaterialID: 0
+    - _MaterialID: 4
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
@@ -232,16 +231,16 @@ Material:
     - _style: 0
     m_Colors:
     - _AlphaClipUVCtrl: {r: 1, g: 0, b: 0, a: 0}
-    - _BaseColor: {r: 0.8, g: 0.8, b: 0.8, a: 1}
-    - _CharacterCenterWS: {r: 0, g: 0, b: 1, a: 1}
+    - _BaseColor: {r: 0.8238993, g: 0.8238993, b: 0.8238993, a: 1}
+    - _CharacterCenterWS: {r: 2000, g: 337, b: 13, a: 0}
     - _Color: {r: 0.8, g: 0.8, b: 0.8, a: 1}
     - _DepthRimLightColor: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0.74213827, g: 0.74213827, b: 0.74213827, a: 1}
-    - _FaceFrontDirection: {r: 1, g: 0, b: 0, a: 1}
-    - _FaceRightDirection: {r: 0, g: 0, b: 1, a: 1}
+    - _FaceFrontDirection: {r: 0, g: 0, b: 1, a: 0}
+    - _FaceRightDirection: {r: 1, g: 0, b: 0, a: 0}
     - _FaceUVCtrl: {r: 0, g: 1, b: 0, a: 0}
-    - _FakeLightColor: {r: 1, g: 1, b: 1, a: 1}
-    - _FakeLightEuler: {r: 0, g: 0, b: 0, a: 1}
+    - _FakeLightColor: {r: 0, g: 0, b: 0, a: 0}
+    - _FakeLightEuler: {r: 180, g: 0, b: 0, a: 0}
     - _HairLightColor: {r: 1, g: 1, b: 1, a: 1}
     - _HairUVCtrl: {r: 0, g: 0, b: 1, a: 0}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}

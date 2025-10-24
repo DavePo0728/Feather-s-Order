@@ -11,17 +11,15 @@ Material:
   m_Shader: {fileID: -6465566751694194690, guid: df32f7e61296fc94a9671621cb9d97c2, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
-  m_ValidKeywords:
-  - _SURFACE_TYPE_TRANSPARENT
+  m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: 3000
   stringTagMap:
-    RenderType: Transparent
-  disabledShaderPasses:
-  - DepthOnly
+    RenderType: Opaque
+  disabledShaderPasses: []
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
@@ -43,36 +41,36 @@ Material:
     - _AlphaClip: 0
     - _AlphaToMask: 0
     - _Base_Scale: 0.04
-    - _Base_Speed: 10
+    - _Base_Speed: 30
     - _Base_Strength: 2
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
     - _CastShadows: 1
     - _Cull: 2
     - _Curvature_Radius: 1080
-    - _DstBlend: 10
+    - _DstBlend: 0
     - _Emission_Strength: 1
-    - _Fade_Depth: 985.3
+    - _Fade_Depth: 10
     - _Fresnel_Opacity: 1
     - _Fresnel_Power: 8
-    - _Noise_Hight: 18.37
+    - _Noise_Hight: 6.2
     - _Noise_Power: 2
     - _Noise_Scale: 0.002
-    - _Noise_Speed: 7.5
-    - _QueueControl: 0
+    - _Noise_Speed: 21.5
+    - _QueueControl: 1
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _Smooth_Edge1: -1
     - _Smooth_Edge2: 2
-    - _SrcBlend: 5
-    - _Surface: 1
+    - _SrcBlend: 1
+    - _Surface: 0
     - _WorkflowMode: 1
     - _ZTest: 4
-    - _ZWrite: 0
+    - _ZWrite: 1
     - _ZWriteControl: 0
     m_Colors:
-    - _Color_Peak: {r: 0.8392158, g: 0.9215687, b: 0.9882354, a: 1}
-    - _Color_Valley: {r: 0.5818369, g: 0.6764935, b: 0.7886792, a: 1}
+    - _Color_Peak: {r: 0.94117653, g: 0.97647065, b: 1, a: 1}
+    - _Color_Valley: {r: 0.7725491, g: 0.8352942, b: 0.9568628, a: 1}
     - _Noise_Remap: {r: 0, g: 1, b: -0.3, a: 2.7}
     - _Rotate_Projection: {r: 1, g: 0, b: 0, a: 90}
     - _direction: {r: 0, g: -1, b: 0, a: 0}
