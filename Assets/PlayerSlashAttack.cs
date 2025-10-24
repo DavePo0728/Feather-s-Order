@@ -1,14 +1,10 @@
 ﻿using AfterimageFX;
 using Cinemachine;
 using DG.Tweening;
-using FUnit.GameObjectExtensions;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Rendering;
-using UnityEngine.UI;
-using static UnityEngine.Rendering.DebugUI;
 
 public class PlayerSlashAttack : MonoBehaviour
 {
@@ -89,7 +85,7 @@ public class PlayerSlashAttack : MonoBehaviour
     }
     public void GetSlashInput(InputAction.CallbackContext context)
     {
-        if (context.started && slashState == SlashState.Idle && playerAim.isLocked)
+        if (context.performed && slashState == SlashState.Idle && playerAim.isLocked)
         {
             if (playerAim.CheckLockedEnemy())
             {
@@ -154,7 +150,7 @@ public class PlayerSlashAttack : MonoBehaviour
 
     public void GetSlashAttackInput(InputAction.CallbackContext context)
     {
-        if (context.started && slashState == SlashState.Attacking && slashTimer >= slashCD)
+        if (context.performed && slashState == SlashState.Attacking && slashTimer >= slashCD)
         {
             if (hitCounter < 3)
             {
