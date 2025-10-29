@@ -230,7 +230,7 @@ public class PlayerHP : MonoBehaviour
         }
     }
 
-    IEnumerator MuTeKiTime(float mutekiTime)
+    public IEnumerator MuTeKiTime(float mutekiTime)
     {
         isMuteki = true;
         yield return new WaitForSeconds(mutekiTime);

@@ -524,6 +524,8 @@ public class PlayerSlashAttack : MonoBehaviour
         shieldEffect.SetActive(true);
         shieldEffectBIG.SetActive(true);
         slashState = SlashState.Idle;
+        playerAim.isLocked = false;
+        playerAim.lockedEnemy = playerAim.emptyAimObject;
     }
 
     public void ForceFallBack()
@@ -551,24 +553,22 @@ public class PlayerSlashAttack : MonoBehaviour
             ReturnAnimation();
         }
     }
-    public void NormalizePlayer()
+    public IEnumerator NormalizePlayer()     //復活重置位置
     {
-        slashState = SlashState.Idle;
-        playerRigidbody.velocity = Vector3.zero;
-        transform.position = new Vector3(2000f, 340f, 13f);
-        if(brakeTweener != null)
+        Debug.Log($"SlashState: {slashState}");
+        if (slashState != SlashState.Idle)
         {
-            if (brakeTweener.active && brakeTweener.IsPlaying())
+            slashState = SlashState.Idle;
+            if (brakeTweener != null)
             {
-                brakeTweener.Kill();
+                if (brakeTweener.active && brakeTweener.IsPlaying())
+                {
+                    brakeTweener.Kill();
+                }
             }
-        }
-        if (dashTweener != null)
-        {
-            if (dashTweener.active && dashTweener.IsPlaying())
-            {
-                dashTweener.Kill();
-            }
+            ForceFallBack();
+            
+            yield return null;
         }
     }
     void InactiveFlashImage() => flashImage.SetActive(false);

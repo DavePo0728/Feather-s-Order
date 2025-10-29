@@ -308,7 +308,9 @@ public class ScenesManager : MonoBehaviour
             isSecondLife = false;
             isGameOver = false;
             playerHP.SecondLife();
-            playerSlashAttack.NormalizePlayer();
+            //StartCoroutine(playerSlashAttack.NormalizePlayer());
+            StartCoroutine(playerHP.MuTeKiTime(3f));
+            //playerSlashAttack.NormalizePlayer();
         }
         else if(context.performed && isGameOver && isSecondLife==false)
         {
