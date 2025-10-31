@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: L1W7_AGo_Right02_TypeC
   m_EditorClassIdentifier: 
   data:
-    spawnPosition: {x: 24, y: 13, z: 1}
-    endPosition: {x: 24, y: 13, z: 4}
-    LeavePositon: {x: 24, y: 13, z: 6}
+    spawnPosition: {x: 47, y: 18, z: 1}
+    endPosition: {x: 8, y: 8, z: 6}
+    LeavePositon: {x: 2, y: 0, z: 6}
     curveHeight: 90
-    curveType: 0
+    curveType: 1
     randomMoveRadius: 0
     pathNum: 0
-    customPathNum: 107
+    customPathNum: 106
     pointWaitTime: 0
+    startAttackPoint: 0
