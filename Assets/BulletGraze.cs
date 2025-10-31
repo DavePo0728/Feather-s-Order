@@ -68,6 +68,7 @@ public class BulletGraze : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P))
         {
             currentGrazeEnergy += maxGrazeEnergy;
+            playerHP.Heal(100);
             UpdateGrazeUI();
         }
     }

@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 using System.IO;
-
+#if UNITY_EDITOR
 [CustomEditor(typeof(SaveRenderTexture))]
 public class SaveRenderTextureEditor : Editor
 {
@@ -71,3 +73,4 @@ public class SaveRenderTextureEditor : Editor
 		AssetDatabase.Refresh();
 	}
 }
+#endif

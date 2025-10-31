@@ -10683,7 +10683,7 @@ PrefabInstance:
     - target: {fileID: 5339721675714717020, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
       propertyPath: gunDataList
       value: 
-      objectReference: {fileID: 11400000, guid: 882793a8883fc0c4a82215336c4bdacf, type: 2}
+      objectReference: {fileID: 11400000, guid: f04c22dc0d6c5334dadf7939db03d6ee, type: 2}
     - target: {fileID: 6806084062278553910, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
       propertyPath: isDebug
       value: 1
@@ -10730,7 +10730,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8641771722476299812, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
       propertyPath: haveshield
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8641771722476299812, guid: 0860470de7111b74eb99c534ec31bf55, type: 3}
       propertyPath: maxShieldHp

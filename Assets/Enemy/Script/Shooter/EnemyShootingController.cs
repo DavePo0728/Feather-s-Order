@@ -29,7 +29,8 @@ public class EnemyShootingController : MonoBehaviour
     int addtionalCount;
     [SerializeField]
     private int currentModeIndex = 0;
-    public bool IsAttackLooping =false;
+    public bool isAttackLoopingA =false;
+    public bool isAttackLoopingC = false;
     public GunDataList gunDataList;
     private Coroutine warningRoutine;
     GameObject RedGlowEnemy ;
@@ -51,7 +52,7 @@ public class EnemyShootingController : MonoBehaviour
         addtionalCount = 0;
         if (debug)
         {
-            gunDataList = Resources.Load<GunDataList>("GunData/GunPattern/TestGunDataList");
+            //gunDataList = Resources.Load<GunDataList>("GunData/GunPattern/TestGunDataList");
             for (int i = 0; i < gunDataList.gunDatas.Length; i++)
             {
                 availableGuns.Add(gunDataList.gunDatas[i].Data);
@@ -84,7 +85,14 @@ public class EnemyShootingController : MonoBehaviour
 	}
     private void OnEnable()
     {
-        StartAttacking();
+        if (isAttackLoopingC == false)
+        {
+            StartAttacking();
+        }
+        if (isAttackLoopingA == false)
+        {
+            StartAttackRotate();
+        }
         //Debug.Log("EnemyShootingController enabled, starting attack loop.");
     }
     private void OnDisable()
@@ -120,13 +128,15 @@ public class EnemyShootingController : MonoBehaviour
     /// </summary>
     public void StartAttacking()
     {
-        IsAttackLooping = true;
+        isAttackLoopingC = true;
         StartCoroutine(AttackSingleWave());
+        //Debug.Log("Type C attack");
     }
     public void StartAttackRotate()
     {
-        IsAttackLooping = true;
+        isAttackLoopingA = true;
         StartCoroutine(AttackRotate());
+        //Debug.Log("Type A attack");
     }
     IEnumerator TriggerAllMode()
     {
@@ -180,23 +190,38 @@ public class EnemyShootingController : MonoBehaviour
 			yield return StartCoroutine(HandleMode(mode));
             yield return new WaitForSeconds(data.delayTime);
         }
-        IsAttackLooping = false;
+        isAttackLoopingA = false;
     }
     private IEnumerator AttackRotate()
     {
         while (true)
         {
             var mode = modes[currentModeIndex];
+            Debug.Log($"Current Mode Index: {currentModeIndex}, Mode: {mode.patternType}mode Count{modes.Count}");
+            var data = gunDataList.gunDatas[currentModeIndex];
+
+            if (data.IsAdditonalAttack)
+            {
+                FireExtraMode();
+            }
             yield return StartCoroutine(HandleMode(mode));
             currentModeIndex = (currentModeIndex + 1) % modes.Count;
-            Debug.Log($"Current Mode Index: {currentModeIndex}, Mode: {mode.patternType}");
         }
     }
 
     public void StopAttacking()
     {
         //IsAttackLooping = false;
-        StopCoroutine(AttackSingleWave());
+        if (isAttackLoopingC)
+        {
+            isAttackLoopingC = false;
+            StopCoroutine(AttackSingleWave());
+        }
+        if (isAttackLoopingA)
+        {
+            isAttackLoopingA = false;
+            StopCoroutine(AttackRotate());
+        }
     }
     // 根據 SubGunData 執行一個「波」的射擊
     private IEnumerator HandleMode(SubGunData gunData)
@@ -463,14 +488,14 @@ public class EnemyShootingController : MonoBehaviour
                 }
                 HomingMissile(gunData);
                 break;
-            case ShootingPatternType.All:
-                StartCoroutine(TriggerAllMode());
-                break;
+            //case ShootingPatternType.All:
+            //    StartCoroutine(TriggerAllMode());
+            //    break;
             // 其他模式……
             default:
                 // 預設當單發
                 Debug.LogWarning("Unknown shooting pattern type: " + gunData.patternType);
-                ActiveBullet(shooter.transform.position, shooter.transform.rotation, gunData.bulletType);
+                //ActiveBullet(shooter.transform.position, shooter.transform.rotation, gunData.bulletType);
                 break;
         }
     }

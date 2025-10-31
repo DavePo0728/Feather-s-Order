@@ -19,6 +19,7 @@ public class MoveTypeA : IMoveBehaviour
         {
             startAttack = true;
             enemyMove.ActiveAttackRoatate();
+            //Debug.Log("Enemy Start Attack Rotate");
         }
         //Debug.Log($"MovingRadius: {randomMoveRadius}");
         if (enemyMove.gameObject != null)
