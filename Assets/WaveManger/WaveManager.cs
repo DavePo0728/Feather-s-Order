@@ -273,7 +273,8 @@ public class WaveManager : MonoBehaviour
 
     public void GameFinish()
     {
-        scenesManager.LoadNextScene();
+        //scenesManager.LoadNextScene();
+        scenesManager.GameClear();
     }
     public int EnemyCount()
     {

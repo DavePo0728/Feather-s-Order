@@ -216,7 +216,15 @@ public class EnemyShootingController : MonoBehaviour
             {
                 FireExtraMode();
             }
+            int nextIndex = (currentModeIndex + 1) % gunDataList.gunDatas.Length;
+            bool isFirstGun = currentModeIndex == 0;
+            if (gunDataList.gunDatas[nextIndex].Data.data.WarningLight ||
+               (isFirstGun && gunDataList.gunDatas[currentModeIndex].Data.data.WarningLight))
+            {
+                TryScheduleNextGunWarning();
+            }
             yield return StartCoroutine(HandleMode(mode));
+            yield return new WaitForSeconds(data.delayTime);
             currentModeIndex = (currentModeIndex + 1) % modes.Count;
         }
     }

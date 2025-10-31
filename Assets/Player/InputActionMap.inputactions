@@ -69,15 +69,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "PauseMenu",
-                    "type": "Button",
-                    "id": "f9885de0-8cae-49fa-978d-59ebe2f66b9c",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Aim",
                     "type": "Value",
                     "id": "d28b3ae9-d317-4845-ad60-e41a49389238",
@@ -364,17 +355,6 @@
                     "processors": "",
                     "groups": "Keyboard",
                     "action": "CleanseSlash",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "dbf94da2-ebda-4827-bdd5-97689d9b1aff",
-                    "path": "<Gamepad>/start",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";GamePad",
-                    "action": "PauseMenu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

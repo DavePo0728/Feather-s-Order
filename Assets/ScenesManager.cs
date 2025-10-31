@@ -30,6 +30,7 @@ public class ScenesManager : MonoBehaviour
     public bool isGameClear = false;
     public bool isGameOver = false;
     public bool isSecondLife = true;
+    [SerializeField]
     bool isPause = false;
     [SerializeField]
     private GameObject pauseImageObject;
@@ -48,13 +49,14 @@ public class ScenesManager : MonoBehaviour
             if (isPause == false)
             {
                 pauseImageObject.SetActive(true);
-                Time.timeScale = 0;
                 isPause = true;
+                Debug.Log("Pause");
+                Time.timeScale = 0;
             }
             else
             {
-                pauseImageObject.SetActive(false);
                 Time.timeScale = 1;
+                pauseImageObject.SetActive(false);
                 isPause = false;
             }
         }
@@ -66,8 +68,8 @@ public class ScenesManager : MonoBehaviour
         if (gameClearImageObject != null)
             gameClearImage = gameClearImageObject.GetComponent<Image>();
         if (gameClearImageObject != null)
-            backImage = backImageObject.GetComponent<Image>();
-        pauseImageObject = GameObject.Find("PauseImage");
+            //backImage = backImageObject.GetComponent<Image>();
+        //pauseImageObject = GameObject.Find("PauseImage");
 
 		LoadingPanel = GameObject.Find("LoadingPanel");
 		if (scenesNum == ScenesNum.StartScene)
@@ -168,9 +170,9 @@ public class ScenesManager : MonoBehaviour
     {
         gameoverPanel.SetActive(false);
         gameClearImageObject.SetActive(true);
-        backImageObject.SetActive(true);
+        //backImageObject.SetActive(true);
         StartCoroutine(Fade(gameClearImage, 0f, 1f,fadeDuration));
-        StartCoroutine(Fade(backImage, 0f, 1f, fadeDuration));
+        //StartCoroutine(Fade(backImage, 0f, 1f, fadeDuration));
         isGameClear = true;
     }
     public void StartTeaching()
