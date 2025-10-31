@@ -105,10 +105,12 @@ public class EnemyMove : MonoBehaviour
     }
     public void ActiveAttack()
     {
+        enemyShootingController.currentShootingType = EnemyShootingController.shootingType.TypeC;
         enemyShootingController.StartAttacking();
     }
     public void ActiveAttackRoatate()
     {
+        enemyShootingController.currentShootingType = EnemyShootingController.shootingType.TypeA;
         enemyShootingController.StartAttackRotate();
     }
     void FixedUpdate()

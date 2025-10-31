@@ -34,8 +34,14 @@ public class EnemyShootingController : MonoBehaviour
     public GunDataList gunDataList;
     private Coroutine warningRoutine;
     GameObject RedGlowEnemy ;
-
-	private void Awake()
+    public shootingType currentShootingType;
+    public enum shootingType
+    {
+        TypeNull,
+        TypeA,
+        TypeC
+    }
+    private void Awake()
     {
         shooter = transform.GetChild(0).gameObject;
         spinShooter = transform.Find("4-waySpinGun").gameObject;
@@ -85,11 +91,11 @@ public class EnemyShootingController : MonoBehaviour
 	}
     private void OnEnable()
     {
-        if (isAttackLoopingC == false)
+        if (isAttackLoopingC == false && currentShootingType == shootingType.TypeC)
         {
             StartAttacking();
         }
-        if (isAttackLoopingA == false)
+        if (isAttackLoopingA == false && currentShootingType == shootingType.TypeA)
         {
             StartAttackRotate();
         }
@@ -128,15 +134,21 @@ public class EnemyShootingController : MonoBehaviour
     /// </summary>
     public void StartAttacking()
     {
-        isAttackLoopingC = true;
-        StartCoroutine(AttackSingleWave());
-        //Debug.Log("Type C attack");
+        if (isAttackLoopingC==false)
+        {
+            isAttackLoopingC = true;
+            StartCoroutine(AttackSingleWave());
+            Debug.Log("Type C attack");
+        }
     }
     public void StartAttackRotate()
     {
-        isAttackLoopingA = true;
-        StartCoroutine(AttackRotate());
-        //Debug.Log("Type A attack");
+        if(isAttackLoopingA == false)
+        {
+            isAttackLoopingA = true;
+            StartCoroutine(AttackRotate());
+            Debug.Log("Type A attack");
+        }
     }
     IEnumerator TriggerAllMode()
     {
@@ -190,7 +202,7 @@ public class EnemyShootingController : MonoBehaviour
 			yield return StartCoroutine(HandleMode(mode));
             yield return new WaitForSeconds(data.delayTime);
         }
-        isAttackLoopingA = false;
+        isAttackLoopingC = false;
     }
     private IEnumerator AttackRotate()
     {
