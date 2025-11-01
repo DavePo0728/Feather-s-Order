@@ -96,8 +96,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 302a7c88ebef81141a4eac868fcb4e96, type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 9c90d1978fa732345b6166fce6a19d37, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -66771,10 +66771,6 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1192399221142998149, guid: 6e0e012b20ecf334d89ebc79d1fece7e, type: 3}
-      propertyPath: m_PlayOnAwake
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5416785251069935638, guid: 6e0e012b20ecf334d89ebc79d1fece7e, type: 3}
       propertyPath: m_Name
       value: SoundManager
@@ -108137,6 +108133,7 @@ MonoBehaviour:
   GainV: {fileID: 0}
   loadingBar: {fileID: 0}
   loadindAnim: {fileID: 0}
+  SpeedLinesmat: {fileID: 2100000, guid: 99e0ee93f841b284e8b868ef6e1dc665, type: 2}
 --- !u!4 &1950844340
 Transform:
   m_ObjectHideFlags: 0
@@ -313523,10 +313520,6 @@ MonoBehaviour:
     m_ActionId: 1daa583d-0327-4213-9912-9a17eb9aac62
     m_ActionName: GameScene1/Bounce[/DualSenseGamepadHID/buttonEast,/DualSenseGamepadHID1/buttonEast,/DualSenseGamepadHID2/buttonEast,/DualSenseGamepadHID3/buttonEast,/DualSenseGamepadHID4/buttonEast,/DualSenseGamepadHID5/buttonEast]
   - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: f9885de0-8cae-49fa-978d-59ebe2f66b9c
-    m_ActionName: GameScene1/PauseMenu[/DualSenseGamepadHID/start,/DualSenseGamepadHID1/start,/DualSenseGamepadHID2/start,/DualSenseGamepadHID3/start,/DualSenseGamepadHID4/start,/DualSenseGamepadHID5/start]
-  - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 8735817410229283589}
         m_TargetAssemblyTypeName: MissileShooter, Assembly-CSharp
@@ -313542,10 +313535,6 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 1a2b3291-5a44-4e4e-ae69-ba8f42208683
     m_ActionName: GameScene1/SkillSwitch[/DualSenseGamepadHID/rightShoulder,/DualSenseGamepadHID1/rightShoulder,/DualSenseGamepadHID2/rightShoulder,/DualSenseGamepadHID3/rightShoulder,/DualSenseGamepadHID4/rightShoulder,/DualSenseGamepadHID5/rightShoulder]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: f6225a09-e242-44df-b94d-9ea865305071
-    m_ActionName: GameScene1/SkillActive[/DualSenseGamepadHID/buttonWest,/DualSenseGamepadHID1/buttonWest,/DualSenseGamepadHID2/buttonWest,/DualSenseGamepadHID3/buttonWest,/DualSenseGamepadHID4/buttonWest,/DualSenseGamepadHID5/buttonWest]
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 3816888224867236708}
@@ -313698,10 +313687,6 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 2eb79dc2-7b58-4cc9-9a68-e1c60f2f86c4
     m_ActionName: GameScene/Pause[/DualSenseGamepadHID/start]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 58ee3688-00bb-481b-a3f1-602128f046d3
-    m_ActionName: GameScene/Continue[/DualSenseGamepadHID/buttonSouth]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 9659d786-b6c7-49b2-b111-aea1d4eee842

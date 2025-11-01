@@ -11474,6 +11474,7 @@ MonoBehaviour:
   GainV: {fileID: 194816235}
   loadingBar: {fileID: 0}
   loadindAnim: {fileID: 0}
+  SpeedLinesmat: {fileID: 2100000, guid: 99e0ee93f841b284e8b868ef6e1dc665, type: 2}
 --- !u!4 &734063278
 Transform:
   m_ObjectHideFlags: 0
@@ -11538,10 +11539,6 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 1a2b3291-5a44-4e4e-ae69-ba8f42208683
     m_ActionName: GameScene1/SkillSwitch[/DualSenseGamepadHID/rightShoulder]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: f6225a09-e242-44df-b94d-9ea865305071
-    m_ActionName: GameScene1/SkillActive[/DualSenseGamepadHID/buttonWest]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: d28b3ae9-d317-4845-ad60-e41a49389238
@@ -11630,10 +11627,6 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 2eb79dc2-7b58-4cc9-9a68-e1c60f2f86c4
     m_ActionName: GameScene/Pause[/DualSenseGamepadHID/start]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 58ee3688-00bb-481b-a3f1-602128f046d3
-    m_ActionName: GameScene/Continue[/DualSenseGamepadHID/buttonSouth]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 9659d786-b6c7-49b2-b111-aea1d4eee842

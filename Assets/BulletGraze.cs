@@ -103,7 +103,7 @@ public class BulletGraze : MonoBehaviour
                 StartCoroutine(GrazeCD());
 
                 currentGrazeEnergy += grazeEnergyGain;
-                playerHP.Heal(1);
+                playerHP.Heal(2);
                 if (currentGrazeEnergy > maxGrazeEnergy)
                     currentGrazeEnergy = maxGrazeEnergy;
 

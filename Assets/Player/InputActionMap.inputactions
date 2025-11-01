@@ -60,15 +60,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "SkillActive",
-                    "type": "Button",
-                    "id": "f6225a09-e242-44df-b94d-9ea865305071",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Aim",
                     "type": "Value",
                     "id": "d28b3ae9-d317-4845-ad60-e41a49389238",
@@ -139,15 +130,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "Continue",
-                    "type": "Button",
-                    "id": "58ee3688-00bb-481b-a3f1-602128f046d3",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
                 },
                 {
                     "name": "PressB",
@@ -251,7 +233,7 @@
                 {
                     "name": "",
                     "id": "ef34f805-cb0b-4223-b792-992120dc6f33",
-                    "path": "<Mouse>/rightButton",
+                    "path": "<Keyboard>/leftShift",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
@@ -277,6 +259,17 @@
                     "interactions": "Press(pressPoint=0.8)",
                     "processors": "",
                     "groups": ";GamePad",
+                    "action": "Slash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7e4d14c4-c47f-4ec9-ad8c-bbfee87f6c88",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
                     "action": "Slash",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -327,17 +320,6 @@
                 },
                 {
                     "name": "",
-                    "id": "b46909f4-8d5f-463c-9a92-a981c06a416a",
-                    "path": "<Gamepad>/buttonWest",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";GamePad",
-                    "action": "SkillActive",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "600c0a5a-fd25-46bb-9f66-fa8bcefa405b",
                     "path": "<Gamepad>/buttonNorth",
                     "interactions": "",
@@ -376,6 +358,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";GamePad",
+                    "action": "SlashAttack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1e53ed14-8cd8-4da6-bb15-557eecb9e9ed",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
                     "action": "SlashAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -459,6 +452,17 @@
                 },
                 {
                     "name": "",
+                    "id": "588cdc78-1f3f-4f44-a330-925e6b1a6063",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MissileShoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "1cf5fe16-cdd4-4bfe-bc74-73a8220f1017",
                     "path": "<Gamepad>/buttonSouth",
                     "interactions": "Hold(duration=3,pressPoint=0.5)",
@@ -487,17 +491,6 @@
                     "processors": "",
                     "groups": ";GamePad",
                     "action": "Pause",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "2cac868b-87e8-40aa-8649-24a7e82431ee",
-                    "path": "<Gamepad>/buttonSouth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";GamePad",
-                    "action": "Continue",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
