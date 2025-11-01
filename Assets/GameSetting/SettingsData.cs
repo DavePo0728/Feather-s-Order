@@ -44,7 +44,7 @@ public class GraphicsSettingsData
 
 
     // Brightness: logical 0..1; implementation-dependent
-    public float brightness = 1.0f;
+    public float brightness = 0.0f;
 
     public int textureResoluion = 2; // 0=Full, 1=Half, 2=Quarter (Unity default)
 

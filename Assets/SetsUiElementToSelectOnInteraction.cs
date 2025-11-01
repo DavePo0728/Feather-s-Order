@@ -50,7 +50,11 @@ public class SetsUiElementToSelectOnInteraction : MonoBehaviour, ICancelHandler
             settingPanel.SetActive(false);
             eventSystem.SetSelectedGameObject(CancelElement.gameObject);
         }
-
+        if(gameObject.tag == "SettingUI")
+        {
+            settingPanel.SetActive(false);
+            eventSystem.SetSelectedGameObject(CancelElement.gameObject);
+        }
     }
     public void JumpToElement()
     {

@@ -43,8 +43,8 @@ public static class GraphicsSettingsApplier
         if (globalVolume != null && globalVolume.profile.TryGet<LiftGammaGain>(out var gain))
         {
 
-            gain.gain.Override(new Vector4(0,0,0,g.brightness));
-            //Debug.Log($"Set brightness EV {g.brightness}");
+            gain.gain.Override(new Vector4(0,0,0, g.brightness));
+            Debug.Log($"Set brightness EV {g.brightness}");
         }
     }
     public static void SetDeafaultGraphics(SettingsData settings)
