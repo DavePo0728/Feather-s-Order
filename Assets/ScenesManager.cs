@@ -41,6 +41,8 @@ public class ScenesManager : MonoBehaviour
     private bool readyToActivate = false;
     bool AniTrue = false;
     public LoadindAnim loadindAnim;
+    public Material SpeedLinesmat;
+
 	public void GetPauseInput(InputAction.CallbackContext context)
     {
         if (context.performed)
@@ -48,13 +50,15 @@ public class ScenesManager : MonoBehaviour
             if (isPause == false)
             {
                 pauseImageObject.SetActive(true);
-                Time.timeScale = 0;
+                Debug.Log("Pause");
+				Time.timeScale = 0;
                 isPause = true;
             }
             else
             {
                 pauseImageObject.SetActive(false);
-                Time.timeScale = 1;
+                Debug.Log("Resume");
+				Time.timeScale = 1;
                 isPause = false;
             }
         }
@@ -62,36 +66,54 @@ public class ScenesManager : MonoBehaviour
     private void Awake()
     {
         Time.timeScale = 1;
-        
+
         if (gameClearImageObject != null)
             gameClearImage = gameClearImageObject.GetComponent<Image>();
         if (gameClearImageObject != null)
             backImage = backImageObject.GetComponent<Image>();
         pauseImageObject = GameObject.Find("PauseImage");
 
-		LoadingPanel = GameObject.Find("LoadingPanel");
-		if (scenesNum == ScenesNum.StartScene)
+        LoadingPanel = GameObject.Find("LoadingPanel");
+        if (scenesNum == ScenesNum.StartScene)
         {
-			LoadImage = LoadingPanel.GetComponent<Image>();
-		}
-		if (scenesNum == ScenesNum.BattleScene)
-		{
-			
-			pauseImageObject = GameObject.Find("PauseImage");
-			playerHP = GameObject.Find("Player").transform.Find("HPCollider").GetComponent<PlayerHP>();
+            LoadImage = LoadingPanel.GetComponent<Image>();
+        }
+        if (scenesNum == ScenesNum.BattleScene)
+        {
+
+            pauseImageObject = GameObject.Find("PauseImage");
+            playerHP = GameObject.Find("Player").transform.Find("HPCollider").GetComponent<PlayerHP>();
             playerSlashAttack = GameObject.Find("Player").GetComponent<PlayerSlashAttack>();
         }
         if (pauseImageObject != null)
             pauseImageObject.SetActive(false);
         loadingBar = GameObject.Find("LoadingBar2").GetComponent<Image>();
-		loadindAnim = GameObject.Find("LoadC").GetComponent<LoadindAnim>();
+        loadindAnim = GameObject.Find("LoadC").GetComponent<LoadindAnim>();
 
 
 
     }
-    private void Start()
+    private void SpeedLines()
     {
-        if (scenesNum == ScenesNum.StartScene)
+		
+		if (scenesNum == ScenesNum.BattleScene)
+        {
+			SpeedLinesmat.SetFloat("_enabled", 1);
+            Debug.Log("SpeedLines Enabled");
+		}
+        else
+        {
+            Debug.Log("SpeedLines Disabled");
+			SpeedLinesmat.SetFloat("_enabled", 0);
+		}
+        
+		
+	}
+	private void Start()
+    {
+		SpeedLines();
+
+		if (scenesNum == ScenesNum.StartScene)
         {
             FadeOut();
         }
