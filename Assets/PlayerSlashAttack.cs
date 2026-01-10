@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class PlayerSlashAttack : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class PlayerSlashAttack : MonoBehaviour
     Rigidbody playerRigidbody;
     [SerializeField] Collider slashCollider;
     [SerializeField] Vector3 slashTarget;
+    [SerializeField] BoxCollider CamCollider;
     PlayerAim playerAim;
     Collider aimCollider;
     AimDetect aimDetect;
@@ -339,6 +341,7 @@ public class PlayerSlashAttack : MonoBehaviour
                 slashTarget = target.transform.Find("DashPoint").position;
                 Vector3 brakePos = slashTarget + new Vector3(0, 0, -200f);
                 Vector3 lastTargetPos = brakePos;
+                expandCamCollider();
                 brakeTweener = playerRigidbody.DOMove(slashTarget, 0.3f)
                 .SetEase(Ease.Linear)
                 .OnComplete(() =>
@@ -346,6 +349,7 @@ public class PlayerSlashAttack : MonoBehaviour
                     slashState = SlashState.Arrived;
                     playerRigidbody.velocity = Vector3.zero;
                     isCounting = true;
+                    playerVCam.m_Lens.FieldOfView = 15;
                     followZoom.m_Width = 0;
                     DashSlash();
                     slashEffectYellowR.flip = new Vector3(0, 0, 0);
@@ -399,11 +403,13 @@ public class PlayerSlashAttack : MonoBehaviour
                 slashTarget = target.transform.Find("DashPoint").position;
                 Vector3 brakePos = slashTarget + new Vector3(0, 0, -5f);
                 Vector3 lastTargetPos = brakePos;
+                expandCamCollider();
                 //GetComponent<AfterimageController>().StartDash();
                 brakeTweener = playerRigidbody.DOMove(slashTarget, 0.1f)
                 .SetEase(Ease.Linear)
                 .OnComplete(() =>
                 {
+                    
                     slashState = SlashState.Arrived;
                     playerRigidbody.velocity = Vector3.zero;
                     playerVCam.m_Lens.FieldOfView = 15;
@@ -513,8 +519,32 @@ public class PlayerSlashAttack : MonoBehaviour
         GetComponent<AfterimageController>().StartDash();
         playerMove.CalculateFallbackSpeed();
         followZoom.m_Width = 50;
+        reduceCamCollider();
     }
-
+    void expandCamCollider()
+    {
+        Vector3 startSize = CamCollider.size;
+        Vector3 targetSize = new Vector3(  65f, 25f, startSize.z);
+        CamCollider.size = new Vector3(52f, 17f, startSize.z);
+        DOTween.To(
+        () => CamCollider.size,
+            x => CamCollider.size = x,
+            targetSize,
+            1f
+        ).Play();
+    }
+    void reduceCamCollider()
+    {
+        Vector3 startSize = CamCollider.size;
+        Vector3 targetSize = new Vector3(  52f, 17f, startSize.z);
+        CamCollider.size = new Vector3(65f, 25f, startSize.z);
+        DOTween.To(
+        () => CamCollider.size,
+            x => CamCollider.size = x,
+            targetSize,
+            1f
+        ).Play(); 
+    }
     public void FallBackFinish()
     {
         playerAim.showLockUI = true;

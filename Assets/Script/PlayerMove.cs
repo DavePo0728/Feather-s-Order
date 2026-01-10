@@ -265,15 +265,6 @@ public class PlayerMove : MonoBehaviour
         isDashing = true;
         playerVCamFramingTransposer.m_SoftZoneWidth = 0.8f;
         playerVCamFramingTransposer.m_XDamping = 1.2f;
-		//leanAngle = 75f;
-		//if (playerRigidbody.velocity.x < -0.2f)
-		//{
-		//    transform.DORotate(new Vector3(0, 0, 40f), 0.05f);
-		//}
-		//else if (playerRigidbody.velocity.x > 0.2f)
-		//{
-		//    transform.DORotate(new Vector3(0, 0, -40f), 0.05f);
-		//}
 		DashAudioSource.Play();
 		if (playerRigidbody.velocity.x != 0)
         {
@@ -322,76 +313,4 @@ public class PlayerMove : MonoBehaviour
         //isMuteki = false;
         Physics.IgnoreLayerCollision(8, 6, false);
     }
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if(other.tag == "EnemyGoldBullet"&&isBouncing)
-    //    {
-    //        Debug.Log("Gold");
-    //        GoldBulletMove gold = other.GetComponent<GoldBulletMove>();
-    //        gold.speed *= goldspeedMulti;
-    //        gold.bounceBack = true;
-    //        Vector3 spawnEffectPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z - 1f);
-    //        GameObject explosionInstance = Instantiate(BounceExpolsion, transform);
-    //        Destroy(explosionInstance, 1f);
-    //    }
-    //}
-    //private void UpdateUI()
-    //{
-    //    float EnergyAmount = (float)currentEnergy / (float)maxEnergy;
-    //    //Debug.Log(HpAmount);
-    //    energyBarImage.fillAmount = EnergyAmount;
-    //}
-    //private void StartEnergyRegen()
-    //{
-    //    isRegening = true;
-    //}
-    //private void RegenerateEnergy()
-    //{
-    //    currentEnergy += energyRegenRate * Time.deltaTime;
-    //    UpdateUI();
-    //    currentEnergy = Mathf.Min(currentEnergy, maxEnergy);  // 確保能量不超過最大值
-
-    //    // 如果能量已經回滿，停止回復
-    //    if (currentEnergy >= maxEnergy)
-    //    {
-    //        isRegening = false;
-    //        isOutBurst = false;
-    //        regenDelay = 1f;
-    //    }
-    //}
-    //public void GetBoost(InputAction.CallbackContext context)
-    //{
-    //    var emission = speedLine.emission;
-    //    if (context.performed&&currentEnergy >=15&&!isOutBurst)
-    //    {
-    //        currentEnergy -= 5;
-    //        UpdateUI();
-    //        isRegening = false;
-    //        isBoosting = true;
-
-    //        emission.rateOverTime = 500f;
-    //    }
-    //    if (context.canceled)
-    //    {
-    //        isBoosting = false;
-    //        emission.rateOverTime = 50f;
-    //    }
-    //}
-    //public void GetBrake(InputAction.CallbackContext context)
-    //{
-    //    var emission = speedLine.emission;
-    //    if (context.performed&&currentEnergy >= 15&&!isOutBurst)
-    //    {
-    //        currentEnergy -= 15;
-    //        UpdateUI();
-    //        isRegening = false;
-    //        isBraking = true;
-    //        emission.rateOverTime = 0f;
-    //    }
-    //    if (context.canceled)
-    //    {
-    //        isBraking = false;
-    //        emission.rateOverTime = 100f;
-    //    }
-    //}
 }
