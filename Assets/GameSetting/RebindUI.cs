@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 using TMPro;
+using static System.Collections.Specialized.BitVector32;
 
 // Put this on each "binding row" (label + button). Supports Keyboard/Mouse and Gamepad.
 public class RebindUI : MonoBehaviour
@@ -13,10 +14,10 @@ public class RebindUI : MonoBehaviour
     [Header("Action & Binding")]
     public InputActionReference actionRef; // e.g., Player/Jump
     [Tooltip("Optional: binding id (GUID). If empty, we pick the first binding from the chosen control scheme.")]
-    public string bindingId = string.Empty;
+    public string bindingId;
 
     [Header("Scheme Filter")] // pick one row for Keyboard&Mouse, one for Gamepad
-    public string controlSchemeGroup = "Keyboard&Mouse"; // must match your binding 'groups' (e.g., "Keyboard&Mouse" or "Gamepad")
+    public string controlSchemeGroup; // must match your binding 'groups' (e.g., "Keyboard&Mouse" or "Gamepad")
 
     [Header("UI")]
     public TMP_Text bindingNameLabel; // shows current binding path nicely
@@ -29,7 +30,7 @@ public class RebindUI : MonoBehaviour
     public string compositePartName = "";
 
     InputAction _action;
-    int _bindingIndex = -1;
+    public int _bindingIndex;
     public GameObject waitingForInputIcon;
     void OnEnable()
     {
@@ -37,24 +38,34 @@ public class RebindUI : MonoBehaviour
         ResolveBinding();
         RefreshLabel();
         if (rebindButton) rebindButton.onClick.AddListener(StartInteractiveRebind);
-        
+        SettingsUIBinder.OnBindingReset += RefreshLabel;
         //if (clearButton) clearButton.onClick.AddListener(ClearBinding);
     }
     void OnDisable()
     {
         if (rebindButton) rebindButton.onClick.RemoveListener(StartInteractiveRebind);
-       // if (clearButton) clearButton.onClick.RemoveListener(ClearBinding);
+        SettingsUIBinder.OnBindingReset -= RefreshLabel;
+        // if (clearButton) clearButton.onClick.RemoveListener(ClearBinding);
     }
 
     void ResolveBinding()
     {
-        _bindingIndex = -1;
-        if (_action == null) return;
+        //_bindingIndex = 0;
+        if (_action == null) {
+            Debug.Log("RebindUI: No action assigned.");
+            return;
+        }
+
+        if (string.IsNullOrEmpty(bindingId))
+        {
+            bindingId = actionRef.action.bindings[_bindingIndex].id.ToString();
+        }
 
 
         if (!string.IsNullOrEmpty(bindingId))
         {
             var guid = new System.Guid(bindingId);
+            //Debug.Log($"Looking for binding with id {guid} in action {_action.name}");
             for (int i = 0; i < _action.bindings.Count; i++)
             {
                 if (_action.bindings[i].id == guid) { _bindingIndex = i; break; }
@@ -96,7 +107,7 @@ public class RebindUI : MonoBehaviour
         }
     }
 
-    void RefreshLabel()
+    public void RefreshLabel()
     {
         if (bindingNameLabel == null || _action == null || _bindingIndex < 0) return;
         string human = InputControlPath.ToHumanReadableString(
@@ -123,6 +134,7 @@ public class RebindUI : MonoBehaviour
                 SaveAllOverrides();
                 RefreshLabel();
                 waitingForInputIcon.SetActive(false);
+                Debug.Log($"Rebind complete the rebind key is{_action.bindings[0].effectivePath}");
             });
 
         // Optional: exclude mouse if rebinding keyboard-only, etc.
@@ -136,14 +148,6 @@ public class RebindUI : MonoBehaviour
         }
 
         rebind.Start();
-    }
-
-    public void ClearBinding()
-    {
-        if (_action == null || _bindingIndex < 0) return;
-        _action.ApplyBindingOverride(_bindingIndex, new InputBinding { overridePath = string.Empty });
-        SaveAllOverrides();
-        RefreshLabel();
     }
 
     static void SaveAllOverrides()

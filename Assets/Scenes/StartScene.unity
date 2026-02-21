@@ -225,7 +225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ebd8fdf5de486c4d94567269572d0e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settingsUIBinder: {fileID: 352626389}
+  settingsUIBinder: {fileID: 84116193}
   eventSystem: {fileID: 1353923542}
   elementToSelect: {fileID: 1680358679}
   CancelElement: {fileID: 683109939}
@@ -1133,7 +1133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ebd8fdf5de486c4d94567269572d0e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settingsUIBinder: {fileID: 352626389}
+  settingsUIBinder: {fileID: 84116193}
   eventSystem: {fileID: 1353923542}
   elementToSelect: {fileID: 0}
   CancelElement: {fileID: 1165186244}
@@ -1182,6 +1182,10 @@ GameObject:
   - component: {fileID: 84116187}
   - component: {fileID: 84116186}
   - component: {fileID: 84116190}
+  - component: {fileID: 84116193}
+  - component: {fileID: 84116192}
+  - component: {fileID: 84116191}
+  - component: {fileID: 84116194}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1296,6 +1300,172 @@ MonoBehaviour:
   minAlpha: 0.5
   maxAlpha: 1
   speed: 1
+--- !u!114 &84116191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 84116185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 588f5a7c2e1aaff44acd26bbffaaaffb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 84116194}
+  pointerEnterSound: {fileID: 8300000, guid: c034dcf5f5c13ff468b64fbf1941116c, type: 3}
+  pointerSelectSound: {fileID: 8300000, guid: 4dd46fa2423fb8a479a4c034327cc8dc, type: 3}
+  pointerCancelSound: {fileID: 8300000, guid: 704a23ceb6947ad43a64c4e5290e835d, type: 3}
+--- !u!114 &84116192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 84116185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ee5f762f64e07e448772dce409dde71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  eventSystem: {fileID: 1353923542}
+  lastSelectedElement: {fileID: 1286630802}
+--- !u!114 &84116193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 84116185}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4dd15b8240ef6342808d95de41230f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startMenuPanel: {fileID: 2036299441}
+  SettingPanel: {fileID: 1856043333}
+  audioSubPanel: {fileID: 1541002562}
+  masterSlider: {fileID: 1709819075}
+  musicSlider: {fileID: 2064599207}
+  sfxSlider: {fileID: 184282337}
+  graphicsSubPanel: {fileID: 389833237}
+  displayModeDropdown: {fileID: 152802636}
+  resolutionDropDown: {fileID: 278010045}
+  vSyncToggle: {fileID: 349268748}
+  framerateDropdown: {fileID: 1864474688}
+  brightnessSlider: {fileID: 7000613}
+  textureResolutionDropDown: {fileID: 230295716}
+  msaaDropdown: {fileID: 389184512}
+  anisotropicDropdown: {fileID: 2099261881}
+  qualityDropdown: {fileID: 550316439}
+  applyGraphicsButton: {fileID: 1680358679}
+  discardGraphicsButton: {fileID: 482768669}
+  localeSubPanel: {fileID: 1221164147}
+  languageDropdown: {fileID: 842725917}
+  gamePadSubPanel: {fileID: 472776627}
+  keyboradSubPanel: {fileID: 1711783212}
+  invertYToggle: {fileID: 570152122}
+  sensitivitySlider: {fileID: 1159298651}
+  leftStickDeadzoneSlider: {fileID: 456081966}
+  inputActions: {fileID: -944628639613478452, guid: 6315d56ce0b2b034b859a84c624f7c72, type: 3}
+  resetGamePadBindingsButton: {fileID: 80686238}
+  resetKeyBoardBindingsButton: {fileID: 464070290}
+--- !u!82 &84116194
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 84116185}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 8936235092408934056, guid: 60662cf2cb9cfd642af8a3cda9f26050, type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 0.5
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &118078611
 GameObject:
   m_ObjectHideFlags: 0
@@ -1749,7 +1919,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ebd8fdf5de486c4d94567269572d0e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settingsUIBinder: {fileID: 352626389}
+  settingsUIBinder: {fileID: 84116193}
   eventSystem: {fileID: 1353923542}
   elementToSelect: {fileID: 1680358679}
   CancelElement: {fileID: 683109939}
@@ -2076,7 +2246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ebd8fdf5de486c4d94567269572d0e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settingsUIBinder: {fileID: 352626389}
+  settingsUIBinder: {fileID: 84116193}
   eventSystem: {fileID: 1353923542}
   elementToSelect: {fileID: 0}
   CancelElement: {fileID: 782609757}
@@ -2615,7 +2785,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ebd8fdf5de486c4d94567269572d0e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settingsUIBinder: {fileID: 352626389}
+  settingsUIBinder: {fileID: 84116193}
   eventSystem: {fileID: 1353923542}
   elementToSelect: {fileID: 1680358679}
   CancelElement: {fileID: 683109939}
@@ -3753,7 +3923,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ebd8fdf5de486c4d94567269572d0e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settingsUIBinder: {fileID: 352626389}
+  settingsUIBinder: {fileID: 84116193}
   eventSystem: {fileID: 1353923542}
   elementToSelect: {fileID: 1680358679}
   CancelElement: {fileID: 683109939}
@@ -4800,7 +4970,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ebd8fdf5de486c4d94567269572d0e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settingsUIBinder: {fileID: 352626389}
+  settingsUIBinder: {fileID: 84116193}
   eventSystem: {fileID: 1353923542}
   elementToSelect: {fileID: 1680358679}
   CancelElement: {fileID: 683109939}
@@ -4819,9 +4989,6 @@ GameObject:
   - component: {fileID: 352626388}
   - component: {fileID: 352626387}
   - component: {fileID: 352626391}
-  - component: {fileID: 352626389}
-  - component: {fileID: 352626392}
-  - component: {fileID: 352626394}
   m_Layer: 0
   m_Name: SettingManager
   m_TagString: Untagged
@@ -4857,45 +5024,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &352626389
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 352626384}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4dd15b8240ef6342808d95de41230f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startMenuPanel: {fileID: 2036299441}
-  SettingPanel: {fileID: 1856043333}
-  audioSubPanel: {fileID: 1541002562}
-  masterSlider: {fileID: 1709819075}
-  musicSlider: {fileID: 2064599207}
-  sfxSlider: {fileID: 184282337}
-  graphicsSubPanel: {fileID: 389833237}
-  displayModeDropdown: {fileID: 152802636}
-  resolutionDropDown: {fileID: 278010045}
-  vSyncToggle: {fileID: 349268748}
-  framerateDropdown: {fileID: 1864474688}
-  brightnessSlider: {fileID: 7000613}
-  textureResolutionDropDown: {fileID: 230295716}
-  msaaDropdown: {fileID: 389184512}
-  anisotropicDropdown: {fileID: 2099261881}
-  qualityDropdown: {fileID: 550316439}
-  applyGraphicsButton: {fileID: 1680358679}
-  discardGraphicsButton: {fileID: 482768669}
-  localeSubPanel: {fileID: 1221164147}
-  languageDropdown: {fileID: 842725917}
-  gamePadSubPanel: {fileID: 472776627}
-  keyboradSubPanel: {fileID: 1711783212}
-  invertYToggle: {fileID: 570152122}
-  sensitivitySlider: {fileID: 1159298651}
-  leftStickDeadzoneSlider: {fileID: 456081966}
-  inputActions: {fileID: -944628639613478452, guid: 6315d56ce0b2b034b859a84c624f7c72, type: 3}
-  resetAllBindingsButton: {fileID: 464070290}
 --- !u!114 &352626391
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4909,36 +5037,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mixer: {fileID: 24100000, guid: 60662cf2cb9cfd642af8a3cda9f26050, type: 2}
---- !u!114 &352626392
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 352626384}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ee5f762f64e07e448772dce409dde71, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  eventSystem: {fileID: 1353923542}
-  lastSelectedElement: {fileID: 1286630802}
---- !u!114 &352626394
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 352626384}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 588f5a7c2e1aaff44acd26bbffaaaffb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioSource: {fileID: 0}
-  pointerEnterSound: {fileID: 8300000, guid: c034dcf5f5c13ff468b64fbf1941116c, type: 3}
-  pointerSelectSound: {fileID: 8300000, guid: 4dd46fa2423fb8a479a4c034327cc8dc, type: 3}
-  pointerCancelSound: {fileID: 8300000, guid: 704a23ceb6947ad43a64c4e5290e835d, type: 3}
 --- !u!1 &356319873
 GameObject:
   m_ObjectHideFlags: 0
@@ -5664,7 +5762,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ebd8fdf5de486c4d94567269572d0e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settingsUIBinder: {fileID: 352626389}
+  settingsUIBinder: {fileID: 84116193}
   eventSystem: {fileID: 1353923542}
   elementToSelect: {fileID: 1680358679}
   CancelElement: {fileID: 683109939}
@@ -6667,7 +6765,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ebd8fdf5de486c4d94567269572d0e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settingsUIBinder: {fileID: 352626389}
+  settingsUIBinder: {fileID: 84116193}
   eventSystem: {fileID: 1353923542}
   elementToSelect: {fileID: 0}
   CancelElement: {fileID: 1165186244}
@@ -6848,7 +6946,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ebd8fdf5de486c4d94567269572d0e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settingsUIBinder: {fileID: 352626389}
+  settingsUIBinder: {fileID: 84116193}
   eventSystem: {fileID: 1353923542}
   elementToSelect: {fileID: 0}
   CancelElement: {fileID: 1465132737}
@@ -7922,7 +8020,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ebd8fdf5de486c4d94567269572d0e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settingsUIBinder: {fileID: 0}
+  settingsUIBinder: {fileID: 84116193}
   eventSystem: {fileID: 1353923542}
   elementToSelect: {fileID: 152802636}
   CancelElement: {fileID: 152802636}
@@ -9647,7 +9745,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ebd8fdf5de486c4d94567269572d0e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settingsUIBinder: {fileID: 352626389}
+  settingsUIBinder: {fileID: 84116193}
   eventSystem: {fileID: 1353923542}
   elementToSelect: {fileID: 1680358679}
   CancelElement: {fileID: 683109939}
@@ -9974,7 +10072,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ebd8fdf5de486c4d94567269572d0e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settingsUIBinder: {fileID: 352626389}
+  settingsUIBinder: {fileID: 84116193}
   eventSystem: {fileID: 1353923542}
   elementToSelect: {fileID: 0}
   CancelElement: {fileID: 1165186244}
@@ -10634,6 +10732,7 @@ MonoBehaviour:
   rebindButton: {fileID: 669776244}
   isCompositePart: 0
   compositePartName: 
+  _bindingIndex: 1
   waitingForInputIcon: {fileID: 1344281906}
 --- !u!114 &669776249
 MonoBehaviour:
@@ -10647,7 +10746,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ebd8fdf5de486c4d94567269572d0e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settingsUIBinder: {fileID: 352626389}
+  settingsUIBinder: {fileID: 84116193}
   eventSystem: {fileID: 1353923542}
   elementToSelect: {fileID: 0}
   CancelElement: {fileID: 1465132737}
@@ -10778,7 +10877,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 352626389}
+      - m_Target: {fileID: 84116193}
         m_TargetAssemblyTypeName: SettingsUIBinder, Assembly-CSharp
         m_MethodName: OnClickVideoTitle
         m_Mode: 1
@@ -10852,7 +10951,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ebd8fdf5de486c4d94567269572d0e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settingsUIBinder: {fileID: 352626389}
+  settingsUIBinder: {fileID: 84116193}
   eventSystem: {fileID: 1353923542}
   elementToSelect: {fileID: 152802636}
   CancelElement: {fileID: 1752436478}
@@ -11545,7 +11644,7 @@ MonoBehaviour:
     m_ActionName: GameScene1/Aim[/DualSenseGamepadHID/rightStick]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 352626389}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SettingsUIBinder, Assembly-CSharp
         m_MethodName: ActiveStartMenuPanel
         m_Mode: 1
@@ -12506,7 +12605,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 352626389}
+      - m_Target: {fileID: 84116193}
         m_TargetAssemblyTypeName: SettingsUIBinder, Assembly-CSharp
         m_MethodName: OnClickAudioTitle
         m_Mode: 1
@@ -12580,7 +12679,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ebd8fdf5de486c4d94567269572d0e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settingsUIBinder: {fileID: 352626389}
+  settingsUIBinder: {fileID: 84116193}
   eventSystem: {fileID: 1353923542}
   elementToSelect: {fileID: 1709819075}
   CancelElement: {fileID: 1752436478}
@@ -12866,7 +12965,8 @@ MonoBehaviour:
   rebindButton: {fileID: 784737074}
   isCompositePart: 0
   compositePartName: 
-  waitingForInputIcon: {fileID: 0}
+  _bindingIndex: 0
+  waitingForInputIcon: {fileID: 1344281906}
 --- !u!114 &784737079
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12886,6 +12986,7 @@ MonoBehaviour:
   rebindButton: {fileID: 784737074}
   isCompositePart: 0
   compositePartName: 
+  _bindingIndex: 0
   waitingForInputIcon: {fileID: 1344281906}
 --- !u!114 &784737080
 MonoBehaviour:
@@ -12899,7 +13000,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ebd8fdf5de486c4d94567269572d0e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settingsUIBinder: {fileID: 352626389}
+  settingsUIBinder: {fileID: 84116193}
   eventSystem: {fileID: 1353923542}
   elementToSelect: {fileID: 0}
   CancelElement: {fileID: 1165186244}
@@ -14027,7 +14128,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 211.32202, y: -40.67}
+  m_AnchoredPosition: {x: 211.32202, y: -40.670044}
   m_SizeDelta: {x: 388.644, y: 47.34}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &842725917
@@ -14140,7 +14241,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ebd8fdf5de486c4d94567269572d0e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settingsUIBinder: {fileID: 352626389}
+  settingsUIBinder: {fileID: 84116193}
   eventSystem: {fileID: 1353923542}
   elementToSelect: {fileID: 0}
   CancelElement: {fileID: 1708919033}
@@ -14976,13 +15077,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b2008a74cf9b5e48942da951d7946be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actionRef: {fileID: -280400979234696320, guid: 6315d56ce0b2b034b859a84c624f7c72, type: 3}
+  actionRef: {fileID: 0}
   bindingId: 
   controlSchemeGroup: Keyboard
   bindingNameLabel: {fileID: 1445748282}
   rebindButton: {fileID: 919448242}
   isCompositePart: 1
   compositePartName: Up
+  _bindingIndex: 1
   waitingForInputIcon: {fileID: 1344281906}
 --- !u!114 &919448247
 MonoBehaviour:
@@ -14996,7 +15098,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ebd8fdf5de486c4d94567269572d0e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settingsUIBinder: {fileID: 352626389}
+  settingsUIBinder: {fileID: 84116193}
   eventSystem: {fileID: 1353923542}
   elementToSelect: {fileID: 0}
   CancelElement: {fileID: 1465132737}
@@ -15511,6 +15613,7 @@ MonoBehaviour:
   rebindButton: {fileID: 942077178}
   isCompositePart: 0
   compositePartName: 
+  _bindingIndex: 0
   waitingForInputIcon: {fileID: 1344281906}
 --- !u!114 &942077183
 MonoBehaviour:
@@ -15524,7 +15627,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ebd8fdf5de486c4d94567269572d0e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settingsUIBinder: {fileID: 352626389}
+  settingsUIBinder: {fileID: 84116193}
   eventSystem: {fileID: 1353923542}
   elementToSelect: {fileID: 0}
   CancelElement: {fileID: 1165186244}
@@ -16331,6 +16434,7 @@ MonoBehaviour:
   rebindButton: {fileID: 998646165}
   isCompositePart: 0
   compositePartName: 
+  _bindingIndex: 1
   waitingForInputIcon: {fileID: 1344281906}
 --- !u!114 &998646170
 MonoBehaviour:
@@ -16344,7 +16448,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ebd8fdf5de486c4d94567269572d0e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settingsUIBinder: {fileID: 352626389}
+  settingsUIBinder: {fileID: 84116193}
   eventSystem: {fileID: 1353923542}
   elementToSelect: {fileID: 0}
   CancelElement: {fileID: 1465132737}
@@ -16391,7 +16495,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 97, y: -493.26913}
+  m_AnchoredPosition: {x: 97, y: -493.2691}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1005408753
@@ -16512,7 +16616,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ebd8fdf5de486c4d94567269572d0e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settingsUIBinder: {fileID: 352626389}
+  settingsUIBinder: {fileID: 84116193}
   eventSystem: {fileID: 1353923542}
   elementToSelect: {fileID: 1680358679}
   CancelElement: {fileID: 683109939}
@@ -18335,7 +18439,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ebd8fdf5de486c4d94567269572d0e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settingsUIBinder: {fileID: 352626389}
+  settingsUIBinder: {fileID: 84116193}
   eventSystem: {fileID: 1353923542}
   elementToSelect: {fileID: 0}
   CancelElement: {fileID: 1165186244}
@@ -18430,7 +18534,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 352626389}
+      - m_Target: {fileID: 84116193}
         m_TargetAssemblyTypeName: SettingsUIBinder, Assembly-CSharp
         m_MethodName: OnClickGamePadTitle
         m_Mode: 1
@@ -18504,7 +18608,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ebd8fdf5de486c4d94567269572d0e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settingsUIBinder: {fileID: 352626389}
+  settingsUIBinder: {fileID: 84116193}
   eventSystem: {fileID: 1353923542}
   elementToSelect: {fileID: 784737074}
   CancelElement: {fileID: 1752436478}
@@ -20556,6 +20660,7 @@ MonoBehaviour:
   rebindButton: {fileID: 1286012306}
   isCompositePart: 1
   compositePartName: Right
+  _bindingIndex: 1
   waitingForInputIcon: {fileID: 1344281906}
 --- !u!114 &1286012311
 MonoBehaviour:
@@ -20569,7 +20674,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ebd8fdf5de486c4d94567269572d0e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settingsUIBinder: {fileID: 352626389}
+  settingsUIBinder: {fileID: 84116193}
   eventSystem: {fileID: 1353923542}
   elementToSelect: {fileID: 0}
   CancelElement: {fileID: 1465132737}
@@ -21004,6 +21109,7 @@ MonoBehaviour:
   rebindButton: {fileID: 1291930348}
   isCompositePart: 0
   compositePartName: 
+  _bindingIndex: 1
   waitingForInputIcon: {fileID: 1344281906}
 --- !u!114 &1291930353
 MonoBehaviour:
@@ -21017,7 +21123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ebd8fdf5de486c4d94567269572d0e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settingsUIBinder: {fileID: 352626389}
+  settingsUIBinder: {fileID: 84116193}
   eventSystem: {fileID: 1353923542}
   elementToSelect: {fileID: 0}
   CancelElement: {fileID: 1465132737}
@@ -22042,7 +22148,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 352626389}
+      - m_Target: {fileID: 84116193}
         m_TargetAssemblyTypeName: SettingsUIBinder, Assembly-CSharp
         m_MethodName: DeactiveSettingPanel
         m_Mode: 1
@@ -22116,7 +22222,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ebd8fdf5de486c4d94567269572d0e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settingsUIBinder: {fileID: 0}
+  settingsUIBinder: {fileID: 84116193}
   eventSystem: {fileID: 1353923542}
   elementToSelect: {fileID: 1286630804}
   CancelElement: {fileID: 1752436478}
@@ -22684,6 +22790,7 @@ MonoBehaviour:
   rebindButton: {fileID: 1420649959}
   isCompositePart: 0
   compositePartName: 
+  _bindingIndex: 0
   waitingForInputIcon: {fileID: 1344281906}
 --- !u!114 &1420649964
 MonoBehaviour:
@@ -22697,7 +22804,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ebd8fdf5de486c4d94567269572d0e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settingsUIBinder: {fileID: 352626389}
+  settingsUIBinder: {fileID: 84116193}
   eventSystem: {fileID: 1353923542}
   elementToSelect: {fileID: 0}
   CancelElement: {fileID: 1165186244}
@@ -23296,7 +23403,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 352626389}
+      - m_Target: {fileID: 84116193}
         m_TargetAssemblyTypeName: SettingsUIBinder, Assembly-CSharp
         m_MethodName: OnClickKeyboardTitle
         m_Mode: 1
@@ -23370,7 +23477,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ebd8fdf5de486c4d94567269572d0e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settingsUIBinder: {fileID: 352626389}
+  settingsUIBinder: {fileID: 84116193}
   eventSystem: {fileID: 1353923542}
   elementToSelect: {fileID: 2090299934}
   CancelElement: {fileID: 1752436478}
@@ -23760,7 +23867,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 162, y: -35}
+  m_AnchoredPosition: {x: 162, y: -34.999996}
   m_SizeDelta: {x: 290, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1491673617
@@ -25083,7 +25190,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 162, y: -42}
+  m_AnchoredPosition: {x: 162, y: -41.999996}
   m_SizeDelta: {x: 290, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1552338599
@@ -27040,6 +27147,7 @@ MonoBehaviour:
   rebindButton: {fileID: 1623562016}
   isCompositePart: 0
   compositePartName: 
+  _bindingIndex: 1
   waitingForInputIcon: {fileID: 1344281906}
 --- !u!114 &1623562021
 MonoBehaviour:
@@ -27053,7 +27161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ebd8fdf5de486c4d94567269572d0e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settingsUIBinder: {fileID: 352626389}
+  settingsUIBinder: {fileID: 84116193}
   eventSystem: {fileID: 1353923542}
   elementToSelect: {fileID: 0}
   CancelElement: {fileID: 1465132737}
@@ -27278,6 +27386,7 @@ MonoBehaviour:
   rebindButton: {fileID: 1649879330}
   isCompositePart: 0
   compositePartName: 
+  _bindingIndex: 0
   waitingForInputIcon: {fileID: 1344281906}
 --- !u!114 &1649879335
 MonoBehaviour:
@@ -27291,7 +27400,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ebd8fdf5de486c4d94567269572d0e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settingsUIBinder: {fileID: 352626389}
+  settingsUIBinder: {fileID: 84116193}
   eventSystem: {fileID: 1353923542}
   elementToSelect: {fileID: 0}
   CancelElement: {fileID: 1165186244}
@@ -27671,7 +27780,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ebd8fdf5de486c4d94567269572d0e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settingsUIBinder: {fileID: 0}
+  settingsUIBinder: {fileID: 84116193}
   eventSystem: {fileID: 1353923542}
   elementToSelect: {fileID: 152802636}
   CancelElement: {fileID: 152802636}
@@ -28117,7 +28226,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 496.09497, y: -43.701828}
+  m_AnchoredPosition: {x: 496.09497, y: -43.701782}
   m_SizeDelta: {x: 952.1901, y: 87.403656}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1704140561
@@ -28759,7 +28868,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 352626389}
+      - m_Target: {fileID: 84116193}
         m_TargetAssemblyTypeName: SettingsUIBinder, Assembly-CSharp
         m_MethodName: OnClickLanguageTitle
         m_Mode: 1
@@ -28833,7 +28942,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ebd8fdf5de486c4d94567269572d0e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settingsUIBinder: {fileID: 352626389}
+  settingsUIBinder: {fileID: 84116193}
   eventSystem: {fileID: 1353923542}
   elementToSelect: {fileID: 842725917}
   CancelElement: {fileID: 1752436478}
@@ -29079,7 +29188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ebd8fdf5de486c4d94567269572d0e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settingsUIBinder: {fileID: 352626389}
+  settingsUIBinder: {fileID: 84116193}
   eventSystem: {fileID: 1353923542}
   elementToSelect: {fileID: 0}
   CancelElement: {fileID: 782609757}
@@ -29868,7 +29977,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 352626389}
+      - m_Target: {fileID: 84116193}
         m_TargetAssemblyTypeName: SettingsUIBinder, Assembly-CSharp
         m_MethodName: ActiveSettingPanel
         m_Mode: 1
@@ -30738,6 +30847,7 @@ MonoBehaviour:
   rebindButton: {fileID: 1808804355}
   isCompositePart: 1
   compositePartName: Left
+  _bindingIndex: 1
   waitingForInputIcon: {fileID: 1344281906}
 --- !u!114 &1808804360
 MonoBehaviour:
@@ -30751,7 +30861,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ebd8fdf5de486c4d94567269572d0e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settingsUIBinder: {fileID: 352626389}
+  settingsUIBinder: {fileID: 84116193}
   eventSystem: {fileID: 1353923542}
   elementToSelect: {fileID: 0}
   CancelElement: {fileID: 1465132737}
@@ -30901,6 +31011,7 @@ MonoBehaviour:
   rebindButton: {fileID: 1811256211}
   isCompositePart: 1
   compositePartName: Down
+  _bindingIndex: 1
   waitingForInputIcon: {fileID: 1344281906}
 --- !u!114 &1811256216
 MonoBehaviour:
@@ -30914,7 +31025,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ebd8fdf5de486c4d94567269572d0e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settingsUIBinder: {fileID: 352626389}
+  settingsUIBinder: {fileID: 84116193}
   eventSystem: {fileID: 1353923542}
   elementToSelect: {fileID: 0}
   CancelElement: {fileID: 1465132737}
@@ -31230,7 +31341,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ebd8fdf5de486c4d94567269572d0e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settingsUIBinder: {fileID: 352626389}
+  settingsUIBinder: {fileID: 84116193}
   eventSystem: {fileID: 1353923542}
   elementToSelect: {fileID: 1680358679}
   CancelElement: {fileID: 683109939}
@@ -33791,7 +33902,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ebd8fdf5de486c4d94567269572d0e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settingsUIBinder: {fileID: 352626389}
+  settingsUIBinder: {fileID: 84116193}
   eventSystem: {fileID: 1353923542}
   elementToSelect: {fileID: 0}
   CancelElement: {fileID: 782609757}
@@ -34420,7 +34531,8 @@ MonoBehaviour:
   rebindButton: {fileID: 2090299934}
   isCompositePart: 0
   compositePartName: 
-  waitingForInputIcon: {fileID: 0}
+  _bindingIndex: 1
+  waitingForInputIcon: {fileID: 1344281906}
 --- !u!114 &2090299939
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34440,6 +34552,7 @@ MonoBehaviour:
   rebindButton: {fileID: 2090299934}
   isCompositePart: 0
   compositePartName: 
+  _bindingIndex: 1
   waitingForInputIcon: {fileID: 1344281906}
 --- !u!114 &2090299940
 MonoBehaviour:
@@ -34453,7 +34566,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ebd8fdf5de486c4d94567269572d0e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settingsUIBinder: {fileID: 352626389}
+  settingsUIBinder: {fileID: 84116193}
   eventSystem: {fileID: 1353923542}
   elementToSelect: {fileID: 0}
   CancelElement: {fileID: 1465132737}
@@ -34904,7 +35017,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ebd8fdf5de486c4d94567269572d0e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settingsUIBinder: {fileID: 352626389}
+  settingsUIBinder: {fileID: 84116193}
   eventSystem: {fileID: 1353923542}
   elementToSelect: {fileID: 1680358679}
   CancelElement: {fileID: 683109939}
@@ -35304,6 +35417,7 @@ MonoBehaviour:
   rebindButton: {fileID: 2118940257}
   isCompositePart: 0
   compositePartName: 
+  _bindingIndex: 0
   waitingForInputIcon: {fileID: 1344281906}
 --- !u!114 &2118940262
 MonoBehaviour:
@@ -35317,7 +35431,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ebd8fdf5de486c4d94567269572d0e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settingsUIBinder: {fileID: 352626389}
+  settingsUIBinder: {fileID: 84116193}
   eventSystem: {fileID: 1353923542}
   elementToSelect: {fileID: 0}
   CancelElement: {fileID: 1165186244}

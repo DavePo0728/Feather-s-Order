@@ -8,6 +8,10 @@ public class RememberCurrentlySelectedGameObject : MonoBehaviour
     [SerializeField] private EventSystem eventSystem;
     [SerializeField] private GameObject lastSelectedElement;
 
+    private void Start()
+    {
+        Reset();
+    }
     private void Reset()
     {
         eventSystem = FindObjectOfType<EventSystem>();

@@ -33,9 +33,9 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Bounce",
+                    "name": "SlashAttack",
                     "type": "Button",
-                    "id": "1daa583d-0327-4213-9912-9a17eb9aac62",
+                    "id": "ad0ca4af-7b3c-4c19-820c-1902f3331aa1",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -69,6 +69,15 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "Slash",
+                    "type": "Button",
+                    "id": "d523748f-a0e2-4f27-8aab-da816a6ba468",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "ReloadScene",
                     "type": "Button",
                     "id": "b6b953b8-b8d7-4037-a565-ed9b9b53967e",
@@ -81,24 +90,6 @@
                     "name": "BackTotitle",
                     "type": "Button",
                     "id": "d1a0a3fe-5e57-4ace-bf5d-02975c906ca5",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "SlashAttack",
-                    "type": "Button",
-                    "id": "ad0ca4af-7b3c-4c19-820c-1902f3331aa1",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Slash",
-                    "type": "Button",
-                    "id": "d523748f-a0e2-4f27-8aab-da816a6ba468",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -232,22 +223,22 @@
                 },
                 {
                     "name": "",
-                    "id": "ef34f805-cb0b-4223-b792-992120dc6f33",
-                    "path": "<Keyboard>/leftShift",
+                    "id": "3cb70924-e011-4803-ad3e-c281391afcc9",
+                    "path": "<Gamepad>/rightShoulder",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard",
+                    "groups": ";GamePad",
                     "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "3cb70924-e011-4803-ad3e-c281391afcc9",
-                    "path": "<Gamepad>/rightShoulder",
+                    "id": "ef34f805-cb0b-4223-b792-992120dc6f33",
+                    "path": "<Keyboard>/leftShift",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";GamePad",
+                    "groups": "Keyboard",
                     "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -271,28 +262,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Slash",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "115a1de4-e5f9-4bfa-8c0f-3fa058698758",
-                    "path": "<Gamepad>/buttonEast",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";GamePad",
-                    "action": "Bounce",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "745bf7f7-2ec9-400c-9bde-3067cd6d4e81",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "Bounce",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

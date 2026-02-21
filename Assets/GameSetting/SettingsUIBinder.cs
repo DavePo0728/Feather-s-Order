@@ -44,7 +44,8 @@ public class SettingsUIBinder : MonoBehaviour
 
     [Header("=== Input Rebind (global) ===")]
     public InputActionAsset inputActions;
-    public Button resetAllBindingsButton;
+    public Button resetGamePadBindingsButton, resetKeyBoardBindingsButton;
+    public static System.Action OnBindingReset;
 
 
 
@@ -80,21 +81,45 @@ public class SettingsUIBinder : MonoBehaviour
         if (leftStickDeadzoneSlider) { leftStickDeadzoneSlider.minValue = 0f; leftStickDeadzoneSlider.maxValue = 0.5f; leftStickDeadzoneSlider.value = data.leftStickDeadzone; leftStickDeadzoneSlider.onValueChanged.AddListener(v => { data.leftStickDeadzone = v; InputTuningApplier.ApplyInputTuning(data); sm.Save(); }); }
 
         // Reset bindings
-        if (resetAllBindingsButton)
+        if (resetGamePadBindingsButton)
         {
-            resetAllBindingsButton.onClick.AddListener(() => {
-#if ENABLE_INPUT_SYSTEM
+            resetGamePadBindingsButton.onClick.AddListener(() => {
                 if (inputActions == null) inputActions = sm.inputActions;
                 if (inputActions != null)
                 {
-                    inputActions.RemoveAllBindingOverrides();
+                    string targetScheme = "GamePad";
+                    var mask = InputBinding.MaskByGroup(targetScheme);
+
+                    foreach (var action in inputActions)
+                    {
+                        action.RemoveBindingOverride(mask);
+                    }
                     sm.Data.inputBindingOverridesJson = inputActions.SaveBindingOverridesAsJson();
                     sm.Save();
+                    OnBindingReset?.Invoke();
                 }
-#endif
+            });
+        }
+        if (resetKeyBoardBindingsButton)
+        {
+            resetKeyBoardBindingsButton.onClick.AddListener(() => {
+                if (inputActions == null) inputActions = sm.inputActions;
+                if (inputActions != null)
+                {
+                    string targetScheme = "Keyboard";
+                    var mask = InputBinding.MaskByGroup(targetScheme);
+                    foreach (var action in inputActions)
+                    {
+                        action.RemoveBindingOverride(mask);
+                    }
+                    sm.Data.inputBindingOverridesJson = inputActions.SaveBindingOverridesAsJson();
+                    sm.Save();
+                    OnBindingReset?.Invoke();
+                }
             });
         }
     }
+
 
     void InitGraphicsUI()
     {
